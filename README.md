@@ -20,14 +20,6 @@ It's symfony website-skeleton project with some additional tools to validate cod
     * PHP_CodeSniffer, PHPStan and PHPmd with same configuration as GrumPHP.
  
 
-### Trainers instructions
-
-1. Add your students team as contributor .
-2. Disallow both on 'dev' and 'master' branches your students writing credentials. 
-3. Disallow merge available while one approbation is not submitted on PR.
-
-> You can watch this very tiny short video : (Loom : verrouillage branches GitHub)[https://www.loom.com/share/ad0c641d0b9447be9e40fa38a499953b]
-
 ## Getting Started for Students
 
 ### Prerequisites
