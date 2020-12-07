@@ -1,13 +1,17 @@
 body {
-  background-color: $wild-color;
-  color: $light-color;
+  background-color: $bg-body;
+
 }
 
 h1{
-  color: $green-bg;
+  color: $color-h1;
+  background-color: $bg-navbar;
+  font-family: $police-logo;
 }
 h2{
-
+  color: $color-h2;
+  background-color: $bg-footer;
+  font-family: $police-text;
 }
 
 h3{
