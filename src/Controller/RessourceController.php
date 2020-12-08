@@ -6,13 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+/**
+ * @Route("/ressource", name="ressource_")
+ */
+class RessourceController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="index")
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig');
+        return $this->render('ressource/index.html.twig', [
+            'form' => 'form',
+        ]);
     }
 }

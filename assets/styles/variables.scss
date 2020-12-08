@@ -1,8 +1,9 @@
 /*Main colors*/
-$main-green: #27B87A;
-$main-black: #262626;
-$main-white: #F5F5F5;
-$main-blue: #0dc7e6;
+$main-green: #09b175;  /* Vert */
+$main-black: #262626;  /* Noir */
+$main-white: #F5F5F5;  /* Blanc */
+$main-blue: #0dc7e6;   /* Bleu */
+$main-orange: #f49f04; /* Orange */
 
 /*Background Color*/
 $bg-body: #f5f5f5;        /*Blanc*/
@@ -11,7 +12,7 @@ $bg-footer: #262626;      /*Noir*/
 $bg-titleCard: #f49f04;   /*Orange*/
 
 /*Police*/
-$police-logo: handlee;
+$police-logo: handlee, sans-serif;
 $police-text: Raleway, sans-serif;
 
 /*Font size*/
