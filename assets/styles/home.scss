@@ -70,8 +70,13 @@
     font-weight: bold;
     margin-bottom: 0;
   }
+
   .home-arrow {
     margin-left: 50px;
+    transition: 0.5s;
+    &:hover {
+      padding-left: 15px;
+    }
   }
 }
 
