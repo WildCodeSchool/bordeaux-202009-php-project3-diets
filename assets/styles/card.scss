@@ -28,7 +28,7 @@
   display: flex;
 }
 .box-back {
-  background-color: #f49f04;
+  background-color: $bg-body;
   color: #eeeeee;
   transform: rotateY(180deg);
 }
@@ -41,4 +41,13 @@
 .card-img{
   width: 220px;
   height: 300px;
+}
+
+.btn{
+  background-color: $bg-titleCard;
+}
+
+p{
+ font-family: $police-text;
+  color: $color-h5;
 }
