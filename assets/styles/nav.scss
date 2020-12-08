@@ -1,0 +1,55 @@
+.navbar{
+  background-color: $color-nav-bg;
+  display: block;
+  text-align: center;
+}
+.logo-title{
+  width:180px;
+}
+.logo-title .navbar-title{
+  color: $color-nav-item;
+  margin-right: 0;
+  font-size: 1.6rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px $color-effect;
+
+}
+a .navbar-title{
+  font-family: $police-logo;
+}
+.navbar-title:hover{
+  text-decoration: none;
+  color: $color-nav-item;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px $color-effect, 0 0 1em $color-nav-item, 0 0 0.2em $color-effect;
+  font-size: 1.7rem;
+}
+
+.nav-item .nav-link{
+  color: $color-nav-item;
+  font-family: $police-text;
+  font-weight: bold;
+}
+
+.nav-link:hover{
+  text-shadow: 1px 1px 2px $color-effect, 0 0 1em $color-nav-item, 0 0 0.2em $color-effect
+}
+
+.nav-user{
+  color:$color-effect;
+  font-size: 2rem;
+}
+.container{
+  margin-right: 0;
+  margin-left: 0;
+}
+.navbar-nav{
+  width:800px;
+  display:flex;
+  justify-content: space-around;
+}
+
+@media (min-width: 1800px){
+.container, .container-sm, .container-md, .container-lg, .container-xl {
+  max-width: 1800px;
+}}
