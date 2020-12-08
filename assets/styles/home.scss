@@ -1,0 +1,57 @@
+.home-full-screen{
+  background-image: url('/build/images/home-picture.5d9aa13c.jpg');
+  background-size: cover;
+}
+
+.home-main-container{
+  height: 70vh;
+}
+
+.home-logo {
+  font-size: 7rem;
+}
+
+.home-slogan {
+  font-size: 2rem;
+}
+
+.home-btn-container{
+  margin-top: 10vh;
+}
+
+.home-btn-main {
+  background-image: linear-gradient(to right, #27B87A 0%, #18e48d 51%, #27B87A 100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #F5F5F5;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.home-btn-second {
+  background-image: linear-gradient(to right, #0dc7e6 0%, #5bdff5  51%, #0dc7e6  100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: #F5F5F5;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  &:hover {
+    background-position: right center; /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+  }
+}

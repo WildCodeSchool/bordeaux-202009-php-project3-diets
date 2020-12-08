@@ -3,7 +3,24 @@
 {% block title %}Home{% endblock %}
 
 {% block body %}
-    <h1>Welcome on your project 3</h1>
-    <img src="https://media.giphy.com/media/hS58Kb2OOCMPS/giphy.gif" alt="Dewey dancing">
-    <h2>Footer</h2>
+    <div class="vh-100 vw-100 home-full-screen position-relative">
+        <div class="container-fluid home-main-container position-absolute fixed-bottom">
+            <div class="row">
+                <div class="col-8 offset-2 d-flex flex-column align-items-center">
+                    <div class="text-center home-logo">Nous les Diets</div>
+                    <div class="text-center home-slogan">Partager vos connaissances entre diététiciens</div>
+                    <div class="container-fluid home-btn-container">
+                        <div class="row">
+                            <div class="col-4 offset-1 text-center">
+                                <div class="home-btn-second">s'inscrire</div>
+                            </div>
+                            <div class="col-4 offset-2 text-center">
+                                <div class="home-btn-main">se connecter</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

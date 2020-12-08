@@ -1,6 +1,8 @@
-body {
-  background-color: $bg-body;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap');
 
+body {
+  font-family: $police-text;
+  background-color: $bg-body;
 }
 
 h1{
@@ -8,6 +10,7 @@ h1{
   font-family: $police-logo;
   font-size: $fs-h1;
 }
+
 h2{
   color: $color-h2;
   font-family: $police-text;
