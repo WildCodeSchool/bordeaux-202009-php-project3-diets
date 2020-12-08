@@ -25,7 +25,7 @@
 }
 
 .home-btn-main {
-  background-image: linear-gradient(to right, #27B87A 0%, #18e48d 51%, #27B87A 100%);
+  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
@@ -38,7 +38,7 @@
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
@@ -57,7 +57,7 @@
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
@@ -80,7 +80,6 @@
   }
 }
 
-.main-color{
-  color: $main-color;
+.main-green{
+  color: $main-green;
 }
-
