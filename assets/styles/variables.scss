@@ -1,3 +1,6 @@
+/*Main colors*/
+$main-color: #27B87A;
+
 /*Background Color*/
 $bg-body: #f5f5f5;        /*Blanc*/
 $bg-navbar: #09b175;      /*Vert*/
@@ -6,14 +9,14 @@ $bg-titleCard: #f49f04;   /*Orange*/
 
 /*Police*/
 $police-logo: handlee;
-$police-text: raleway;
+$police-text: Raleway, sans-serif;
 
 /*Font size*/
-$fs-h1: 65 px;
-$fs-h2: 24 px;
-$fs-h3: 20 px;
-$fs-h4: 18 px;
-$fs-h5: 16 px;
+$fs-h1: 65px;
+$fs-h2: 24px;
+$fs-h3: 20px;
+$fs-h4: 18px;
+$fs-h5: 16px;
 
 /*Police color*/
 $color-h1: #eeeeee;
@@ -22,7 +25,9 @@ $color-h3: #f5f5f5;
 $color-h4: #f5f5f5;
 $color-h5: #f5f5f5;
 
+
 /*Nav color*/
 $color-nav-item: #f5f5f5;
 $color-effect: #f49f04;
 $color-nav-bg: #09b175;
+

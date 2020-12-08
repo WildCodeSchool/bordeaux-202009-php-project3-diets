@@ -9,14 +9,19 @@
 
 .home-logo {
   font-size: 7rem;
+  font-family: $police-logo;
 }
 
 .home-slogan {
-  font-size: 2rem;
+  font-size: $fs-h2;
 }
 
 .home-btn-container{
   margin-top: 10vh;
+  display: flex;
+  button {
+    border: none;
+  }
 }
 
 .home-btn-main {
@@ -24,6 +29,7 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -42,6 +48,7 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -55,3 +62,25 @@
     text-decoration: none;
   }
 }
+
+.visit-link {
+  margin-top:19vh;
+  h2 {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .home-arrow {
+    margin-left: 50px;
+    transition: 0.5s;
+    &:hover {
+      padding-left: 15px;
+    }
+  }
+}
+
+.main-color{
+  color: $main-color;
+}
+
