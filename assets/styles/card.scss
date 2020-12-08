@@ -5,6 +5,7 @@
   border: 1px solid #eeeeee;
   perspective: 1000px;
 }
+
 .box-inner {
   position: relative;
   width: 100%;
@@ -50,4 +51,8 @@
 p{
  font-family: $police-text;
   color: $color-h5;
+}
+
+.card-img-overlay{
+  justify-items: flex-end;
 }
