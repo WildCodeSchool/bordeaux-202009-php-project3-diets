@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class RessourceType
 {
     /**
+     * @var int
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -18,16 +19,19 @@ class RessourceType
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $format;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $icon;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $identifier;
