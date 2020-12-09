@@ -13,15 +13,37 @@
         <h2>Notre prochain événement est : {# titre de l'événement #}, {#date#} - {#heure#}</h2>
     </div>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
-            <div class="col-3">{% include '/component/_card.html.twig' %}</div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                    {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                    {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                    {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                    {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
+            <div class="col-xl-3 col-4 d-flex card-container justify-content-center">
+                <div>
+                    {% include '/component/_card.html.twig' %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
