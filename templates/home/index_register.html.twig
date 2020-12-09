@@ -1,10 +1,14 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Home{% endblock %}
-
-{% block body %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
+    <title>Bienvenue !</title>
+    {{ encore_entry_link_tags('app') }}
+</head>
+<body>
     <div class="vh-100 vw-100 home-full-screen">
-        <div class="container container-table">
+        <div class="container-fluid container-table">
             <div class="row vertical-center-row">
                 <div class="card col-md-8 m-auto card-radius">
                 <div class="-align-right mt-3">
@@ -32,8 +36,8 @@
                     <div class="text-center px-4 home-form">Adresse e-mail :</div>
                     <div></div>
                 </div>
-                <div class="row justify-content-end">
-                    <div class="col-md-6 text-center p-3">
+                <div class="row">
+                    <div class="col-md-6 text-center p-3 home-form-lg">
                         <div class="home-btn-second">
                             <a href="#" class="non_underline">Valider</a>
                         </div>
@@ -43,4 +47,6 @@
             </div>
         </div>
     </div>
-{% endblock %}
+    {{ encore_entry_script_tags('app') }}
+</body>
+</html>
