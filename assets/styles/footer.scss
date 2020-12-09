@@ -134,3 +134,8 @@ ul.social-network li {
         padding-left: 0;
     }
 }
+@media screen and (max-width: 768px) {
+    .mainfooter {
+        display: none;
+    }
+}
