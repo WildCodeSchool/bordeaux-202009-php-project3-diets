@@ -1,8 +1,8 @@
 footer {
     background: $bg-footer;
     color: $bg-body;
-    margin-top:100px;
     position: absolute;
+    margin-top:100px;
     width: 100%;
     bottom: 0;
 }
@@ -28,6 +28,8 @@ footer a:hover {
 .footer-middle {
     padding-top: 2em;
     color: $bg-body;
+    display: flex;
+    justify-content: center;
 }
 
 .row {
@@ -41,8 +43,6 @@ footer a:hover {
 
 ul.social-network {
     list-style: none;
-    display: inline;
-
 }
 
 ul.social-network li {

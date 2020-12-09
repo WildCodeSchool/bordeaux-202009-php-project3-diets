@@ -87,10 +87,18 @@
 
 @media screen and (min-width: 973px) and (max-width: 1199px) {
   .home-main-container{
-    height: 100vh;
+    height: 87vh;
   }
   .visit-link {
     margin-top: 12vh;
   }
 }
 
+@media screen and (max-width: 972px) {
+  .home-main-container {
+    height: 93vh;
+  }
+  .visit-link {
+    margin-top: 12vh;
+  }
+}
