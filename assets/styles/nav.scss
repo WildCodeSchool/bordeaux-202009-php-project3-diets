@@ -1,5 +1,6 @@
 .navbar{
   background-color: $main-green;
+
 }
 
 
@@ -52,15 +53,60 @@
   display:flex;
   justify-content: space-around;
 }
+.navbar-toggler-icon{
+  color:#fff;
+  font-size:30px;
+}
+.navbar-toggler:focus{
+  outline:none;
+}
+button .navbar-toggler-icon {
+  align-items: center;
+  height: 32px;
 
-
-@media (min-width: 1200px){
-  max-width: 1800px;
 }
 
-@media (max-width: 768px) {
+
+@media screen and (min-width: 768px){
+.logo-mobile{
+  display:none;
+}
+  .user-mobile{
+    display: none;
+  }
+
+}
+
+@media screen and (max-width: 768px){
 .logo-title{
-display: none;
+  display: none;
 }
+  .nav-user{
+    display:none;
+  }
+  .fa-user{
+    color:$main-orange;
+    font-size: 2rem;
+  }
+  .logo-mobile .navbar-title{
+    color: $main-white;
+    margin-right: 0;
+    font-size: 2.3rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue;
+  }
+  .logo-mobile{
+    height:55px;
+    text-align: center;
+  }
+  .navbar-title:hover{
+    text-decoration: none;
+    color: $main-white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
+    font-size: 2.5rem;
+  }
+
+
 }
 
