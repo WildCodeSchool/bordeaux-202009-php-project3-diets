@@ -4,54 +4,93 @@
 }
 
 .home-main-container{
-  height: 70vh;
+  height: 80vh;
 }
 
 .home-logo {
   font-size: 7rem;
+  font-family: $police-logo;
 }
 
 .home-slogan {
-  font-size: 2rem;
+  font-size: $fs-h2;
 }
 
 .home-btn-container{
   margin-top: 10vh;
+  display: flex;
+  button {
+    border: none;
+  }
 }
 
 .home-btn-main {
-  background-image: linear-gradient(to right, #27B87A 0%, #18e48d 51%, #27B87A 100%);
+  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
-  color: #F5F5F5;
+  color: $main-white;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
 }
 .home-btn-second {
-  background-image: linear-gradient(to right, #0dc7e6 0%, #5bdff5  51%, #0dc7e6  100%);
+  background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
-  color: #F5F5F5;
+  color: $main-white;
   box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
 }
+
+.visit-link {
+  margin-top:19vh;
+  h2 {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .home-arrow {
+    margin-left: 50px;
+    transition: 0.5s;
+    &:hover {
+      padding-left: 15px;
+    }
+  }
+}
+
+.main-green{
+  color: $main-green;
+}
+
+
+@media screen and (min-width: 973px) and (max-width: 1199px) {
+  .home-main-container{
+    height: 100vh;
+  }
+  .visit-link {
+    margin-top: 12vh;
+  }
+}
+

@@ -1,24 +1,31 @@
+/*Main colors*/
+$main-green: #09b175;  /* Vert */
+$main-black: #262626;  /* Noir */
+$main-white: #F5F5F5;  /* Blanc */
+$main-blue: #0dc7e6;   /* Bleu */
+$main-orange: #f49f04; /* Orange */
+
 /*Background Color*/
-$bg-body: #f5f5f5;        /*Blanc*/
-$bg-navbar: #09b175;      /*Vert*/
-$bg-footer: #262626;      /*Noir*/
-$bg-titleCard: #f49f04;   /*Orange*/
+$bg-body: $main-white;        /*Blanc*/
+$bg-navbar: $main-green;      /*Vert*/
+$bg-footer: $main-black;      /*Noir*/
+$bg-titleCard: $main-orange;  /*Orange*/
 
 /*Police*/
-$police-logo: handlee;
-$police-text: raleway;
+$police-logo: handlee, sans-serif;
+$police-text: Raleway, sans-serif;
 
 /*Font size*/
-$fs-h1: 65 px;
-$fs-h2: 24 px;
-$fs-h3: 20 px;
-$fs-h4: 18 px;
-$fs-h5: 16 px;
+$fs-h1: 65px;
+$fs-h2: 24px;
+$fs-h3: 20px;
+$fs-h4: 18px;
+$fs-h5: 16px;
 
 /*Police color*/
-$color-h1: #eeeeee;
-$color-h2: #f5f5f5;
-$color-h3: #f5f5f5;
-$color-h4: #f5f5f5;
-$color-h5: #f5f5f5;
-$color-effect: #F49F04;
+$color-h1: $main-green;
+$color-h2: $main-green;
+$color-h3: $main-black;
+$color-h4: $main-black;
+$color-h5: $main-black;
+

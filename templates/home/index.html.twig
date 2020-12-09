@@ -4,22 +4,34 @@
 
 {% block body %}
     <div class="vh-100 vw-100 home-full-screen position-relative">
-        <div class="container-fluid home-main-container position-absolute fixed-bottom">
+        <div class="container-fluid home-main-container fixed-bottom">
             <div class="row">
                 <div class="col-8 offset-2 d-flex flex-column align-items-center">
                     <div class="text-center home-logo">Nous les Diets</div>
                     <div class="text-center home-slogan">Partager vos connaissances entre diététiciens</div>
-                    <div class="container-fluid home-btn-container">
-                        <div class="row">
-                            <div class="col-4 offset-1 text-center">
-                                <div class="home-btn-second">s'inscrire</div>
-                            </div>
-                            <div class="col-4 offset-2 text-center">
-                                <div class="home-btn-main">se connecter</div>
-                            </div>
+                    <div class="home-btn-container align-items-center justify-content-between">
+                        <div class="text-center">
+                            <button class="home-btn-second">s'inscrire</button>
+                        </div>
+                        <div class="text-center">
+                            <button class="home-btn-main">se connecter</button>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row visit-link">
+                <div class="col-2 offset-8 d-flex align-items-center justify-content-end">
+                    <a href="{{ path('ressource_index') }}">
+                        <h2>Visiter</h2>
+                    </a>
+                </div>
+                <a href="{{ path('ressource_index') }}">
+                    <div class="col2 d-flex align-items-center justify-content-center home-arrow">
+                        <span class="main-green">
+                            <i class="fas fa-4x fa-arrow-circle-right"></i>
+                        </span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
