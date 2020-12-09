@@ -1,7 +1,7 @@
 footer {
     background: $bg-footer;
     color: $bg-body;
-    position: absolute;
+    position: relative;
     margin-top:100px;
     width: 100%;
     bottom: 0;
@@ -50,6 +50,9 @@ ul.social-network li {
     margin: 0 5px;
 }
 
+.p {
+    color: $main-white;
+}
 
 /* footer social icons */
 
@@ -62,7 +65,7 @@ ul.social-network li {
 }
 
 .social-network a.icoInstagram:hover {
-    background-color: $main-orange;
+    background: linear-gradient(blue, yellow);
 }
 
 .social-network a.icoTwitter:hover {
