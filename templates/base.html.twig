@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/realises/v5.10.1/css/all.css">
@@ -15,9 +15,9 @@
 </header>
 
 {% block body %}{% endblock %}
-
-
-
+<footer>
+    {% include 'component/_footer.html.twig' %}
+</footer>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
