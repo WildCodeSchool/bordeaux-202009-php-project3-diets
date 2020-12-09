@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <div class="vh-100 vw-100 home-full-screen">
+        <div class="container container-table">
+            <div class="row vertical-center-row">
+                <div class="card col-md-8 m-auto card-radius">
+                <div class="-align-right mt-3">
+                    <div class="close">
+                        <a href="/"><i class="far fa-times-circle"></i></a>
+                    </div>
+
+                </div>
+                <div class="row justify-content-center">
+                    <div class="text-center p-3 card-title home-form-title">Je m'inscris :</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4 home-form">Prénom :</div>
+                    <div></div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4 home-form">Nom :</div>
+                    <div></div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4 home-form">Numéro ADELI :</div>
+                    <div></div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4 home-form">Adresse e-mail :</div>
+                    <div></div>
+                </div>
+                <div class="row justify-content-end">
+                    <div class="col-md-6 text-center p-3">
+                        <div class="home-btn-second">
+                            <a href="#" class="non_underline">Valider</a>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
