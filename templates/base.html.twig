@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://use.fontawesome.com/realises/v5.10.1/css/all.css">
     <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
@@ -9,6 +10,9 @@
     {% endblock %}
 </head>
 <body>
+<header>
+    {% block navbar %}{% endblock %}
+</header>
 
 {% block body %}{% endblock %}
 

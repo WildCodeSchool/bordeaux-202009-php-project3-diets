@@ -9,21 +9,27 @@
 
 .home-logo {
   font-size: 7rem;
+  font-family: $police-logo;
 }
 
 .home-slogan {
-  font-size: 2rem;
+  font-size: $fs-h2;
 }
 
 .home-btn-container{
   margin-top: 10vh;
+  display: flex;
+  button {
+    border: none;
+  }
 }
 
 .home-btn-main {
-  background-image: linear-gradient(to right, #27B87A 0%, #18e48d 51%, #27B87A 100%);
+  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -32,7 +38,7 @@
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
@@ -42,6 +48,7 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
+  font-size: $fs-h2;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -50,8 +57,29 @@
   border-radius: 10px;
   display: block;
   &:hover {
-    background-position: right center; /* change the direction of the change here */
+    background-position: right center;
     color: #fff;
     text-decoration: none;
   }
+}
+
+.visit-link {
+  margin-top:19vh;
+  h2 {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 0;
+  }
+
+  .home-arrow {
+    margin-left: 50px;
+    transition: 0.5s;
+    &:hover {
+      padding-left: 15px;
+    }
+  }
+}
+
+.main-green{
+  color: $main-green;
 }
