@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
@@ -11,7 +11,9 @@
 <body>
 
 {% block body %}{% endblock %}
-
+<footer>
+    {% include 'component/_footer.html.twig' %}
+</footer>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
