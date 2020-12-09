@@ -73,6 +73,9 @@ button .navbar-toggler-icon {
   .user-mobile{
     display: none;
   }
+  .link-footer{
+    display:none;
+  }
 
 }
 
@@ -105,6 +108,16 @@ button .navbar-toggler-icon {
     text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
     font-size: 2.5rem;
   }
+  .nav-item{
+    list-style: none;
+  }
+  .link-footer{
+    padding-left:0;
+  }
+  .nav-link{
+    padding-left: 0;
+  }
+
 
 
 }
