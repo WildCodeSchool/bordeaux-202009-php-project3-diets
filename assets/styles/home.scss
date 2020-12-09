@@ -84,6 +84,58 @@
   color: $main-green;
 }
 
+.home-form-title {
+  font-size: 50px;
+}
+
+.home-form {
+  font-size: 30px;
+}
+
+.container-table {
+  height: 100%;
+  display: table;
+}
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.card-radius {
+  background-color: transparentize($bg-navbar, 0.3);
+  border-radius: 25px;
+}
+
+.non_underline {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .container {
+    max-width: 100%;
+  }
+  .row {
+    margin-top: 80px;
+    display: block;
+    height: 100%;
+  }
+  .home-form-title {
+    font-size: 60px;
+  }
+
+  .home-form {
+    font-size: 50px;
+  }
+
+  .home-form-lg {
+    max-width: 100%;
+    justify-content: center;
+  }
+}
 
 @media screen and (min-width: 973px) and (max-width: 1199px) {
   .home-main-container{
