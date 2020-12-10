@@ -1,5 +1,6 @@
 .ressource-caroussel{
   height:420px;
+  padding-top:8vh;
 }
 .icon-cards {
   position: relative;
@@ -105,4 +106,54 @@
 }
 .icon-cards__item img {
   height: 350px;
+}
+
+
+@media screen and (min-width: 768px){
+  .ressource-caroussel {
+    height: 400px;
+    padding-top: 4vh;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .ressource-caroussel {
+    height: 400px;
+    padding-top: 8vh;
+  }
+}
+
+@media screen and (min-width: 540px) {
+  .ressource-caroussel {
+    height: 400px;
+    padding-top: 3.5vh;
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .ressource-caroussel{
+    height:400px;
+    padding-top:5vh;
+  }
+}
+@media screen and (max-width: 414px) {
+  .ressource-caroussel{
+    height:400px;
+    padding-top:12vh;
+  }
+}
+
+
+@media screen and (max-width: 375px) {
+  .ressource-caroussel {
+    height: 400px;
+    padding-top: 11vh;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .ressource-caroussel {
+    height: 400px;
+    padding-top: 18vh;
+  }
 }
