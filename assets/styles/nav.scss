@@ -79,7 +79,7 @@ button .navbar-toggler-icon {
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (max-width: 767px){
 .logo-title{
   display: none;
 }
@@ -89,6 +89,7 @@ button .navbar-toggler-icon {
   .fa-user{
     color:$main-orange;
     font-size: 2rem;
+    margin-left: 20px;
   }
   .logo-mobile .navbar-title{
     color: $main-white;
@@ -118,7 +119,156 @@ button .navbar-toggler-icon {
     padding-left: 0;
   }
 
+}
 
+@media screen and (max-width: 360px){
+  .navbar{
+    display: flex;
+    flex-wrap:nowrap;
+  }
+  .logo-title{
+    display: none;
+  }
+  .nav-user{
+    display:none;
+  }
+  .navbar-toggler{
+    padding: 0.25rem 0rem;
+  }
+  .fa-user{
+    color:$main-orange;
+    font-size: 2rem;
+    margin-left: 20px;
+  }
+  .logo-mobile .navbar-title{
+    color: $main-white;
+    margin-right: 0;
+    font-size: 2.3rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue;
+  }
+  .logo-mobile{
+    height:55px;
+    text-align: center;
+  }
+  .navbar-title:hover{
+    text-decoration: none;
+    color: $main-white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
+    font-size: 2.5rem;
+  }
+  .nav-item{
+    list-style: none;
+  }
+  .link-footer{
+    padding-left:0;
+  }
+  .nav-link{
+    padding-left: 0;
+  }
+}
 
+ @media screen and (max-width:320px) {
+   .navbar{
+     padding-left:0;
+     padding-right:0;
+
+   }
+   .navbar-toggler{
+     padding: 0.25rem 0.10rem;
+   }
+   .logo-mobile .navbar-title{
+     margin-left: -15px;
+     color: $main-white;
+     margin-right: 0;
+     font-size: 2.3rem;
+     font-weight: bold;
+     text-shadow: 1px 1px 2px $main-blue;
+   }
+   .fa-user{
+     padding-right: 5px;
+     margin-left: 5px;
+   }
+   .logo-title{
+     display: none;
+   }
+   .nav-user{
+     display:none;
+   }
+   .fa-user{
+     color:$main-orange;
+     font-size: 2rem;
+     margin-left: 20px;
+   }
+
+   .logo-mobile{
+     height:55px;
+     text-align: center;
+   }
+   .navbar-title:hover{
+     text-decoration: none;
+     color: $main-white;
+     font-weight: bold;
+     text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
+     font-size: 2.5rem;
+   }
+   .nav-item{
+     list-style: none;
+   }
+   .link-footer{
+     padding-left:0;
+   }
+   .nav-link{
+     padding-left: 0;
+   }
+ }
+
+@media screen and (max-width: 280px){
+  .navbar{
+    display: flex;
+    flex-wrap:nowrap;
+  }
+  .logo-title{
+    display: none;
+  }
+  .nav-user{
+    display:none;
+  }
+  .navbar-toggler{
+    padding: 0.25rem 0rem;
+  }
+  .fa-user{
+    color:$main-orange;
+    font-size: 2rem;
+    margin-left: 0px;
+  }
+  .logo-mobile .navbar-title{
+    color: $main-white;
+    margin-right: 0;
+    font-size: 2.1rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue;
+  }
+  .logo-mobile{
+    height:55px;
+    text-align: center;
+  }
+  .navbar-title:hover{
+    text-decoration: none;
+    color: $main-white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
+    font-size: 2.5rem;
+  }
+  .nav-item{
+    list-style: none;
+  }
+  .link-footer{
+    padding-left:0;
+  }
+  .nav-link{
+    padding-left: 0;
+  }
 }
 
