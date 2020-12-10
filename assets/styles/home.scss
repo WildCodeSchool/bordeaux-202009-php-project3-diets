@@ -13,11 +13,10 @@
 }
 
 .home-slogan {
-  font-size: $fs-h2;
+  font-size: 40px;
 }
 
 .home-btn-container{
-  margin-top: 10vh;
   display: flex;
   button {
     border: none;
@@ -64,11 +63,12 @@
 }
 
 .visit-link {
-  margin-top:19vh;
+  margin-top: 0;
   h2 {
     color: black;
     font-weight: bold;
     margin-bottom: 0;
+    font-size: 35px;
   }
 
   .home-arrow {
@@ -114,14 +114,15 @@
   }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 992px) {
   .container {
     max-width: 100%;
   }
   .row {
-    margin-top: 80px;
     display: block;
-    height: 100%;
+  }
+  .container-table .row {
+    margin-top: 80px;
   }
   .home-form-title {
     font-size: 60px;
@@ -137,12 +138,22 @@
   }
 }
 
-@media screen and (min-width: 973px) and (max-width: 1199px) {
+.visit-link {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 6vh;
+}
+
+@media screen and (min-width: 972px) and (max-width: 1199px) {
   .home-main-container{
-    height: 87vh;
+    height: 95vh;
   }
-  .visit-link {
-    margin-top: 12vh;
+}
+
+@media screen and (min-width: 972px) and (max-width: 1199px) {
+  .home-logo {
+    font-size: 8rem;
   }
 }
 
@@ -150,7 +161,7 @@
   .home-main-container {
     height: 93vh;
   }
-  .visit-link {
-    margin-top: 12vh;
+  .visit-link{
+    margin-top: 1vh;
   }
 }
