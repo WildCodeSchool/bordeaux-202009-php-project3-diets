@@ -28,8 +28,7 @@ footer a:hover {
 .footer-middle {
     padding-top: 2em;
     color: $bg-body;
-    display: flex;
-    justify-content: center;
+
 }
 
 .row {
@@ -129,9 +128,35 @@ ul.social-network li {
     background-color: #F9F9F9;
 }
 
+
 @media screen and (max-width: 1000px) {
     .social-network, .social-circle {
         padding-left: 0;
+    }
+    .row{
+        display:flex;
+        margin-top: 0;
+    }
+    .footer-middle{
+        display:block;
+    }
+}
+@media screen and (min-width: 1000px) {
+    .container .row{
+    display:flex;
+    justify-content:center;
+    }
+    .footer-middle{
+        display:flex;
+        justify-content: center;
+    }
+
+
+}
+@media screen and (min-width: 1000px) {
+    .footer-middle{
+        display:flex;
+        justify-content: center;
     }
 }
 
