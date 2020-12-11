@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}
-        {{ encore_entry_link_tags('app') }}
-    {% endblock %}
-</head>
-<body>
+{% extends 'home.html.twig' %}
 
-{% block body %}{% endblock %}
-
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
+{% block title %}
+    Bienvenue
 {% endblock %}
-</body>
-</html>
+
+{% block body_home %}
+    <header>
+        {% include 'component/_nav.html.twig' %}
+    </header>
+    {% block body %}{% endblock %}
+    <footer>
+        {% include 'component/_footer.html.twig' %}
+    </footer>
+{% endblock %}

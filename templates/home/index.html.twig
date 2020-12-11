@@ -1,8 +1,46 @@
-{% extends 'base.html.twig' %}
+{% extends 'home.html.twig' %}
 
-{% block title %}Home{% endblock %}
+{% block title %}
+    Bienvenue
+{% endblock %}
 
-{% block body %}
-    <h1>Welcome on your project 3</h1>
-    <img src="https://media.giphy.com/media/hS58Kb2OOCMPS/giphy.gif" alt="Dewey dancing">
+{% block body_home %}
+    <div class="vh-100 vw-100 home-full-screen position-relative">
+        <div class="container-fluid home-main-container fixed-bottom">
+            <div class="row home-main-container-row d-flex">
+                <div class="col-8 offset-2 d-flex flex-column align-items-center ml-0">
+                    <div class="text-center home-logo">Nous les Diets</div>
+                    <div class="text-center home-slogan">Partager vos connaissances entre diététiciens</div>
+                    <div class="home-btn-container justify-content-between">
+                        <div class="row">
+                            <div class="text-center">
+                                <div class="home-btn-second">
+                                    <a href="/register" class="non_underline">s'inscrire</a>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="home-btn-main">
+                                    <a href="/connect" class="non_underline">se connecter</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visit-link">
+                <div>
+                    <a href="{{ path('ressource_index') }}">
+                        <h2>Visiter</h2>
+                    </a>
+                </div>
+                <a href="{{ path('ressource_index') }}">
+                    <div class="home-arrow">
+                        <span class="main-green">
+                            <i class="fas fa-4x fa-arrow-circle-right"></i>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

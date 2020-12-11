@@ -1,0 +1,170 @@
+.home-full-screen{
+  background-image: url('/build/images/home-picture.5d9aa13c.jpg');
+  background-size: cover;
+}
+
+.home-main-container{
+  height: 80vh;
+}
+
+.home-logo {
+  font-size: 7rem;
+  font-family: $police-logo;
+}
+
+.home-slogan {
+  font-size: 40px;
+}
+
+.home-btn-container{
+  display: flex;
+  button {
+    border: none;
+  }
+}
+
+.home-btn-main {
+  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  font-size: $fs-h2;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: $main-white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  &:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+.home-btn-second {
+  background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  font-size: $fs-h2;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: $main-white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  &:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.visit-link {
+  margin-top: 0;
+  h2 {
+    color: black;
+    font-weight: bold;
+    margin-bottom: 0;
+    font-size: 35px;
+  }
+
+  .home-arrow {
+    margin-left: 50px;
+    transition: 0.5s;
+    &:hover {
+      padding-left: 15px;
+    }
+  }
+}
+
+.main-green{
+  color: $main-green;
+}
+
+.home-form-title {
+  font-size: 50px;
+}
+
+.home-form {
+  font-size: 30px;
+}
+
+.container-table {
+  height: 100%;
+  display: table;
+}
+
+.vertical-center-row {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.card-radius {
+  background-color: transparentize($bg-navbar, 0.3);
+  border-radius: 25px;
+}
+
+.non_underline {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 100%;
+  }
+  .row {
+    display: block;
+  }
+  .container-table .row {
+    margin-top: 80px;
+  }
+  .home-form-title {
+    font-size: 60px;
+  }
+
+  .home-form {
+    font-size: 50px;
+  }
+
+  .home-form-lg {
+    max-width: 100%;
+    justify-content: center;
+  }
+}
+
+.visit-link {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  right: 6vh;
+}
+
+@media screen and (min-width: 972px) and (max-width: 1199px) {
+  .home-main-container{
+    height: 95vh;
+  }
+}
+
+@media screen and (min-width: 972px) and (max-width: 1199px) {
+  .home-logo {
+    font-size: 8rem;
+  }
+}
+
+@media screen and (max-width: 972px) {
+  .home-main-container {
+    height: 93vh;
+  }
+  .visit-link{
+    margin-top: 1vh;
+  }
+  .row {
+    margin-top: 0;
+  }
+}
