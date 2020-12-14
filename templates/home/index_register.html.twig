@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="{{ asset('build/images/favicon.png') }}" />
-    <title>Bienvenue !</title>
-    {{ encore_entry_link_tags('app') }}
-</head>
-<body>
+{% extends 'home.html.twig' %}
+
+{% block title %}
+    Bienvenue
+{% endblock %}
+
+{% block body_home %}
     <div class="vh-100 vw-100 home-full-screen">
         <div class="container-fluid container-table">
             <div class="row vertical-center-row">
@@ -47,6 +45,4 @@
             </div>
         </div>
     </div>
-    {{ encore_entry_script_tags('app') }}
-</body>
-</html>
+{% endblock %}
