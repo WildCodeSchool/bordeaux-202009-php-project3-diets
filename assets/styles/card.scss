@@ -36,12 +36,15 @@
 
 .card-title{
   text-align: center;
-  background-color: #f49f04;
+  color:$main-orange;
+  font-weight: bold;
+
 }
 
 .card-img{
   width: 220px;
   height: 300px;
+  filter:brightness(60%);
 }
 
 .btn{
@@ -49,10 +52,11 @@
 }
 
 p{
- font-family: $police-text;
+  font-family: $police-text;
   color: $color-h5;
 }
 
 .card-img-overlay{
   justify-items: flex-end;
 }
+
