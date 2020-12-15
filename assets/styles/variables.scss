@@ -1,15 +1,15 @@
 /*Main colors*/
 $main-green: #09b175;  /* Vert */
-$main-black: #262626;  /* Noir */
-$main-white: #F5F5F5;  /* Blanc */
+$main-black: #404c4c;  /* Noir */
+$main-white: white;  /* Blanc */
 $main-blue: #0dc7e6;   /* Bleu */
-$main-orange: #f49f04; /* Orange */
-
+$main-orange: #d4a301;/*Orange*/
+$main-grey:#f7f7f7; /*Gris clair*/
 /*Background Color*/
 $bg-body: $main-white;        /*Blanc*/
 $bg-navbar: $main-green;      /*Vert*/
 $bg-footer: $main-black;      /*Noir*/
-$bg-titleCard: $main-orange;  /*Orange*/
+$bg-titleCard: $main-green;  /*Orange*/
 
 /*Police*/
 $police-logo: handlee, sans-serif;
