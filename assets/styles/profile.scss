@@ -1,0 +1,28 @@
+.profile-picture{
+  max-height: 400px;
+  width: auto;
+}
+
+.profile-title-space{
+  margin-left: 7em;
+}
+
+.profile-button{
+  background-color: $main-green;
+  color: white;
+  border-radius: 500px;
+  margin:1rem;
+  padding:5px 16px;
+  a {
+    text-decoration: none;
+    color: $main-white;
+  }
+}
+
+.profile-informations{
+  border-left: solid 5px $main-black;
+  p{
+    font-size: 22px;
+    margin: 4px 0;
+  }
+}
