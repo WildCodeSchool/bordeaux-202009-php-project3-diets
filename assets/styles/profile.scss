@@ -50,7 +50,38 @@
   margin: 5em 0;
 }
 
-.green-string{
+.green-string {
   color:$main-green;
 }
+
+label {
+  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  border-radius: 500px;
+  border: solid 2px $main-green;
+}
+
+textarea {
+  border-radius: 15px;
+}
+
+button{
+  all: unset;
+  background-color: $main-green;
+  color: $main-white;
+  border-radius: 500px;
+  margin-top: 7px;
+  padding: 5px 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .profile-main-forms {
+    margin:3px;
+  }
+}
+
 
