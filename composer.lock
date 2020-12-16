@@ -7675,8 +7675,6 @@
             "time": "2020-10-24T12:39:10+00:00"
         },
         {
-<<<<<<< HEAD
-=======
             "name": "doctrine/data-fixtures",
             "version": "1.4.4",
             "source": {
@@ -7835,7 +7833,6 @@
             "time": "2020-11-14T09:36:49+00:00"
         },
         {
->>>>>>> 836646875da3f8628021a897d54ca34a610ec922
             "name": "fzaninotto/faker",
             "version": "v1.9.2",
             "source": {
