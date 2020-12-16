@@ -1,0 +1,37 @@
+.service-page-title{
+  margin-top: 3em;
+}
+
+.service-title-space{
+  margin-left: 7em;
+}
+
+.service-button-container{
+  margin-bottom: 3em;
+}
+
+.service-edit{
+  p{
+    margin-bottom: 0;
+    font-size: 18px;
+  }
+}
+
+.green-string{
+  color:$main-green;
+}
+
+.row{
+  margin: 5em 0;
+}
+
+
+@media screen and (max-width: 768px){
+  .img-container{
+    img{
+      width: 300px;
+      height: auto;
+    }
+
+  }
+}
