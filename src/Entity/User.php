@@ -3,15 +3,20 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+
+
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  */
+
 class User implements UserInterface
+
 {
     /**
      * @ORM\Id
@@ -39,11 +44,13 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
+
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+  
     private $firstname;
 
     /**
@@ -102,8 +109,6 @@ class User implements UserInterface
      */
     private $registeredEvent;
 
-
-
     public function __construct()
     {
         $this->expertise = new ArrayCollection();
@@ -115,6 +120,7 @@ class User implements UserInterface
     {
         return $this->id;
     }
+
 
     public function getEmail(): ?string
     {
@@ -154,8 +160,10 @@ class User implements UserInterface
     {
         $this->roles = $roles;
 
+
         return $this;
     }
+
 
     /**
      * @see UserInterface
@@ -197,6 +205,7 @@ class User implements UserInterface
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
 
         return $this;
     }
