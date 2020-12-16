@@ -73,17 +73,13 @@ class User implements UserInterface
     private $website;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isAdmin;
-
-    /**
      * @ORM\ManyToMany(targetEntity=Expertise::class)
      */
     private $expertise;
 
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $picture;
 
@@ -99,7 +95,7 @@ class User implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=RegisteredEvent::class, inversedBy="user")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvent;
 
@@ -215,6 +211,7 @@ class User implements UserInterface
         return $this;
     }
 
+
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;
@@ -226,6 +223,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     public function getAdeli(): ?string
     {
@@ -271,18 +269,6 @@ class User implements UserInterface
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
-
-        return $this;
-    }
-
-    public function getIsAdmin(): ?bool
-    {
-        return $this->isAdmin;
-    }
-
-    public function setIsAdmin(bool $isAdmin): self
-    {
-        $this->isAdmin = $isAdmin;
 
         return $this;
     }

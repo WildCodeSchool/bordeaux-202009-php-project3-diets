@@ -137,17 +137,160 @@
 <div class="profile-title-space">
     <h3 class="part-title">Je propose une fiche :</h3>
 </div>
-<div class="d-flex">
-    <div>
-        <p>Titre</p>
-        <p>Support</p>
-        <p>Description (200 caractères max)</p>
-        <p>Document</p>
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-5 d-flex justify-content-center">
+            <div>
+                <div class="overflow-hidden">
+                    <img class="item-picture" src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">                    </div>
+                <div>
+                    <p class="green-string">Modifier</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 profile-main-forms">
+            <div>
+                <div class="d-flex flex-column">
+                    <label for="title" class="font-weight-bold">Titre</label>
+                    <input type="text" id="title">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="format" class="font-weight-bold">Support</label>
+                    <select id="format">
+                        <option value="">--Faites votre choix--</option>
+                    </select>
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="description" class="font-weight-bold">Description</label>
+                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="documents" class="font-weight-bold">Documents</label>
+                    <input type="text" placeholder="Fichier...">
+                    <p style="margin:0;">ou</p>
+                    <input type="text" placeholder="Site internet">
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button>Valider</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="d-flex flex-column align-items-start">
-        <div style="height: 20"></div>
-    </div>
-
 </div>
+<div class="profile-title-space">
+    <h3 class="part-title">Je propose un service :</h3>
+</div>
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-5 d-flex justify-content-center">
+            <div>
+                <div class="overflow-hidden">
+                    <img class="item-picture" src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">
+                </div>
+                <div>
+                    <p class="green-string">Modifier</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 profile-main-forms">
+            <div>
+                <div class="d-flex flex-column">
+                    <label for="title" class="font-weight-bold">Titre</label>
+                    <input type="text" id="title">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="link" class="font-weight-bold">Lien</label>
+                    <input type="text" id="link">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="price" class="font-weight-bold">Prix</label>
+                    <input type="text" id="price">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="description" class="font-weight-bold">Description</label>
+                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button>Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="profile-title-space">
+    <h3 class="part-title">Je propose un événement :</h3>
+</div>
+<div class="container-fluid">
+    <div class="row align-items-center">
+        <div class="col-5 d-flex justify-content-center">
+            <div>
+                <div class="d-flex flex-column">
+                    <label for="Name" class="font-weight-bold">Nom de l'événement</label>
+                    <input type="text" id="name">
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex flex-column">
+                        <label for="Type" class="font-weight-bold">Type d'événement</label>
+                        <select id="format">
+                            <option value="">--Faites votre choix--</option>
+                        </select>
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="image" class="font-weight-bold">Image</label>
+                        <input type="text" id="image" placeholder="rajouter une image...">
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex flex-column">
+                        <label for="date-start" class="font-weight-bold">Date de début</label>
+                        <input type="date" id="date-start">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="hour-start" class="font-weight-bold">Heure de début</label>
+                        <input type="time" id="hour-start">
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="d-flex flex-column">
+                        <label for="date-end" class="font-weight-bold">Date de fin</label>
+                        <input type="date" id="date-end">
+                    </div>
+                    <div class="d-flex flex-column">
+                        <label for="hour-end" class="font-weight-bold">Heure de fin</label>
+                        <input type="time" id="hour-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 profile-main-forms">
+            <div>
+                <div class="d-flex flex-column">
+                    <label for="price" class="font-weight-bold">Prix</label>
+                    <input type="text" id="price">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="subscription" class="font-weight-bold">Inscription</label>
+                    <input type="text" id="subscription">
+                </div>
+                <div class="d-flex flex-column">
+                    <label for="description" class="font-weight-bold">Description</label>
+                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
+                </div>
+                <div class="d-flex flex-row-reverse">
+                    <button>Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="d-flex flex-column align-items-start">
+    <div style="height: 20"></div>
+</div>
+
 
 {% endblock %}
