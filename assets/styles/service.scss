@@ -1,0 +1,50 @@
+
+.row{
+  margin: 5em 0;
+}
+
+@media screen and (max-width: 770px){
+  h3{
+    font-size: 25px;
+  }
+  .part-title{
+    margin-top: 0px;
+  }
+  #service-textarea{
+    width: 300px;
+  }
+
+  .img-container{
+    img{
+      width: 300px;
+      height: auto;
+    }
+  }
+  .form-service{
+    padding-bottom: 5em;
+  }
+}
+
+
+@media screen and (max-width: 540px){
+  h3{
+    font-size: 25px;
+  }
+  .part-title{
+    margin-top: 0px;
+  }
+  #service-textarea{
+    width: 300px;
+  }
+
+
+  .img-container{
+    img{
+      width: 300px;
+      height: auto;
+    }
+  }
+  .form-service{
+    padding-bottom: 5em;
+  }
+}

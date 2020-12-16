@@ -40,13 +40,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-
     private $firstname;
 
     /**
@@ -202,7 +200,6 @@ class User implements UserInterface
     {
         $this->lastname = $lastname;
 
-
         return $this;
     }
 
@@ -218,6 +215,7 @@ class User implements UserInterface
         return $this;
     }
 
+
     public function getBirthday(): ?\DateTimeInterface
     {
         return $this->birthday;
@@ -229,6 +227,7 @@ class User implements UserInterface
 
         return $this;
     }
+
 
     public function getAdeli(): ?string
     {

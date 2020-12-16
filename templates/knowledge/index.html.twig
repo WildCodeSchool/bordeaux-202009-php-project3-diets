@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Détail de la connaissance
+{% endblock %}
+
+{% block body %}
+    <div class="firstdiv">
+    <div class="d-flex justify-content-center search-bar">
+        <h2 class="pb-5">Connaissances</h2>
+    </div>
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center pb-3">
+            <div class="col-5 pb-4">
+                <div class="pb-2">
+                    <h3 class="pb-1">Titre de la fiche</h3>
+                    <h4>
+                        <a class="knowledge-link" href="#">Mme Sophie D.</a>
+                    </h4>
+                </div>
+                <div>
+                    <div class="pb-1">
+                        Lien :
+                        <a class="knowledge-link" href="#">Lien vers la fiche de la personne</a>
+                    </div>
+                    <div>
+                        Document :
+                    </div>
+                </div>
+
+            </div>
+            <div class="">
+                <div>
+                    <img src="https://i.picsum.photos/id/1025/4951/3301.jpg?hmac=_aGh5AtoOChip_iaMo8ZvvytfEojcgqbCH7dzaz-H8Y" class="knowledge-img" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center pt-3 pb-3">
+            <p class="col-md-9">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium asperiores exercitationem fugiat maiores modi, nesciunt nostrum officia officiis, ratione saepe totam voluptas, voluptatum? Animi cum deleniti illum quibusdam sed.
+            </p>
+        </div>
+    </div>
+{% endblock %}
