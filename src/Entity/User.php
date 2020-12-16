@@ -200,7 +200,6 @@ class User implements UserInterface
     {
         $this->lastname = $lastname;
 
-
         return $this;
     }
 
