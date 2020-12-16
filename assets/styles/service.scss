@@ -1,25 +1,3 @@
-.service-page-title{
-  margin-top: 3em;
-}
-
-.service-title-space{
-  margin-left: 7em;
-}
-
-.service-button-container{
-  margin-bottom: 3em;
-}
-
-.service-edit{
-  p{
-    margin-bottom: 0;
-    font-size: 18px;
-  }
-}
-
-.green-string{
-  color:$main-green;
-}
 
 .row{
   margin: 5em 0;
@@ -27,11 +5,24 @@
 
 
 @media screen and (max-width: 768px){
+  h3{
+    font-size: 25px;
+  }
+  .part-title{
+    margin-top: 0px;
+  }
+  #service-textarea{
+    width: 300px;
+  }
+
+
   .img-container{
     img{
       width: 300px;
       height: auto;
     }
-
+  }
+  .form-service{
+    padding-bottom: 5em;
   }
 }
