@@ -1,5 +1,6 @@
 {% extends 'home.html.twig' %}
 
+
 {% block title %}
     Bienvenue
 {% endblock %}
@@ -8,7 +9,10 @@
     <header>
         {% include 'component/_nav.html.twig' %}
     </header>
+
     {% block body %}{% endblock %}
+    {% block contact %}{% endblock %}
+
     <footer>
         {% include 'component/_footer.html.twig' %}
     </footer>
