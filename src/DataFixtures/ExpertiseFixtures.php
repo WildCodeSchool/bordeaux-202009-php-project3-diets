@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Episode;
 use App\Entity\Expertise;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -13,7 +12,7 @@ class ExpertiseFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $expertise = new Expertise();
             $expertise->setName($faker->domainWord);
             $manager->persist($expertise);

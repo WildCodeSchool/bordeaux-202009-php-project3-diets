@@ -10,11 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-<<<<<<< HEAD:migrations/Version20201216130006.php
-final class Version20201216130006 extends AbstractMigration
-=======
-final class Version20201216110308 extends AbstractMigration
->>>>>>> 836646875da3f8628021a897d54ca34a610ec922:migrations/Version20201216110308.php
+final class Version20201216143304 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -34,7 +30,7 @@ final class Version20201216110308 extends AbstractMigration
         $this->addSql('CREATE TABLE resource_pathology (resource_id INT NOT NULL, pathology_id INT NOT NULL, INDEX IDX_74DE4D0C89329D25 (resource_id), INDEX IDX_74DE4D0CCE86795D (pathology_id), PRIMARY KEY(resource_id, pathology_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE resource_format (id INT AUTO_INCREMENT NOT NULL, format VARCHAR(255) NOT NULL, icon VARCHAR(255) DEFAULT NULL, identifier VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE service (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, name VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, link VARCHAR(255) DEFAULT NULL, price DOUBLE PRECISION DEFAULT NULL, service_is_validated TINYINT(1) DEFAULT NULL, INDEX IDX_E19D9AD2A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, picture_id INT DEFAULT NULL, registered_event_id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, birthday DATETIME DEFAULT NULL, adeli VARCHAR(255) NOT NULL, address VARCHAR(255) DEFAULT NULL, phone INT DEFAULT NULL, website VARCHAR(255) DEFAULT NULL, is_admin TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), UNIQUE INDEX UNIQ_8D93D649EE45BDBF (picture_id), INDEX IDX_8D93D6491DF0B29B (registered_event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, picture_id INT DEFAULT NULL, registered_event_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, birthday DATETIME DEFAULT NULL, adeli VARCHAR(255) NOT NULL, address VARCHAR(255) DEFAULT NULL, phone INT DEFAULT NULL, website VARCHAR(255) DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), UNIQUE INDEX UNIQ_8D93D649EE45BDBF (picture_id), INDEX IDX_8D93D6491DF0B29B (registered_event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_expertise (user_id INT NOT NULL, expertise_id INT NOT NULL, INDEX IDX_227A526FA76ED395 (user_id), INDEX IDX_227A526F9D5B92F9 (expertise_id), PRIMARY KEY(user_id, expertise_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA750BCC838 FOREIGN KEY (event_format_id) REFERENCES event_format (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7EE45BDBF FOREIGN KEY (picture_id) REFERENCES picture (id)');

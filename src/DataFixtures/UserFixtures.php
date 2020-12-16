@@ -4,11 +4,12 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     private $passwordEncoder;
 
@@ -29,16 +30,24 @@ class UserFixtures extends Fixture
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'MyPassword_' . $i));
             $user->setEmail($faker->email);
             $user->setAddress($faker->address);
-            $user->setPhone($faker->numberBetween(1000000000, 5000000000));
+            $user->setPhone($faker->numberBetween(100, 500));
             $user->setWebsite($faker->domainName);
             $user->addExpertise($this->getReference('expertise_' . rand(1,50)));
             if ($i % 2 === 1) {
                 $user->addExpertise($this->getReference('expertise_' . rand(1,50)));
             };
-            $user->setPicture($this->getReference('picture_' . rand(1,50)));
+            $user->setPicture($this->getReference('picture_' . $i));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            PictureFixtures::class,
+            ExpertiseFixtures::class,
+        );
     }
 }
