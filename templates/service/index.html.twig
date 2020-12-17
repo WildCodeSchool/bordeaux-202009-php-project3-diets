@@ -32,7 +32,7 @@
                 <div class="col-lg-4">
                     <div>
                         <div class="img-container">
-                            <img src="https://via.placeholder.com/400x200.jpg" alt="photo du service proposé">
+                            <img src="https://picsum.photos/400/200?random=10" alt="photo du service proposé">
                         </div>
                     </div>
                 </div>
@@ -44,59 +44,22 @@
         </div>
         <div class="">
             <div class="row justify-content-start">
+                {% for i in 1..4 %}
                 <div class="col-lg-2">
-
                 </div>
                 <div class="col-lg-4">
                     <div class="img-container">
-                        <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'>
+                        <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'>
                     </div>
                 </div>
-                <div class="col-lg-5">
+                <div class="col-lg-5 text-container">
                     <p>Titre</p>
                     <p>Prix</p>
                     <p>Lien</p>
                     <p>Inscription</p>
                     <p>Description:</p>
                 </div>
-            </div>
-        </div>
-        <div class="">
-            <div class="row justify-content-start">
-                <div class="col-lg-2">
-
-                </div>
-                <div class="col-lg-4">
-                    <div class="img-container">
-                        <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <p>Titre</p>
-                    <p>Prix</p>
-                    <p>Lien</p>
-                    <p>Inscription</p>
-                    <p>Description:</p>
-                </div>
-            </div>
-        </div>
-        <div class="">
-            <div class="row justify-content-start">
-                <div class="col-lg-2">
-
-                </div>
-                <div class="col-lg-4">
-                    <div class="img-container">
-                        <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'>
-                    </div>
-                </div>
-                <div class="col-lg-5">
-                    <p>Titre</p>
-                    <p>Prix</p>
-                    <p>Lien</p>
-                    <p>Inscription</p>
-                    <p>Description:</p>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
