@@ -52,26 +52,13 @@
     </div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
+            {% for i in 1..4 %}
             <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
                 <div>
                     {% include '/component/_card.html.twig' %}
                 </div>
             </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    {% include '/component/_card.html.twig' %}
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    {% include '/component/_card.html.twig' %}
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    {% include '/component/_card.html.twig' %}
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -80,26 +67,13 @@
     </div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
+            {% for i in 20..23 %}
             <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
                 <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
+                    <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'">
                 </div>
             </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -108,26 +82,13 @@
     </div>
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
+            {% for j in 30..33 %}
             <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
                 <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
+                    <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'">
                 </div>
             </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
-            <div class="col-xl-2 col-4 d-flex card-container justify-content-center">
-                <div>
-                    <img src="https://via.placeholder.com/400x200.jpg" alt='événement organisé'">
-                </div>
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
