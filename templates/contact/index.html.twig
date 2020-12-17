@@ -3,5 +3,43 @@
 {% block title %}Contact{% endblock %}
 
 {% block contact %}
-<div class="divbody"><h1 class="title-contact">Contactez-moi</h1></div>
+    <div class="background-image">
+        <div class="divbody"><h1 class="title-contact">Contactez-moi <i class="far fa-envelope"></i></h1></div>
+        <div class="contact-form">
+        <section class="contact-diet">
+            <ul class="ul-contact">
+                <li class="item-contact">
+                    Alexandra Jacob
+                </li>
+                <li class="item-contact">
+                    Rue des diéts - 33000 Bordeaux
+                </li>
+                <li class="item-contact">
+                    06.07.09.08.10
+                </li>
+                <li class="item-contact">
+                    contact@alexandra-jacob-diet.fr
+                </li>
+                <li class="item-contact">
+                    www.alexandra-jacob-dieteticienne.fr
+                </li>
+            </ul>
+        </section>
+        <div class="div-form">
+            <form class="form">
+                <label for="name" class="label-form">Nom</label>
+                <input type="text" name="name" class="input-contact">
+                <label for="firstname" class="label-form">Prénom</label>
+                <input type="text" name="firstname" class="input-contact">
+                <label for="mail" class="label-form">Email</label>
+                <input type="email" name="mail" class="input-contact">
+                <label for="phone" class="label-form">Téléphone</label>
+                <input type="number" name="phone" class="input-contact">
+                <label for="message" class="label-form">Message</label>
+                <textarea name="message" class="text-area"></textarea>
+                <button class="btn btn-md btn-rounded text-white btn-contact">Envoyer</button>
+            </form>
+        </div>
+        </div>
+    </div>
 {% endblock %}
