@@ -1,0 +1,87 @@
+.profile-picture{
+  max-height: 400px;
+  width: auto;
+}
+
+.profile-title-space{
+  margin-left: 7em;
+}
+
+.profile-button-container{
+  margin-bottom: 3em;
+}
+
+.profile-button{
+  background-color: $main-green;
+  color: white;
+  border-radius: 500px;
+  margin:1rem;
+  padding:5px 16px;
+  transition: 0.5s;
+  &:hover{
+    font-weight: bold;
+    background-color: #18e48d;
+  }
+  a {
+    text-decoration: none;
+    color: $main-white;
+    font-size: 26px;
+  }
+}
+
+.profile-edit{
+  p{
+    margin-bottom: 0;
+  }
+}
+
+.profile-informations{
+  border-left: solid 5px $main-black;
+  padding-left: 1rem;
+  p{
+    margin: 4px 0;
+    font-size: 22px;
+  }
+}
+
+.profile-separation {
+  width: 80%;
+  border-bottom: solid 5px $main-blue;
+  margin: 5em 0;
+}
+
+.green-string {
+  color:$main-green;
+}
+
+label {
+  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+input, textarea, select {
+  border-radius: 500px;
+  border: solid 2px $main-green;
+}
+
+textarea {
+  border-radius: 15px;
+}
+
+button{
+  all: unset;
+  background-color: $main-green;
+  color: $main-white;
+  border-radius: 500px;
+  margin-top: 7px;
+  padding: 5px 20px;
+}
+
+@media screen and (max-width: 992px) {
+  .profile-main-forms {
+    margin:3px;
+  }
+}
+
+
