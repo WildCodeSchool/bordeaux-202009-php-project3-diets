@@ -17,7 +17,8 @@
 }
 
 .home-slogan {
-  font-size: 40px;
+  font-size: 3.5rem;
+  padding-bottom: 1.5em;
 }
 
 .home-btn-container{
@@ -32,7 +33,7 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
-  font-size: $fs-h2;
+  font-size: $fs-h4;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -51,7 +52,7 @@
   margin: 10px;
   padding: 15px 45px;
   text-align: center;
-  font-size: $fs-h2;
+  font-size: $fs-h4;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -89,11 +90,11 @@
 }
 
 .home-form-title {
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .home-form {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 .container-table {
@@ -118,27 +119,9 @@
   }
 }
 
-@media screen and (max-width: 992px) {
-  .container {
-    max-width: 100%;
-  }
+.home-page {
   .row {
-    display: block;
-  }
-  .container-table .row {
-    margin-top: 80px;
-  }
-  .home-form-title {
-    font-size: 60px;
-  }
-
-  .home-form {
-    font-size: 50px;
-  }
-
-  .home-form-lg {
-    max-width: 100%;
-    justify-content: center;
+    margin: 0;
   }
 }
 
@@ -149,26 +132,140 @@
   right: 6vh;
 }
 
-@media screen and (min-width: 972px) and (max-width: 1199px) {
-  .home-main-container{
-    height: 95vh;
-  }
-}
+@media screen and (max-width: 1199px) {
+  .home-page{
+    .home-main-container{
+      height: 95vh;
+    }
+    .container {
+      max-width: 100%;
+    }
+    .row {
+      display: block;
+    }
+    .container-table .row {
+      margin-top: 80px;
+    }
+    .home-form-title {
+      font-size: 60px;
+    }
 
-@media screen and (min-width: 972px) and (max-width: 1199px) {
-  .home-logo {
-    font-size: 8rem;
+    .home-logo {
+      font-size: 3.5rem;
+    }
+
+    .home-slogan {
+      font-size: 2rem;
+      padding-bottom: 0.5em;
+    }
+
+    .home-form {
+      font-size: 50px;
+    }
+
+    .home-form-lg {
+      max-width: 100%;
+      justify-content: center;
+    }
+
+    .home-btn-main,
+    .home-btn-second {
+      padding: 8px 10px;
+      margin: 30px 10px;
+    }
+
   }
 }
 
 @media screen and (max-width: 972px) {
-  .home-main-container {
-    height: 93vh;
+  .home-page {
+    .home-main-container {
+      height: 93vh;
+    }
+    .home-logo {
+      font-size: 3rem;
+    }
+    .home-slogan {
+      font-size: 2rem;
+      padding-bottom: 0.1em;
+    }
+    .visit-link{
+      margin-top: 1vh;
+    }
+    .row {
+      margin-top: 0;
+    }
+    .col-8 {
+      flex: auto;
+      max-width: 100%;
+    }
+    .visit-link h2 {
+      font-size: $fs-h3;
+    }
+    .fa-4x {
+      font-size: 3em;
+    }
   }
-  .visit-link{
-    margin-top: 1vh;
+}
+
+@media screen and (max-width: 375px) {
+  .home-page {
+    .fixed-bottom {
+      bottom: 15px;
+    }
+    .home-logo {
+      font-size: 2.5rem;
+    }
+    .home-slogan {
+      font-size: 1.5rem;
+      padding-bottom: 0.1em;
+    }
+    .home-btn-main{
+
+      font-size: 1em;
+    }
+    .fa-4x {
+      font-size: 2em;
+    }
+    .visit-link h2 {
+      font-size: $fs-h4;
+    }
+    .visit-link {
+      justify-content: center;
+      position: static;
+      margin-top: 15px;
+    }
   }
-  .row {
-    margin-top: 0;
+}
+
+@media screen and (max-height: 375px) {
+  .home-page {
+    .col-8 {
+      flex: auto;
+      max-width: 100%;
+    }
+    .row {
+      .row {
+        display: flex;
+      }
+    }
+    .home-btn-main,
+    .home-btn-second {
+      padding: 8px 10px;
+      margin: 10px 30px;
+    }
+  }
+}
+
+@media screen and (max-height: 300px) {
+  .home-page {
+    .col-8 {
+      flex: auto;
+      max-width: 100%;
+    }
+    .home-slogan {
+      font-size: 1.5rem;
+      padding-bottom: 0.1em;
+    }
   }
 }
