@@ -7,10 +7,6 @@
   margin-left: 7em;
 }
 
-.profile-button-container{
-  margin-bottom: 3em;
-}
-
 .profile-button{
   background-color: $main-green;
   color: white;
@@ -44,6 +40,13 @@
   }
 }
 
+.profile-main{
+  p{
+    margin: 4px 0;
+    font-size: 22px;
+  }
+}
+
 .profile-separation {
   width: 80%;
   border-bottom: solid 5px $main-blue;
@@ -54,22 +57,24 @@
   color:$main-green;
 }
 
-label {
-  margin-bottom: 0.2rem;
-  margin-top: 0.5rem;
-  font-weight: bold;
+
+
+.profile-main-forms {
+  input, textarea, select {
+    border-radius: 500px;
+    border: solid 2px $main-green;
+  }
+  textarea {
+    border-radius: 15px;
+  }
+  label {
+    margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
+    font-weight: bold;
+  }
 }
 
-input, textarea, select {
-  border-radius: 500px;
-  border: solid 2px $main-green;
-}
-
-textarea {
-  border-radius: 15px;
-}
-
-button{
+.validate-button{
   all: unset;
   background-color: $main-green;
   color: $main-white;
@@ -78,10 +83,28 @@ button{
   padding: 5px 20px;
 }
 
+
+
 @media screen and (max-width: 992px) {
   .profile-main-forms {
     margin:3px;
   }
 }
 
+@media screen and (max-width: 1200px) {
+  .profile-informations {
+    border-left: initial;
+    margin-top: 2em;
+  }
+  .profile-date-hour{
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 440px) {
+  .flex {
+    display: flex;
+  }
+}
 
