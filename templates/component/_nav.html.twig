@@ -1,7 +1,7 @@
 {% block header %}
     <!--Navbar-->
 
-    <nav class="navbar navbar-expand-md ">
+    <nav class="navbar navbar-expand-md shadow-sm p-3 mb-5 bg-white rounded">
 
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -19,25 +19,27 @@
             <div class="collapse navbar-collapse mb-1" id="basicExampleNav">
 
                 <!-- Links -->
-                <ul class="navbar-nav">
+                <div class="contain-logo">
+                        <img src="../build/images/logo.69395845.png" alt="logo" class="logo-design">
+                    <div class="logo-title">
+                        <a class="navbar-title" href="{{ path('ressource_index') }}">Nous les diets</a>
+                    </div>
+                </div>
+
+
+                <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item">
                         <a class="nav-link" href="#">Evènements</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Forum</a>
                     </li>
-                </ul>
-                <div class="logo-title">
-                    <a class="navbar-title" href="#">Nous les diets</a>
-                </div>
-
-                <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item">
-                        <a href="#!" class="nav-link">Services </a>
+                        <a href="{{ path('service_index') }}" class="nav-link">Services </a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#!">Mon espace</a>
+                        <a class="nav-link" href="{{ path('profile_edit') }}">Mon espace</a>
                     </li>
                 </ul>
                 <ul class="link-footer">
@@ -45,7 +47,7 @@
                         <a class="nav-link" href="#">Admin</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">A propos</a>

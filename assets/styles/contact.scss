@@ -1,0 +1,153 @@
+.divbody{
+  padding-top: 15vh;
+  text-align: center;
+}
+.title-contact{
+  text-align: left;
+  color: $main-green;
+  font-size: 55px;
+  margin-left: 40px;
+
+
+
+}
+
+.fa-envelope{
+  font-size:4rem;
+  color:$main-orange;
+  padding-left:476px;
+}
+
+.contact-diet{
+  background-color: $main-black;
+  color:$main-orange;
+  width: 500px;
+  text-align: center;
+  height: 200px;
+  border-radius:25px;
+  margin-top: 8vh;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 1);
+  font-family: $police-text;
+  font-weight: bold;
+}
+
+.item-contact{
+  list-style: none;
+}
+
+.contact-form{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10vh;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div-form{
+  background-color: $main-black;
+  width: 500px;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 1);
+}
+.ul-contact{
+  padding-left: 0;
+  padding-top: 4vh;
+}
+
+.input-contact{
+  width: 300px;
+  border-radius: 10px;
+}
+
+.text-area{
+  width:300px;
+  height:150px;
+  border-radius: 10px;
+}
+
+.btn-contact{
+  width:100px;
+  margin-left: 200px;
+  margin-top:10px;
+  font-weight: bold;
+}
+
+.label-form{
+  font-family: $police-text;
+  color:$main-orange;
+  font-weight: bold;
+  margin-bottom: 0px;
+  margin-top: 8px;
+}
+@media screen and (min-width: 1025px){
+  .title-contact{
+    border-bottom-style: ridge;
+    border-bottom-color: #09b175;
+    border-bottom-width: 2px;
+    width: 900px;
+
+
+  }
+}
+@media screen and (max-width: 1024px){
+  .contact-form {
+    flex-direction: column;
+    margin-left: 19vh;
+    margin-top: 0;
+    height: 800px;
+    padding-bottom: 5vh;
+  }
+  .div-form{
+    margin-top: 6vh;
+  }
+  .title-contact{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+  }
+  .fa-envelope{
+    padding-left: 0;
+  }
+  .ul-contact{
+    margin-bottom: 4vh;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .contact-form {
+    flex-direction: column;
+    margin-left: 14vh;
+    margin-top: 0;
+    height: 750px;
+  }
+  .div-form{
+    margin-top: 6vh;
+  }
+  .title-contact{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-left: 0;
+  }
+  .fa-envelope{
+    padding-left: 0;
+  }
+  .ul-contact{
+    margin-bottom: 4vh;
+  }
+}
+
+@media screen and (max-width: 540px){
+  .contact-form{
+    margin-left: 2.5vh;
+  }
+}

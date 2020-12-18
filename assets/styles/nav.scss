@@ -1,19 +1,34 @@
 .navbar{
-  background-color: $main-green;
+  background-color: $main-white;
+  position: fixed;
+  height: 10vh;
+  width: 100%;
+  z-index: 99;
 }
 
+.logo-design {
+  width: 15%;
+  zoom: normal;
+}
 
 .logo-title{
-  width:100%;
   height:55px;
   text-align: center;
+  padding-top: 1vh;
 }
+
+.contain-logo{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .logo-title .navbar-title{
-  color: $main-white;
+  color: $main-green;
   margin-right: 0;
-  font-size: 2.3rem;
+  font-size: 2.7rem;
   font-weight: bold;
-  text-shadow: 1px 1px 2px $main-blue;
+  text-shadow: 1px 1px 2px $main-black;
 
 }
 
@@ -21,22 +36,20 @@
   font-family: $police-logo;
 }
 
-.navbar-title:hover{
-  text-decoration: none;
-  color: $main-white;
+.logo-title .navbar-title:hover{
+  color: $main-orange;
   font-weight: bold;
-  text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
-  font-size: 2.5rem;
+  text-decoration: none;
 }
 
 .nav-item .nav-link{
-  color: $main-white;
+  color: $main-black;
   font-family: $police-text;
   font-weight: bold;
 }
 
 .nav-link:hover{
-  text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue
+  color:$main-green;
 }
 
 .nav-user{
@@ -48,12 +61,13 @@
   margin-left: 0;
 }
 .navbar-nav{
-  width:100%;
+  width:50%;
   display:flex;
   justify-content: space-around;
 }
+
 .navbar-toggler-icon{
-  color:#fff;
+  color:$main-black;
   font-size:30px;
 }
 .navbar-toggler:focus{
@@ -65,17 +79,51 @@ button .navbar-toggler-icon {
 
 }
 
-
-@media screen and (min-width: 768px){
-.logo-mobile{
-  display:none;
-}
+@media screen and (min-width:768px){
+  .logo-mobile{
+    display:none;
+  }
   .user-mobile{
     display: none;
   }
 
   .link-footer{
     display:none;
+  }
+}
+
+@media screen and (max-width: 1024px){
+  .logo-mobile{
+    display:none;
+  }
+  .user-mobile{
+    display: none;
+  }
+
+  .link-footer{
+    display:none;
+  }
+  .navbar-nav{
+    margin-left: 0;
+  }
+  .logo-title{
+    padding-left: 2vh;
+    padding-top: 0.7vh;
+  }
+  .contain-logo{
+    justify-content: right;
+  }
+}
+
+@media screen and (max-width: 768px){
+  .contain-logo {
+    justify-content: right;
+    padding-top: 0;
+    width: 345px;
+  }
+  .logo-title{
+    padding-left: 2vh;
+    padding-top: 0vh;
   }
 }
 
@@ -92,11 +140,11 @@ button .navbar-toggler-icon {
     margin-left: 20px;
   }
   .logo-mobile .navbar-title{
-    color: $main-white;
+    color: $main-black;
     margin-right: 0;
     font-size: 2.3rem;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue;
+
   }
   .logo-mobile{
     height:55px;
@@ -104,11 +152,11 @@ button .navbar-toggler-icon {
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-white;
+    color: $main-green;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
     font-size: 2.5rem;
   }
+
   .nav-item{
     list-style: none;
   }
@@ -141,11 +189,10 @@ button .navbar-toggler-icon {
     margin-left: 20px;
   }
   .logo-mobile .navbar-title{
-    color: $main-white;
+    color: $main-black;
     margin-right: 0;
     font-size: 2.3rem;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue;
   }
   .logo-mobile{
     height:55px;
@@ -153,9 +200,8 @@ button .navbar-toggler-icon {
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-white;
+    color: $main-green;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
     font-size: 2.5rem;
   }
   .nav-item{
@@ -177,14 +223,14 @@ button .navbar-toggler-icon {
    }
    .navbar-toggler{
      padding: 0.25rem 0.10rem;
+     background-color: transparentize(white, 0.7);
    }
    .logo-mobile .navbar-title{
      margin-left: -15px;
-     color: $main-white;
+     color: $main-black;
      margin-right: 0;
      font-size: 2.3rem;
      font-weight: bold;
-     text-shadow: 1px 1px 2px $main-blue;
    }
    .fa-user{
      padding-right: 5px;
@@ -208,9 +254,8 @@ button .navbar-toggler-icon {
    }
    .navbar-title:hover{
      text-decoration: none;
-     color: $main-white;
+     color: $main-green;
      font-weight: bold;
-     text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
      font-size: 2.5rem;
    }
    .nav-item{
@@ -244,11 +289,10 @@ button .navbar-toggler-icon {
     margin-left: 0px;
   }
   .logo-mobile .navbar-title{
-    color: $main-white;
+    color: $main-black;
     margin-right: 0;
     font-size: 2.1rem;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue;
   }
   .logo-mobile{
     height:55px;
@@ -256,9 +300,8 @@ button .navbar-toggler-icon {
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-white;
+    color: $main-green;
     font-weight: bold;
-    text-shadow: 1px 1px 2px $main-blue, 0 0 1em $main-white, 0 0 0.2em $main-blue;
     font-size: 2.5rem;
   }
   .nav-item{
