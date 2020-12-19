@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ResourceRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Resource
 {
@@ -177,5 +178,22 @@ class Resource
         $this->resourceFormat = $resourceFormat;
 
         return $this;
+    }
+
+    /**
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+    /**
+     * Gets triggered only on update
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
     }
 }
