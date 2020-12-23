@@ -1,8 +1,66 @@
 .admin-page {
+  .page-title {
+    margin-top: 2.5em;
+    margin-bottom: 0;
+  }
+
   .users-list {
     height: 200px;
     overflow-y: scroll;
   }
 
+  .container {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .admin-count {
+    display: flex;
+    font-size: $fs-h4;
+    padding: 0 1em;
+    margin: 0 0 0.5em 0;
+    border: solid;
+    border-radius: 0.5em;
+    border-width: 0.1em 0.2em;
+    border-color: $main-green;
+  }
+
+  .admin-count-title {
+    display: flex;
+    background-color: $main-green;
+    font-size: $fs-h5;
+    padding: 0.1em 1em;
+    border: solid;
+    border-radius: 1em;
+    border-color: $main-green;
+    margin-bottom: 2em;
+  }
+
+  .user-link {
+    font-size: $fs-h4;
+    color: $main-black;
+    &:hover {
+      color: $main-green;
+      text-decoration-color: $main-orange;
+    }
+  }
+
+  .delete-btn {
+    align-items: center;
+    color: $main-orange;
+    &:hover {
+      color: $main-red;
+    }
+  }
+
+  button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+  }
 }
 
