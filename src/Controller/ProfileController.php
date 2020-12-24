@@ -39,7 +39,7 @@ class ProfileController extends AbstractController
         }
         /*$service = $this->getDoctrine()
             ->getRepository(Service::class)
-            ->findBy('user' => 'id'));*/
+            ->findBy('user' => 'id');*/
 
         return $this->render('profile/edit.html.twig', [
             'formService' => $formService->createView(),
