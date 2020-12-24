@@ -31,7 +31,7 @@
 .home-btn-main {
   background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
   margin: 10px;
-  padding: 15px 45px;
+  padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
   text-transform: uppercase;
@@ -50,7 +50,7 @@
 .home-btn-second {
   background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
   margin: 10px;
-  padding: 15px 45px;
+  padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
   text-transform: uppercase;
@@ -89,14 +89,6 @@
   color: $main-green;
 }
 
-.home-form-title {
-  font-size: 40px;
-}
-
-.home-form {
-  font-size: 25px;
-}
-
 .container-table {
   height: 100%;
   display: table;
@@ -107,22 +99,46 @@
   vertical-align: middle;
 }
 
-.card-radius {
-  background-color: transparentize($bg-navbar, 0.3);
-  border-radius: 25px;
-}
-
-.non_underline {
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
-  }
-}
 
 .home-page {
   .row {
+    justify-content: center;
     margin: 0;
   }
+
+  .home-form-title {
+    font-family: $police-logo;
+    font-size: $fs-h3;
+    color: $main-black;
+    border-bottom: solid;
+    border-bottom-color: $main-orange;
+  }
+
+  .home-form {
+    font-size: $fs-h4;
+  }
+
+  .card-radius {
+    background-color: transparentize($bg-navbar, 0.3);
+    border-radius: 25px;
+  }
+
+  .underline {
+    color: $main-grey;
+    border-bottom: solid;
+    border-bottom-color: $main-orange;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .non_underline {
+    color: $main-grey;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
 }
 
 .visit-link {
@@ -134,6 +150,9 @@
 
 @media screen and (max-width: 1199px) {
   .home-page{
+    display: grid;
+    align-items: center;
+
     .home-main-container{
       height: 95vh;
     }
@@ -147,7 +166,7 @@
       margin-top: 80px;
     }
     .home-form-title {
-      font-size: 60px;
+      font-size: $fs-h3;
     }
 
     .home-logo {
@@ -160,7 +179,7 @@
     }
 
     .home-form {
-      font-size: 50px;
+      font-size: $fs-h4;
     }
 
     .home-form-lg {
@@ -173,7 +192,6 @@
       padding: 8px 10px;
       margin: 30px 10px;
     }
-
   }
 }
 
@@ -195,15 +213,29 @@
     .row {
       margin-top: 0;
     }
-    .col-8 {
+    .p-3 {
+      padding: 0;
+    }
+
+    .col-8,
+    .col-6 {
       flex: auto;
       max-width: 100%;
     }
+
     .visit-link h2 {
       font-size: $fs-h3;
     }
     .fa-4x {
       font-size: 3em;
+    }
+
+    .home-form-title {
+      font-size: $fs-h3;
+    }
+
+    .home-form {
+      font-size: $fs-h4;
     }
   }
 }
@@ -221,7 +253,6 @@
       padding-bottom: 0.1em;
     }
     .home-btn-main{
-
       font-size: 1em;
     }
     .fa-4x {
@@ -234,6 +265,11 @@
       justify-content: center;
       position: static;
       margin-top: 15px;
+    }
+
+    .col-5,
+    .non_underline {
+      justify-content: center;
     }
   }
 }
