@@ -1,37 +1,43 @@
-.knowledge-img {
-  max-width: 500px;
-  height: auto;
-}
+.knowledge-page {
+  .knowledge-img {
+    max-width: 500px;
+    height: auto;
+  }
 
-.knowledge-link {
-  text-decoration: none;
-  color: $main-black;
-}
+  .knowledge-link {
+    text-decoration: none;
+    color: $main-black;
+  }
 
-.knowledge-link:hover {
-  text-decoration: none;
-  color: $main-green;
+  .knowledge-link:hover {
+    text-decoration: none;
+    color: $main-green;
+  }
 }
 
 @media screen and (max-width: 1200px) {
-  .col-5 {
-    flex: none;
-    max-width: none;
-  }
+  .knowledge-page {
+    .col-5 {
+      flex: none;
+      max-width: none;
+    }
 
-  .knowledge-img {
-    justify-content: center;
+    .knowledge-img {
+      justify-content: center;
+    }
   }
 }
 
 @media screen and (max-width: 768px) {
-  .col-5 {
-    flex: none;
-    max-width: none;
-  }
+  .knowledge-page {
+    .col-5 {
+      flex: none;
+      max-width: none;
+    }
 
-  .knowledge-img {
-    max-width: 100%;
-    height: auto;
+    .knowledge-img {
+      max-width: 100%;
+      height: auto;
+    }
   }
 }
