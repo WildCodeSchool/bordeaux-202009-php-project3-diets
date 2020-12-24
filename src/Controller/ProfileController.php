@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,12 +13,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show", name="show")
+     * @Route("/show/{id}", methods={"GET"}, name="show")
+     * @return Response
      */
-    public function show(): Response
+    public function show(User $user): Response
     {
+        if (!$user) {
+            return $this->redirectToRoute('ressource');
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        //dd($user);
         return $this->render('profile/show.html.twig', [
-            '' => '',
+            'user_infos' => $userInfos,
         ]);
     }
 

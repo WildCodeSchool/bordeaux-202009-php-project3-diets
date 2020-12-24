@@ -30,7 +30,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'MyPassword_' . $i));
             $user->setEmail($faker->email);
             $user->setAddress($faker->address);
-            $user->setPhone($faker->numberBetween(100, 500));
+            $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
             $user->addExpertise($this->getReference('expertise_' . rand(1,50)));
             if ($i % 2 === 1) {
