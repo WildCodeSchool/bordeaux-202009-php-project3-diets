@@ -69,7 +69,7 @@
         {% for i in 20..23 %}
             <div class="card-container justify-content-center">
                 <div class="overflow-hidden">
-                    <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'">
+                    <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'>
                 </div>
             </div>
         {% endfor %}
@@ -82,7 +82,7 @@
         {% for j in 30..33 %}
             <div class="card-container justify-content-center">
                 <div class="overflow-hidden">
-                    <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'">
+                    <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'>
                 </div>
             </div>
         {% endfor %}
@@ -150,26 +150,11 @@
             </div>
         </div>
         <div class="col-7 profile-main-forms">
-            <div>
-                <div class="d-flex flex-column">
-                    <label for="title" class="font-weight-bold">Titre</label>
-                    <input type="text" id="title">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="link" class="font-weight-bold">Lien</label>
-                    <input type="text" id="link">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="price" class="font-weight-bold">Prix</label>
-                    <input type="text" id="price">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="description" class="font-weight-bold">Description</label>
-                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
-                </div>
-                <div class="d-flex flex-row-reverse">
-                    <button class="validate-button">Valider</button>
-                </div>
+            <div class="form-service">
+                {{ form_start(formService) }}
+                {{ form_widget(formService) }}
+                <button class="btn">{{ button_label|default('Valider') }}</button>
+                {{ form_end(formService) }}
             </div>
         </div>
     </div>
@@ -246,7 +231,7 @@
 
 
 <div class="d-flex flex-column align-items-start">
-    <div style="height: 20"></div>
+    <div style="height:20px"></div>
 </div>
 
 

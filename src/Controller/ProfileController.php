@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
+     * @Route("/show/{id}", methods={"GET"}, name="show")
      * @return Response
      */
     public function show(User $user): Response
@@ -28,7 +29,6 @@ class ProfileController extends AbstractController
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
         }
-        //dd($user);
         return $this->render('profile/show.html.twig', [
             'user_infos' => $userInfos,
         ]);
@@ -49,7 +49,6 @@ class ProfileController extends AbstractController
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
         }
-        //dd($user);
         return $this->render('profile/edit.html.twig', [
             'user_infos' => $userInfos,
         ]);
