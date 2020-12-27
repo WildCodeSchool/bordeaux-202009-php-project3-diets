@@ -6,36 +6,55 @@
 
 {% block body_home %}
     <div class="vh-100 vw-100 home-full-screen">
-        <div class="container-fluid container-table">
+        <div class="home-page container-fluid container-table">
             <div class="row vertical-center-row">
-                <div class="card col-md-8 m-auto card-radius">
-                <div class="-align-right mt-3">
-                    <div class="close">
-                        <a href="/"><i class="far fa-times-circle"></i></a>
-                    </div>
+                <div class="card col-6 m-auto card-radius">
+                    <div>
+                        <div class="-align-right mt-2">
+                            <div class="close">
+                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
+                            </div>
 
-                </div>
-                <div class="row justify-content-center">
-                    <div class="text-center p-3 card-title home-form-title">Je me connecte :</div>
-                </div>
-                <div class="row">
-                    <div class="text-center px-4 home-form">Adresse e-mail :</div>
-                    <div></div>
-                </div>
-                <div class="row">
-                    <div class="text-center p-4 home-form">Mot de passe :</div>
-                    <div></div>
-                </div>
-                <div class="row justify-content-between">
-                    <div class="col-md-4 p-3 home-form-lg">
-                        <a href="/register" class="non_underline home-form">Je ne suis pas encore inscrit</a>
-                    </div>
-                    <div class="col-md-6 text-center home-form-lg">
-                        <div class="home-btn-second">
-                            <a href="#" class="non_underline">Valider</a>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="text-center p-1 card-title home-form-title">Je me connecte :</div>
                         </div>
                     </div>
-                </div>
+                    <form method="post">
+                            {% if error %}
+                                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                            {% endif %}
+                        <div class="row">
+                            {% if app.user %}
+                                <div class="row">
+                                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                                </div>
+                            {% endif %}
+                            <label for="inputEmail" class="text-center px-1 home-form">Adresse e-mail :</label>
+                            <div>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label for="inputPassword" class="text-center p-1 home-form">Mot de passe :</label>
+                            <div>
+                                <input type="password" name="password" id="inputPassword" class="form-control" required>
+                            </div>
+                            <input type="hidden" name="_csrf_token"
+                                   value="{{ csrf_token('authenticate') }}">
+                        </div>
+                        <div class="row justify-content-between pt-3">
+                            <div class="col-5 p-3 ml-2 home-form-lg">
+                                <a href="{{ path('register') }}" class="underline home-form">Je ne suis pas encore inscrit</a>
+                            </div>
+                            <div class="col-md-6 text-center home-form-lg">
+                                <div class="home-btn-second">
+                                    <button type="submit">Valider</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

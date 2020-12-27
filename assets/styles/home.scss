@@ -17,7 +17,8 @@
 }
 
 .home-slogan {
-  font-size: 40px;
+  font-size: 3.5rem;
+  padding-bottom: 1.5em;
 }
 
 .home-btn-container{
@@ -30,9 +31,9 @@
 .home-btn-main {
   background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
   margin: 10px;
-  padding: 15px 45px;
+  padding: 10px 30px;
   text-align: center;
-  font-size: $fs-h2;
+  font-size: $fs-h4;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -49,9 +50,9 @@
 .home-btn-second {
   background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
   margin: 10px;
-  padding: 15px 45px;
+  padding: 10px 30px;
   text-align: center;
-  font-size: $fs-h2;
+  font-size: $fs-h4;
   text-transform: uppercase;
   transition: 0.5s;
   background-size: 200% auto;
@@ -88,14 +89,6 @@
   color: $main-green;
 }
 
-.home-form-title {
-  font-size: 50px;
-}
-
-.home-form {
-  font-size: 30px;
-}
-
 .container-table {
   height: 100%;
   display: table;
@@ -106,40 +99,46 @@
   vertical-align: middle;
 }
 
-.card-radius {
-  background-color: transparentize($bg-navbar, 0.3);
-  border-radius: 25px;
-}
 
-.non_underline {
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .container {
-    max-width: 100%;
-  }
+.home-page {
   .row {
-    display: block;
+    justify-content: center;
+    margin: 0;
   }
-  .container-table .row {
-    margin-top: 80px;
-  }
+
   .home-form-title {
-    font-size: 60px;
+    font-family: $police-logo;
+    font-size: $fs-h3;
+    color: $main-black;
+    border-bottom: solid;
+    border-bottom-color: $main-orange;
   }
 
   .home-form {
-    font-size: 50px;
+    font-size: $fs-h4;
   }
 
-  .home-form-lg {
-    max-width: 100%;
-    justify-content: center;
+  .card-radius {
+    background-color: transparentize($bg-navbar, 0.3);
+    border-radius: 25px;
   }
+
+  .underline {
+    color: $main-grey;
+    border-bottom: solid;
+    border-bottom-color: $main-orange;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .non_underline {
+    color: $main-grey;
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
 }
 
 .visit-link {
@@ -149,26 +148,160 @@
   right: 6vh;
 }
 
-@media screen and (min-width: 972px) and (max-width: 1199px) {
-  .home-main-container{
-    height: 95vh;
-  }
-}
+@media screen and (max-width: 1199px) {
+  .home-page{
+    display: grid;
+    align-items: center;
 
-@media screen and (min-width: 972px) and (max-width: 1199px) {
-  .home-logo {
-    font-size: 8rem;
+    .home-main-container{
+      height: 95vh;
+    }
+    .container {
+      max-width: 100%;
+    }
+    .row {
+      display: block;
+    }
+    .container-table .row {
+      margin-top: 80px;
+    }
+    .home-form-title {
+      font-size: $fs-h3;
+    }
+
+    .home-logo {
+      font-size: 3.5rem;
+    }
+
+    .home-slogan {
+      font-size: 2rem;
+      padding-bottom: 0.5em;
+    }
+
+    .home-form {
+      font-size: $fs-h4;
+    }
+
+    .home-form-lg {
+      max-width: 100%;
+      justify-content: center;
+    }
+
+    .home-btn-main,
+    .home-btn-second {
+      padding: 8px 10px;
+      margin: 30px 10px;
+    }
   }
 }
 
 @media screen and (max-width: 972px) {
-  .home-main-container {
-    height: 93vh;
+  .home-page {
+    .home-main-container {
+      height: 93vh;
+    }
+    .home-logo {
+      font-size: 3rem;
+    }
+    .home-slogan {
+      font-size: 2rem;
+      padding-bottom: 0.1em;
+    }
+    .visit-link{
+      margin-top: 1vh;
+    }
+    .row {
+      margin-top: 0;
+    }
+    .p-3 {
+      padding: 0;
+    }
+
+    .col-8,
+    .col-6 {
+      flex: auto;
+      max-width: 100%;
+    }
+
+    .visit-link h2 {
+      font-size: $fs-h3;
+    }
+    .fa-4x {
+      font-size: 3em;
+    }
+
+    .home-form-title {
+      font-size: $fs-h3;
+    }
+
+    .home-form {
+      font-size: $fs-h4;
+    }
   }
-  .visit-link{
-    margin-top: 1vh;
+}
+
+@media screen and (max-width: 375px) {
+  .home-page {
+    .fixed-bottom {
+      bottom: 15px;
+    }
+    .home-logo {
+      font-size: 2.5rem;
+    }
+    .home-slogan {
+      font-size: 1.5rem;
+      padding-bottom: 0.1em;
+    }
+    .home-btn-main{
+      font-size: 1em;
+    }
+    .fa-4x {
+      font-size: 2em;
+    }
+    .visit-link h2 {
+      font-size: $fs-h4;
+    }
+    .visit-link {
+      justify-content: center;
+      position: static;
+      margin-top: 15px;
+    }
+
+    .col-5,
+    .non_underline {
+      justify-content: center;
+    }
   }
-  .row {
-    margin-top: 0;
+}
+
+@media screen and (max-height: 375px) {
+  .home-page {
+    .col-8 {
+      flex: auto;
+      max-width: 100%;
+    }
+    .row {
+      .row {
+        display: flex;
+      }
+    }
+    .home-btn-main,
+    .home-btn-second {
+      padding: 8px 10px;
+      margin: 10px 30px;
+    }
+  }
+}
+
+@media screen and (max-height: 300px) {
+  .home-page {
+    .col-8 {
+      flex: auto;
+      max-width: 100%;
+    }
+    .home-slogan {
+      font-size: 1.5rem;
+      padding-bottom: 0.1em;
+    }
   }
 }
