@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,22 +13,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show", name="show")
+     *
+     * @Route("/show/{id}", method={"GET"}, name="show")
+     * @return Response
      */
-    public function show(): Response
+    public function show(User $user): Response
     {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
         return $this->render('profile/show.html.twig', [
-            '' => '',
+            'user' => $userInfos,
         ]);
     }
 
     /**
-     * @Route("/edit", name="edit")
+     *
+     * @Route("/edit/{id}", method={"GET"}, name="edit")
      */
-    public function edit(): Response
+    public function edit(User $user): Response
     {
-        return $this->render('profile/edit.html.twig', [
-            '' => '',
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No user with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        return $this->render('profile/show.html.twig', [
+            'user' => $userInfos,
         ]);
     }
 }

@@ -12,12 +12,16 @@
         </div>
         <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
             <div class="profile-informations">
-                <h3> Prénom Nom </h3>
-                <p>Spécilisation: Diététicienne</p>
-                <p>8 rue de Paris, 33000 BORDEAUX</p>
-                <p>moi@gmail.com</p>
-                <p>0102030405</p>
-                <p>Site internet : moi@moi.fr</p>
+                <h3> {{ user.firstname }} {{ user.lastname }} </h3>
+                <p>Spécilisation:
+                    {% for expertise in user.expertises %}
+                        {{ expertise.name }} .
+                    {% endfor %}
+                </p>
+                <p>{{ user.address }}</p>
+                <p>{{user.email}}</p>
+                <p>{{user.phone}}</p>
+                <p>{{user.website}}</p>
             </div>
         </div>
     </div>
