@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,6 +37,7 @@ class ProfileController extends AbstractController
     /**
      *
      * @Route("/edit/{id}", method={"GET"}, name="edit")
+     * @return Response
      */
     public function edit(User $user): Response
     {
