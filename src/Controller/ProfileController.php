@@ -31,9 +31,15 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
+            $expertises = "";
+            foreach ($userInfos[0]->getExpertise() as $expertise) {
+                $expertises = $expertises . $expertise->getname() . ', ';
+            }
+            $expertises = substr($expertises, 0, -2);
         }
         return $this->render('profile/show.html.twig', [
             'user_infos' => $userInfos,
+            'expertises' => $expertises,
         ]);
     }
 
@@ -51,6 +57,11 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
+            $expertises = "";
+            foreach ($userInfos[0]->getExpertise() as $expertise) {
+                $expertises = $expertises . $expertise->getname() . ', ';
+            }
+            $expertises = substr($expertises, 0, -2);
         }
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
@@ -67,6 +78,7 @@ class ProfileController extends AbstractController
             'formService' => $formService->createView(),
             'services' => $service,
             'user_infos' => $userInfos,
+            'expertises' => $expertises,
         ]);
     }
 }

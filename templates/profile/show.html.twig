@@ -14,15 +14,11 @@
         <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
             <div class="profile-informations">
                 <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
-                <p> Spécilisation:
-                    {% for expertise in infos.expertise %}
-                        {{ expertise.name }}.
-                    {% endfor %}
-                </p>
+                <p> Spécilisation: {{ expertises }} </p>
                 <p> {{ infos.address }} </p>
                 <p> {{ infos.email }} </p>
                 <p> {{ infos.phone }} </p>
-                <p>Site internet : {{ infos.website }} </p>
+                <p> Site internet : {{ infos.website }} </p>
             </div>
         </div>
     </div>
