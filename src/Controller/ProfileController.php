@@ -38,7 +38,7 @@ class ProfileController extends AbstractController
             $expertises = substr($expertises, 0, -2);
         }
         return $this->render('profile/show.html.twig', [
-            'user_infos' => $userInfos,
+            'user_infos' => $userInfos[0],
             'expertises' => $expertises,
         ]);
     }
@@ -77,7 +77,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/edit.html.twig', [
             'formService' => $formService->createView(),
             'services' => $service,
-            'user_infos' => $userInfos,
+            'user_infos' => $userInfos[0],
             'expertises' => $expertises,
         ]);
     }
