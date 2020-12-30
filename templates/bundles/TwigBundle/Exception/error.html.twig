@@ -1,0 +1,28 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}
+    Vous n'êtes pas au bon endroit !
+{% endblock %}
+
+{% block body_home %}
+    <div class="vh-100 vw-100 error-full-screen position-relative">
+        <div class="home-page">
+            <div class="container-fluid home-main-container fixed-bottom">
+                <div class="row home-main-container-row d-flex">
+                    <div class="col-8 offset-2 d-flex flex-column align-items-center ml-0">
+                        <div class="text-center home-logo">Mince...</div>
+                        <div class="text-center home-slogan">Vous n'êtes pas au bon endroit !</div>
+                        <div class="home-btn-container justify-content-between">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="home-btn-second">
+                        <a href="{{ path('ressource_index') }}" class="non_underline home-slogan">Retour à l'accueil</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
