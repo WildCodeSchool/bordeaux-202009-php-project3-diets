@@ -148,6 +148,14 @@
   right: 6vh;
 }
 
+.subscribe{
+  color: transparent;
+}
+.forgot .mdp-forgot{
+  display: flex;
+  justify-content: center;
+}
+
 @media screen and (max-width: 1199px) {
   .home-page{
     display: grid;

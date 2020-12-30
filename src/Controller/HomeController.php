@@ -35,7 +35,7 @@ class HomeController extends AbstractController
     */
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/inscription", name="register")
      */
     public function register(): Response
     {

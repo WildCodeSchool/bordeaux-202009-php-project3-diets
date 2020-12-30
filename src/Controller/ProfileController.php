@@ -53,6 +53,7 @@ class ProfileController extends AbstractController
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
         }
+
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
