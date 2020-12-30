@@ -36,7 +36,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             if ($i % 2 === 1) {
                 $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
             };
-            $user->setPicture($this->getReference('picture_' . $i));
+            $user->getPicture($this->getReference('picture_' . rand(1, 50)));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
@@ -67,6 +67,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         return array(
             PictureFixtures::class,
             ExpertiseFixtures::class,
+            RegisteredEventFixtures::class,
         );
     }
 }
