@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\ServiceType;
+use App\Form\UserEditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -39,11 +40,12 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/edit/{id}", methods={"GET"}, name="edit")
+     * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
     public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
+
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -52,6 +54,21 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
+        }
+
+
+        $formEditUser = $this->createForm(UserEditType::class, $user);
+        $formEditUser->handleRequest($request);
+        if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
+            if (($user->isVerified() === true) && ($user->getRoles() != ['ROLE_ADMIN'])) {
+                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('service_index');
+
         }
 
         $service = new Service();
@@ -66,6 +83,7 @@ class ProfileController extends AbstractController
             ->findBy('user' => 'id');*/
 
         return $this->render('profile/edit.html.twig', [
+            'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'services' => $service,
             'user_infos' => $userInfos,
