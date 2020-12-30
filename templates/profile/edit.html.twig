@@ -46,6 +46,14 @@
                     <p> {{ infos.phone }} </p>
                     <p>Site internet : {{ infos.website }} </p>
                 </div>
+                <div class="col-7 profile-main-forms">
+                    <div class="form-edit-user">
+                        {{ form_start(formEditUser) }}
+                        {{ form_widget(formEditUser) }}
+                        <button class="btn">{{ button_label|default('Valider') }}</button>
+                        {{ form_end(formEditUser) }}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -94,7 +102,7 @@
 <div>
     <h3 class="part-title">Je propose une fiche :</h3>
 </div>
-<div class="container-fluid-service">
+<div class="container-fluid">
     <div class="row align-items-center">
         <div class="col-5 d-flex justify-content-center">
             <div>

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Expertise;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,8 +15,6 @@ class UserEditType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roles')
-            ->add('password')
             ->add('lastname')
             ->add('firstname')
             ->add('birthday')
@@ -22,10 +22,14 @@ class UserEditType extends AbstractType
             ->add('address')
             ->add('phone')
             ->add('website')
-            ->add('isVerified')
-            ->add('expertise')
-            ->add('picture')
-            ->add('registeredEvent')
+            ->add('expertise', EntityType::class, [
+                'class' => Expertise::class,
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
+            ])
+           /* ->add('picture')*/
+
         ;
     }
 
