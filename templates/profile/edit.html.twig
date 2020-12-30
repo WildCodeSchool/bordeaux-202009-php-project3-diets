@@ -5,7 +5,7 @@
 {% set infos = user_infos.0 %}
 <div class="profile-edit">
     <div class="d-flex justify-content-center">
-        <h2 class="page-title">Bonjour Sophie ! Heureux de vous revoir.</h2>
+        <h2 class="page-title">Bonjour {{ infos.firstname}} ! Heureux de vous revoir.</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-wrap">
         <div>Je propose :</div>
@@ -137,7 +137,7 @@
 <div>
     <h3 class="part-title">Je propose un service :</h3>
 </div>
-<div class="container-fluid">
+<div class="container-fluid-service">
     <div class="row align-items-center">
         <div class="col-5 d-flex justify-content-center">
             <div>
@@ -152,8 +152,29 @@
         <div class="col-7 profile-main-forms">
             <div class="form-service">
                 {{ form_start(formService) }}
-                {{ form_widget(formService) }}
-                <button class="btn">{{ button_label|default('Valider') }}</button>
+                <div class="row">
+                    <div class="text-center px-4">Titre</div>
+                    <div>{{ form_row(formService.name) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Lien</div>
+                    <div>{{ form_row(formService.link) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Prix</div>
+                    <div>{{ form_row(formService.price) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Description</div>
+                    <div>{{ form_row(formService.description) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Autheur</div>
+                    <div>{{ form_row(formService.user) }}</div>
+                </div>
+                <div>
+                    <button class="btn">{{ button_label|default('Valider') }}</button>
+                </div>
                 {{ form_end(formService) }}
             </div>
         </div>
@@ -162,65 +183,63 @@
 <div>
     <h3 class="part-title">Je propose un événement :</h3>
 </div>
-<div class="container-fluid">
+<div class="container-fluid-event">
     <div class="row align-items-center">
         <div class="col-5 profile-main-forms">
             <div>
-                <div class="d-flex flex-column">
-                    <label for="Name" class="font-weight-bold">Nom de l'événement</label>
-                    <input type="text" id="name">
+                <div class="overflow-hidden">
+                    <img class="item-picture" src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">
                 </div>
-                <div class="flex">
-                    <div class="d-flex flex-column">
-                        <label for="Type" class="font-weight-bold">Type d'événement</label>
-                        <select id="format">
-                            <option value="">--Faites votre choix--</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="image" class="font-weight-bold">Image</label>
-                        <input type="text" id="image" placeholder="rajouter une image...">
-                    </div>
-                </div>
-                <div class="d-flex profile-date-hour">
-                    <div class="d-flex flex-column">
-                        <label for="date-start" class="font-weight-bold">Date de début</label>
-                        <input type="date" id="date-start">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="hour-start" class="font-weight-bold">Heure de début</label>
-                        <input type="time" id="hour-start">
-                    </div>
-                </div>
-                <div class="d-flex profile-date-hour">
-                    <div class="d-flex flex-column">
-                        <label for="date-end" class="font-weight-bold">Date de fin</label>
-                        <input type="date" id="date-end">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="hour-end" class="font-weight-bold">Heure de fin</label>
-                        <input type="time" id="hour-end">
-                    </div>
+                <div>
+                    <p class="green-string">Modifier</p>
                 </div>
             </div>
-        </div>
-        <div class="col-7 profile-main-forms">
-            <div>
-                <div class="d-flex flex-column">
-                    <label for="price" class="font-weight-bold">Prix</label>
-                    <input type="text" id="price">
+            <div class="form-event">
+                {{ form_start(formEvent) }}
+                <div class="row">
+                    <div class="text-center px-4">Titre</div>
+                    <div>{{ form_row(formEvent.name) }}</div>
                 </div>
-                <div class="d-flex flex-column">
-                    <label for="subscription" class="font-weight-bold">Inscription</label>
-                    <input type="text" id="subscription">
+                <div class="row">
+                    <div class="text-center px-4">Type d'évènement</div>
+                    <div>{{ form_row(formEvent.eventFormat) }}</div>
                 </div>
-                <div class="d-flex flex-column">
-                    <label for="description" class="font-weight-bold">Description</label>
-                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
+                <div class="row">
+                    <div class="text-center px-4">Image</div>
+                    <div>{{ form_row(formEvent.picture) }}</div>
                 </div>
-                <div class="d-flex flex-row-reverse">
-                    <button class="validate-button">Valider</button>
+                <div class="row">
+                    <div class="text-center px-4">Date de début</div>
+                    <div>{{ form_row(formEvent.dateStart) }}</div>
                 </div>
+                <div class="row">
+                    <div class="text-center px-4">Date de fin</div>
+                    <div>{{ form_row(formEvent.dateEnd) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Prix</div>
+                    <div>{{ form_row(formEvent.price) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Inscription</div>
+                    <div>{{ form_row(formEvent.registeredEvent) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">Description</div>
+                    <div>{{ form_row(formEvent.description) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">CreatedAt</div>
+                    <div>{{ form_row(formEvent.createdAt) }}</div>
+                </div>
+                <div class="row">
+                    <div class="text-center px-4">UpdatedAt</div>
+                    <div>{{ form_row(formEvent.updatedAt) }}</div>
+                </div>
+                <div>
+                    <button class="btn">{{ button_label|default('Valider') }}</button>
+                </div>
+                {{ form_end(formEvent) }}
             </div>
         </div>
     </div>

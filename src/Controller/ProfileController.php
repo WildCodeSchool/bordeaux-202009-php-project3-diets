@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\Service;
+use App\Form\EventType;
 use App\Form\ServiceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,13 +63,18 @@ class ProfileController extends AbstractController
             $entityManager->persist($service);
             $entityManager->flush();
         }
-        /*$service = $this->getDoctrine()
-            ->getRepository(Service::class)
-            ->findBy('user' => 'id');*/
+
+        $event = new Event();
+        $formEvent = $this->createForm(EventType::class, $event);
+        $formEvent->handleRequest($request);
+        if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            $entityManager->persist($event);
+            $entityManager->flush();
+        }
 
         return $this->render('profile/edit.html.twig', [
             'formService' => $formService->createView(),
-            'services' => $service,
+            'formEvent' => $formEvent->createView(),
             'user_infos' => $userInfos,
         ]);
     }
