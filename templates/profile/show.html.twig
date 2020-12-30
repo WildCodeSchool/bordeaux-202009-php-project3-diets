@@ -2,22 +2,27 @@
 
 {% block title %} Présentation des utilisateurs {% endblock %}
 {% block body %}
+{% set infos = user_infos.0 %}
 <div class="d-flex justify-content-center">
     <h2 class="page-title">• Profil •</h2>
 </div>
 <div class="container-fluid">
     <div class="row align-items-center">
         <div class="col-xl-5 col-12 d-flex justify-content-center overflow-hidden">
-            <img class="profile-picture" src="https://www.fc-photos.com/wp-content/uploads/2016/09/fc-photos-Weynacht-0001.jpg" alt="photo de profil">
+            <img class="profile-picture" src= {{ infos.picture.link }} alt="photo de profil">
         </div>
         <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
             <div class="profile-informations">
-                <h3> Prénom Nom </h3>
-                <p>Spécilisation: Diététicienne</p>
-                <p>8 rue de Paris, 33000 BORDEAUX</p>
-                <p>moi@gmail.com</p>
-                <p>0102030405</p>
-                <p>Site internet : moi@moi.fr</p>
+                <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
+                <p> Spécilisation:
+                    {% for expertise in infos.expertise %}
+                        {{ expertise.name }}.
+                    {% endfor %}
+                </p>
+                <p> {{ infos.address }} </p>
+                <p> {{ infos.email }} </p>
+                <p> {{ infos.phone }} </p>
+                <p>Site internet : {{ infos.website }} </p>
             </div>
         </div>
     </div>

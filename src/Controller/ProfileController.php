@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-
 use App\Entity\User;
-use App\Form\UserEditType;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -19,20 +18,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show", name="show")
+     * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
+     * @return Response
      */
-    public function show(): Response
+    public function show(User $user): Response
     {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        //dd($user);
         return $this->render('profile/show.html.twig', [
-            '' => '',
+            'user_infos' => $userInfos,
         ]);
     }
 
     /**
-     * @Route("/edit", name="edit")
+     * @Route("/edit/{id}", methods={"GET"}, name="edit")
+     * @return Response
      */
-    public function edit(Request $request, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
 
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
@@ -48,6 +68,7 @@ class ProfileController extends AbstractController
         return $this->render('profile/edit.html.twig', [
             'formService' => $formService->createView(),
             'services' => $service,
+            'user_infos' => $userInfos,
         ]);
     }
 }

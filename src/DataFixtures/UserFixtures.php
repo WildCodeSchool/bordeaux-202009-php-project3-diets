@@ -21,7 +21,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 1; $i <= 49; $i++) {
             $user = new User();
             $user->setLastname($faker->lastName);
             $user->setFirstname($faker->firstName);
@@ -30,16 +30,35 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'MyPassword_' . $i));
             $user->setEmail($faker->email);
             $user->setAddress($faker->address);
-            $user->setPhone($faker->numberBetween(100, 500));
+            $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
-            $user->addExpertise($this->getReference('expertise_' . rand(1,50)));
+            $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
             if ($i % 2 === 1) {
-                $user->addExpertise($this->getReference('expertise_' . rand(1,50)));
+                $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
+        $user = new User();
+        $user->setLastname($faker->lastName);
+        $user->setFirstname($faker->firstName);
+        $user->setBirthday($faker->dateTime);
+        $user->setAdeli($faker->swiftBicNumber);
+        $user->setEmail('contributor@gmail.com');
+        $user->setAddress($faker->address);
+        $user->setPhone($faker->numberBetween(100000, 500000));
+        $user->setWebsite($faker->domainName);
+        $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
+        $user->setRoles(['ROLE_CONTRIBUTOR']);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'contributorpassword'
+        ));
+        $user->setPicture($this->getReference('picture_50'));
+        $this->addReference('user_50', $user);
+        $manager->persist($user);
+
         $manager->flush();
     }
 

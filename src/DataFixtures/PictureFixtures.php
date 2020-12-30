@@ -15,7 +15,7 @@ class PictureFixtures extends Fixture
         for ($i = 1; $i <= 50; $i++) {
             $picture = new Picture();
             $picture->setName($faker->domainWord);
-            $picture->setLink($faker->url);
+            $picture->setLink("https://picsum.photos/id/" . $i . "/400/300");
             $manager->persist($picture);
             $this->addReference('picture_' . $i, $picture);
         }
