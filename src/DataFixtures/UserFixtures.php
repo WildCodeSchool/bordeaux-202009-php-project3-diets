@@ -21,7 +21,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 1; $i <= 49; $i++) {
+        for ($i = 0; $i <= 50; $i++) {
             $user = new User();
             $user->setLastname($faker->lastName);
             $user->setFirstname($faker->firstName);
@@ -36,11 +36,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             if ($i % 2 === 1) {
                 $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
             };
-            $user->getPicture($this->getReference('picture_' . rand(1, 50)));
+            $user->setPicture($this->getReference('picture_' . $i));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
-        $user = new User();
+        /*$user = new User();
         $user->setLastname($faker->lastName);
         $user->setFirstname($faker->firstName);
         $user->setBirthday($faker->dateTime);
@@ -57,7 +57,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ));
         $user->setPicture($this->getReference('picture_50'));
         $this->addReference('user_50', $user);
-        $manager->persist($user);
+        $manager->persist($user);*/
 
         $manager->flush();
     }
