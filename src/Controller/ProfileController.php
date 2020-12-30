@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -66,8 +65,7 @@ class ProfileController extends AbstractController
 
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
-        $formEvent->handleRequest($request);
-        if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+        if ($formEvent->isSubmitted() /*&& $formEvent->isValid()*/) {
             $entityManager->persist($event);
             $entityManager->flush();
         }
