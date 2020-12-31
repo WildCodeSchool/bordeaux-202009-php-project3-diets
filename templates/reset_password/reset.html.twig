@@ -1,0 +1,44 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body_home %}
+    <div class="vh-100 vw-100 home-full-screen">
+        <div class="home-page container-fluid container-table">
+            <div class="row vertical-center-row">
+                <div class="card col-6 m-auto card-radius">
+                    <div>
+                        <div class="-align-right mt-2">
+                            <div class="close">
+                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="text-center p-1 card-title home-form-title">Nouveau mot de passe</div>
+                        </div>
+                    </div>
+
+
+                    {{ form_start(resetForm) }}
+
+                    <div class="row">
+                        <div class="text-center px-4 home-form"></div>
+                        <div>{{ form_row(resetForm.plainPassword) }}</div>
+                    </div>
+
+                    <div class="row pt-3">
+                        <div class="col-4 text-center p-1 home-form-lg">
+                            <button class="home-btn-second non_underline">Changer mon mot de passe </button>
+                            {{ form_end(resetForm) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
