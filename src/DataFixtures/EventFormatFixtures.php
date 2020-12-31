@@ -12,7 +12,7 @@ class EventFormatFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for($i = 1; $i < 50; $i++) {
+        for ($i = 1; $i < 50; $i++) {
             $eventFormat = new EventFormat();
             $eventFormat->setFormat($faker->word);
             $eventFormat->setIdentifier($eventFormat->getFormat());
