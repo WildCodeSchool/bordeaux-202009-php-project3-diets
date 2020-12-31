@@ -28,6 +28,14 @@ class EventType extends AbstractType
                 'class' => EventFormat::class,
                 'choice_label' => 'format',
             ])
+            //->add('picture', EntityType::class, [
+            //    'class' => Picture::class,
+            //    'choice_label' => 'name',
+            //])
+            ->add('registeredEvent', EntityType::class, [
+                'class' => RegisteredEvent::class,
+                'choice_label' => 'isOrganizer',
+            ])
         ;
     }
 

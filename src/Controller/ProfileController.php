@@ -83,6 +83,7 @@ class ProfileController extends AbstractController
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
         if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            $event->setEventIsValidated('0');
             $entityManager->persist($event);
             $entityManager->flush();
         }
