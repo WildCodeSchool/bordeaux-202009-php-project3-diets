@@ -75,6 +75,7 @@ class ProfileController extends AbstractController
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
+            $service->setUser($this->getUser());
             $entityManager->persist($service);
             $entityManager->flush();
         }

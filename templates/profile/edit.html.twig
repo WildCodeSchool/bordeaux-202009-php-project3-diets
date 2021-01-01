@@ -176,10 +176,6 @@
                     <div class="text-center px-4">Description</div>
                     <div>{{ form_row(formService.description) }}</div>
                 </div>
-                <div class="row">
-                    <div class="text-center px-4">Autheur</div>
-                    <div>{{ form_row(formService.user) }}</div>
-                </div>
                 <div>
                     <button class="btn">{{ button_label|default('Valider') }}</button>
                 </div>
@@ -230,10 +226,6 @@
                     <div class="text-center px-4">Description</div>
                     <div>{{ form_row(formEvent.description) }}</div>
                 </div>
-                {# <div class="row">
-                    <div class="text-center px-4">Picture</div>
-                    <div>{{ form_row(formEvent.picture) }}</div>
-                </div> #}
                 <div class="row">
                     <div class="text-center px-4">registeredEvent</div>
                     <div>{{ form_row(formEvent.registeredEvent) }}</div>
@@ -246,8 +238,8 @@
         </div>
     </div>
 </div>
-{# <div class="d-flex flex-column align-items-start">
+<div class="d-flex flex-column align-items-start">
     <div style="height:20px"></div>
-</div> #}
+</div>
 
 {% endblock %}
