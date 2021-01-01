@@ -223,13 +223,17 @@
                     <div>{{ form_row(formEvent.price) }}</div>
                 </div>
                 <div class="row">
+                    <div class="text-center px-4">Lien</div>
+                    <div>{{ form_row(formEvent.link) }}</div>
+                </div>
+                <div class="row">
                     <div class="text-center px-4">Description</div>
                     <div>{{ form_row(formEvent.description) }}</div>
                 </div>
-                {# <div class="row">
+                <div class="row">
                     <div class="text-center px-4">registeredEvent</div>
                     <div>{{ form_row(formEvent.registeredEvent) }}</div>
-                </div> #}
+                </div>
                 <div>
                     <button class="btn">{{ button_label|default('Valider') }}</button>
                 </div>

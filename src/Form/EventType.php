@@ -22,8 +22,8 @@ class EventType extends AbstractType
             ->add('dateStart')
             ->add('dateEnd')
             ->add('price')
-            ->add('createdAt')
-            ->add('updatedAt')
+            //->add('createdAt')
+            //->add('updatedAt')
             ->add('eventFormat', EntityType::class, [
                 'class' => EventFormat::class,
                 'choice_label' => 'format',
