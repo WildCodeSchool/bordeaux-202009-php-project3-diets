@@ -12,7 +12,7 @@ class ResourceFormatFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 1; $i < 50; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $resourceFormat = new ResourceFormat();
             $resourceFormat->setFormat($faker->word);
             $resourceFormat->setIdentifier($resourceFormat->getFormat());
