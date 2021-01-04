@@ -27,6 +27,11 @@ class Picture
      */
     private $link;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Service::class, mappedBy="picture", cascade={"persist", "remove"})
+     */
+    private $service;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -52,6 +57,23 @@ class Picture
     public function setLink(string $link): self
     {
         $this->link = $link;
+
+        return $this;
+    }
+
+    public function getService(): ?Service
+    {
+        return $this->service;
+    }
+
+    public function setService(Service $service): self
+    {
+        $this->service = $service;
+
+        // set the owning side of the relation if necessary
+        if ($service->getPicture() !== $this) {
+            $service->setPicture($this);
+        }
 
         return $this;
     }

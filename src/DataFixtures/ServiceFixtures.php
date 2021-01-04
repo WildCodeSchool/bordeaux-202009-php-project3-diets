@@ -21,6 +21,7 @@ class ServiceFixtures extends Fixture implements DependentFixtureInterface
             $service->setDescription($faker->text(200));
             $service->setUser($this->getReference('user_' . rand(0, 49)));
             $service->setServiceIsValidated(rand(0, 1));
+            $service->setPicture($this->getReference('picture_' . ($i + 50)));
             $manager->persist($service);
             $this->addReference('service_' . $i, $service);
         }
@@ -30,6 +31,6 @@ class ServiceFixtures extends Fixture implements DependentFixtureInterface
 
     public function getDependencies()
     {
-        return [UserFixtures::class];
+        return array(UserFixtures::class, PictureFixtures::class);
     }
 }
