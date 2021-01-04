@@ -33,7 +33,6 @@
         color: $bg-body;
         margin-left: 5em;
         margin-right: 5em;
-
     }
 
     .row-footer {
@@ -57,9 +56,6 @@
 
     @media screen and (max-width: 1000px) {
         .mainfooter {
-            .social-network, .social-circle {
-                padding-left: 0;
-            }
 
             .row-footer {
                 display: flex;
