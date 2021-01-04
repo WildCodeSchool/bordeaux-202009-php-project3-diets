@@ -39,7 +39,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="{#   path('profile_edit') #}">Mon espace</a>
+                        <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
                     </li>
                 </ul>
                 <ul class="link-footer">
