@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Entity\User;
 use App\Entity\Service;
+use App\Form\EventType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -68,24 +69,30 @@ class ProfileController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('service_index');
-
         }
 
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
+            $service->setUser($this->getUser());
             $entityManager->persist($service);
             $entityManager->flush();
         }
-        /*$service = $this->getDoctrine()
-            ->getRepository(Service::class)
-            ->findBy('user' => 'id');*/
+
+        $event = new Event();
+        $formEvent = $this->createForm(EventType::class, $event);
+        $formEvent->handleRequest($request);
+        if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            $event->setEventIsValidated('0');
+            $entityManager->persist($event);
+            $entityManager->flush();
+        }
 
         return $this->render('profile/edit.html.twig', [
             'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
-            'services' => $service,
+            'formEvent' => $formEvent->createView(),
             'user_infos' => $userInfos,
         ]);
     }
