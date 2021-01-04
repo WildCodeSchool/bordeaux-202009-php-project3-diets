@@ -35,7 +35,11 @@
                     <div class="footer-pad">
                         <ul class="list-unstyled">
                             <li><a href="{{ path('propos') }}">A propos</a></li>
-                            <li><a href="#">Admin</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}">Admin</a></li>
+                            {% else %}
+                                <li><a href="#">Admin</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                 </div>
