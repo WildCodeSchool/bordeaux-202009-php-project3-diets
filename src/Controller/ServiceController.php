@@ -21,9 +21,10 @@ class ServiceController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $service = new Service();
-        $form = $this->createForm(ServiceType::class, $service);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        $formService = $this->createForm(ServiceType::class, $service);
+        $formService->handleRequest($request);
+        if ($formService->isSubmitted() && $formService->isValid()) {
+            $service->setUser($this->getUser());
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -31,7 +32,7 @@ class ServiceController extends AbstractController
             ->getRepository(Service::class)
             ->findBy(array(), array('id' => 'desc'));
         return $this->render('service/index.html.twig', [
-            'form' => $form->createView(),
+            'formService' => $formService->createView(),
             'services' => $service,
         ]);
     }

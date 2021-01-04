@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Event;
 use App\Repository\ResourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,10 @@ class RessourceController extends AbstractController
      */
     public function index(ResourceRepository $resourceRepository): Response
     {
+        $event = $this->getDoctrine()
+            ->getRepository(Event::class)
+            ->findBy(array(), array('dateStart' => 'desc'), 1);
+
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
             ],
@@ -27,6 +32,7 @@ class RessourceController extends AbstractController
         );
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
+            'events' => $event,
             'resourcesLastUpdate' => $resourcesLastUpdate,
         ]);
     }

@@ -16,7 +16,6 @@ class ServiceType extends AbstractType
             ->add('link')
             ->add('price')
             ->add('description')
-            ->add('user', null, ['choice_label' => 'firstname'])
         ;
     }
 

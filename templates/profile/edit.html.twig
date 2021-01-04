@@ -3,236 +3,26 @@
 {% block title %} Mon espace {% endblock %}
 {% block body %}
 {% set infos = user_infos.0 %}
-<div class="profile-edit">
-    <div class="d-flex justify-content-center">
-        <h2 class="page-title">Bonjour {{ infos.firstname }} ! Heureux de vous revoir.</h2>
-    </div>
-    <div class="d-flex justify-content-center align-items-center flex-wrap">
-        <div>Je propose :</div>
-        <div class="profile-button-container d-flex flex-wrap justify-content-center">
-            <div class="profile-button">
-                <a href="">une fiche</a>
-            </div>
-            <div class="profile-button">
-                <a href="">un service</a>
-            </div>
-            <div class="profile-button">
-                <a href="">un évènement</a>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid profile-main">
-        <div class="row align-items-center">
-            <div class="col-xl-5 col-12 d-flex justify-content-center">
-                <div>
-                    <div class="overflow-hidden">
-                        <img class="profile-picture" src="{# infos.picture.link #}" alt="photo de profil">
-                    </div>
-                    <div>
-                        <p class="text-center text-xl-left green-string">Modifier</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
-                <div class="profile-informations">
-                    <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
-                    <p> Spécialisation:
-                        {% for expertise in infos.expertise %}
-                            {{ expertise.name }}.
-                        {% endfor %}
-                    </p>
-                    <p> {{ infos.address }} </p>
-                    <p> {{ infos.email }} </p>
-                    <p> {{ infos.phone }} </p>
-                    <p>Site internet : {{ infos.website }} </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
-        <h3 class="part-title">Mes fiches :</h3>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for i in 1..4 %}
-            <div class="card-container justify-content-center">
-                <div>
-                    {% include '/component/_card.html.twig' %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div>
-        <h3 class="part-title">Mes événements :</h3>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for i in 20..23 %}
-            <div class="card-container justify-content-center">
-                <div class="overflow-hidden">
-                    <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div>
-        <h3 class="part-title">Mes services :</h3>
-    </div>
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for j in 30..33 %}
-            <div class="card-container justify-content-center">
-                <div class="overflow-hidden">
-                    <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+<div>
+    {% include '/component/_profile_edit.html.twig' %}
+</div>
+<div>
+    {% include '/component/_service_edit.html.twig' %}
 </div>
 <div class="d-flex justify-content-center">
     <div class="profile-separation"></div>
 </div>
 <div>
-    <h3 class="part-title">Je propose une fiche :</h3>
-</div>
-<div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-5 d-flex justify-content-center">
-            <div>
-                <div class="overflow-hidden">
-                    <img class="item-picture" src="https://images.unsplash.com/photo-1505576399279-565b52d4ac71?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">                    </div>
-                <div>
-                    <p class="green-string">Modifier</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-7 profile-main-forms">
-            <div>
-                <div class="d-flex flex-column">
-                    <label for="title" class="font-weight-bold">Titre</label>
-                    <input type="text" id="title">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="format" class="font-weight-bold">Support</label>
-                    <select id="format">
-                        <option value="">--Faites votre choix--</option>
-                    </select>
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="description" class="font-weight-bold">Description</label>
-                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="documents" class="font-weight-bold">Documents</label>
-                    <input type="text" placeholder="Fichier...">
-                    <p style="margin:0;">ou</p>
-                    <input type="text" placeholder="Site internet">
-                </div>
-                <div class="d-flex flex-row-reverse">
-                    <button class="validate-button">Valider</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% include '/component/_newfiche_edit.html.twig' %}
 </div>
 <div>
-    <h3 class="part-title">Je propose un service :</h3>
-</div>
-<div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-5 d-flex justify-content-center">
-            <div>
-                <div class="overflow-hidden">
-                    <img class="item-picture" src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">
-                </div>
-                <div>
-                    <p class="green-string">Modifier</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-7 profile-main-forms">
-            <div class="form-service">
-                {{ form_start(formService) }}
-                {{ form_widget(formService) }}
-                <button class="btn">{{ button_label|default('Valider') }}</button>
-                {{ form_end(formService) }}
-            </div>
-        </div>
-    </div>
+    {% include '/component/_newservice_edit.html.twig' %}
 </div>
 <div>
-    <h3 class="part-title">Je propose un événement :</h3>
+    {% include '/component/_newevent_edit.html.twig' %}
 </div>
-<div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-5 profile-main-forms">
-            <div>
-                <div class="d-flex flex-column">
-                    <label for="Name" class="font-weight-bold">Nom de l'événement</label>
-                    <input type="text" id="name">
-                </div>
-                <div class="flex">
-                    <div class="d-flex flex-column">
-                        <label for="Type" class="font-weight-bold">Type d'événement</label>
-                        <select id="format">
-                            <option value="">--Faites votre choix--</option>
-                        </select>
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="image" class="font-weight-bold">Image</label>
-                        <input type="text" id="image" placeholder="rajouter une image...">
-                    </div>
-                </div>
-                <div class="d-flex profile-date-hour">
-                    <div class="d-flex flex-column">
-                        <label for="date-start" class="font-weight-bold">Date de début</label>
-                        <input type="date" id="date-start">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="hour-start" class="font-weight-bold">Heure de début</label>
-                        <input type="time" id="hour-start">
-                    </div>
-                </div>
-                <div class="d-flex profile-date-hour">
-                    <div class="d-flex flex-column">
-                        <label for="date-end" class="font-weight-bold">Date de fin</label>
-                        <input type="date" id="date-end">
-                    </div>
-                    <div class="d-flex flex-column">
-                        <label for="hour-end" class="font-weight-bold">Heure de fin</label>
-                        <input type="time" id="hour-end">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-7 profile-main-forms">
-            <div>
-                <div class="d-flex flex-column">
-                    <label for="price" class="font-weight-bold">Prix</label>
-                    <input type="text" id="price">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="subscription" class="font-weight-bold">Inscription</label>
-                    <input type="text" id="subscription">
-                </div>
-                <div class="d-flex flex-column">
-                    <label for="description" class="font-weight-bold">Description</label>
-                    <textarea id="description" row="4" placeholder="200 caractères maximum"></textarea>
-                </div>
-                <div class="d-flex flex-row-reverse">
-                    <button class="validate-button">Valider</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
 <div class="d-flex flex-column align-items-start">
     <div style="height:20px"></div>
 </div>
-
 
 {% endblock %}

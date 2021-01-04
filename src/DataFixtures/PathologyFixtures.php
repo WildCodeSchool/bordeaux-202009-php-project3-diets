@@ -17,7 +17,7 @@ class PathologyFixtures extends Fixture implements DependentFixtureInterface
             $pathology = new Pathology();
             $pathology->setName($faker->word);
             $pathology->setIdentifier($pathology->getName());
-            $pathology->addResource($this->getReference('resource_' . rand(1,49)));
+            $pathology->addResource($this->getReference('resource_' . rand(1, 49)));
             $manager->persist($pathology);
             $this->addReference('pathology_' . $i, $pathology);
         }
