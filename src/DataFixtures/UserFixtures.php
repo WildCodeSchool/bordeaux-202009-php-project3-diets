@@ -51,7 +51,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
-        $user->setRoles(['ROLE_CONTRIBUTOR']);
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             'contributorpassword'
