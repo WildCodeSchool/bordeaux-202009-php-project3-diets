@@ -83,7 +83,21 @@
   padding: 5px 20px;
 }
 
+.container-fluid-service{
+  .form-service{
+    label{
+      display: none;
+    }
+  }
+}
 
+.container-fluid-event{
+  .form-event{
+    label{
+      display: none;
+    }
+  }
+}
 
 @media screen and (max-width: 992px) {
   .profile-main-forms {

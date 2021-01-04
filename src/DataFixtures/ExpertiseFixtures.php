@@ -16,7 +16,7 @@ class ExpertiseFixtures extends Fixture
             $expertise = new Expertise();
             $expertise->setName($faker->domainWord);
             $manager->persist($expertise);
-            $this->addReference('expertise_' . ($i + 1), $expertise) ;
+            $this->addReference('expertise_' . $i, $expertise) ;
         }
         $manager->flush();
     }
