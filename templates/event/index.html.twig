@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenements{% endblock %}
+
+{% block body %}
+<div class="event">
+    <div class="d-flex justify-content-center">
+        <h2 class="page-title">Evènements</h2>
+    </div>
+    <div class="calendrier-form">
+        <div class="dates">
+            <h3>Dates</h3>
+            {% for event in events %}
+            <ul>
+                <li>{{ event.dateStart|date("d/m/Y H:i") }} <br>
+                    {{ event.name }}
+                </li>
+            </ul>
+            {% endfor %}
+        </div>
+        <div class="form">
+            <h3>Ajout d'un évènement</h3>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div>
+            <div class="col justify-content-end bloc-img">
+                <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
+                {% for event in events %}
+                    <div class="row container-img-txt">
+                <div class="col-lg-4">
+                    <div class="img-container">
+                        <img src="https://picsum.photos/400/300?random {{ event.id }}" alt='Picture event'>
+                    </div>
+                </div>
+                <div class="col-lg-3 text-container">
+                    <p>Titre: {{ event.name}} </p>
+                    <p>lien: {{ event.link }}</p>
+                    <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
+                    <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
+                    <p>Description:{{ event.description }}</p>
+                </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

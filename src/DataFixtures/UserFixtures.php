@@ -32,9 +32,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setAddress($faker->address);
             $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
-            $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
+            $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             if ($i % 2 === 1) {
-                $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
+                $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
             $this->addReference('user_' . $i, $user);
@@ -50,7 +50,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
-        $user->addExpertise($this->getReference('expertise_' . rand(1, 50)));
+        $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
         $user->setRoles(['ROLE_CONTRIBUTOR']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
@@ -58,7 +58,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ));
         $user->setPicture($this->getReference('picture_50'));
         $this->addReference('user_50', $user);
-
         $manager->persist($user);
 
         $manager->flush();

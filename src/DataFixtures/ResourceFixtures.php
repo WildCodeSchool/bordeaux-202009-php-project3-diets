@@ -20,8 +20,8 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
             $resource->setCreatedAt($faker->dateTimeAD);
             $resource->setDescription($faker->text);
             $resource->setName($faker->word);
-            $resource->setResourceFormat($this->getReference('resource_format_' . rand(1, 49)));
-            $resource->setUser($this->getReference('user_' . rand(1, 50)));
+            $resource->setResourceFormat($this->getReference('resource_format_' . rand(0, 49)));
+            $resource->setUser($this->getReference('user_' . rand(0, 49)));
             $manager->persist($resource);
             $this->addReference('resource_' . $i, $resource);
         }
