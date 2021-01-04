@@ -22,9 +22,10 @@
         {% endfor %}
     </div>
     <div class="d-flex flex-wrap justify-content-center">
-        {%  for i in 1..12  %}
+        {%  for resource in resourcesLastUpdate  %}
             <div class="card-container justify-content-center">
                 <div class="test-card">
+
                     {% include '/component/_card.html.twig' %}
                 </div>
             </div>
