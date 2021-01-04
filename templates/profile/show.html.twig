@@ -2,7 +2,9 @@
 
 {% block title %} Présentation des utilisateurs {% endblock %}
 {% block body %}
-{% set infos = user_infos.0 %}
+{% set infos = user_infos %}
+{% set services = infos.services %}
+
 <div class="d-flex justify-content-center">
     <h2 class="page-title">• Profil •</h2>
 </div>
@@ -14,15 +16,11 @@
         <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
             <div class="profile-informations">
                 <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
-                <p> Spécilisation:
-                    {% for expertise in infos.expertise %}
-                        {{ expertise.name }}.
-                    {% endfor %}
-                </p>
+                <p> Spécialisation: {{ expertises }} </p>
                 <p> {{ infos.address }} </p>
                 <p> {{ infos.email }} </p>
                 <p> {{ infos.phone }} </p>
-                <p>Site internet : {{ infos.website }} </p>
+                <p> Site internet : {{ infos.website }} </p>
             </div>
         </div>
     </div>
@@ -58,10 +56,12 @@
     <h3 class="part-title">Services proposés :</h3>
 </div>
 <div class="d-flex flex-wrap justify-content-center">
-    {% for j in 50..53 %}
+    {% for service in services %}
         <div class="card-container justify-content-center">
             <div class="overflow-hidden">
-                <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'">
+                <a href="{{ service.link }}" target="_blank">
+                    <img src="https://picsum.photos/400/200?random={{ random(50,100) }}" alt='service proposé'">
+                </a>
             </div>
         </div>
     {% endfor %}
