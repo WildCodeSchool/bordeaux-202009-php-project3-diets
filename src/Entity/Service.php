@@ -49,7 +49,7 @@ class Service
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Picture::class, inversedBy="service", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $picture;
