@@ -68,7 +68,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         return array(
             PictureFixtures::class,
             ExpertiseFixtures::class,
-            RegisteredEventFixtures::class,
         );
     }
 }
