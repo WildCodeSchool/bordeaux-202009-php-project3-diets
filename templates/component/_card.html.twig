@@ -2,21 +2,20 @@
     <div class="box-inner">
         <div class="box-front ">
             <img
-                    src="https://picsum.photos/200/300?random={{ i }}"
+                    src="https://picsum.photos/200/300?random={# resource.id #}"
                     class="card-img "
                     alt="..."
             />
 
             <div class="card-img-overlay ">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">{# resource.name #}</h5>
             </div>
         </div>
         <div class="box-back shadow p-3 mb-5 bg-white rounded">
             <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+                <h5 class="card-title">{# resource.name #}</h5>
                 <p class="card-text">
-                    Some quick example text to build on the card title and make up the bulk of the
-                    card's content.
+                    {# resource.description[:150] ~ '...' #}
                 </p>
                 <button type="button" class="btn text-white">Button</button>
             </div>

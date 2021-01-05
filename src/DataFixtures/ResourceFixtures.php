@@ -13,7 +13,7 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 1; $i < 50; $i++) {
             $resource = new Resource();
             $resource->setUpdatedAt($faker->dateTimeAD);
             $resource->setLink($faker->url);

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\RegisteredEvent;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
@@ -33,10 +34,15 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
+            $expertises = "";
+            foreach ($userInfos[0]->getExpertise() as $expertise) {
+                $expertises = $expertises . $expertise->getname() . ', ';
+            }
+            $expertises = substr($expertises, 0, -2);
         }
-        //dd($user);
         return $this->render('profile/show.html.twig', [
-            'user_infos' => $userInfos,
+            'user_infos' => $userInfos[0],
+            'expertises' => $expertises,
         ]);
     }
 
@@ -55,8 +61,12 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
+            $expertises = "";
+            foreach ($userInfos[0]->getExpertise() as $expertise) {
+                $expertises = $expertises . $expertise->getname() . ', ';
+            }
+            $expertises = substr($expertises, 0, -2);
         }
-
 
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
@@ -84,16 +94,25 @@ class ProfileController extends AbstractController
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
         if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            $registerEvent = new RegisteredEvent();
+            $registerEvent->setUser($this->getUser());
+            $registerEvent->setEvent($event);
+            $registerEvent->setIsOrganizer('1');
+            $event->addRegisteredEvent($registerEvent);
+            $event->setEv('0');
             $event->setEventIsValidated('0');
             $entityManager->persist($event);
             $entityManager->flush();
         }
 
         return $this->render('profile/edit.html.twig', [
+
+            'services' => $service,
+            'user_infos' => $userInfos[0],
+            'expertises' => $expertises,
             'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
-            'user_infos' => $userInfos,
         ]);
     }
 }

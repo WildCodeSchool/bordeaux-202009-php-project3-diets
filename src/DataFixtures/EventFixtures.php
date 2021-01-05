@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Event;
+use App\Entity\RegisteredEvent;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -27,7 +28,6 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setPrice($faker->numberBetween(0, 1000));
             $event->setUpdatedAt($faker->dateTime);
             $event->setEventFormat($this->getReference('event_format_' . rand(0, 49)));
-            $event->setRegisteredEvent($this->getReference('registered_event_' . rand(0, 49)));
             $manager->persist($event);
             $this->addReference('event_' . $i, $event);
         }
@@ -35,6 +35,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     }
     public function getDependencies()
     {
-        return [PictureFixtures::class];
+        return array(
+            PictureFixtures::class,
+            );
     }
 }

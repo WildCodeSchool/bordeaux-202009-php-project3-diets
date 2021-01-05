@@ -1,19 +1,19 @@
-    footer {
+footer {
         background: $bg-footer;
         color: $bg-body;
         position: relative;
         margin-top:100px;
         width: 100%;
         bottom: 0;
-    }
+}
 
-    footer a {
+footer a {
         color: $bg-body;
         font-size: 14px;
         transition-duration: 0.2s;
-    }
+}
 
-    footer a:hover {
+footer a:hover {
         color: $bg-navbar;
         text-decoration: none;
     }
@@ -31,8 +31,8 @@
     .footer-middle {
         padding-top: 2em;
         color: $bg-body;
-
-
+        margin-left: 5em;
+        margin-right: 5em;
     }
 
     .row-footer {
@@ -56,9 +56,6 @@
 
     @media screen and (max-width: 1000px) {
         .mainfooter {
-            .social-network, .social-circle {
-                padding-left: 0;
-            }
 
             .row-footer {
                 display: flex;
