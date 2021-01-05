@@ -98,8 +98,8 @@ class ProfileController extends AbstractController
             $registerEvent->setUser($this->getUser());
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer('1');
-            $event->addRegisteredEvent($registerEvent);
             $event->setEventIsValidated('0');
+            $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
         }
