@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Picture;
 use App\Entity\Service;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,6 +18,10 @@ class ServiceType extends AbstractType
             ->add('link')
             ->add('price')
             ->add('description')
+            ->add('picture', EntityType::class, [
+                'class' => Picture::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 

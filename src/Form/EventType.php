@@ -3,6 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\EventFormat;
+use App\Entity\Picture;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,11 +21,15 @@ class EventType extends AbstractType
             ->add('dateStart')
             ->add('dateEnd')
             ->add('price')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('eventIsValidated')
-            ->add('eventFormat')
-            ->add('picture')
+            //->add('eventIsValidated')
+            ->add('eventFormat', EntityType::class, [
+                'class' => EventFormat::class,
+                'choice_label' => 'format',
+            ])
+            ->add('picture', EntityType::class, [
+                'class' => Picture::class,
+                'choice_label' => 'name',
+            ])
         ;
     }
 
