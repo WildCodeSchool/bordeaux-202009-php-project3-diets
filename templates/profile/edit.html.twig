@@ -3,6 +3,8 @@
 {% block title %} Mon espace {% endblock %}
 {% block body %}
 {% set infos = user_infos %}
+{% set services = infos.services %}
+
 <div>
     {% include '/component/_profile_edit.html.twig' %}
 </div>
@@ -19,7 +21,7 @@
     {% include '/component/_newservice_edit.html.twig' %}
 </div>
 <div>
-    {% include '/component/_newevent_edit.html.twig' %}
+    {# include '/component/_newevent_edit.html.twig' #}
 </div>
 <div class="d-flex flex-column align-items-start">
     <div style="height:20px"></div>

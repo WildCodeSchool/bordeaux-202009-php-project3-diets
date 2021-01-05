@@ -101,6 +101,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
 

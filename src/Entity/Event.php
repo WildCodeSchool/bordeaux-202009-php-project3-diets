@@ -77,6 +77,7 @@ class Event
 
     /**
      * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
 
