@@ -95,21 +95,22 @@ class User implements UserInterface
     private $resources;
 
     /**
-     * @ORM\ManyToOne(targetEntity=RegisteredEvent::class, inversedBy="user")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $registeredEvent;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $registeredEvents;
 
     public function __construct()
     {
         $this->expertise = new ArrayCollection();
         $this->services = new ArrayCollection();
         $this->resources = new ArrayCollection();
+        $this->registeredEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -374,18 +375,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRegisteredEvent(): ?RegisteredEvent
-    {
-        return $this->registeredEvent;
-    }
-
-    public function setRegisteredEvent(?RegisteredEvent $registeredEvent): self
-    {
-        $this->registeredEvent = $registeredEvent;
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -394,6 +383,36 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RegisteredEvent[]
+     */
+    public function getRegisteredEvents(): Collection
+    {
+        return $this->registeredEvents;
+    }
+
+    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if (!$this->registeredEvents->contains($registeredEvent)) {
+            $this->registeredEvents[] = $registeredEvent;
+            $registeredEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if ($this->registeredEvents->removeElement($registeredEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($registeredEvent->getUser() === $this) {
+                $registeredEvent->setUser(null);
+            }
+        }
 
         return $this;
     }

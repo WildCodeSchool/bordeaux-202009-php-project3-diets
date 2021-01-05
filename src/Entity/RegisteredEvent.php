@@ -20,89 +20,24 @@ class RegisteredEvent
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="registeredEvent")
-     */
-    private $user;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="registeredEvent")
-     */
-    private $event;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isOrganizer;
 
-    public function __construct()
-    {
-        $this->user = new ArrayCollection();
-        $this->event = new ArrayCollection();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="registeredEvents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $event;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="registeredEvents")
+     */
+    private $user;
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
-    {
-        return $this->user;
-    }
-
-    public function addUser(User $user): self
-    {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->setRegisteredEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getRegisteredEvent() === $this) {
-                $user->setRegisteredEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvent(): Collection
-    {
-        return $this->event;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->event->contains($event)) {
-            $this->event[] = $event;
-            $event->setRegisteredEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->event->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getRegisteredEvent() === $this) {
-                $event->setRegisteredEvent(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getIsOrganizer(): ?bool
@@ -113,6 +48,30 @@ class RegisteredEvent
     public function setIsOrganizer(bool $isOrganizer): self
     {
         $this->isOrganizer = $isOrganizer;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

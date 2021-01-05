@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\RegisteredEvent;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
@@ -93,6 +94,12 @@ class ProfileController extends AbstractController
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
         if ($formEvent->isSubmitted() && $formEvent->isValid()) {
+            $registerEvent = new RegisteredEvent();
+            $registerEvent->setUser($this->getUser());
+            $registerEvent->setEvent($event);
+            $registerEvent->setIsOrganizer('1');
+            $event->addRegisteredEvent($registerEvent);
+            $event->setEv('0');
             $event->setEventIsValidated('0');
             $entityManager->persist($event);
             $entityManager->flush();
