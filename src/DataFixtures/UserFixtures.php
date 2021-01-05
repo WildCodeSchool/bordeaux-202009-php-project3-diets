@@ -29,6 +29,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setAdeli($faker->swiftBicNumber);
             $user->setPassword($this->passwordEncoder->encodePassword($user, 'MyPassword_' . $i));
             $user->setEmail($faker->email);
+            $user->setRoles(['ROLE_USER']);
             $user->setAddress($faker->address);
             $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
@@ -37,6 +38,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
+            $user->setRegisteredEvent($this->getReference('registered_event_' . rand(1, 50)));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
