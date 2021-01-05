@@ -25,5 +25,17 @@
                 </div>
             {% endfor %}
         </div>
+        <div class="row text-center users-list mx-5">
+            {% for event in event_for_validation %}
+                <div class="col-md-4">
+                    <div class="d-flex pb-1">
+                        <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} </a>
+                        <form method="post" action="{{ path('valid_event') }}"><input type="hidden" value="{{ event.id }}" name="event"><button>Ok</button></form>
+                        <br>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 {% endblock %}

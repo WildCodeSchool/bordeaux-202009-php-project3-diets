@@ -31,6 +31,16 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+        throw new \LogicException (
+            'This method can be blank - it will be intercepted by the logout key on your firewall.'
+        );
+    }
+
+    /**
+     * @Route("/onlogin", name="app_onlogin")
+     */
+    public function onLogin()
+    {
+        return $this->redirectToRoute('profile_edit', ['id' => $this->getUser()->getId()]);
     }
 }
