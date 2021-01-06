@@ -56,6 +56,9 @@
   color:$main-orange;
   font-size: 2rem;
 }
+.nav-user:hover{
+  color:$main-green;
+}
 .container{
   margin-right: 0;
   margin-left: 0;
@@ -76,33 +79,31 @@
 button .navbar-toggler-icon {
   align-items: center;
   height: 32px;
-
 }
 
-@media screen and (min-width:768px){
-  .logo-mobile{
-    display:none;
+
+
+@media screen and (min-width: 768px){
+  .link-footer{
+    display: none;
   }
-  .user-mobile{
+  .navbar-nav{
+    margin-left:auto;
+  }
+  .logo-mobile{
     display: none;
   }
 
-  .link-footer{
-    display:none;
-  }
-}
-
-@media screen and (max-width: 1024px){
-  .logo-mobile{
-    display:none;
-  }
   .user-mobile{
     display: none;
   }
+}
 
-  .link-footer{
-    display:none;
+@media screen and (min-width:768px) and (max-width: 1024px){
+  .logo-mobile {
+    display: none;
   }
+
   .navbar-nav{
     margin-left: 0;
   }
@@ -115,7 +116,7 @@ button .navbar-toggler-icon {
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (min-width:767px) and (max-width: 768px){
   .contain-logo {
     justify-content: right;
     padding-top: 0;
@@ -127,12 +128,18 @@ button .navbar-toggler-icon {
   }
 }
 
-@media screen and (max-width: 767px){
-.logo-title{
-  display: none;
-}
+@media screen and (min-width:360px) and (max-width: 767px){
+  .logo-title{
+    display: none;
+  }
   .nav-user{
     display:none;
+  }
+  .navbar-collapse {
+    flex-basis: 25%;
+    flex-grow: 0;
+    align-items: center;
+    background-color: white;
   }
   .fa-user{
     color:$main-orange;
@@ -140,22 +147,33 @@ button .navbar-toggler-icon {
     margin-left: 20px;
   }
   .logo-mobile .navbar-title{
-    color: $main-black;
+    font-size: 1.9rem;
+    color: $main-green;
     margin-right: 0;
-    font-size: 2.3rem;
     font-weight: bold;
-
-  }
-  .logo-mobile{
-    height:55px;
-    text-align: center;
+    text-shadow: 1px 1px 2px $main-black;
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
   }
+  .navbar-toggler{
+    padding: 0;
+  }
+  .logo-mobile{
+    height:30px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+  }
+  .logo-mobile-image{
+    margin-right: 1em;
+    width: 15%;
+    padding-bottom: 0.5em;
+  }
+  .logo-design {
+    width: 100%;
+  }
+
 
   .nav-item{
     list-style: none;
@@ -166,10 +184,15 @@ button .navbar-toggler-icon {
   .nav-link{
     padding-left: 0;
   }
-
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
 }
 
-@media screen and (max-width: 360px){
+@media screen and (min-width:320px) and (max-width: 360px){
   .navbar{
     display: flex;
     flex-wrap:nowrap;
@@ -183,27 +206,42 @@ button .navbar-toggler-icon {
   .navbar-toggler{
     padding: 0.25rem 0rem;
   }
+  .navbar-collapse{
+    flex-basis: 25%;
+    flex-grow: 0;
+    align-items: center;
+    background-color: white;
+  }
   .fa-user{
     color:$main-orange;
     font-size: 2rem;
     margin-left: 20px;
   }
   .logo-mobile .navbar-title{
-    color: $main-black;
+    font-size: 1.9rem;
+    color: $main-green;
     margin-right: 0;
-    font-size: 2.3rem;
     font-weight: bold;
-  }
-  .logo-mobile{
-    height:55px;
-    text-align: center;
+    text-shadow: 1px 1px 2px $main-black;
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
   }
+  .logo-mobile{
+    height:30px;
+    width: 70%;
+    align-items: center;
+    display: flex;
+  }
+  .logo-mobile-image{
+    margin-right: 1em;
+    width: 15%;
+    padding-bottom: 0.4em;
+  }
+  .logo-design {
+    width: 100%;
+  }
+
   .nav-item{
     list-style: none;
   }
@@ -213,61 +251,88 @@ button .navbar-toggler-icon {
   .nav-link{
     padding-left: 0;
   }
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
 }
 
- @media screen and (max-width:320px) {
-   .navbar{
-     padding-left:0;
-     padding-right:0;
+@media screen and (min-width:280px) and (max-width:320px) {
+  .navbar{
+    padding-left:0;
+    padding-right:0;
 
-   }
-   .navbar-toggler{
-     padding: 0.25rem 0.10rem;
-     background-color: transparentize(white, 0.7);
-   }
-   .logo-mobile .navbar-title{
-     margin-left: -15px;
-     color: $main-black;
-     margin-right: 0;
-     font-size: 2.3rem;
-     font-weight: bold;
-   }
-   .fa-user{
-     padding-right: 5px;
-     margin-left: 5px;
-   }
-   .logo-title{
-     display: none;
-   }
-   .nav-user{
-     display:none;
-   }
-   .fa-user{
-     color:$main-orange;
-     font-size: 2rem;
-     margin-left: 20px;
-   }
+  }
+  .navbar-collapse{
+    flex-basis: 25%;
+    flex-grow: 0;
+    align-items: center;
+    background-color: white;
+  }
+  .navbar-toggler{
+    padding: 0.25rem 0.10rem;
+    background-color: transparentize(white, 0.7);
+  }
+  .logo-mobile .navbar-title{
+    margin-left: -15px;
+    margin-right: 0;
+    font-size: 1.7rem;
+    font-weight: bold;
+    padding-top: 0.5em;
+    color: $main-green;
+    text-shadow: 1px 1px 2px $main-black;
+  }
+  .fa-user{
+    padding-right: 5px;
+    margin-left: 5px;
+  }
+  .logo-title{
+    display: none;
+  }
+  .nav-user{
+    display:none;
+  }
+  .fa-user{
+    color:$main-orange;
+    font-size: 2rem;
+    margin-left: 20px;
+  }
+  .navbar-title:hover{
+    text-decoration: none;
+  }
 
-   .logo-mobile{
-     height:55px;
-     text-align: center;
-   }
-   .navbar-title:hover{
-     text-decoration: none;
-     color: $main-green;
-     font-weight: bold;
-     font-size: 2.5rem;
-   }
-   .nav-item{
-     list-style: none;
-   }
-   .link-footer{
-     padding-left:0;
-   }
-   .nav-link{
-     padding-left: 0;
-   }
- }
+  .logo-mobile{
+    height:30px;
+    width: 70%;
+    display: flex;
+  }
+  .logo-mobile-image{
+    margin-right: 1em;
+    width: 15%;
+    padding-bottom: 0.3em;
+  }
+  .logo-design {
+    width: 100%;
+  }
+
+  .nav-item{
+    list-style: none;
+  }
+  .link-footer{
+    padding-left:0;
+  }
+  .nav-link{
+    padding-left: 0;
+  }
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
+}
 
 @media screen and (max-width: 280px){
   .navbar{
@@ -289,20 +354,26 @@ button .navbar-toggler-icon {
     margin-left: 0px;
   }
   .logo-mobile .navbar-title{
-    color: $main-black;
     margin-right: 0;
-    font-size: 2.1rem;
+    font-size: 1.5rem;
+    color: $main-green;
     font-weight: bold;
+    text-shadow: 1px 1px 2px $main-black;
   }
   .logo-mobile{
-    height:55px;
-    text-align: center;
+    height:30px;
+    width: 70%;
+    display: flex;
+  }
+  .logo-mobile-image{
+    margin-right: 1em;
+    width: 15%;
+  }
+  .logo-design {
+    width: 100%;
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
   }
   .nav-item{
     list-style: none;
@@ -313,5 +384,16 @@ button .navbar-toggler-icon {
   .nav-link{
     padding-left: 0;
   }
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
+  .navbar-collapse{
+    flex-basis: 25%;
+    flex-grow: 0;
+    align-items: center;
+    background-color: white;
+  }
 }
-
