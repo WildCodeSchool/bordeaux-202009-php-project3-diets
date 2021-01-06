@@ -53,8 +53,7 @@ class ProfileController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
 
-        if (!$user)
-        {
+        if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
             );
