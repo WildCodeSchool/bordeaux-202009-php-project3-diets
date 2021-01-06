@@ -13,7 +13,7 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 1; $i < 50; $i++) {
+        for ($i = 1; $i <= 49; $i++) {
             $resource = new Resource();
             $resource->setUpdatedAt($faker->dateTimeAD);
             $resource->setLink($faker->url);
@@ -21,10 +21,24 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
             $resource->setDescription($faker->text);
             $resource->setName($faker->word);
             $resource->setResourceFormat($this->getReference('resource_format_' . rand(0, 49)));
-            $resource->setUser($this->getReference('user_' . rand(0, 49)));
+            $resource->setUser($this->getReference('user_' . $i));
             $manager->persist($resource);
             $this->addReference('resource_' . $i, $resource);
         }
+
+        for ($i = 1; $i <= 8; $i++) {
+            $resource = new Resource();
+            $resource->setUpdatedAt($faker->dateTimeAD);
+            $resource->setLink($faker->url);
+            $resource->setCreatedAt($faker->dateTimeAD);
+            $resource->setDescription($faker->text);
+            $resource->setName($faker->word);
+            $resource->setResourceFormat($this->getReference('resource_format_' . rand(0, 49)));
+            $resource->setUser($this->getReference('user_' . 50));
+            $manager->persist($resource);
+            $this->addReference('resource_' . ($i + 49), $resource);
+        }
+
         $manager->flush();
     }
 

@@ -4,6 +4,14 @@
     margin-bottom: 0;
   }
 
+  .block-list {
+    margin: 10px 10px 30px 30px ;
+  }
+
+  h4 {
+    color: $color-h3!important;
+    margin-bottom: 10px!important;
+  }
   .users-list {
     height: 200px;
     overflow-y: scroll;

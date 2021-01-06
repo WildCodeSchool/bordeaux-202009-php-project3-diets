@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\EventRepository;
+use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +17,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $userRepository, EventRepository $eventRepository): Response
+    public function index(UserRepository $userRepository,
+                          EventRepository $eventRepository,
+                          ServiceRepository $serviceRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -28,20 +31,22 @@ class AdminController extends AbstractController
         $approveEvent = $eventRepository->findBy(
             ['eventIsValidated' => 0]
         );
+        $approveService = $serviceRepository->findBy(
+            ['serviceIsValidated' => 0]
+        );
 
 
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
             'registered_user' => $registeredUser,
             'event_for_validation' => $approveEvent,
+            'service_for_validation' => $approveService
         ]);
     }
 
     /**
      * @Route("/admin/event/", methods={"POST"}, name="valid_event")
-     *
      */
-
     public function validAnEvent(Request $request,
                                  EntityManagerInterface $entityManager,
                                  EventRepository $eventRepository): Response
@@ -54,6 +59,24 @@ class AdminController extends AbstractController
         $this->addFlash('success', 'L\'évènement a bien été validé');
         return $this->redirectToRoute('admin');
     }
+
+    /**
+     * @Route("/admin/service/", methods={"POST"}, name="valid_service")
+     *
+     */
+    public function validService(Request $request,
+                                 EntityManagerInterface $entityManager,
+                                 ServiceRepository $serviceRepository): Response
+    {
+        $service = $serviceRepository->find($request->get('service'));
+        $service->setServiceIsValidated(true);
+        $entityManager->persist($service);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Service validé');
+        return $this->redirectToRoute('admin');
+    }
+
 
     /**
      * @Route("/admin/{id}", name="admin_delete", methods={"DELETE"})
