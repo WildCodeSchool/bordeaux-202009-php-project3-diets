@@ -15,12 +15,8 @@
                 <a class="navbar-title" href="#">Nous les diets</a>
             </div>
         </div>
-        <div class="">
-            {% if app.user %}
-                {% if app.user %}
-                    <a class="user-mobile" href="{{path('profile_edit', {'id': app.user.id})}}"><i class=" fas fa-user"></i></a>
-                {% endif %}
-            {% endif %}
+        <div class="user-mobile">
+                    <a href="#"><i class=" fas fa-user"></i></a>
         </div>
 
         <!-- Collapsible content -->
@@ -44,11 +40,11 @@
                 <li class="nav-item">
                     <a href="{{ path('service_index') }}" class="nav-link">Services</a>
                 </li>
-                {# {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
-                        </li>
-                    {% endif %} #}
+                 {% if app.user %}
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
+                     </li>
+                 {% endif %}
             </ul>
             <ul class="link-footer">
                 <li class="nav-item">
@@ -61,24 +57,10 @@
                     <a class="nav-link" href="{{ path('propos') }}">A propos</a>
                 </li>
             </ul>
-            <div class="">
-                {% if app.user %}
-                    <a class="nav-user" href="{{path('profile_edit', {'id': app.user.id})}}"><i class=" fas fa-user"></i></a>
-                {% endif %}
+            <div>
+                    <a class="nav-user" href="#"><i class=" fas fa-user"></i></a>
             </div>
-
-
-
-
         </div>
-        <!-- Collapsible content -->
-
-        </div>
-
-
     </nav>
-
-
-    <!--/.Navbar-->
 
 {% endblock %}
