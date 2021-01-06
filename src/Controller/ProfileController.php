@@ -53,7 +53,8 @@ class ProfileController extends AbstractController
     public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
     {
 
-        if (!$user) {
+        if (!$user)
+        {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
             );
@@ -99,15 +100,12 @@ class ProfileController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer('1');
             $event->addRegisteredEvent($registerEvent);
-            $event->setEv('0');
             $event->setEventIsValidated('0');
             $entityManager->persist($event);
             $entityManager->flush();
         }
 
         return $this->render('profile/edit.html.twig', [
-
-            'services' => $service,
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'formEditUser' => $formEditUser->createView(),
