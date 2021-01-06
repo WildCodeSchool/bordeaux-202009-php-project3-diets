@@ -15,10 +15,12 @@
     <h3 class="part-title">Mes événements :</h3>
 </div>
 <div class="d-flex flex-wrap justify-content-center">
-    {% for i in 20..23 %}
+    {% for registered_event in registered_events %}
         <div class="card-container justify-content-center">
             <div class="overflow-hidden">
-                <img src="https://picsum.photos/400/200?random={{ i }}" alt='événement organisé'>
+                <a href="{{ registered_event.event.link }}" target="_blank">
+                    <img src="{{ registered_event.event.picture.link }}" alt='événement organisé'>
+                </a>
             </div>
         </div>
     {% endfor %}
@@ -28,11 +30,11 @@
     <h3 class="part-title">Mes services :</h3>
 </div>
 <div class="d-flex flex-wrap justify-content-center">
-    {% for j in 30..33 %}
+    {% for service in services %}
         <div class="card-container justify-content-center">
-            <div class="overflow-hidden">
-                <img src="https://picsum.photos/400/200?random={{ j }}" alt='événement organisé'>
-            </div>
+            <a href="{{ service.link }}" target="_blank">
+                <img src="{{ service.picture.link }}" alt='service proposé'>
+            </a>
         </div>
     {% endfor %}
 </div>

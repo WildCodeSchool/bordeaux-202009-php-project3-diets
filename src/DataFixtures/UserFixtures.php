@@ -38,7 +38,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
-            //$user->addRegisteredEvent($this->getReference('registered_event_' . rand(1, 50)));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
@@ -60,6 +59,25 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         ));
         $user->setPicture($this->getReference('picture_50'));
         $this->addReference('user_50', $user);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setLastname($faker->lastName);
+        $user->setFirstname($faker->firstName);
+        $user->setBirthday($faker->dateTime);
+        $user->setAdeli($faker->swiftBicNumber);
+        $user->setEmail('bonjour@bonjour.com');
+        $user->setAddress($faker->address);
+        $user->setPhone($faker->numberBetween(100000, 500000));
+        $user->setWebsite($faker->domainName);
+        $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
+        $user->setRoles(['ROLE_CONTRIBUTOR']);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'bonjour'
+        ));
+        $user->setPicture($this->getReference('picture_51'));
+        $this->addReference('user_51', $user);
         $manager->persist($user);
 
         $manager->flush();
