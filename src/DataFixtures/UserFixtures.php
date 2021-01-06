@@ -38,7 +38,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
                 $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
-            $user->setRegisteredEvent($this->getReference('registered_event_' . rand(1, 50)));
+            $user->addRegisteredEvent($this->getReference('registered_event_' . rand(1, 50)));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
