@@ -61,13 +61,6 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
-            $picture = '';
-            if ($userInfos[0]->getPicture()) {
-                $picture = $userInfos[0]->getPicture()->getLink();
-            } else {
-                $picture = "/build/images/logo.69395845.png";
-            }
-
             $expertises = "";
             foreach ($userInfos[0]->getExpertise() as $expertise) {
                 $expertises = $expertises . $expertise->getname() . ', ';
@@ -113,7 +106,6 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/edit.html.twig', [
             'user_infos'   => $userInfos[0],
-            'picture'      => $picture,
             'expertises'   => $expertises,
             'formEditUser' => $formEditUser->createView(),
             'formService'  => $formService->createView(),
