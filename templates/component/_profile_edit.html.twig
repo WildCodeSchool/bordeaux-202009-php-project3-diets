@@ -18,7 +18,13 @@
             <div class="col-xl-5 col-12 d-flex justify-content-center">
                 <div>
                     <div class="overflow-hidden">
-                        <img class="profile-picture" src={# infos.picture.link #}"https://i.pinimg.com/474x/91/27/a5/9127a595d3a3421d984edc45230f6d9a.jpg"
+                        <img class="profile-picture"
+                             src=
+                                {% if (infos.picture) == false %}
+                                    {{ asset('profile-initial-picture.be6b2f1a.png') }}
+                                {% else %}
+                                    {{ infos.picture.link }}
+                                {% endif %}
                              alt="photo de profil">
                     </div>
                     <div>

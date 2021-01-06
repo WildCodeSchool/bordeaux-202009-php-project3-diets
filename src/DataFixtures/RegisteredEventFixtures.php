@@ -21,7 +21,7 @@ class RegisteredEventFixtures extends Fixture implements DependentFixtureInterfa
             $manager->persist($registeredEvent);
         }
 
-        for ($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i < 8; $i++) {
             $registeredEvent = new RegisteredEvent();
             $registeredEvent->setIsOrganizer(rand(0, 1));
             $registeredEvent->setEvent(($this->getReference('event_' . $i)));
@@ -30,7 +30,7 @@ class RegisteredEventFixtures extends Fixture implements DependentFixtureInterfa
             $manager->persist($registeredEvent);
         }
 
-        for ($i = 0; $i <= 10; $i++) {
+        for ($i = 0; $i <= 50; $i++) {
             $registeredEvent = new RegisteredEvent();
             $registeredEvent->setIsOrganizer(rand(0, 1));
             $registeredEvent->setEvent(($this->getReference('event_' . $i)));

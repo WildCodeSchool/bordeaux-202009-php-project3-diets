@@ -4,6 +4,9 @@
 {% block body %}
 {% set infos = user_infos %}
 {% set services = infos.services %}
+{% set resources = infos.resources %}
+{% set registered_events = infos.registeredEvents %}
+
 <div>
     {% include '/component/_profile_edit.html.twig' %}
 </div>
