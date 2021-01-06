@@ -2,20 +2,20 @@
     <div class="box-inner">
         <div class="box-front ">
             <img
-                    src="https://picsum.photos/200/300?random={# resource.id #}"
+                    src="https://picsum.photos/200/300?random={{ resource.id }}"
                     class="card-img "
                     alt="..."
             />
 
             <div class="card-img-overlay ">
-                <h5 class="card-title">{# resource.name #}</h5>
+                <h5 class="card-title">{{ resource.name }}</h5>
             </div>
         </div>
         <div class="box-back shadow p-3 mb-5 bg-white rounded">
             <div class="card-body">
-                <h5 class="card-title">{# resource.name #}</h5>
+                <h5 class="card-title">{{ resource.name }}</h5>
                 <p class="card-text">
-                    {# resource.description[:150] ~ '...' #}
+                    {{ resource.description[:150] ~ '...' }}
                 </p>
                 <button type="button" class="btn text-white">Button</button>
             </div>
