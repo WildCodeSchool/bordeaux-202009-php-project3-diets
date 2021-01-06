@@ -105,13 +105,11 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('profile/edit.html.twig', [
-
-            'services' => $service,
-            'user_infos' => $userInfos[0],
-            'expertises' => $expertises,
+            'user_infos'   => $userInfos[0],
+            'expertises'   => $expertises,
             'formEditUser' => $formEditUser->createView(),
-            'formService' => $formService->createView(),
-            'formEvent' => $formEvent->createView(),
+            'formService'  => $formService->createView(),
+            'formEvent'    => $formEvent->createView(),
         ]);
     }
 }
