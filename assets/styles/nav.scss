@@ -88,7 +88,9 @@ button .navbar-toggler-icon {
     display: none;
   }
   .navbar-nav{
+    font-size: 0.9rem;
     margin-left:auto;
+    align-items: center;
   }
   .logo-mobile{
     display: none;
@@ -114,25 +116,25 @@ button .navbar-toggler-icon {
     padding-top: 0.7vh;
   }
   .contain-logo{
-    justify-content: right;
+    justify-content: left;
   }
 }
 
 @media screen and (max-width: 768px){
   .contain-logo {
     padding-top: 0;
-    width: 345px;
   }
-
 }
 
 @media screen and (max-width: 767px){
+
   .logo-title{
     display: none;
   }
   .nav-user{
     display:none;
   }
+
   .navbar-collapse {
     flex-basis: 25%;
     flex-grow: 0;
@@ -143,6 +145,7 @@ button .navbar-toggler-icon {
     font-size: 2rem;
     margin-left: 20px;
   }
+
   .logo-mobile .navbar-title{
     font-size: 1.9rem;
     color: $main-green;
@@ -195,7 +198,7 @@ button .navbar-toggler-icon {
   }
 
   .logo-mobile{
-    width: 80%;
+    width: 71%;
   }
   .logo-mobile-image{
     padding-bottom: 0.4em;
@@ -209,7 +212,6 @@ button .navbar-toggler-icon {
   .navbar{
     padding-left:0;
     padding-right:0;
-
   }
 
   .navbar-toggler{
@@ -223,6 +225,9 @@ button .navbar-toggler-icon {
   .fa-user{
     padding-right: 5px;
     margin-left: 5px;
+  }
+  .logo-mobile{
+    width: 67%;
   }
 }
 
