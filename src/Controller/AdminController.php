@@ -17,7 +17,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $userRepository, EventRepository $eventRepository, ServiceRepository $serviceRepository): Response
+    public function index(UserRepository $userRepository,
+                          EventRepository $eventRepository,
+                          ServiceRepository $serviceRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -38,15 +40,13 @@ class AdminController extends AbstractController
             'registered_user_count' => count($registeredUser),
             'registered_user' => $registeredUser,
             'event_for_validation' => $approveEvent,
-            'service_for_validation' =>$approveService
+            'service_for_validation' => $approveService
         ]);
     }
 
     /**
      * @Route("/admin/event/", methods={"POST"}, name="valid_event")
-     *
      */
-
     public function validAnEvent(Request $request,
                                  EntityManagerInterface $entityManager,
                                  EventRepository $eventRepository): Response
