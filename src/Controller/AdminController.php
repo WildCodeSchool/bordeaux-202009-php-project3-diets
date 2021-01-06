@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Resource;
 use App\Entity\User;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
@@ -10,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class AdminController extends AbstractController
 {
@@ -56,11 +58,11 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="admin_delete_user", methods={"DELETE"})
      *
      */
 
-    public function delete(Request $request,
+    public function deleteUser(Request $request,
                            User $user): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
@@ -70,4 +72,5 @@ class AdminController extends AbstractController
         }
         return $this->redirectToRoute('admin');
     }
+
 }
