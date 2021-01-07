@@ -2,14 +2,17 @@
     <div class="d-flex justify-content-center">
         <h2 class="page-title">Bonjour {{ infos.firstname}} ! Heureux de vous revoir.</h2>
     </div>
-    <div class="d-flex justify-content-center align-items-center flex-wrap">
+    <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
         <div>Je propose :</div>
         <div class="profile-button-container d-flex flex-wrap justify-content-center">
             <div class="profile-button">
-                <a href="">une fiche</a>
+                <a href="#nouvelle-fiche">une fiche</a>
             </div>
             <div class="profile-button">
-                <a href="">un évènement</a>
+                <a href="#nouveau-service">un service</a>
+            </div>
+            <div class="profile-button">
+                <a href="#nouvel-evenement">un évènement</a>
             </div>
         </div>
     </div>
@@ -47,12 +50,14 @@
                 </div>
                 <div class="col-12 col-sm-7 profile-main-forms">
                     <div class="form-edit-user">
-                        {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
+                    {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
                         {{ form_start(formEditUser) }}
                         {{ form_widget(formEditUser) }}
-                        <button class="btn">{{ button_label|default('Valider') }}</button>
-                        {{ form_end(formEditUser) }}
                     </div>
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                    </div>
+                    {{ form_end(formEditUser) }}
                 </div>
             </div>
         </div>

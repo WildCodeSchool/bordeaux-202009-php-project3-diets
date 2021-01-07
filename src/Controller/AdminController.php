@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Resource;
 use App\Entity\User;
 use App\Repository\EventRepository;
 use App\Repository\ServiceRepository;
@@ -17,7 +18,9 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $userRepository, EventRepository $eventRepository, ServiceRepository $serviceRepository): Response
+    public function index(UserRepository $userRepository,
+                          EventRepository $eventRepository,
+                          ServiceRepository $serviceRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -33,20 +36,17 @@ class AdminController extends AbstractController
             ['serviceIsValidated' => 0]
         );
 
-
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
             'registered_user' => $registeredUser,
             'event_for_validation' => $approveEvent,
-            'service_for_validation' =>$approveService
+            'service_for_validation' => $approveService
         ]);
     }
 
     /**
      * @Route("/admin/event/", methods={"POST"}, name="valid_event")
-     *
      */
-
     public function validAnEvent(Request $request,
                                  EntityManagerInterface $entityManager,
                                  EventRepository $eventRepository): Response
@@ -77,13 +77,11 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-
     /**
-     * @Route("/admin/{id}", name="admin_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="admin_delete_user", methods={"DELETE"})
      *
      */
-
-    public function delete(Request $request,
+    public function deleteUser(Request $request,
                            User $user): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {

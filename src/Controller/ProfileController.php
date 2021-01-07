@@ -4,16 +4,20 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\RegisteredEvent;
+use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
+use App\Repository\EventRepository;
+use App\Repository\ResourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profile", name="profile_")
@@ -24,7 +28,7 @@ class ProfileController extends AbstractController
      * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
      * @return Response
      */
-    public function show(User $user): Response
+    public function show(User $user, EventRepository $eventRepository): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -39,10 +43,13 @@ class ProfileController extends AbstractController
                 $expertises = $expertises . $expertise->getname() . ', ';
             }
             $expertises = substr($expertises, 0, -2);
+
+            $eventsById = $eventRepository->find(['id' => $user->getId()]);
         }
         return $this->render('profile/show.html.twig', [
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
+            'events' => $eventsById,
         ]);
     }
 
@@ -67,6 +74,8 @@ class ProfileController extends AbstractController
             }
             $expertises = substr($expertises, 0, -2);
         }
+
+        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
 
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
@@ -105,11 +114,27 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('profile/edit.html.twig', [
-            'user_infos'   => $userInfos[0],
-            'expertises'   => $expertises,
+            'services' => $service,
+            'user_infos' => $userInfos[0],
+            'expertises' => $expertises,
             'formEditUser' => $formEditUser->createView(),
-            'formService'  => $formService->createView(),
-            'formEvent'    => $formEvent->createView(),
+            'formService' => $formService->createView(),
+            'formEvent' => $formEvent->createView(),
+            'resources' => $resources,
         ]);
+    }
+
+    /**
+     * @Route("/ressource/{id}", name="delete_resource", methods={"DELETE"})
+     */
+    public function deleteResource(Request $request,
+                                   Resource $resource): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $resource->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($resource);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('ressource_index');
     }
 }

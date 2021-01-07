@@ -156,6 +156,12 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 1380px) {
+  .home-main-container {
+    height: 95vh;
+  }
+}
+
 @media screen and (max-width: 1199px) {
   .home-page{
     display: grid;
