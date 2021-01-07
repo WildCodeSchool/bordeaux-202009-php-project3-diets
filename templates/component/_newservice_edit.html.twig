@@ -2,7 +2,7 @@
     <h3 class="part-title">Je propose un service :</h3>
 </div>
 <div class="container-fluid-service">
-    <div class="row align-items-center">
+    <div class="row align-items-center justify-content-center">
         <div class="col-5 d-flex justify-content-center">
             <div>
                 <div class="overflow-hidden">
@@ -15,30 +15,16 @@
         </div>
         <div class="col-7 profile-main-forms">
             <div class="form-service">
+                {% form_theme formService 'bootstrap_4_layout.html.twig' %}
                 {{ form_start(formService) }}
-                <div class="row">
-                    <div class="text-center px-4">Titre</div>
-                    <div>{{ form_row(formService.name) }}</div>
-                </div>
-                <div class="row">
-                    <div class="text-center px-4">Lien</div>
-                    <div>{{ form_row(formService.link) }}</div>
-                </div>
-                <div class="row">
-                    <div class="text-center px-4">Prix</div>
-                    <div>{{ form_row(formService.price) }}</div>
-                </div>
-                <div class="row">
-                    <div class="text-center px-4">Description</div>
-                    <div>{{ form_row(formService.description) }}</div>
-                </div>
-                <div class="row">
-                    <div class="text-center px-4">Picture</div>
-                    <div>{{ form_row(formService.picture) }}</div>
-                </div>
-                <div>
-                    <button class="btn">{{ button_label|default('Valider') }}</button>
-                </div>
+                    {{ form_row(formService.name) }}
+                    {{ form_row(formService.link) }}
+                    {{ form_row(formService.price) }}
+                    {{ form_row(formService.description) }}
+                    {{ form_row(formService.picture) }}
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                    </div>
                 {{ form_end(formService) }}
             </div>
         </div>

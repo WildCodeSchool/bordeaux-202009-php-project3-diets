@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-7 col-12 d-flex justify-content-center justify-content-xl-start" >
+            <div class="col-xl-7 col-12 d-sm-flex  text-center text-sm-left justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
                     <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
                     <p> Spécialisation:
@@ -45,8 +45,9 @@
                     <p> {{ infos.phone }} </p>
                     <p>Site internet : {{ infos.website }} </p>
                 </div>
-                <div class="col-7 profile-main-forms">
+                <div class="col-12 col-sm-7 profile-main-forms">
                     <div class="form-edit-user">
+                        {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
                         {{ form_start(formEditUser) }}
                         {{ form_widget(formEditUser) }}
                         <button class="btn">{{ button_label|default('Valider') }}</button>
