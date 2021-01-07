@@ -91,6 +91,24 @@
   }
 }
 
+.delete-btn {
+  justify-content: center;
+  align-items: center;
+  color: $main-orange;
+  &:hover {
+    color: $main-red;
+  }
+}
+
+button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
 .container-fluid-event{
   .form-event{
     label{
