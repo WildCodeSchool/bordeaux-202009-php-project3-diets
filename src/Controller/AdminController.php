@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Resource;
 use App\Entity\User;
 use App\Repository\EventRepository;
 use App\Repository\ServiceRepository;
@@ -34,7 +35,6 @@ class AdminController extends AbstractController
         $approveService = $serviceRepository->findBy(
             ['serviceIsValidated' => 0]
         );
-
 
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
@@ -77,13 +77,11 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-
     /**
-     * @Route("/admin/{id}", name="admin_delete", methods={"DELETE"})
+     * @Route("/admin/{id}", name="admin_delete_user", methods={"DELETE"})
      *
      */
-
-    public function delete(Request $request,
+    public function deleteUser(Request $request,
                            User $user): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
