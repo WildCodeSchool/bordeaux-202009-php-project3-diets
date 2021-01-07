@@ -2,83 +2,64 @@
     <!--Navbar-->
 
     <nav class="navbar navbar-expand-md shadow-sm p-3 mb-5 bg-white rounded">
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+        </button>
         <div class="logo-mobile">
             <div class="logo-mobile-image">
                 <img src="{{ asset('build/images/logo.69395845.png') }}" alt="logo" class="logo-design">
             </div>
             <div>
-                <a class="navbar-title" href="#">Nous les diets</a>
+                <a class="navbar-title" href="{{ path('ressource_index') }}">Nous les diets</a>
             </div>
         </div>
-        <div class="">
-            {% if app.user %}
-                {% if app.user %}
-                    <a class="user-mobile" href="{{path('profile_edit', {'id': app.user.id})}}"><i class=" fas fa-user"></i></a>
-                {% endif %}
-            {% endif %}
+        <div>
+            <a class="user-mobile" href="#" ><i class=" fas fa-user"></i></a>
         </div>
 
-            <!-- Collapsible content -->
-            <div class="collapse navbar-collapse mb-1" id="basicExampleNav">
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse mb-1" id="basicExampleNav">
 
-                <!-- Links -->
-                <div class="contain-logo">
-                    <img src="{{ asset('build/images/logo.69395845.png') }}" alt="logo" class="logo-design">
-                    <div class="logo-title">
-                        <a class="navbar-title" href="{{ path('ressource_index') }}">Nous les diets</a>
-                    </div>
+            <!-- Links -->
+            <div class="contain-logo">
+                <img src="{{ asset('build/images/logo.69395845.png') }}" alt="logo" class="logo-design">
+                <div class="logo-title">
+                    <a class="navbar-title" href="{{ path('ressource_index') }}">Nous les diets</a>
                 </div>
-
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('knowledge') }}">Connaissances</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('event_index') }}">Evènements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ path('service_index') }}" class="nav-link">Services</a>
-                    </li>
-                    {# {% if app.user %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
-                        </li>
-                    {% endif %} #}
-                </ul>
-                <ul class="link-footer">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Admin</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('contact') }}">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('propos') }}">A propos</a>
-                    </li>
-                </ul>
-               <div class="">
-                   {% if app.user %}
-                           <a class="nav-user" href="{{path('profile_edit', {'id': app.user.id})}}"><i class=" fas fa-user"></i></a>
-                   {% endif %}
-                </div>
-
-
-
-
             </div>
-            <!-- Collapsible content -->
 
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('knowledge') }}">Connaissances</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('event_index') }}">Evènements</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ path('service_index') }}" class="nav-link">Services</a>
+                </li>
+                 {% if app.user %}
+                     <li class="nav-item">
+                        <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
+                     </li>
+                 {% endif %}
+            </ul>
+            <ul class="link-footer">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('propos') }}">A propos</a>
+                </li>
+            </ul>
+            <div>
+                    <a class="nav-user" href="#"><i class=" fas fa-user"></i></a>
+            </div>
         </div>
-
-
     </nav>
-
-
-    <!--/.Navbar-->
 
 {% endblock %}

@@ -52,9 +52,12 @@
   color:$main-green;
 }
 
-.nav-user{
-  color:$main-orange;
-  font-size: 2rem;
+.nav-user {
+    color:$main-orange;
+    font-size: 2rem;
+}
+.nav-user:hover{
+  color:$main-green;
 }
 .nav-user:hover{
   color:$main-green;
@@ -82,28 +85,32 @@ button .navbar-toggler-icon {
 }
 
 
+/*--------------------------------------------------------------------------*/
 
 @media screen and (min-width: 768px){
   .link-footer{
     display: none;
   }
   .navbar-nav{
+    font-size: 0.9rem;
     margin-left:auto;
+    align-items: center;
   }
   .logo-mobile{
     display: none;
   }
-
   .user-mobile{
     display: none;
   }
 }
 
-@media screen and (min-width:768px) and (max-width: 1024px){
+/*-----------------------------------------------------------------------------*/
+
+@media screen and (max-width: 1024px){
   .logo-mobile {
     display: none;
   }
-
+}
   .navbar-nav{
     margin-left: 0;
   }
@@ -112,33 +119,28 @@ button .navbar-toggler-icon {
     padding-top: 0.7vh;
   }
   .contain-logo{
-    justify-content: right;
+    justify-content: left;
   }
 }
 
 @media screen and (min-width:767px) and (max-width: 768px){
   .contain-logo {
-    justify-content: right;
     padding-top: 0;
-    width: 345px;
-  }
-  .logo-title{
-    padding-left: 2vh;
-    padding-top: 0vh;
   }
 }
 
-@media screen and (min-width:360px) and (max-width: 767px){
-.logo-title{
-  display: none;
-}
+@media screen and (max-width: 767px){
+
+  .logo-title{
+    display: none;
+  }
   .nav-user{
     display:none;
   }
+
   .navbar-collapse {
     flex-basis: 25%;
     flex-grow: 0;
-    align-items: center;
     background-color: white;
   }
   .fa-user{
@@ -146,6 +148,7 @@ button .navbar-toggler-icon {
     font-size: 2rem;
     margin-left: 20px;
   }
+
   .logo-mobile .navbar-title{
     font-size: 1.9rem;
     color: $main-green;
@@ -173,8 +176,6 @@ button .navbar-toggler-icon {
   .logo-design {
     width: 100%;
   }
-
-
   .nav-item{
     list-style: none;
   }
@@ -192,64 +193,43 @@ button .navbar-toggler-icon {
   }
 }
 
-@media screen and (min-width:320px) and (max-width: 360px){
-  .navbar{
-    display: flex;
-    flex-wrap:nowrap;
-  }
-  .logo-title{
-    display: none;
-  }
-  .nav-user{
-    display:none;
-  }
+@media screen and (max-width: 360px){
+
   .navbar-toggler{
-    padding: 0.25rem 0rem;
+    padding: 0.25rem 0;
   }
-  .navbar-collapse{
-    flex-basis: 25%;
-    flex-grow: 0;
-    align-items: center;
-    background-color: white;
-  }
-  .fa-user{
-    color:$main-orange;
-    font-size: 2rem;
-    margin-left: 20px;
-  }
-  .logo-mobile .navbar-title{
-    font-size: 1.9rem;
-    color: $main-green;
-    margin-right: 0;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px $main-black;
-  }
-  .navbar-title:hover{
-    text-decoration: none;
-  }
+
   .logo-mobile{
-    height:30px;
-    width: 70%;
-    align-items: center;
-    display: flex;
+    width: 71%;
   }
   .logo-mobile-image{
-    margin-right: 1em;
-    width: 15%;
     padding-bottom: 0.4em;
   }
   .logo-design {
     width: 100%;
   }
+}
 
-  .nav-item{
-    list-style: none;
-  }
-  .link-footer{
+@media screen and (max-width:320px) {
+  .navbar{
     padding-left:0;
+    padding-right:0;
   }
-  .nav-link{
-    padding-left: 0;
+
+  .navbar-toggler{
+    padding: 0.25rem 0.10rem;
+    background-color: transparentize(white, 0.7);
+  }
+  .logo-mobile .navbar-title{
+    margin-left: -15px;
+    font-size: 1.7rem;
+  }
+  .fa-user{
+    padding-right: 5px;
+    margin-left: 5px;
+  }
+  .logo-mobile{
+    width: 67%;
   }
   .navbar-nav{
     padding-left:0;
@@ -258,143 +238,23 @@ button .navbar-toggler-icon {
     display: none;
   }
 }
-
- @media screen and (min-width:280px) and (max-width:320px) {
-   .navbar{
-     padding-left:0;
-     padding-right:0;
-
-   }
-   .navbar-collapse{
-     flex-basis: 25%;
-     flex-grow: 0;
-     align-items: center;
-     background-color: white;
-   }
-   .navbar-toggler{
-     padding: 0.25rem 0.10rem;
-     background-color: transparentize(white, 0.7);
-   }
-   .logo-mobile .navbar-title{
-     margin-left: -15px;
-     margin-right: 0;
-     font-size: 1.7rem;
-     font-weight: bold;
-     padding-top: 0.5em;
-     color: $main-green;
-     text-shadow: 1px 1px 2px $main-black;
-   }
-   .fa-user{
-     padding-right: 5px;
-     margin-left: 5px;
-   }
-   .logo-title{
-     display: none;
-   }
-   .nav-user{
-     display:none;
-   }
-   .fa-user{
-     color:$main-orange;
-     font-size: 2rem;
-     margin-left: 20px;
-   }
-   .navbar-title:hover{
-     text-decoration: none;
-   }
-
-   .logo-mobile{
-     height:30px;
-     width: 70%;
-     display: flex;
-   }
-   .logo-mobile-image{
-     margin-right: 1em;
-     width: 15%;
-     padding-bottom: 0.3em;
-   }
-   .logo-design {
-     width: 100%;
-   }
-
-   .nav-item{
-     list-style: none;
-   }
-   .link-footer{
-     padding-left:0;
-   }
-   .nav-link{
-     padding-left: 0;
-   }
-   .navbar-nav{
-     padding-left:0;
-   }
-   .contain-logo{
-     display: none;
-   }
- }
 
 @media screen and (max-width: 280px){
   .navbar{
     display: flex;
     flex-wrap:nowrap;
   }
-  .logo-title{
-    display: none;
-  }
-  .nav-user{
-    display:none;
-  }
   .navbar-toggler{
-    padding: 0.25rem 0rem;
+    padding: 0.25rem 0;
   }
   .fa-user{
-    color:$main-orange;
-    font-size: 2rem;
-    margin-left: 0px;
+    margin-left: 0;
   }
   .logo-mobile .navbar-title{
-    margin-right: 0;
     font-size: 1.5rem;
-    color: $main-green;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px $main-black;
-  }
-  .logo-mobile{
-    height:30px;
-    width: 70%;
-    display: flex;
-  }
-  .logo-mobile-image{
-    margin-right: 1em;
-    width: 15%;
-  }
-  .logo-design {
-    width: 100%;
   }
   .navbar-title:hover{
     text-decoration: none;
   }
-  .nav-item{
-    list-style: none;
-  }
-  .link-footer{
-    padding-left:0;
-  }
-  .nav-link{
-    padding-left: 0;
-  }
-  .navbar-nav{
-    padding-left:0;
-  }
-  .contain-logo{
-    display: none;
-  }
-  .navbar-collapse{
-    flex-basis: 25%;
-    flex-grow: 0;
-    align-items: center;
-    background-color: white;
-  }
-}
 
+}

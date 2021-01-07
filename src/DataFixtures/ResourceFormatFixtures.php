@@ -15,6 +15,7 @@ class ResourceFormatFixtures extends Fixture
         for ($i = 0; $i < 50; $i++) {
             $resourceFormat = new ResourceFormat();
             $resourceFormat->setFormat($faker->word);
+            $resourceFormat->setIcon("https://picsum.photos/id/" . $i . "/400/300");
             $resourceFormat->setIdentifier($resourceFormat->getFormat());
             $manager->persist($resourceFormat);
             $this->addReference('resource_format_' . $i, $resourceFormat);
