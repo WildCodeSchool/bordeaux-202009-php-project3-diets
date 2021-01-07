@@ -2,7 +2,6 @@
     <!--Navbar-->
 
     <nav class="navbar navbar-expand-md shadow-sm p-3 mb-5 bg-white rounded">
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
                 aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
@@ -16,7 +15,11 @@
             </div>
         </div>
         <div>
-            <a class="user-mobile" href="#" ><i class=" fas fa-user"></i></a>
+            {% if app.user %}
+                <a class="user-mobile" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
+            {% else %}
+                <a class="user-mobile" href="{{ path('app_login') }}"><i class=" fas fa-user"></i></a>
+            {% endif %}
         </div>
 
         <!-- Collapsible content -->
@@ -58,7 +61,11 @@
                 </li>
             </ul>
             <div>
-                    <a class="nav-user" href="#"><i class=" fas fa-user"></i></a>
+                {% if app.user %}
+                    <a class="nav-user" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
+                {% else %}
+                    <a class="nav-user" href="{{ path('app_login') }}"><i class=" fas fa-user"></i></a>
+                {% endif %}
             </div>
         </div>
     </nav>

@@ -38,6 +38,15 @@ footer a:hover {
     .row-footer {
         justify-content: center;
     }
+
+}
+
+.block-item-footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80%;
+
 }
 
     @media screen and (min-width: 1000px) {
@@ -64,6 +73,9 @@ footer a:hover {
 
             .footer-middle {
                 display: block;
+            }
+            .list-unstyled{
+                width:60px;
             }
         }
     }
