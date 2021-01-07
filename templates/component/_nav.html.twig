@@ -16,7 +16,11 @@
             </div>
         </div>
         <div>
-            <a class="user-mobile" href="#" ><i class=" fas fa-user"></i></a>
+            {% if app.user %}
+                <a class="user-mobile" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
+            {% else %}
+                <a class="user-mobile" href="{{ path('app_login') }}"><i class=" fas fa-user"></i></a>
+            {% endif %}
         </div>
 
         <!-- Collapsible content -->
@@ -58,7 +62,11 @@
                 </li>
             </ul>
             <div>
-                    <a class="nav-user" href="#"><i class=" fas fa-user"></i></a>
+                {% if app.user %}
+                    <a class="nav-user" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
+                {% else %}
+                    <a class="nav-user" href="{{ path('app_login') }}"><i class=" fas fa-user"></i></a>
+                {% endif %}
             </div>
         </div>
     </nav>
