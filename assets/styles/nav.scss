@@ -106,18 +106,19 @@ button .navbar-toggler-icon {
 
 /*-----------------------------------------------------------------------------*/
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
   .logo-mobile {
     display: none;
   }
+
   .navbar-nav{
     margin-left: 0;
   }
-  .logo-title{
+  .logo-title {
     padding-left: 2vh;
     padding-top: 0.7vh;
   }
-  .contain-logo{
+  .contain-logo {
     justify-content: left;
   }
 }

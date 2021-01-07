@@ -67,7 +67,7 @@
   textarea {
     border-radius: 15px;
   }
-  label {
+  label, legend {
     margin-bottom: 0.2rem;
     margin-top: 0.5rem;
     font-weight: bold;
@@ -81,6 +81,12 @@
   border-radius: 500px;
   margin-top: 7px;
   padding: 5px 20px;
+}
+
+@media screen and (max-width: 770px) {
+  .show-items .part-title {
+    margin-top: 2em;
+  }
 }
 
 .container-fluid-service{
@@ -119,7 +125,7 @@ button {
 
 @media screen and (max-width: 992px) {
   .profile-main-forms {
-    margin:3px;
+    margin: 3px;
   }
 }
 
@@ -140,3 +146,8 @@ button {
   }
 }
 
+@media screen and (min-width: 993px) {
+  .form-service, .form-event .form-edit-user {
+    margin-right: 2em;
+  }
+}

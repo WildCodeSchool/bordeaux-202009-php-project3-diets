@@ -2,7 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
 @import '~@fortawesome/fontawesome-free/css/all.css';
+
 @import 'variables';
+@import 'overwriting-bootstrap';
 @import "global";
 @import "Ressource";
 @import "nav";
