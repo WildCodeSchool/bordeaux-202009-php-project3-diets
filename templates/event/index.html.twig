@@ -11,10 +11,11 @@
         <div class="dates">
             <h3>Dates</h3>
             {% for event in events %}
-            <ul>
-                <li>{{ event.dateStart|date("d/m/Y H:i") }} <br>
-                    {{ event.name }}
-                </li>
+            <li>
+                <div>
+                    <div>{{ event.dateStart|date("d/m/Y H:i") }}</div>
+                    <div>{{ event.name }}</div>
+                </div>
             </ul>
             {% endfor %}
         </div>
@@ -37,6 +38,18 @@
                     <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                     <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                     <p>Description:{{ event.description }}</p>
+                    {% if event.registeredEvents.owner == app.user %}
+                    <div>Vous êtes l'organisateur</div>
+                    {% else %}
+                    <div>
+                        <form action="" method="post">
+                            <div class="register-event-form">
+                                <input type="hidden" name="eventId" value={{ event.id }}>
+                                <button class='btn btn-primary'>S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
                 </div>
                     </div>
                 {% endfor %}
@@ -66,7 +79,7 @@
                         <div>{{ form_row(formEvent.name) }}</div>
                     </div>
                     <div class="row">
-                        <div class="text-center px-4">Type d'évènement</div>
+                        <div class="text-center px-4">Type évènement</div>
                         <div>{{ form_row(formEvent.eventFormat) }}</div>
                     </div>
                     <div class="row">

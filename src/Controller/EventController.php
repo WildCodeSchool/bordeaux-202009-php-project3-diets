@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\RegisteredEvent;
 use App\Form\EventType;
+use App\Form\RegisterType;
 use App\Repository\EventRepository;
+use App\Repository\RegisteredEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,9 +20,7 @@ class EventController extends AbstractController
     /**
      * @Route("/event", name="event_index")
      */
-    public function index(Request $request,
-                          EntityManagerInterface $entityManager,
-                          EventRepository $eventRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): Response
     {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -28,10 +30,15 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
         }
+        if(isset($_POST['eventId'])){
+            $eventId = $_POST['eventId'];
+            return $this->redirectToRoute('register_event', array('id' => $eventId));
+        }
 
-        return $this->render('event/index.html.twig', [
+            return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
             'formEvent' => $formEvent->createView(),
         ]);
     }
+
 }
