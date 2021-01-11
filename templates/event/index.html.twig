@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-lg-3 text-container">
                     <p>Titre: {{ event.name}} </p>
-                    <p>lien: {{ event.link }}</p>
+                    {% if is_granted("ROLE_CONTRIBUTOR") %}<p>lien: {{ event.link }}</p>{% endif %}
                     <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                     <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                     <p>Description:{{ event.description }}</p>
@@ -43,6 +43,7 @@
             </div>
         </div>
     </div>
+    {% if is_granted("ROLE_CONTRIBUTOR") %}
     <div>
         <h3 class="part-title">Je propose un événement :</h3>
     </div>
@@ -101,5 +102,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}
