@@ -20,7 +20,8 @@ class EventController extends AbstractController
     /**
      * @Route("/event", name="event_index")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager, EventRepository $eventRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,
+                          EventRepository $eventRepository): Response
     {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -30,7 +31,16 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
         }
-        if(isset($_POST['eventId'])){
+
+        $eventsAndOrganizers = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->findEventsAndOrganizers();
+        $eventsAndOrganizersArray= [];
+        foreach($eventsAndOrganizers as $eventAndOrganizer) {
+            $eventsAndOrganizersArray[$eventAndOrganizer->getEvent()->getId()] = $eventAndOrganizer->getUser()->getId();
+        }
+
+        if (isset($_POST['eventId'])) {
             $eventId = $_POST['eventId'];
             return $this->redirectToRoute('register_event', array('id' => $eventId));
         }
@@ -38,6 +48,7 @@ class EventController extends AbstractController
             return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
             'formEvent' => $formEvent->createView(),
+            'events_and_organizers' => $eventsAndOrganizersArray,
         ]);
     }
 

@@ -3,6 +3,7 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
+
 <div class="event">
     <div class="d-flex justify-content-center">
         <h2 class="page-title">Evènements</h2>
@@ -38,8 +39,8 @@
                     <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                     <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                     <p>Description:{{ event.description }}</p>
-                    {% if event.registeredEvents.owner == app.user %}
-                    <div>Vous êtes l'organisateur</div>
+                    {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user.id %}
+                    <div>Vous êtes l'organisateur·rice</div>
                     {% else %}
                     <div>
                         <form action="" method="post">

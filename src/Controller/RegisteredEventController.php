@@ -16,7 +16,7 @@ class RegisteredEventController extends AbstractController
     /**
      * @Route("/register/event/{id}", name="register_event", methods={"GET","POST"})
      */
-    public function registerEvent(Request $request, EntityManagerInterface $entityManager,
+    public function registerToEvent(Request $request, EntityManagerInterface $entityManager,
                                   RegisteredEventRepository $registeredEventRepository,
                                   Event $event): Response
     {

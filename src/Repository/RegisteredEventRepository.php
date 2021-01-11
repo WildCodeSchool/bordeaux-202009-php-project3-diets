@@ -19,22 +19,15 @@ class RegisteredEventRepository extends ServiceEntityRepository
         parent::__construct($registry, RegisteredEvent::class);
     }
 
-    // /**
-    //  * @return RegisteredEvent[] Returns an array of RegisteredEvent objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findEventsAndOrganizers()
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.isOrganizer = :val')
+            ->setParameter('val', '1')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?RegisteredEvent
