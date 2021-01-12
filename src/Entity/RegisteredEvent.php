@@ -25,13 +25,14 @@ class RegisteredEvent
     private $isOrganizer;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="registeredEvents")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="registeredEvents", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $event;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="registeredEvents")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="registeredEvents", cascade={"persist", "remove"})
+     * @ORM\JoinColumn (onDelete="CASCADE")
      */
     private $user;
 

@@ -43,14 +43,14 @@ class Service
     private $serviceIsValidated;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="services")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="services", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $picture;
 

@@ -72,11 +72,12 @@ class Event
 
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn (onDelete="CASCADE")
      */
     private $picture;
 
     /**
-     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event")
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;

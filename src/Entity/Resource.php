@@ -36,8 +36,8 @@ class Resource
     private $link;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ressources")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="ressources", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $user;
 

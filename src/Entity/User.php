@@ -74,13 +74,14 @@ class User implements UserInterface
     private $website;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Expertise::class)
+     * @ORM\ManyToMany(targetEntity=Expertise::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn (onDelete="CASCADE")
      */
     private $expertise;
 
     /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $picture;
 
@@ -90,7 +91,7 @@ class User implements UserInterface
     private $services;
 
     /**
-     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Resource::class, mappedBy="user", orphanRemoval=true)
      */
     private $resources;
 
