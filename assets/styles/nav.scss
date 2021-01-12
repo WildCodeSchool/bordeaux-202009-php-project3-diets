@@ -59,9 +59,7 @@
 .nav-user:hover{
   color:$main-green;
 }
-.nav-user:hover{
-  color:$main-green;
-}
+
 .container{
   margin-right: 0;
   margin-left: 0;
@@ -106,18 +104,19 @@ button .navbar-toggler-icon {
 
 /*-----------------------------------------------------------------------------*/
 
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 1024px) {
   .logo-mobile {
     display: none;
   }
+
   .navbar-nav{
     margin-left: 0;
   }
-  .logo-title{
+  .logo-title {
     padding-left: 2vh;
     padding-top: 0.7vh;
   }
-  .contain-logo{
+  .contain-logo {
     justify-content: left;
   }
 }
@@ -145,6 +144,11 @@ button .navbar-toggler-icon {
   .fa-user{
     color:$main-orange;
     font-size: 2rem;
+    margin-left: 20px;
+  }
+  .fa-user-alt-slash{
+    color:$main-orange;
+    font-size: 1.5rem;
     margin-left: 20px;
   }
 
@@ -207,6 +211,9 @@ button .navbar-toggler-icon {
   .logo-design {
     width: 100%;
   }
+  .fa-user-alt-slash{
+    font-size: 1.2rem;
+  }
 }
 
 @media screen and (max-width:320px) {
@@ -245,6 +252,9 @@ button .navbar-toggler-icon {
   }
   .navbar-toggler{
     padding: 0.25rem 0;
+  }
+  .fa-user-alt-slash{
+    font-size: 1rem;
   }
   .fa-user{
     margin-left: 0;
