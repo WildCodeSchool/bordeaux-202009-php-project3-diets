@@ -9,7 +9,7 @@
         <div class="container-fluid-service">
             <div class="row justify-content-start">
                 <div class="col-lg-2"></div>
-                {% if (app.user) %}
+                {% if is_granted("ROLE_CONTRIBUTOR") %}
                 <div class="col-lg-5">
                     <li class="nav-item dropdown">
                         <h3 class="part-title nav-link dropdown-toggle btn-lg" href="#" role="button"
@@ -66,8 +66,8 @@
                     <div class="col-lg-5 text-container">
                         <p>Titre: {{ service.name }}</p>
                         <p>Prix: {{ service.price }}</p>
-                        <p>Lien: {{ service.link }}</p>
-                        <p>Inscription</p>
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: {{ service.link }}</p>{% endif %}
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
                     </div>
                 {% endfor %}
