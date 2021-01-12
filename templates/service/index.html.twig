@@ -32,8 +32,8 @@
                     <div class="col-lg-5 text-container">
                         <p>Titre: {{ service.name }}</p>
                         <p>Prix: {{ service.price }}</p>
-                        <p>Lien: {{ service.link }}</p>
-                        <p>Inscription</p>
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: {{ service.link }}</p>{% endif %}
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
                     </div>
                 {% endfor %}
