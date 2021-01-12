@@ -6,50 +6,16 @@
         <div class="d-flex justify-content-center">
             <h2 class="page-title">Service</h2>
         </div>
-        <div class="container-fluid-service">
-            <div class="row justify-content-start">
-                <div class="col-lg-2"></div>
-                {% if is_granted("ROLE_CONTRIBUTOR") %}
-                <div class="col-lg-5">
-                    <li class="nav-item dropdown">
-                        <h3 class="part-title nav-link dropdown-toggle btn-lg" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Je propose un service
-                            :</h3>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <div class="form-service">
-                                {{ form_start(formService) }}
-                                <div class="row">
-                                    <div class="text-center px-4">Titre</div>
-                                    <div>{{ form_row(formService.name) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="text-center px-4">Lien</div>
-                                    <div>{{ form_row(formService.link) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="text-center px-4">Prix</div>
-                                    <div>{{ form_row(formService.price) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="text-center px-4">Description</div>
-                                    <div>{{ form_row(formService.description) }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="text-center px-4">Picture</div>
-                                    <div>{{ form_row(formService.picture) }}</div>
-                                </div>
-                                <div>
-                                    <button class="btn">{{ button_label|default('Valider') }}</button>
-                                </div>
-                                {{ form_end(formService) }}
-                            </div>
-                        </div>
-                    </li>
+        {% if app.user %}
+            <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+                <div>Je propose :</div>
+                <div class="profile-button-container d-flex flex-wrap justify-content-center">
+                    <div class="profile-button">
+                        <a href="#nouveau-service">un service</a>
+                    </div>
                 </div>
-                {% endif %}
             </div>
-        </div>
-
+        {% endif %}
         <div>
             <h3 class="part-title">Services Proposés :</h3>
         </div>
@@ -73,6 +39,11 @@
                 {% endfor %}
             </div>
         </div>
+        {% if app.user %}
+            <div>
+                {% include '/component/_newservice_edit.html.twig' %}
+            </div>
+        {% endif %}
     </div>
 
 

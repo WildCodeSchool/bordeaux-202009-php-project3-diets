@@ -8,16 +8,15 @@ use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
+use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Repository\EventRepository;
-use App\Repository\ResourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profile", name="profile_")
@@ -91,6 +90,15 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('service_index');
         }
 
+        $newResource = new Resource();
+        $formResource = $this->createForm(ResourceType::class, $newResource);
+        $formResource->handleRequest($request);
+        if ($formResource->isSubmitted() && $formResource->isValid()) {
+            $newResource->setUser($this->getUser());
+            $entityManager->persist($newResource);
+            $entityManager->flush();
+        }
+
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
@@ -122,6 +130,7 @@ class ProfileController extends AbstractController
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
+            'formResource' => $formResource->createView(),
         ]);
     }
 
