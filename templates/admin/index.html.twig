@@ -20,13 +20,15 @@
             </div>
             <div class="row text-center users-list mx-5">
                 {% for listed_user in registered_user %}
-                    <div class="col-md-4">
-                        <div class="d-flex pb-1">
-                        {{ include('admin/_delete_user.html.twig') }}
-                        <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
-                        <br>
+                    {% if app.user.id != listed_user.id %}
+                        <div class="col-md-4">
+                            <div class="d-flex pb-1">
+                            {# { include('admin/_delete_user.html.twig') } #}
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
+                            <br>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
