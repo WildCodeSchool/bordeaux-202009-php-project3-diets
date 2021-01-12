@@ -28,6 +28,7 @@ class EventType extends AbstractType
             ->add('eventFormat', EntityType::class, [
                 'class' => EventFormat::class,
                 'choice_label' => 'format',
+                'label' => 'Format',
             ])
             ->add('picture', EntityType::class, [
                 'class' => Picture::class,

@@ -10,6 +10,7 @@
 <div>
     {% include '/component/_profile_edit.html.twig' %}
 </div>
+    {% if is_granted("ROLE_CONTRIBUTOR") %}
 <div class="show-items">
     {% include '/component/_service_edit.html.twig' %}
 </div>
@@ -28,5 +29,6 @@
 <div class="d-flex flex-column align-items-start">
     <div style="height:20px"></div>
 </div>
+    {% endif %}
 
 {% endblock %}

@@ -9,6 +9,7 @@ use App\Form\RegisterType;
 use App\Repository\EventRepository;
 use App\Repository\RegisteredEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +20,7 @@ class EventController extends AbstractController
 {
     /**
      * @Route("/event", name="event_index")
+     *
      */
     public function index(Request $request, EntityManagerInterface $entityManager,
                           EventRepository $eventRepository): Response

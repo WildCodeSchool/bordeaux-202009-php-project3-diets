@@ -7,6 +7,16 @@
     <div class="d-flex justify-content-center">
         <h2 class="page-title">Evènements</h2>
     </div>
+    {% if app.user %}
+    <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+        <div>Je propose :</div>
+        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+            <div class="profile-button">
+                <a href="#nouvel-evenement">un évènement</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <div class="calendrier-form">
         <div class="dates">
             <h3>Dates</h3>
@@ -32,6 +42,7 @@
                         <img src="https://picsum.photos/400/300?random {{ event.id }}" alt='Picture event'>
                     </div>
                 </div>
+                    </div>
                 <div class="col-lg-3 text-container">
                     <p>Titre: {{ event.name}} </p>
                     <p>lien: {{ event.link }}</p>
@@ -69,8 +80,13 @@
                 {% endfor %}
             </div>
         </div>
+    {% if app.user %}
+        <div>
+        {% include '/component/_newevent_edit.html.twig' %}
     </div>
-    <div>
+    {% endif %}
+        {% if is_granted("ROLE_CONTRIBUTOR") %}
+        <div>
         <h3 class="part-title">Je propose un événement :</h3>
     </div>
     <div class="container-fluid-event">
@@ -128,5 +144,6 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
-{% endblock %}
+    {% endblock %}
