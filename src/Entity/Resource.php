@@ -14,7 +14,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * @ORM\Entity(repositoryClass=ResourceRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fileds={"fileName"}, message="Il existe dejà un fichier avec ce nom")
+ * @UniqueEntity(fields={"fileName"}, message="Il existe dejà un fichier avec ce nom")
  * @Vich\Uploadable()
  */
 class Resource
@@ -238,7 +238,7 @@ class Resource
     /**
      * @param File $resourceFile
      */
-    public function setResourceFile(File $image = null):Resource
+    public function setResourceFile(File $image = null): Resource
     {
         $this->resourceFile = $image;
         if ($image) {
@@ -246,6 +246,4 @@ class Resource
         }
         return $this;
     }
-
-
 }
