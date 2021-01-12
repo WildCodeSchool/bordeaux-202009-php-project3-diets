@@ -23,17 +23,19 @@ class HomeController extends AbstractController
     {
         return $this->render('component/_card.html.twig');
     }
-
+/*
     /**
      * @Route("/connect", name="connect")
      */
+    /*
     public function connect(): Response
     {
         return $this->render('home/index_connect.html.twig');
     }
+    */
 
     /**
-     * @Route("/register", name="register")
+     * @Route("/inscription", name="register")
      */
     public function register(): Response
     {

@@ -12,10 +12,10 @@ class PictureFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker  =  Faker\Factory::create('fr_FR');
-        for ($i = 1; $i <= 50; $i++) {
+        for ($i = 0; $i <= 200; $i++) {
             $picture = new Picture();
             $picture->setName($faker->domainWord);
-            $picture->setLink($faker->url);
+            $picture->setLink("https://picsum.photos/id/" . $i . "/400/300");
             $manager->persist($picture);
             $this->addReference('picture_' . $i, $picture);
         }

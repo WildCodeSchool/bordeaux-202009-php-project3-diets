@@ -1,0 +1,64 @@
+<div class="profile-edit">
+    <div class="d-flex justify-content-center">
+        <h2 class="page-title">Bonjour {{ infos.firstname}} ! Heureux de vous revoir.</h2>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+        <div>Je propose :</div>
+        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+            <div class="profile-button">
+                <a href="#nouvelle-fiche">une fiche</a>
+            </div>
+            <div class="profile-button">
+                <a href="#nouveau-service">un service</a>
+            </div>
+            <div class="profile-button">
+                <a href="#nouvel-evenement">un évènement</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid profile-main">
+        <div class="row align-items-center">
+            <div class="col-xl-5 col-12 d-flex justify-content-center">
+                <div>
+                    <div class="overflow-hidden">
+                        <img class="profile-picture"
+                             src=
+                                {% if (infos.picture) == false %}
+                                    {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
+                                {% else %}
+                                    {{ infos.picture.link }}
+                                {% endif %}
+                             alt="photo de profil">
+                    </div>
+                    <div>
+                        <p class="text-center text-xl-left green-string">Modifier</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-7 col-12 d-sm-flex  text-center text-sm-left justify-content-center justify-content-xs-start" >
+                <div class="profile-informations">
+                    <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
+                    <p> Spécialisation:
+                        {% for expertise in infos.expertise %}
+                            {{ expertise.name }}.
+                        {% endfor %}
+                    </p>
+                    <p> {{ infos.address }} </p>
+                    <p> {{ infos.email }} </p>
+                    <p> {{ infos.phone }} </p>
+                    <p>Site internet : {{ infos.website }} </p>
+                </div>
+                <div class="col-12 col-sm-7 profile-main-forms">
+                    <div class="form-edit-user">
+                    {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
+                        {{ form_start(formEditUser) }}
+                        {{ form_widget(formEditUser) }}
+                    </div>
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                    </div>
+                    {{ form_end(formEditUser) }}
+                </div>
+            </div>
+        </div>
+    </div>

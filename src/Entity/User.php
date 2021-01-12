@@ -6,12 +6,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-
 class User implements UserInterface
 {
     /**
@@ -53,7 +54,7 @@ class User implements UserInterface
     private $birthday;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $adeli;
 
@@ -94,16 +95,22 @@ class User implements UserInterface
     private $resources;
 
     /**
-     * @ORM\ManyToOne(targetEntity=RegisteredEvent::class, inversedBy="user")
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $registeredEvent;
+    private $registeredEvents;
 
     public function __construct()
     {
         $this->expertise = new ArrayCollection();
         $this->services = new ArrayCollection();
         $this->resources = new ArrayCollection();
+        $this->registeredEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -368,14 +375,44 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRegisteredEvent(): ?RegisteredEvent
+    public function isVerified(): bool
     {
-        return $this->registeredEvent;
+        return $this->isVerified;
     }
 
-    public function setRegisteredEvent(?RegisteredEvent $registeredEvent): self
+    public function setIsVerified(bool $isVerified): self
     {
-        $this->registeredEvent = $registeredEvent;
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RegisteredEvent[]
+     */
+    public function getRegisteredEvents(): Collection
+    {
+        return $this->registeredEvents;
+    }
+
+    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if (!$this->registeredEvents->contains($registeredEvent)) {
+            $this->registeredEvents[] = $registeredEvent;
+            $registeredEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if ($this->registeredEvents->removeElement($registeredEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($registeredEvent->getUser() === $this) {
+                $registeredEvent->setUser(null);
+            }
+        }
 
         return $this;
     }

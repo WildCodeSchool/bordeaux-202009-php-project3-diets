@@ -10,32 +10,57 @@
             <div class="row vertical-center-row">
                 <div class="card col-6 m-auto card-radius">
                     <div>
-                        <div class="-align-right mt-3">
+                        <div class="-align-right mt-2">
                             <div class="close">
-                                <a href="/"><i class="fas fa-times-circle fa-2x"></i></a>
+                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
                             </div>
 
                         </div>
                         <div class="row justify-content-center">
-                            <div class="text-center p-3 card-title home-form-title">Je m'inscris :</div>
+                            <div class="text-center p-1 card-title home-form-title">Je m'inscris :</div>
                         </div>
                     </div>
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+                    {{ form_start(registrationForm) }}
                     <div class="row">
                         <div class="text-center px-4 home-form">Prénom :</div>
-                        <div></div>
+                        <div class="subscribe">{{ form_row(registrationForm.firstname) }}</div>
                     </div>
+                    <div class="row">
+                        <div class="text-center px-4 home-form">Nom :</div>
+                        <div class="subscribe">{{ form_row(registrationForm.lastname) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center px-4 home-form">Adresse e-mail :</div>
+                        <div class="subscribe">{{ form_row(registrationForm.email) }}</div>
+                    </div>
+
+                    <div class="row">
+                        <div class="text-center px-4 home-form">Password :</div>
+                        <div class="subscribe">{{ form_row(registrationForm.plainPassword, {
+                                label: 'Password'
+                            }) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="text-center px-4 home-form">J'accepte les conditions d'utilisation :</div>
+                        <div class="subscribe">{{ form_row(registrationForm.agreeTerms) }}</div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col-4 text-center p-1 home-form-lg">
+                            <button type="submit" class="home-btn-second non_underline">S'inscrire</button>
+                                {{ form_end(registrationForm) }}
+                        </div>
+                    </div>
+                    {#
+
                     <div class="row">
                         <div class="text-center px-4 home-form">Nom :</div>
                         <div></div>
                     </div>
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Numéro ADELI :</div>
-                        <div></div>
-                    </div>
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Adresse e-mail :</div>
-                        <div></div>
-                    </div>
+
+
                     <div class="row pt-3">
                         <div class="col-4 text-center p-1 home-form-lg">
                             <div class="home-btn-second">
@@ -43,8 +68,11 @@
                             </div>
                         </div>
                     </div>
+                    #}
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+
+

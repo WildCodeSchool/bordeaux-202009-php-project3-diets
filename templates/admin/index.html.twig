@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Page admin {% endblock %}
+{% block body %}
+    <div class="admin-page">
+        <div class="d-flex justify-content-center">
+            <h2 class="page-title">• Admin •</h2>
+        </div>
+        <div class="container">
+            <div class="row col-3">
+                <div class="flex-column">
+                <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
+                    <div class="justify-content-center admin-count-title">Nombre d'inscrits</div>
+                </div>
+            </div>
+        </div>
+        <div class="block-list">
+            <div>
+                <h4>Liste des inscrits </h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for listed_user in registered_user %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                        {{ include('admin/_delete_user.html.twig') }}
+                        <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
+                        <br>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="block-list">
+            <div>
+            <h4>Liste des évènements à valider </h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for event in event_for_validation %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} </a>
+                            <form method="post" action="{{ path('valid_event') }}"><input type="hidden" value="{{ event.id }}" name="event"><button>Ok</button></form>
+                            <br>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="block-list">
+            <div>
+            <h4>Liste des services à valider </h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for service in service_for_validation %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }} </a>
+                            <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>
+                            <br>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

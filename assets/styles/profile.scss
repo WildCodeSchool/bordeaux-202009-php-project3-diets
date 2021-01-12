@@ -67,7 +67,7 @@
   textarea {
     border-radius: 15px;
   }
-  label {
+  label, legend {
     margin-bottom: 0.2rem;
     margin-top: 0.5rem;
     font-weight: bold;
@@ -83,11 +83,49 @@
   padding: 5px 20px;
 }
 
+@media screen and (max-width: 770px) {
+  .show-items .part-title {
+    margin-top: 2em;
+  }
+}
 
+.container-fluid-service{
+  .form-service{
+    label{
+      display: none;
+    }
+  }
+}
+
+.delete-btn {
+  justify-content: center;
+  align-items: center;
+  color: $main-orange;
+  &:hover {
+    color: $main-red;
+  }
+}
+
+button {
+  background-color: Transparent;
+  background-repeat:no-repeat;
+  border: none;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+}
+
+.container-fluid-event{
+  .form-event{
+    label{
+      display: none;
+    }
+  }
+}
 
 @media screen and (max-width: 992px) {
   .profile-main-forms {
-    margin:3px;
+    margin: 3px;
   }
 }
 
@@ -108,3 +146,8 @@
   }
 }
 
+@media screen and (min-width: 993px) {
+  .form-service, .form-event .form-edit-user {
+    margin-right: 2em;
+  }
+}

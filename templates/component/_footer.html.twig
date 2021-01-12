@@ -1,64 +1,45 @@
 <footer class="mainfooter" role="contentinfo">
     <div class="footer-middle">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-2 col-sm-6">
+       <div class="container">
+            <div class="row row-footer">
+                <div class="row-md-2 row-sm-6 block-item-footer">
+                    <div class="col-md-2 col-sm-6">
+                        <!--Column1-->
+                        <div class="footer-pad">
+                            <ul class="list-unstyled">
+                                <li><a href="{{ path('contact') }}">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
+                        <!--Column1-->
+                        <div class="footer-pad">
+                            <ul class="list-unstyled">
+                                <li><a href="{{ path('propos') }}">A propos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-6">
                     <!--Column1-->
                     <div class="footer-pad">
                         <ul class="list-unstyled">
-                            <li><a href="#"></a></li>
-                            <li><a href="#">Connaissances</a></li>
-                            <li><a href="#">Evènements</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ path('admin') }}">Admin</a></li>
+                            {% else %}
+                                <li><a href="#">Admin</a></li>
+                            {% endif %}
                         </ul>
                     </div>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <!--Column1-->
-                    <div class="footer-pad">
-                        <ul class="list-unstyled">
-                            <li><a href="#">Forum</a></li>
-                            <li><a href="{{ path('service_index') }}">Services</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <!--Column1-->
-                    <div class="footer-pad">
-                        <ul class="list-unstyled">
-                            <li><a href="#">Mon espace</a></li>
-                            <li><a href="{{ path('contact') }}">Contact</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-2 col-sm-6">
-                    <!--Column1-->
-                    <div class="footer-pad">
-                        <ul class="list-unstyled">
-                            <li><a href="{{ path('propos') }}">A propos</a></li>
-                            <li><a href="#">Admin</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="row-md-6 sm-2">
-                    <div class="follows">
-                        <ul class="social-network social-circle">
-                            <li><a href="#" class="icoFacebook" title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
-                            <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fab fa-linkedin-in"></i></a></li>
-                        </ul>
-                            <ul class="social-network social-circle">
-                            <li><a href="#" class="icoTwitter" title="Twitter"><i class="fab fa-twitter"></i></a></li>
-                            <li><a href="#" class="icoInstagram" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-                        </ul>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 copy">
-                    <p class="text-center p">Copyright 2020 - Wild Code School.  All rights reserved.</p>
+                <div class="row row-footer">
+                    <div class="col-md-12 copy">
+                        <p class="text-center p">Copyright 2020 - Wild Code School.  All rights reserved.</p>
+                    </div>
                 </div>
             </div>
-
-
         </div>
     </div>
+
 </footer>

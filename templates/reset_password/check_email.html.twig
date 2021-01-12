@@ -1,0 +1,32 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body_home %}
+
+    <div class="vh-100 vw-100 home-full-screen">
+        <div class="home-page container-fluid container-table">
+            <div class="row vertical-center-row">
+                <div class="card col-6 m-auto card-radius">
+                    <div>
+                        <div class="-align-right mt-2">
+                            <div class="close">
+                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
+                            </div>
+
+                        </div>
+
+                        <div class="row justify-content-center">
+
+                                <p class="row justify-content-center">An email has been sent that contains a link that you can click to reset your password. </br> This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
+                                <p class="row justify-content-center">If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }} ">try again</a>.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

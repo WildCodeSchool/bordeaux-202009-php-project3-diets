@@ -52,10 +52,14 @@
   color:$main-green;
 }
 
-.nav-user{
-  color:$main-orange;
-  font-size: 2rem;
+.nav-user {
+    color:$main-orange;
+    font-size: 2rem;
 }
+.nav-user:hover{
+  color:$main-green;
+}
+
 .container{
   margin-right: 0;
   margin-left: 0;
@@ -76,133 +80,104 @@
 button .navbar-toggler-icon {
   align-items: center;
   height: 32px;
-
 }
 
-@media screen and (min-width:768px){
+
+/*--------------------------------------------------------------------------*/
+
+@media screen and (min-width: 768px){
+  .link-footer{
+    display: none;
+  }
+  .navbar-nav{
+    font-size: 0.9rem;
+    margin-left:auto;
+    align-items: center;
+  }
   .logo-mobile{
-    display:none;
+    display: none;
   }
   .user-mobile{
     display: none;
   }
-
-  .link-footer{
-    display:none;
-  }
 }
 
-@media screen and (max-width: 1024px){
-  .logo-mobile{
-    display:none;
-  }
-  .user-mobile{
+/*-----------------------------------------------------------------------------*/
+
+@media screen and (max-width: 1024px) {
+  .logo-mobile {
     display: none;
   }
 
-  .link-footer{
-    display:none;
-  }
   .navbar-nav{
     margin-left: 0;
   }
-  .logo-title{
+  .logo-title {
     padding-left: 2vh;
     padding-top: 0.7vh;
   }
-  .contain-logo{
-    justify-content: right;
+  .contain-logo {
+    justify-content: left;
   }
 }
 
-@media screen and (max-width: 768px){
+@media screen and (min-width:767px) and (max-width: 768px){
   .contain-logo {
-    justify-content: right;
     padding-top: 0;
-    width: 345px;
-  }
-  .logo-title{
-    padding-left: 2vh;
-    padding-top: 0vh;
   }
 }
 
 @media screen and (max-width: 767px){
-.logo-title{
-  display: none;
-}
-  .nav-user{
-    display:none;
-  }
-  .fa-user{
-    color:$main-orange;
-    font-size: 2rem;
-    margin-left: 20px;
-  }
-  .logo-mobile .navbar-title{
-    color: $main-black;
-    margin-right: 0;
-    font-size: 2.3rem;
-    font-weight: bold;
 
-  }
-  .logo-mobile{
-    height:55px;
-    text-align: center;
-  }
-  .navbar-title:hover{
-    text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
-  }
-
-  .nav-item{
-    list-style: none;
-  }
-  .link-footer{
-    padding-left:0;
-  }
-  .nav-link{
-    padding-left: 0;
-  }
-
-}
-
-@media screen and (max-width: 360px){
-  .navbar{
-    display: flex;
-    flex-wrap:nowrap;
-  }
   .logo-title{
     display: none;
   }
   .nav-user{
     display:none;
   }
-  .navbar-toggler{
-    padding: 0.25rem 0rem;
+
+  .navbar-collapse {
+    flex-basis: 25%;
+    flex-grow: 0;
+    background-color: white;
   }
   .fa-user{
     color:$main-orange;
     font-size: 2rem;
     margin-left: 20px;
   }
-  .logo-mobile .navbar-title{
-    color: $main-black;
-    margin-right: 0;
-    font-size: 2.3rem;
-    font-weight: bold;
+  .fa-user-alt-slash{
+    color:$main-orange;
+    font-size: 1.5rem;
+    margin-left: 20px;
   }
-  .logo-mobile{
-    height:55px;
-    text-align: center;
+
+  .logo-mobile .navbar-title{
+    font-size: 1.9rem;
+    color: $main-green;
+    margin-right: 0;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px $main-black;
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
+  }
+  .navbar-toggler{
+    padding: 0;
+  }
+  .logo-mobile{
+    height:30px;
+    width: 70%;
+    display: flex;
+    align-items: center;
+  }
+  .logo-mobile-image{
+    margin-right: 1em;
+    width: 15%;
+    padding-bottom: 0.5em;
+  }
+  .logo-design {
+    width: 100%;
   }
   .nav-item{
     list-style: none;
@@ -213,105 +188,82 @@ button .navbar-toggler-icon {
   .nav-link{
     padding-left: 0;
   }
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
 }
 
- @media screen and (max-width:320px) {
-   .navbar{
-     padding-left:0;
-     padding-right:0;
+@media screen and (max-width: 360px){
 
-   }
-   .navbar-toggler{
-     padding: 0.25rem 0.10rem;
-     background-color: transparentize(white, 0.7);
-   }
-   .logo-mobile .navbar-title{
-     margin-left: -15px;
-     color: $main-black;
-     margin-right: 0;
-     font-size: 2.3rem;
-     font-weight: bold;
-   }
-   .fa-user{
-     padding-right: 5px;
-     margin-left: 5px;
-   }
-   .logo-title{
-     display: none;
-   }
-   .nav-user{
-     display:none;
-   }
-   .fa-user{
-     color:$main-orange;
-     font-size: 2rem;
-     margin-left: 20px;
-   }
+  .navbar-toggler{
+    padding: 0.25rem 0;
+  }
 
-   .logo-mobile{
-     height:55px;
-     text-align: center;
-   }
-   .navbar-title:hover{
-     text-decoration: none;
-     color: $main-green;
-     font-weight: bold;
-     font-size: 2.5rem;
-   }
-   .nav-item{
-     list-style: none;
-   }
-   .link-footer{
-     padding-left:0;
-   }
-   .nav-link{
-     padding-left: 0;
-   }
- }
+  .logo-mobile{
+    width: 71%;
+  }
+  .logo-mobile-image{
+    padding-bottom: 0.4em;
+  }
+  .logo-design {
+    width: 100%;
+  }
+  .fa-user-alt-slash{
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width:320px) {
+  .navbar{
+    padding-left:0;
+    padding-right:0;
+  }
+
+  .navbar-toggler{
+    padding: 0.25rem 0.10rem;
+    background-color: transparentize(white, 0.7);
+  }
+  .logo-mobile .navbar-title{
+    margin-left: -15px;
+    font-size: 1.7rem;
+  }
+  .fa-user{
+    padding-right: 5px;
+    margin-left: 5px;
+  }
+  .logo-mobile{
+    width: 67%;
+  }
+  .navbar-nav{
+    padding-left:0;
+  }
+  .contain-logo{
+    display: none;
+  }
+}
 
 @media screen and (max-width: 280px){
   .navbar{
     display: flex;
     flex-wrap:nowrap;
   }
-  .logo-title{
-    display: none;
-  }
-  .nav-user{
-    display:none;
-  }
   .navbar-toggler{
-    padding: 0.25rem 0rem;
+    padding: 0.25rem 0;
+  }
+  .fa-user-alt-slash{
+    font-size: 1rem;
   }
   .fa-user{
-    color:$main-orange;
-    font-size: 2rem;
-    margin-left: 0px;
+    margin-left: 0;
   }
   .logo-mobile .navbar-title{
-    color: $main-black;
-    margin-right: 0;
-    font-size: 2.1rem;
-    font-weight: bold;
-  }
-  .logo-mobile{
-    height:55px;
-    text-align: center;
+    font-size: 1.5rem;
   }
   .navbar-title:hover{
     text-decoration: none;
-    color: $main-green;
-    font-weight: bold;
-    font-size: 2.5rem;
   }
-  .nav-item{
-    list-style: none;
-  }
-  .link-footer{
-    padding-left:0;
-  }
-  .nav-link{
-    padding-left: 0;
-  }
-}
 
+}

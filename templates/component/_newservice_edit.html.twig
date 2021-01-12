@@ -1,0 +1,32 @@
+<div id="nouveau-service">
+    <h3 class="part-title">Je propose un service :</h3>
+</div>
+<div class="container-fluid-service">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-5 d-flex justify-content-center">
+            <div>
+                <div class="overflow-hidden">
+                    <img class="item-picture" src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">
+                </div>
+                <div>
+                    <p class="green-string">Modifier</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-7 profile-main-forms">
+            <div class="form-service">
+                {% form_theme formService 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(formService) }}
+                    {{ form_row(formService.name) }}
+                    {{ form_row(formService.link) }}
+                    {{ form_row(formService.price) }}
+                    {{ form_row(formService.description) }}
+                    {{ form_row(formService.picture) }}
+                    <div class="d-flex flex-row-reverse">
+                        <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                    </div>
+                {{ form_end(formService) }}
+            </div>
+        </div>
+    </div>
+</div>

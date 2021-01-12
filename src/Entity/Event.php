@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Event
 {
@@ -73,10 +76,15 @@ class Event
     private $picture;
 
     /**
-     * @ORM\ManyToOne(targetEntity=RegisteredEvent::class, inversedBy="event")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $registeredEvent;
+    private $registeredEvents;
+
+    public function __construct()
+    {
+        $this->registeredEvents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -215,14 +223,49 @@ class Event
         return $this;
     }
 
-    public function getRegisteredEvent(): ?RegisteredEvent
+    /**
+     * @ORM\PrePersist()
+     */
+    public function onPrePersist()
     {
-        return $this->registeredEvent;
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+    /**
+     * Gets triggered only on update
+     * @ORM\PreUpdate
+     */
+    public function onPreUpdate()
+    {
+        $this->updatedAt = new \DateTime();
     }
 
-    public function setRegisteredEvent(?RegisteredEvent $registeredEvent): self
+    /**
+     * @return Collection|RegisteredEvent[]
+     */
+    public function getRegisteredEvents(): Collection
     {
-        $this->registeredEvent = $registeredEvent;
+        return $this->registeredEvents;
+    }
+
+    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if (!$this->registeredEvents->contains($registeredEvent)) {
+            $this->registeredEvents[] = $registeredEvent;
+            $registeredEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    {
+        if ($this->registeredEvents->removeElement($registeredEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($registeredEvent->getEvent() === $this) {
+                $registeredEvent->setEvent(null);
+            }
+        }
 
         return $this;
     }
