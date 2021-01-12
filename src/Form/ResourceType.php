@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ResourceType extends AbstractType
 {
@@ -35,6 +36,11 @@ class ResourceType extends AbstractType
                 'label' => 'Choisir un format',
                 'class' => ResourceFormat::class,
                 'choice_label' => 'format',
+            ])
+            ->add('resourceFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => true,
+                'download_uri' => true,
             ]);
     }
 
