@@ -12,18 +12,25 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class KnowledgeController extends AbstractController
 {
+    private const LIMIT = 10;
+
     /**
-     * @Route("/", name="_index")
+     * @Route("/{length}", name="_index")
      */
-    public function index(ResourceRepository $resourceRepository): Response
+    public function index(string $length, ResourceRepository $resourceRepository): Response
     {
-        $resource = $resourceRepository->findBy([], ['updatedAt'=> 'DESC'], 10 );
-        /*$service = $this->getDoctrine()
-            ->getRepository(Service::class)
-            ->findBy(array(), array('id' => 'desc'));*/
+        if ($length === 'last') {
+            $length = true ;
+            $resource = $resourceRepository->findBy([], ['updatedAt'=> 'ASC']);
+        } else {
+            $length = false ;
+            $resource = $resourceRepository->findBy([], ['updatedAt'=> 'ASC'], self::LIMIT );
+        }
 
         return $this->render('knowledge/index.html.twig', [
             'resources' => $resource,
+            'length'    => $length,
         ]);
     }
+
 }

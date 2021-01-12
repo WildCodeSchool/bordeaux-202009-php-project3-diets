@@ -9,37 +9,64 @@
     <div class="d-flex justify-content-center search-bar">
         <h2 class="pb-5">Connaissances</h2>
     </div>
-        {{ dump(resources) }}
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center pb-3">
-            <div class="col-5 pb-4">
-                <div class="pb-2">
-                    <h3 class="pb-1">Titre de la fiche</h3>
-                    <h4>
-                        <a class="knowledge-link" href="#">Mme Sophie D.</a>
-                    </h4>
-                </div>
-                <div>
-                    <div class="pb-1">
-                        Lien :
-                        <a class="knowledge-link" href="#">Lien vers la fiche de la personne</a>
+    <div class="d-flex justify-content-center search-bar">
+        {% if length == true %}
+            <h3 class="pb-5">Toutes les connaissances</h3>
+        {% elseif length == false %}
+            <h3 class="pb-5">Les 10 dernières connaissances</h3>
+        {% endif %}
+    </div>
+    <div class="d-flex justify-content-center">
+        {% if length == false %}
+            <div class="knowledge-button">
+                <a href="{{ path('knowledge_index', {'length': 'last'}) }}">Voir toutes les connaissances</a>
+            </div>
+        {% elseif length == true %}
+            <div class="knowledge-button">
+                <a href="{{ path('knowledge_index', {'length': 'all'}) }}">Voir les dernières connaissances</a>
+            </div>
+        {% endif %}
+    </div>
+    {% for resource in resources %}
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center pb-3 pt-3">
+                <div class="col-5 pb-4">
+                    <div class="pb-2">
+                        <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
                     </div>
                     <div>
-                        Document :
+                        <div class="pb-1">
+                            Lien proposé par :
+                            <a class="knowledge-link" href="#">{{ resource.user.firstname }}</a>
+                        </div>
+                        <div class="pb-1">
+                            dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
+                        </div>
+                        <div class="mt-4">
+                            Document : <a class="knowledge-link" href="{{ resource.link }}">Lien externe vers la ressource</a>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center pt-3 pb-3">
+                        <div class="pl-3">Description :</div>
+                        <p class="col">
+                            {{ resource.description }}
+                        </p>
+                    </div>
+
+                </div>
+                <div class="">
+                    <div>
+                        <img src="{{ resource.resourceFormat.icon }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
                     </div>
                 </div>
-
             </div>
-            <div class="">
-                <div>
-                    <img src="https://i.picsum.photos/id/1025/4951/3301.jpg?hmac=_aGh5AtoOChip_iaMo8ZvvytfEojcgqbCH7dzaz-H8Y" class="knowledge-img" alt="...">
+        </div>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="border-bottom col-md-8">
                 </div>
             </div>
         </div>
-        <div class="row d-flex justify-content-center pt-3 pb-3">
-            <p class="col-md-9">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusantium asperiores exercitationem fugiat maiores modi, nesciunt nostrum officia officiis, ratione saepe totam voluptas, voluptatum? Animi cum deleniti illum quibusdam sed.
-            </p>
-        </div>
+    {% endfor %}
     </div>
 {% endblock %}
