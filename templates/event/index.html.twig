@@ -3,7 +3,6 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
-
 <div class="event">
     <div class="d-flex justify-content-center">
         <h2 class="page-title">Evènements</h2>
@@ -39,17 +38,31 @@
                     <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                     <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                     <p>Description:{{ event.description }}</p>
-                    {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user.id %}
-                    <div>Vous êtes l'organisateur·rice</div>
-                    {% else %}
-                    <div>
-                        <form action="" method="post">
-                            <div class="register-event-form">
-                                <input type="hidden" name="eventId" value={{ event.id }}>
-                                <button class='btn btn-primary'>S'inscrire</button>
-                            </div>
-                        </form>
-                    </div>
+                    {% if app.user %}
+                        {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user %}
+                        <div class="font-weight-bold font-italic">Vous êtes l'organisateur·rice</div>
+                        {% elseif events_and_participants[event.id] is defined and app.user in events_and_participants[event.id] %}
+                        <div class="font-weight-bold font-italic">Vous y participez déjà</div>
+                        <div>
+                            <form method="post" onsubmit="return confirm('Étes-vous sûr de vouloir vous désinscrire ?');">
+                                <div class="unregister-event-form">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete-registeredEvent') }}">
+                                    <input type="hidden" name="eventIdUnregister" value={{ event.id }}>
+                                    <button class='btn btn-primary'>Se désinscrire</button>
+                                </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div>
+                            <form action="" method="post">
+                                <div class="register-event-form">
+                                    <input type="hidden" name="eventIdRegister" value={{ event.id }}>
+                                    <button class='btn btn-primary'>S'inscrire</button>
+                                </div>
+                            </form>
+                        </div>
+                        {% endif %}
                     {% endif %}
                 </div>
                     </div>

@@ -34,21 +34,36 @@ class EventController extends AbstractController
 
         $eventsAndOrganizers = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
-            ->findEventsAndOrganizers();
-        $eventsAndOrganizersArray= [];
-        foreach($eventsAndOrganizers as $eventAndOrganizer) {
-            $eventsAndOrganizersArray[$eventAndOrganizer->getEvent()->getId()] = $eventAndOrganizer->getUser()->getId();
+            ->findBy(['isOrganizer' => true]);
+        $eventsAndOrganizersArray = [];
+        foreach ($eventsAndOrganizers as $eventAndOrganizer) {
+            $eventsAndOrganizersArray[$eventAndOrganizer->getEvent()->getId()] = $eventAndOrganizer->getUser();
         }
 
-        if (isset($_POST['eventId'])) {
-            $eventId = $_POST['eventId'];
+        $eventsAndParticipants = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->findBy(['isOrganizer' => false]);
+        $eventsAndParticipantsArray = [];
+        foreach ($eventsAndParticipants as $eventAndParticipant) {
+                $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
+                $eventAndParticipant->getUser();
+        }
+
+        if (isset($_POST['eventIdRegister'])) {
+            $eventId = $_POST['eventIdRegister'];
             return $this->redirectToRoute('register_event', array('id' => $eventId));
+        }
+
+        if ($this->isCsrfTokenValid('delete-registeredEvent', $request->request->get('_token'))) {
+            $eventId = $_POST['eventIdUnregister'];
+            return $this->redirectToRoute('unregister_event', array('id' => $eventId));
         }
 
             return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
-            'formEvent' => $formEvent->createView(),
-            'events_and_organizers' => $eventsAndOrganizersArray,
+            'formEvent'               => $formEvent->createView(),
+            'events_and_organizers'   => $eventsAndOrganizersArray,
+            'events_and_participants' => $eventsAndParticipantsArray
         ]);
     }
 

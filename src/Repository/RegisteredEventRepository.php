@@ -19,13 +19,15 @@ class RegisteredEventRepository extends ServiceEntityRepository
         parent::__construct($registry, RegisteredEvent::class);
     }
 
-    public function findEventsAndOrganizers()
+    public function findRegisteredEvent($event, $user)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.isOrganizer = :val')
-            ->setParameter('val', '1')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('r.event = :event')
+            ->setParameter('event', $event)
             ->getQuery()
-            ->getResult()
+            ->getOneOrNullResult()
         ;
     }
 

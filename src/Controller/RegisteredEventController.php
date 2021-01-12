@@ -20,13 +20,29 @@ class RegisteredEventController extends AbstractController
                                   RegisteredEventRepository $registeredEventRepository,
                                   Event $event): Response
     {
-        /* Si l'inscription est déjà là, renvoyer directement */
             $registeredEvent = new RegisteredEvent();
             $registeredEvent->setUser($this->getUser());
             $registeredEvent->setEvent($event);
             $registeredEvent->setIsOrganizer('0');
             $entityManager->persist($registeredEvent);
             $entityManager->flush();
+        return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * @Route("/unregister/event/{id}", name="unregister_event", methods={"GET","POST"})
+     */
+    public function unregisterFromEvent(Request $request, EntityManagerInterface $entityManager,
+                                    RegisteredEventRepository $registeredEventRepository,
+                                    Event $event): Response
+    {
+        $registeredEvent = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->findRegisteredEvent($event, $this->getUser());
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($registeredEvent);
+        $entityManager->flush();
+
         return $this->redirectToRoute('event_index');
     }
 }
