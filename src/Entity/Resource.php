@@ -17,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @UniqueEntity(fields={"fileName"}, message="Il existe dejà un fichier avec ce nom")
  * @Vich\Uploadable()
  */
-class Resource
+class Resource implements \Serializable
 {
     /**
      * @ORM\Id
@@ -246,4 +246,16 @@ class Resource
         }
         return $this;
     }
+
+    public function serialize()
+    {
+        return $this->link;
+    }
+
+    public function unserialize($serialized)
+    {
+        return $this->link;
+    }
+
+
 }
