@@ -83,17 +83,17 @@
   padding: 5px 20px;
 }
 
+.custom-file-input{
+  opacity: 100%;
+}
+
+.custom-file-label{
+  opacity:0;
+}
+
 @media screen and (max-width: 770px) {
   .show-items .part-title {
     margin-top: 2em;
-  }
-}
-
-.container-fluid-service{
-  .form-service{
-    label{
-      display: none;
-    }
   }
 }
 
@@ -113,14 +113,6 @@ button {
   cursor:pointer;
   overflow: hidden;
   outline:none;
-}
-
-.container-fluid-event{
-  .form-event{
-    label{
-      display: none;
-    }
-  }
 }
 
 @media screen and (max-width: 992px) {

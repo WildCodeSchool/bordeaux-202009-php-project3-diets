@@ -8,16 +8,15 @@ use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
+use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Repository\EventRepository;
-use App\Repository\ResourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/profile", name="profile_")
@@ -80,14 +79,24 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if (($user->isVerified() === true) && ($user->getRoles() != ['ROLE_ADMIN'])) {
+            if ($user->getRoles() != ['ROLE_ADMIN']) {
                 $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->isVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
 
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('service_index');
+        }
+
+        $newResource = new Resource();
+        $formResource = $this->createForm(ResourceType::class, $newResource);
+        $formResource->handleRequest($request);
+        if ($formResource->isSubmitted() && $formResource->isValid()) {
+            $newResource->setUser($this->getUser());
+            $entityManager->persist($newResource);
+            $entityManager->flush();
         }
 
         $service = new Service();
@@ -121,6 +130,7 @@ class ProfileController extends AbstractController
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
+            'formResource' => $formResource->createView(),
         ]);
     }
 

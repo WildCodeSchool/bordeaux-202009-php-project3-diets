@@ -1,30 +1,27 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
-    <div class="event">
-        <div class="d-flex justify-content-center">
-            <h2 class="page-title">Evènements</h2>
+<div class="event">
+    <div class="d-flex justify-content-center">
+        <h2 class="page-title">Evènements</h2>
+    </div>
+    <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+        <div>Je propose :</div>
+        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+            <div class="profile-button">
+                <a href="#nouvel-evenement">un évènement</a>
+            </div>
         </div>
-
-
-    <div class="search-bar d-flex justify-content-center align-items-baseline">
-
-
-
-<form class="">
-             {{ form_start(form) }}
-            {{ form_widget(form) }}
-    <span class="input-group-text border-0" id="search-addon">
-    <i class="fas fa-search"></i>
-  </span>
-                <button class="btn btn-outline-success my-2 my-sm-0 button-search" type="submit">Rechercher</button>
+    </div>
+    <div class="search">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+        <button type="submit" class="search-button home-btn-main">Rechercher</button>
             {{ form_end(form) }}
-</form>
-</div>
-        {% if eventsSearch %}
+    </div>
+    {% if eventsSearch %}
         {% for event in eventsSearch %}
             <div class="row container-img-txt">
                 <div class="col-lg-4">
@@ -41,20 +38,18 @@
                 </div>
             </div>
         {% endfor %}
-        {% else %}
+    {% else %}
         <div class="calendrier-form">
             <div class="dates">
                 <h3>Dates</h3>
                 {% for event in events %}
                     <ul>
-                        <li>{{ event.dateStart|date("d/m/Y H:i") }} <br>
-                            {{ event.name }}
-                        </li>
+                        <li>{{ event.dateStart|date("d/m/Y H:i") }}</li>
+                        <p>{{ event.name }}</p>
                     </ul>
                 {% endfor %}
             </div>
         </div>
-
         <div class="container-fluid">
             <div>
                 <div class="col justify-content-end bloc-img">
@@ -80,69 +75,55 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+    {% endif %}
 
+   {#  {% if app.user %}
+        {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user %}
+            <div class="font-weight-bold font-italic">Vous êtes l'organisateur·rice
+            </div>
+        {% elseif events_and_participants[event.id] is defined and app.user in events_and_participants[event.id] %}
+            <div class="font-weight-bold font-italic">Vous y participez déjà
+            </div>
             <div>
-
                 <h3 class="part-title">Je propose un événement :</h3>
-            </div>
-            <div class="container-fluid-event">
-                <div class="row align-items-center">
-                    <div class="col-5 d-flex justify-content-center">
-                        <div>
-                            <div class="overflow-hidden">
-                                <img class="item-picture"
-                                     src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
-                                     alt="Ma nouvelle fiche">
-                            </div>
-                            <div>
-                                <p class="green-string">Modifier</p>
+                <form method="post" onsubmit="return confirm('Étes-vous sûr de vouloir vous désinscrire ?');">
+                    <div class="unregister-event-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete-registeredEvent') }}">
+                        <input type="hidden" name="eventIdUnregister" value={{ event.id }}>
+                        <button class='btn btn-primary'>Se désinscrire</button>
+                    </div>
+                    <div class="container-fluid-event">
+                        <div class="row align-items-center">
+                            <div class="col-5 d-flex justify-content-center">
+                                <div>
+                                    <div class="overflow-hidden">
+                                        <img class="item-picture"
+                                             src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+                                             alt="Ma nouvelle fiche">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-7 profile-main-forms">
-                        <div class="form-event">
-                            {{ form_start(formEvent) }}
-                            <div class="row">
-                                <div class="text-center px-4">Titre</div>
-                                <div>{{ form_row(formEvent.name) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Type d'évènement</div>
-                                <div>{{ form_row(formEvent.eventFormat) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Date de début</div>
-                                <div>{{ form_row(formEvent.dateStart) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Date de fin</div>
-                                <div>{{ form_row(formEvent.dateEnd) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Prix</div>
-                                <div>{{ form_row(formEvent.price) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Lien</div>
-                                <div>{{ form_row(formEvent.link) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Description</div>
-                                <div>{{ form_row(formEvent.description) }}</div>
-                            </div>
-                            <div class="row">
-                                <div class="text-center px-4">Picture</div>
-                                <div>{{ form_row(formEvent.picture) }}</div>
-                            </div>
-                            <div>
-                                <button class="btn">{{ button_label|default('Valider') }}</button>
-                            </div>
-                            {{ form_end(formEvent) }}
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
-        </div>
+        {% else %}
+            <div>
+                <form action="" method="post">
+                    <div class="register-event-form">
+                        <input type="hidden" name="eventIdRegister" value={{ event.id }}>
+                        <button class='btn btn-primary'>S'inscrire</button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    {% endif %}#}
 
+{% if is_granted("ROLE_CONTRIBUTOR") %}
+    <div>
+        {% include '/component/_newevent_edit.html.twig' %}
+    </div>
+{% endif %}
+</div>
 {% endblock %}
