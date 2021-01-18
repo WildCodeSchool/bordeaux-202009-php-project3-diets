@@ -6,6 +6,12 @@
         <div class="d-flex justify-content-center">
             <h2 class="page-title">Service</h2>
         </div>
+        <div class="search">
+            {{ form_start(formSearch) }}
+                {{ form_widget(formSearch) }}
+            <button type="submit" class="search-button home-btn-main">Rechercher</button>
+            {{ form_end(formSearch) }}
+        </div>
         {% if app.user %}
             <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
                 <div>Je propose :</div>
@@ -21,6 +27,24 @@
         </div>
         <div class="">
             <div class="row justify-content-start">
+                {% if servicesSearch %}
+                {% for service in servicesSearch %}
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="img-container">
+                            <img src="https://picsum.photos/400/200?random={{ service.id }}" alt='Picture service'>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 text-container">
+                        <p>Titre: {{ service.name }}</p>
+                        <p>Prix: {{ service.price }}</p>
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: {{ service.link }}</p>{% endif %}
+                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
+                        <p>Description:{{ service.description }}</p>
+                    </div>
+                {% endfor %}
+                {% else %}
                 {% for service in services %}
                     <div class="col-lg-2">
                     </div>
@@ -37,6 +61,7 @@
                         <p>Description:{{ service.description }}</p>
                     </div>
                 {% endfor %}
+                {% endif %}
             </div>
         </div>
         {% if app.user %}
@@ -45,6 +70,5 @@
             </div>
         {% endif %}
     </div>
-
 
 {% endblock %}
