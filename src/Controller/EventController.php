@@ -66,7 +66,6 @@ class EventController extends AbstractController
             'formEvent'               => $formEvent->createView(),
             'events_and_organizers'   => $eventsAndOrganizersArray,
             'events_and_participants' => $eventsAndParticipantsArray
-        ]);
+            ]);
     }
-
 }

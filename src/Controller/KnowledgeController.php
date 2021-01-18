@@ -21,10 +21,10 @@ class KnowledgeController extends AbstractController
     {
         if ($length === 'last') {
             $length = true ;
-            $resource = $resourceRepository->findBy([], ['updatedAt'=> 'ASC']);
+            $resource = $resourceRepository->findBy([], ['updatedAt' => 'ASC']);
         } else {
             $length = false ;
-            $resource = $resourceRepository->findBy([], ['updatedAt'=> 'ASC'], self::LIMIT );
+            $resource = $resourceRepository->findBy([], ['updatedAt' => 'ASC'], self::LIMIT);
         }
 
         return $this->render('knowledge/index.html.twig', [
@@ -32,5 +32,4 @@ class KnowledgeController extends AbstractController
             'length'    => $length,
         ]);
     }
-
 }

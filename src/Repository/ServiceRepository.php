@@ -28,9 +28,6 @@ class ServiceRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $queryBuilder->getResult();
-
-
-
     }
 
     // /**

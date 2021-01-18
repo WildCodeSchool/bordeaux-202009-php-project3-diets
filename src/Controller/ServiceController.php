@@ -54,6 +54,4 @@ class ServiceController extends AbstractController
             'servicesSearch' => $services,
         ]);
     }
-
-
 }
