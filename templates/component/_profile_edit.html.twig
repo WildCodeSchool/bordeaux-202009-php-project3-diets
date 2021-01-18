@@ -23,11 +23,11 @@
                     <div class="overflow-hidden">
                         <img class="profile-picture"
                              src=
-                                {% if (infos.picture) == false %}
+                                "{% if (infos.picture) == false %}
                                     {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
                                 {% else %}
                                     {{ infos.picture.link }}
-                                {% endif %}
+                                {% endif %}"
                              alt="photo de profil">
                     </div>
                     <div>
@@ -62,3 +62,4 @@
             </div>
         </div>
     </div>
+</div>

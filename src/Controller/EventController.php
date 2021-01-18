@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Form\SearchEventType;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,10 +29,22 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
         }
+        $formSearch = $this->createForm(SearchEventType::class);
+        $formSearch->handleRequest($request);
+
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            $eventSearch = $eventRepository->findLikeName($search);
+        } else {
+            $eventSearch = [];
+        }
 
         return $this->render('event/index.html.twig', [
+            'form' => $formSearch->createView(),
+            'eventsSearch' => $eventSearch,
             'events' => $eventRepository->findAll(),
             'formEvent' => $formEvent->createView(),
         ]);
     }
+
 }
