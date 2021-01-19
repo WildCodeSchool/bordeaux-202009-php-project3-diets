@@ -110,6 +110,7 @@ class ProfileController extends AbstractController
                 $eventAndParticipant->getUser();
         }
 
+
         $newResource = new Resource();
         $formResource = $this->createForm(ResourceType::class, $newResource);
         $formResource->handleRequest($request);
