@@ -33,10 +33,15 @@
             <div class="col justify-content-end bloc-img">
                 <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
                 {% for event in events %}
+
                     <div class="row container-img-txt">
                         <div class="col-lg-4">
                             <div class="img-container">
-                                <img src="https://picsum.photos/400/300?random {{ event.id }}" alt='Picture event'>
+                            {% for picture in pictures %}
+                                {% if event.picture.id is same as (picture.id) %}
+                                <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                {% endif %}
+                            {% endfor %}
                             </div>
                          </div>
                         <div class="col-lg-3 text-container">

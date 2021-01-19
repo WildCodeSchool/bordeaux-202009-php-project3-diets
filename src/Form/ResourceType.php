@@ -42,6 +42,7 @@ class ResourceType extends AbstractType
                 'required'      => false,
                 'allow_delete'  => true,
                 'download_uri' => true,
+                'label' => 'Charger un document'
             ]);
     }
 

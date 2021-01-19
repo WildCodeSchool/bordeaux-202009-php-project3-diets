@@ -19,7 +19,7 @@
         <div class="card-container justify-content-center">
             <div class="overflow-hidden">
                 <a href="{{ registered_event.event.link }}" target="_blank">
-                    <img src="{{ registered_event.event.picture.link }}" alt='événement organisé'>
+                    <img src="{{ registered_event.event.picture.name }}" alt='événement organisé'>
                 </a>
             </div>
             <div class="text-center">Participants à l'événement</div>
@@ -34,7 +34,11 @@
     {% for service in services %}
         <div class="card-container justify-content-center">
             <a href="{{ service.link }}" target="_blank">
-                <img src="{{ service.picture.link }}" alt='service proposé'>
+                {% for picture in pictures %}
+                    {% if service.picture.id is same as (picture.id) %}
+                        <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture service proposé'>
+                    {% endif %}
+                {% endfor %}
             </a>
         </div>
     {% endfor %}
