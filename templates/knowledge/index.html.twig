@@ -16,23 +16,24 @@
             <h3 class="pb-5">Les 10 dernières connaissances</h3>
         {% endif %}
     </div>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-wrap justify-content-center align-items-end">
         {% if length == false %}
-            <div class="knowledge-button">
+            <div class="knowledge-button justify-content-center">
                 <a href="{{ path('knowledge_index', {'length': 'last'}) }}">Voir toutes les connaissances</a>
             </div>
         {% elseif length == true %}
-            <div class="knowledge-button">
+            <div class="d-flex knowledge-button">
                 <a href="{{ path('knowledge_index', {'length': 'all'}) }}">Voir les dernières connaissances</a>
             </div>
         {% endif %}
         {% if is_granted("ROLE_CONTRIBUTOR") %}
-        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+        <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+            <div class="d-flex align-items-center">Je propose :</div>
             <div class="form-modal">
                 {# <a href="#nouveau-resource">Nouvelle connaissance</a> #}
                 <!-- Button trigger modal -->
                 <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
-                    Nouvelle connaissance
+                    une connaissance
                 </button>
 
                 <!-- Modal -->
@@ -40,9 +41,9 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Nouvelle connaissance</h5>
+                                <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvelle connaissance</h3>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
                                 </button>
                             </div>
                             <div class="modal-body">
