@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Form\EventType;
+use App\Form\PictureType;
 use App\Form\SearchEventType;
 use App\Form\RegisterType;
 use App\Repository\EventRepository;
+use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -22,9 +25,8 @@ class EventController extends AbstractController
     /**
      * @Route("/event", name="event_index")
      */
-    public function index(Request $request,
-                          EntityManagerInterface $entityManager,
-                          EventRepository $eventRepository): Response
+    public function index(Request $request, EntityManagerInterface $entityManager,
+                          EventRepository $eventRepository, PictureRepository $pictureRepository): Response
     {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -77,8 +79,8 @@ class EventController extends AbstractController
             'events' => $eventRepository->findAll(),
             'formEvent'               => $formEvent->createView(),
             'events_and_organizers'   => $eventsAndOrganizersArray,
-            'events_and_participants' => $eventsAndParticipantsArray
+            'events_and_participants' => $eventsAndParticipantsArray,
+                'pictures'            => $pictureRepository->findAll(),
             ]);
     }
-
 }
