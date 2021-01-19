@@ -30,10 +30,10 @@ class KnowledgeController extends AbstractController
     ): Response {
         if ($length === 'last') {
             $length = true ;
-            $resource = $resourceRepository->findBy([], ['updatedAt' => 'ASC']);
+            $resource = $resourceRepository->findBy([], ['updatedAt' => 'DESC']);
         } else {
             $length = false ;
-            $resource = $resourceRepository->findBy([], ['updatedAt' => 'ASC'], self::LIMIT);
+            $resource = $resourceRepository->findBy([], ['updatedAt' => 'DESC'], self::LIMIT);
         }
         $newResource = new Resource();
         $formResource = $this->createForm(ResourceType::class, $newResource);
