@@ -20,10 +20,8 @@ class ServiceType extends AbstractType
             ->add('link', TextType::class, ['label' => 'Lien'])
             ->add('price', TextType::class, ['label' => 'Prix'])
             ->add('description', TextareaType::class, ['label' => 'Description'])
-            ->add('picture', EntityType::class, [
-                'class' => Picture::class,
-                'choice_label' => 'name',
-                'label' => 'Image',
+            ->add('picture', PictureType::class, [
+                'label' => 'Charger une image'
             ])
         ;
     }

@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
+use App\Form\PictureType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Repository\EventRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +59,10 @@ class ProfileController extends AbstractController
      * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
-    public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
+    public function edit(Request $request,
+                         EntityManagerInterface $entityManager,
+                         User $user,
+                         PictureRepository $pictureRepository): Response
     {
 
         if (!$user) {
@@ -85,10 +91,25 @@ class ProfileController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
-
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('service_index');
         }
+
+        $eventsOrganized = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->registeredEventOrganized($user);
+
+
+
+        $eventsAndParticipants = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->findBy(['isOrganizer' => false]);
+        $eventsAndParticipantsArray = [];
+        foreach ($eventsAndParticipants as $eventAndParticipant) {
+            $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
+                $eventAndParticipant->getUser();
+        }
+
 
         $newResource = new Resource();
         $formResource = $this->createForm(ResourceType::class, $newResource);
@@ -123,14 +144,17 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('profile/edit.html.twig', [
+            'events_organized' => $eventsOrganized,
             'services' => $service,
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
+            'events_and_participants' => $eventsAndParticipantsArray,
             'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
             'formResource' => $formResource->createView(),
+            'pictures' => $pictureRepository->findAll(),
         ]);
     }
 

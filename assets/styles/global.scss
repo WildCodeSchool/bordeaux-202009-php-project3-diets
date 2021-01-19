@@ -51,3 +51,23 @@ h5{
   max-height: 400px;
   width: auto;
 }
+
+.btn-create-format {
+  background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+  margin: 10px;
+  padding: 10px 30px;
+  text-align: center;
+  font-size: $fs-h4;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: $main-white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  &:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+  }
+}
