@@ -26,7 +26,7 @@
                     <h4>Les Pathologies en ligne</h4>
                 </div>
                 <div class="row text-center users-list mx-5">
-                    {% for pathology in pathologies%}
+                    {% for pathology in pathologies %}
                         <div class="col-md-4">
                             <div class="d-flex pb-1">
                                 <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ pathology.name }} </a>
@@ -36,6 +36,30 @@
                     {% endfor %}
                 </div>
         </div>
+
+        <div class="container d-flex justify-content-center mt-3 mb-5">
+            {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form_expertise) }}
+            {{ form_widget(form_expertise) }}
+            <button type="submit" class="home-btn-second">Créer une expertise</button>
+            {{ form_end(form_expertise) }}
+        </div>
+        <div class="block-list mt-5">
+            <div>
+                <h4>Les Expertises en ligne</h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for expertise in expertises %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ expertise.name }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
         <div class="block-list">
             <div>
                 <h4>Liste des inscrits </h4>
