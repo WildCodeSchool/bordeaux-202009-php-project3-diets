@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Pathology;
 use App\Entity\Resource;
 use App\Entity\User;
+use App\Form\PathologyType;
 use App\Repository\EventRepository;
+use App\Repository\PathologyRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +23,10 @@ class AdminController extends AbstractController
      */
     public function index(UserRepository $userRepository,
                           EventRepository $eventRepository,
-                          ServiceRepository $serviceRepository): Response
+                          ServiceRepository $serviceRepository,
+                          EntityManagerInterface $entityManager,
+                          Request $request,
+                          PathologyRepository $pathologyRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -36,11 +42,25 @@ class AdminController extends AbstractController
             ['serviceIsValidated' => 0]
         );
 
+        $pathology = new Pathology();
+        $form = $this->createForm(PathologyType::class, $pathology);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pathology->setIdentifier($pathology->getName());
+            $entityManager->persist($pathology);
+            $entityManager->flush();
+        }
+
+        $pathologies = $pathologyRepository->findAll();
+
+
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
             'registered_user' => $registeredUser,
             'event_for_validation' => $approveEvent,
-            'service_for_validation' => $approveService
+            'service_for_validation' => $approveService,
+            'form' => $form->createView(),
+            'pathologies' => $pathologies,
         ]);
     }
 
