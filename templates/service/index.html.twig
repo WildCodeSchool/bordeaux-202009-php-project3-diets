@@ -17,13 +17,9 @@
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="d-flex align-items-center">Je propose :</div>
                 <div class="form-modal">
-                    {# <a href="#nouveau-resource">Nouvelle connaissance</a> #}
-                    <!-- Button trigger modal -->
                     <button type="button" class="service-button" data-toggle="modal" data-target="#exampleModalCenter">
                         un service
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -43,7 +39,7 @@
         </div>
         {% endif %}
         <div>
-            <h3 class="part-title">Services Proposés :</h3>
+            <h3 class="part-title mt-4">Services Proposés :</h3>
         </div>
         <div class="">
             <div class="row justify-content-start">
@@ -84,11 +80,5 @@
                 {% endif %}
             </div>
         </div>
-        {% if app.user %}
-         {#    <div>
-                {% include '/component/_newservice_edit.html.twig' %}
-            </div>#}
-        {% endif %}
     </div>
-
 {% endblock %}

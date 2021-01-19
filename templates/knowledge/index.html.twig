@@ -30,13 +30,9 @@
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="d-flex align-items-center">Je propose :</div>
                 <div class="form-modal">
-                    {# <a href="#nouveau-resource">Nouvelle connaissance</a> #}
-                    <!-- Button trigger modal -->
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
                         une connaissance
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -81,7 +77,6 @@
                             {{ resource.description }}
                         </p>
                     </div>
-
                 </div>
                 <div class="">
                     <div>
@@ -97,10 +92,5 @@
             </div>
         </div>
     {% endfor %}
-{# {% if is_granted("ROLE_CONTRIBUTOR") %}
-            <div>
-                {% include '/component/_newfiche_edit.html.twig' %}
-            </div>
-        {% endif %} #}
     </div>
 {% endblock %}
