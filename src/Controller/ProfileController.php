@@ -91,9 +91,23 @@ class ProfileController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
             }
-
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('service_index');
+        }
+
+        $eventsOrganized = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->registeredEventOrganized($user);
+
+
+
+        $eventsAndParticipants = $this->getDoctrine()
+            ->getRepository(RegisteredEvent::class)
+            ->findBy(['isOrganizer' => false]);
+        $eventsAndParticipantsArray = [];
+        foreach ($eventsAndParticipants as $eventAndParticipant) {
+            $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
+                $eventAndParticipant->getUser();
         }
 
         $newResource = new Resource();
@@ -129,9 +143,11 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('profile/edit.html.twig', [
+            'events_organized' => $eventsOrganized,
             'services' => $service,
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
+            'events_and_participants' => $eventsAndParticipantsArray,
             'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),

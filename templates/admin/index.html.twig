@@ -9,11 +9,79 @@
         <div class="container">
             <div class="row col-3">
                 <div class="flex-column">
-                <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
+                    <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
                     <div class="justify-content-center admin-count-title">Nombre d'inscrits</div>
                 </div>
             </div>
         </div>
+        <div class="container d-flex justify-content-center mt-3 mb-5">
+                {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                <button type="submit" class="home-btn-main">Créer une pathologie</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="block-list mt-5">
+                <div>
+                    <h4>Les Pathologies en ligne</h4>
+                </div>
+                <div class="row text-center users-list mx-5">
+                    {% for pathology in pathologies %}
+                        <div class="col-md-4">
+                            <div class="d-flex pb-1">
+                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ pathology.name }} </a>
+                                <br>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+        </div>
+
+        <div class="container d-flex justify-content-center mt-3 mb-5">
+            {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form_expertise) }}
+            {{ form_widget(form_expertise) }}
+            <button type="submit" class="home-btn-second">Créer une expertise</button>
+            {{ form_end(form_expertise) }}
+        </div>
+        <div class="block-list mt-5">
+            <div>
+                <h4>Les Expertises en ligne</h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for expertise in expertises %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ expertise.name }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-center mt-3 mb-5">
+            {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form_resource_format) }}
+            {{ form_widget(form_resource_format) }}
+            <button type="submit" class="btn-create-format">Créer un format</button>
+            {{ form_end(form_resource_format) }}
+        </div>
+        <div class="block-list mt-5">
+            <div>
+                <h4>Les Formats disponible</h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for format in formats %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ format.format }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
         <div class="block-list">
             <div>
                 <h4>Liste des inscrits </h4>

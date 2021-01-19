@@ -28,4 +28,24 @@
     height: 200px;
   }
 
+  .search {
+    margin-bottom: 6em;
+    form {
+      display: flex;
+      justify-content: center;
+      margin-left: 5em;
+    }
+    .search-button{
+      padding: 7px 7px;
+      margin-left: 10px;
+      border-radius: 20px;
+      margin-top: 0;
+      background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+    }
+    input {
+      width: 500px;
+      border-radius: 20px;
+      height: 40px;
+    }
+  }
 }
