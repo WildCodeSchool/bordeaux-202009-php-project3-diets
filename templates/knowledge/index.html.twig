@@ -26,6 +26,34 @@
                 <a href="{{ path('knowledge_index', {'length': 'all'}) }}">Voir les dernières connaissances</a>
             </div>
         {% endif %}
+        {% if is_granted("ROLE_CONTRIBUTOR") %}
+        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+            <div class="form-modal">
+                {# <a href="#nouveau-resource">Nouvelle connaissance</a> #}
+                <!-- Button trigger modal -->
+                <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
+                    Nouvelle connaissance
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Nouvelle connaissance</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% include '/component/_newfiche_edit.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </div>
     {% for resource in resources %}
         <div class="container-fluid">
@@ -68,5 +96,10 @@
             </div>
         </div>
     {% endfor %}
+{# {% if is_granted("ROLE_CONTRIBUTOR") %}
+            <div>
+                {% include '/component/_newfiche_edit.html.twig' %}
+            </div>
+        {% endif %} #}
     </div>
 {% endblock %}

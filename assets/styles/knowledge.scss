@@ -1,4 +1,6 @@
 .knowledge-page {
+  background-color: $main-white;
+
   .knowledge-title {
     border-bottom: solid;
     border-bottom-color: $main-orange;
@@ -34,6 +36,25 @@
       text-decoration: none;
       color: $main-white;
       font-size: 26px;
+    }
+  }
+
+  .form-modal {
+    button {
+      background-repeat:no-repeat;
+      border: none;
+      cursor:pointer;
+      overflow: hidden;
+      outline:none;
+      text-decoration: none;
+      color: $main-white;
+      font-size: 26px;
+    }
+    h3 {
+      margin-top: 20px;
+    }
+    .close {
+      color: $main-red;
     }
   }
 }
