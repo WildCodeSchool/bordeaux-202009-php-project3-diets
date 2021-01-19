@@ -2,11 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Expertise;
 use App\Entity\Pathology;
 use App\Entity\Resource;
 use App\Entity\User;
+use App\Form\ExpertiseType;
 use App\Form\PathologyType;
 use App\Repository\EventRepository;
+use App\Repository\ExpertiseRepository;
 use App\Repository\PathologyRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
@@ -26,7 +29,8 @@ class AdminController extends AbstractController
                           ServiceRepository $serviceRepository,
                           EntityManagerInterface $entityManager,
                           Request $request,
-                          PathologyRepository $pathologyRepository): Response
+                          PathologyRepository $pathologyRepository,
+                          ExpertiseRepository $expertiseRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -53,6 +57,16 @@ class AdminController extends AbstractController
 
         $pathologies = $pathologyRepository->findAll();
 
+        $expertise = new Expertise();
+        $formExpertise = $this->createForm(ExpertiseType::class, $expertise);
+        $formExpertise->handleRequest($request);
+        if ($formExpertise->isSubmitted() && $formExpertise->isValid()) {
+            $entityManager->persist($expertise);
+            $entityManager->flush();
+        }
+
+        $expertises = $expertiseRepository->findAll();
+
 
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
@@ -61,6 +75,8 @@ class AdminController extends AbstractController
             'service_for_validation' => $approveService,
             'form' => $form->createView(),
             'pathologies' => $pathologies,
+            'form_expertise' => $formExpertise->createView(),
+            'expertises' => $expertises,
         ]);
     }
 
