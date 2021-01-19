@@ -13,14 +13,34 @@
             {{ form_end(formSearch) }}
         </div>
         {% if app.user %}
-            <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
-                <div>Je propose :</div>
-                <div class="profile-button-container d-flex flex-wrap justify-content-center">
-                    <div class="profile-button">
-                        <a href="#nouveau-service">un service</a>
+        <div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="d-flex align-items-center">Je propose :</div>
+                <div class="form-modal">
+                    {# <a href="#nouveau-resource">Nouvelle connaissance</a> #}
+                    <!-- Button trigger modal -->
+                    <button type="button" class="service-button" data-toggle="modal" data-target="#exampleModalCenter">
+                        un service
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouveau service</h3>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {% include '/component/_newservice_edit.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+        </div>
         {% endif %}
         <div>
             <h3 class="part-title">Services Proposés :</h3>
@@ -65,9 +85,9 @@
             </div>
         </div>
         {% if app.user %}
-            <div>
+         {#    <div>
                 {% include '/component/_newservice_edit.html.twig' %}
-            </div>
+            </div>#}
         {% endif %}
     </div>
 
