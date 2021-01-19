@@ -8,7 +8,7 @@
         </div>
         <div class="search">
             {{ form_start(formSearch) }}
-                {{ form_widget(formSearch) }}
+            {{ form_widget(formSearch) }}
             <button type="submit" class="search-button home-btn-main">Rechercher</button>
             {{ form_end(formSearch) }}
         </div>
@@ -33,7 +33,11 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="img-container">
-                            <img src="https://picsum.photos/400/200?random={{ service.id }}" alt='Picture service'>
+                            {% for picture in pictures %}
+                                {% if service.picture.id is same as (picture.id) %}
+                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture service'>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
@@ -50,7 +54,11 @@
                     </div>
                     <div class="col-lg-4">
                         <div class="img-container">
-                            <img src="https://picsum.photos/400/200?random={{ service.id }}" alt='Picture service'>
+                            {% for picture in pictures %}
+                                {% if service.picture.id is same as (picture.id) %}
+                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">

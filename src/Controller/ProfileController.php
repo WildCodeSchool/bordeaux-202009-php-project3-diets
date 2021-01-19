@@ -3,15 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
+use App\Form\PictureType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Repository\EventRepository;
+use App\Repository\PictureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,7 +59,10 @@ class ProfileController extends AbstractController
      * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
-    public function edit(Request $request, EntityManagerInterface $entityManager, User $user): Response
+    public function edit(Request $request,
+                         EntityManagerInterface $entityManager,
+                         User $user,
+                         PictureRepository $pictureRepository): Response
     {
 
         if (!$user) {
@@ -104,6 +110,7 @@ class ProfileController extends AbstractController
                 $eventAndParticipant->getUser();
         }
 
+
         $newResource = new Resource();
         $formResource = $this->createForm(ResourceType::class, $newResource);
         $formResource->handleRequest($request);
@@ -147,6 +154,7 @@ class ProfileController extends AbstractController
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
             'formResource' => $formResource->createView(),
+            'pictures' => $pictureRepository->findAll(),
         ]);
     }
 

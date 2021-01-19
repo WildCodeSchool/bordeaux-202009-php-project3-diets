@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Service;
 use App\Form\SearchServiceFormType;
 use App\Form\ServiceType;
+use App\Repository\PictureRepository;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +23,7 @@ class ServiceController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager,
                           Request $request,
-                          ServiceRepository $serviceRepository): Response
+                          ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
     {
         $formSearch = $this->createForm(SearchServiceFormType::class);
         $formSearch->handleRequest($request);
@@ -52,6 +53,7 @@ class ServiceController extends AbstractController
             'services' => $service,
             'formSearch' => $formSearch->createView(),
             'servicesSearch' => $services,
+            'pictures' => $pictureRepository->findAll(),
         ]);
     }
 }
