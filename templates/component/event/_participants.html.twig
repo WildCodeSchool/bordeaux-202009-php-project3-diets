@@ -1,0 +1,32 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn" data-toggle="modal" data-target="#id{{ event_organized.event.id}}">
+    Participants
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="id{{ event_organized.event.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-center">
+                <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Liste des participants à l'événement :<br>{{ event_organized.event.name }}</h5>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="d-flex">
+                                <div class="col text-center">
+                                    {{ app.user.firstname }} {{ app.user.lastname }}
+                                    {% for participant in events_and_participants[event_organized.event.id] %}
+                                    - {{ participant.firstname }} {{ participant.lastname }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
