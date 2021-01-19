@@ -31,6 +31,18 @@ class RegisteredEventRepository extends ServiceEntityRepository
         ;
     }
 
+    public function registeredEventOrganized($user)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $user)
+            ->andWhere('r.isOrganizer = :value')
+            ->setParameter('value', true)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?RegisteredEvent
     {
