@@ -1,6 +1,6 @@
 .search {
   margin-bottom: 6em;
-  form{
+  form {
     display: flex;
     justify-content: center;
     margin-left: 5em;
@@ -12,14 +12,10 @@
     margin-top: 0;
     background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   }
-  #search_service_form {
-    display: flex;
-    justify-content: center;
-    input{
-      width: 500px;
-      border-radius: 20px;
-      height: 40px;
-    }
+  input {
+    width: 500px;
+    border-radius: 20px;
+    height: 40px;
   }
 }
 

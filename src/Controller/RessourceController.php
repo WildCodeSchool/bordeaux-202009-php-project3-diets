@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\SearchResourceType;
+use App\Repository\PathologyRepository;
+use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,16 +20,20 @@ class RessourceController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(ResourceRepository $resourceRepository, Request $request): Response
+    public function index(ResourceRepository $resourceRepository,
+                          Request $request,
+                          ResourceFormatRepository $resourceFormatRepository,
+                          PathologyRepository $pathologyRepository): Response
     {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $resources = $resourceRepository->findBy(['pathology' => $search, 'resourceFormat' => $search]);
+            $formats = $resourceFormatRepository->findLikeName($search);
+            $pathologies = $pathologyRepository->findLikeName($search);
         } else {
-            $resources = [];
+            $formats = [];
         }
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
@@ -45,7 +51,8 @@ class RessourceController extends AbstractController
             'form' => 'form',
             'events' => $event,
             'resourcesLastUpdate' => $resourcesLastUpdate,
-            'resourcesSearch' => $resources,
+            'formatsSearch' => $formats,
+            'pathologiesSearch' => $pathologies,
             'formSearch' => $formSearch->createView(),
         ]);
     }

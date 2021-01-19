@@ -19,32 +19,13 @@ class ResourceFormatRepository extends ServiceEntityRepository
         parent::__construct($registry, ResourceFormat::class);
     }
 
-    // /**
-    //  * @return ResourceFormat[] Returns an array of ResourceFormat objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function findLikeName(string $name) {
+        $queryBuiler = $this->createQueryBuilder('r')
+            ->where('r.identifier LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('r.identifier', 'ASC')
+            ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?ResourceFormat
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $queryBuiler->getResult();
     }
-    */
 }

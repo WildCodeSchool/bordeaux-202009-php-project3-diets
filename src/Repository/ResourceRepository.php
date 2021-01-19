@@ -18,14 +18,4 @@ class ResourceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Resource::class);
     }
-
-    public function findLikeName(string $name) {
-        $queryBuiler = $this->createQueryBuilder('r')
-            ->where('r.pathology LIKE :name')
-            ->orWhere('r.resourceFormat LIKE :name')
-            ->setParameter('name', '%' . $name . '%')
-            ->getQuery();
-
-        return $queryBuiler->getResult();
-    }
 }
