@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Entity\RegisteredEvent;
 use App\Form\EventType;
+use App\Form\SearchEventType;
 use App\Form\RegisterType;
 use App\Repository\EventRepository;
 use App\Repository\RegisteredEventRepository;
@@ -20,9 +21,9 @@ class EventController extends AbstractController
 {
     /**
      * @Route("/event", name="event_index")
-     *
      */
-    public function index(Request $request, EntityManagerInterface $entityManager,
+    public function index(Request $request,
+                          EntityManagerInterface $entityManager,
                           EventRepository $eventRepository): Response
     {
         $event = new Event();
@@ -32,6 +33,15 @@ class EventController extends AbstractController
             $event->setEventIsValidated('0');
             $entityManager->persist($event);
             $entityManager->flush();
+        }
+        $formSearch = $this->createForm(SearchEventType::class);
+        $formSearch->handleRequest($request);
+
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            $eventSearch = $eventRepository->findLikeName($search);
+        } else {
+            $eventSearch = [];
         }
 
         $eventsAndOrganizers = $this->getDoctrine()
@@ -61,11 +71,14 @@ class EventController extends AbstractController
             return $this->redirectToRoute('unregister_event', array('id' => $eventId));
         }
 
-            return $this->render('event/index.html.twig', [
+        return $this->render('event/index.html.twig', [
+            'form' => $formSearch->createView(),
+            'eventsSearch' => $eventSearch,
             'events' => $eventRepository->findAll(),
             'formEvent'               => $formEvent->createView(),
             'events_and_organizers'   => $eventsAndOrganizersArray,
             'events_and_participants' => $eventsAndParticipantsArray
             ]);
     }
+
 }
