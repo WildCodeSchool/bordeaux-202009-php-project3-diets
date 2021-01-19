@@ -19,32 +19,13 @@ class ResourceRepository extends ServiceEntityRepository
         parent::__construct($registry, Resource::class);
     }
 
-    // /**
-    //  * @return Resource[] Returns an array of Resource objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function findLikeName(string $name) {
+        $queryBuiler = $this->createQueryBuilder('r')
+            ->where('r.pathology LIKE :name')
+            ->orWhere('r.resourceFormat LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?Resource
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $queryBuiler->getResult();
     }
-    */
 }

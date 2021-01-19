@@ -6,8 +6,11 @@
 
 {% block body %}
     <div class="firstdiv">
-        <div class="d-flex justify-content-center search-bar">
-            <h2>Barre de recherche à développer</h2>
+        <div class="search">
+    {{ form_start(formSearch) }}
+            {{ form_widget(formSearch) }}
+            <button type="submit" class="search-button home-btn-main">Rechercher</button>
+            {{ form_end(formSearch) }}
         </div>
         {% include '/component/_carousel.html.twig' %}
     </div>
