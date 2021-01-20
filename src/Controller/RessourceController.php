@@ -21,23 +21,23 @@ class RessourceController extends AbstractController
      * @Route("/", name="index")
      */
     public function index(ResourceRepository $resourceRepository,
-                          Request $request,
-                          ResourceFormatRepository $resourceFormatRepository,
-                          PathologyRepository $pathologyRepository): Response
+                          Request $request): Response
     {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $formats = $resourceFormatRepository->findLikeName($search);
-            $pathologies = $pathologyRepository->findLikeName($search);
+            $resourcesSearch = $resourceRepository->findLikeName($search);
         } else {
-            $formats = [];
+            $resourcesSearch = [];
         }
+
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
             ->findBy(array(), array('dateStart' => 'desc'), 1);
+
+        $nbreResources = 12;
 
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
@@ -45,14 +45,17 @@ class RessourceController extends AbstractController
             [
                 'updatedAt' => 'DESC'
             ],
-            12
+            $nbreResources
         );
+
+        $resources = $resourceRepository->findBy(array(), array('id' => 'desc'));
+
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
             'events' => $event,
             'resourcesLastUpdate' => $resourcesLastUpdate,
-            'formatsSearch' => $formats,
-            'pathologiesSearch' => $pathologies,
+            'resources' => $resources,
+            'resourcesSearch' => $resourcesSearch,
             'formSearch' => $formSearch->createView(),
         ]);
     }
