@@ -20,11 +20,12 @@ class ResourceRepository extends ServiceEntityRepository
     }
     public function findLikeName(string $name) {
         $queryBuilder = $this->createQueryBuilder('r')
-            ->join('r.pathology', 'p')
+            ->leftJoin('r.pathology', 'p')
+            ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
             ->orWhere('p.name LIKE :name')
+            ->orWhere('f.format LIKE :name')
             ->setParameter('name', '%' . $name . '%')
-            ->orderBy('r.name', 'ASC')
             ->getQuery();
 
         return $queryBuilder->getResult();

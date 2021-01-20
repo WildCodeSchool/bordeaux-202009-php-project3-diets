@@ -37,7 +37,7 @@ class RessourceController extends AbstractController
             ->getRepository(Event::class)
             ->findBy(array(), array('dateStart' => 'desc'), 1);
 
-        $nbreResources = 12;
+
 
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
@@ -45,16 +45,14 @@ class RessourceController extends AbstractController
             [
                 'updatedAt' => 'DESC'
             ],
-            $nbreResources
+            12
         );
 
-        $resources = $resourceRepository->findBy(array(), array('id' => 'desc'));
 
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
             'events' => $event,
             'resourcesLastUpdate' => $resourcesLastUpdate,
-            'resources' => $resources,
             'resourcesSearch' => $resourcesSearch,
             'formSearch' => $formSearch->createView(),
         ]);

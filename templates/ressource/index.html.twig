@@ -12,20 +12,19 @@
             <button type="submit" class="search-button home-btn-main">Rechercher</button>
             {{ form_end(formSearch) }}
         </div>
+
         {% if resourcesSearch %}
-            {% for resource in resources %}
-                <div class="d-flex flex-wrap justify-content-center">
-                    {%  for resource in resources %}
-                        {% if resource.pathology. is same as (pathology.) %}
+            <div class="d-flex flex-wrap justify-content-center">
+            {% for resource in resourcesSearch %}
                         <div class="card-container justify-content-center">
                             <div class="test-card">
                                 {% include '/component/_card.html.twig' %}
                             </div>
                         </div>
-                        {% endif %}
-                    {% endfor %}
-                </div>
+
+
             {% endfor %}
+            </div>
         {% else %}
         {% include '/component/_carousel.html.twig' %}
     </div>
