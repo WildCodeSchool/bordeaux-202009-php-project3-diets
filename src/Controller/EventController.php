@@ -32,7 +32,12 @@ class EventController extends AbstractController
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
         if ($formEvent->isSubmitted() && $formEvent->isValid()) {
-            $event->setEventIsValidated('0');
+            $registerEvent = new RegisteredEvent();
+            $registerEvent->setUser($this->getUser());
+            $registerEvent->setEvent($event);
+            $registerEvent->setIsOrganizer( true);
+            $event->setEventIsValidated(false);
+            $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
         }

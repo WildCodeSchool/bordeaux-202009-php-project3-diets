@@ -144,6 +144,8 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
 
+        /*dd($eventsOrganized);*/
+
         return $this->render('profile/edit.html.twig', [
             'events_organized' => $eventsOrganized,
             'services' => $service,
