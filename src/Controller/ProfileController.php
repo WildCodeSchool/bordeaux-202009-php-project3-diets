@@ -226,6 +226,31 @@ class ProfileController extends AbstractController
 
     }
 
+    /**
+     * @Route("/event/edit/{id}", methods={"GET", "POST"}, name="event_edit")
+     * @return Response
+     */
+
+    public function editEvent(Event $event,
+                              int $id,
+                              Request $request,
+                              EventRepository $eventRepository): Response
+    {
+        $event = $eventRepository->findOneBy(['id' => $id]);
+
+        $formEditEvent = $this->createForm(EventType::class, $event);
+        $formEditEvent->handleRequest($request);
+        if ($formEditEvent->isSubmitted() && $formEditEvent->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('event_index');
+        }
+
+        return $this->render('component/_event_edit.html.twig', [
+            'form' => $formEditEvent->createView(),
+        ]);
+
+    }
+
 
 
     /**
