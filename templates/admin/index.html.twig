@@ -63,15 +63,37 @@
             {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
             {{ form_start(form_resource_format) }}
             {{ form_widget(form_resource_format) }}
-            <button type="submit" class="btn-create-format">Créer un format</button>
+            <button type="submit" class="btn-create-format">Créer un format de ressources</button>
             {{ form_end(form_resource_format) }}
         </div>
         <div class="block-list mt-5">
             <div>
-                <h4>Les Formats disponible</h4>
+                <h4>Les Formats des ressources disponible</h4>
             </div>
             <div class="row text-center users-list mx-5">
                 {% for format in formats %}
+                    <div class="col-md-4">
+                        <div class="d-flex pb-1">
+                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ format.format }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-center mt-3 mb-5">
+            {% form_theme form_event_format 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(form_event_format) }}
+            {{ form_widget(form_event_format) }}
+            <button type="submit" class="home-btn-main">Créer un format pour les évènements</button>
+            {{ form_end(form_event_format) }}
+        </div>
+        <div class="block-list mt-5">
+            <div>
+                <h4>Les Formats des évènements disponible</h4>
+            </div>
+            <div class="row text-center users-list mx-5">
+                {% for format in event_formats %}
                     <div class="col-md-4">
                         <div class="d-flex pb-1">
                             <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ format.format }}

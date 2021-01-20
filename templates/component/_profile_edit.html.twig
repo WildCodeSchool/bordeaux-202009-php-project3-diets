@@ -26,7 +26,7 @@
                                 {% if (infos.picture) == false %}
                                     {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
                                 {% else %}
-                                    {{ infos.picture.link }}
+                                    /uploads/pictures/{{ infos.picture.name }}
                                 {% endif %}
                              alt="photo_de_profil">
                     </div>

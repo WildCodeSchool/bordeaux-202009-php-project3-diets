@@ -13,14 +13,36 @@
             <button type="submit" class="search-button home-btn-main">Rechercher</button>
             {{ form_end(form) }}
         </div>
-        <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
-            <div>Je propose :</div>
-            <div class="profile-button-container d-flex flex-wrap justify-content-center">
-                <div class="profile-button">
-                    <a href="#nouvel-evenement">un évènement</a>
+        <div class="event-modal">
+        {% if app.user %}
+            <div class="mb-4">
+                <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="d-flex align-items-center">Je propose :</div>
+                    <div class="form-modal">
+                        <button type="button" class="event-button" data-toggle="modal" data-target="#exampleModalCenter">
+                            un évènement
+                        </button>
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvel évènement</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% include '/component/_newevent_edit.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        {% endif %}
         </div>
+        <div>
         {% if eventsSearch %}
             {% for event in eventsSearch %}
                 <div class="row container-img-txt">
@@ -43,25 +65,24 @@
                 </div>
             {% endfor %}
         {% else %}
-            <div class="calendrier-form">
+            <div class="d-flex container-fluid">
+            <div class="d-flex col-2">
                 <div class="dates">
                     <h3>Dates</h3>
                     {% for event in events %}
                         <ul>
-                            <div>
-                                <div>{{ event.dateStart|date("d/m/Y H:i") }}</div>
-                                <div>{{ event.name }}</div>
-                            </div>
+                            {{ event.dateStart|date("d/m/Y H:i") }}<br>
+                            {{ event.name }}
                         </ul>
                     {% endfor %}
                 </div>
             </div>
-            <div class="container-fluid">
-                <div>
+            <div class="d-flex col-10">
+                <div class="d-flex">
                     <div class="col justify-content-end bloc-img">
                         <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
                             {% for event in events %}
-                                <div class="row container-img-txt">
+                                <div class="row container-img-txt justify-content-end">
                                     <div class="col-lg-4">
                                         <div class="img-container">
                                             {% for picture in pictures %}
@@ -71,7 +92,7 @@
                                             {% endfor %}
                                         </div>
                                     </div>
-                                    <div class="col-lg-3 text-container">
+                                    <div class="col-lg-6 text-container">
                                         <p>Titre: {{ event.name }} </p>
                                         <p>lien: {{ event.link }}</p>
                                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
@@ -108,14 +129,15 @@
                                     </div>
                                 </div>
                             {% endfor %}
+
+                    </div>
+                </div>
+            </div>
                         </div>
                     </div>
                 </div>
-                {% if is_granted("ROLE_CONTRIBUTOR") %}
-                    <div>
-                        {% include '/component/_newevent_edit.html.twig' %}
-                    </div>
-                {% endif %}
             </div>
         {% endif %}
+        </div>
+    </div>
 {% endblock %}
