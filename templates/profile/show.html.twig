@@ -60,6 +60,9 @@
 <div class="d-flex flex-wrap justify-content-center">
     {% for service in services %}
         <div class="card-container justify-content-center">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="d-flex justify-content-center">Editer</a>
+            {% endif %}
             <div class="overflow-hidden">
                 <a href="{{ service.link }}" target="_blank">
                     <img src="{{ service.picture.link }}" alt='service proposé'>

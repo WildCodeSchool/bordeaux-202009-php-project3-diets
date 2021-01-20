@@ -84,6 +84,9 @@
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: {{ service.link }}</p>{% endif %}
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="">Editer</a>
+                        {% endif %}
                     </div>
                 {% endfor %}
                 {% endif %}
