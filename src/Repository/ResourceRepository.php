@@ -23,6 +23,7 @@ class ResourceRepository extends ServiceEntityRepository
             ->leftJoin('r.pathology', 'p')
             ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
+            ->orWhere('r.description LIKE :name')
             ->orWhere('p.name LIKE :name')
             ->orWhere('f.format LIKE :name')
             ->setParameter('name', '%' . $name . '%')
