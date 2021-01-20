@@ -31,7 +31,10 @@ class ProfileController extends AbstractController
      * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
      * @return Response
      */
-    public function show(User $user, EventRepository $eventRepository): Response
+    public function show(User $user, EventRepository $eventRepository,
+                         Request $request,
+                         EntityManagerInterface $entityManager,
+                         ResourceRepository $resourceRepository ): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -48,11 +51,17 @@ class ProfileController extends AbstractController
             $expertises = substr($expertises, 0, -2);
 
             $eventsById = $eventRepository->find(['id' => $user->getId()]);
+
+            $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
+
+
+
         }
         return $this->render('profile/show.html.twig', [
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'events' => $eventsById,
+            'resources' => $resources,
         ]);
     }
 
@@ -171,16 +180,20 @@ class ProfileController extends AbstractController
                                  ResourceRepository $resourceRepository): Response
     {
         $resource = $resourceRepository->findOneBy(['id' => $id]);
+
         $formEditResource = $this->createForm(ResourceType::class, $resource);
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
-            $entityManager->persist($resource);
-            $entityManager->flush();
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('knowledge_index', [
+                'length' => 'all'
+            ]);
         }
 
-        $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('profile/resource_edit.html.twig', [
+
+
+        return $this->render('component/_resource_edit.html.twig', [
             'form' => $formEditResource->createView(),
         ]);
 
