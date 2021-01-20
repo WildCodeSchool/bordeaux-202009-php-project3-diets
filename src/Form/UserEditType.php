@@ -46,8 +46,9 @@ class UserEditType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
             ])
-           /* ->add('picture')*/
-
+            ->add('picture', PictureType::class, [
+                'label' => 'Charger une image'
+            ])
         ;
     }
 

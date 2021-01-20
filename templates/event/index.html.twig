@@ -71,10 +71,8 @@
                     <h3>Dates</h3>
                     {% for event in events %}
                         <ul>
-                            <div>
-                                <div>{{ event.dateStart|date("d/m/Y H:i") }}</div>
-                                <div>{{ event.name }}</div>
-                            </div>
+                            {{ event.dateStart|date("d/m/Y H:i") }}<br>
+                            {{ event.name }}
                         </ul>
                     {% endfor %}
                 </div>
@@ -131,6 +129,10 @@
                                     </div>
                                 </div>
                             {% endfor %}
+
+                    </div>
+                </div>
+            </div>
                         </div>
                     </div>
                 </div>
