@@ -62,21 +62,19 @@
                 </div>
             {% endfor %}
         {% else %}
+            <div class="">
             <div class="calendrier-form">
                 <div class="dates">
                     <h3>Dates</h3>
                     {% for event in events %}
                         <ul>
-                            <div>
-                                <div>{{ event.dateStart|date("d/m/Y H:i") }}</div>
-                                <div>{{ event.name }}</div>
-                            </div>
+                            {{ event.dateStart|date("d/m/Y H:i") }}<br>
+                            {{ event.name }}
                         </ul>
                     {% endfor %}
                 </div>
             </div>
             <div class="container-fluid">
-                <div>
                     <div class="col justify-content-end bloc-img">
                         <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
                             {% for event in events %}
@@ -127,9 +125,11 @@
                                     </div>
                                 </div>
                             {% endfor %}
-                        </div>
+
                     </div>
                 </div>
+            </div>
         {% endif %}
     </div>
+
 {% endblock %}
