@@ -16,10 +16,12 @@
                         <div class="d-flex">
                                 <div class="col text-center">
                                     {{ app.user.firstname }} {{ app.user.lastname }}
+                                    {#
                                     {% for participant in events_and_participants[event_organized.event.id] %}
-                                    - {{ participant.firstname }} {{ participant.lastname }}
+                                    - {{ participant.firstname }} {{ participant.lastname }
+                                    {% endfor %}
+                                    #}
                                 </div>
-                            {% endfor %}
                         </div>
                     </div>
                 </div>

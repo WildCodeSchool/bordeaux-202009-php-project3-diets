@@ -2,14 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\EventFormat;
 use App\Entity\Expertise;
 use App\Entity\Pathology;
 use App\Entity\Resource;
 use App\Entity\ResourceFormat;
 use App\Entity\User;
+use App\Form\EventFormatType;
 use App\Form\ExpertiseType;
 use App\Form\PathologyType;
 use App\Form\ResourceFormatType;
+use App\Repository\EventFormatRepository;
 use App\Repository\EventRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\PathologyRepository;
@@ -34,7 +37,8 @@ class AdminController extends AbstractController
                           Request $request,
                           PathologyRepository $pathologyRepository,
                           ExpertiseRepository $expertiseRepository,
-                          ResourceFormatRepository $resourceFormatRepository): Response
+                          ResourceFormatRepository $resourceFormatRepository,
+                          EventFormatRepository $eventFormatRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -83,10 +87,24 @@ class AdminController extends AbstractController
             $entityManager->persist($resourceFormat);
             $entityManager->flush();
 
-            $this->addFlash('success', 'La format a bien été créé');
+            $this->addFlash('success', 'La format pour les ressources a bien été créé');
         }
 
         $resourceFormats = $resourceFormatRepository->findAll();
+
+        $eventFormat = new EventFormat();
+
+        $formEventFormat = $this->createForm(EventFormatType::class, $eventFormat);
+        $formEventFormat->handleRequest($request);
+        if ($formEventFormat->isSubmitted() && $formEventFormat->isValid()) {
+            $eventFormat->setIdentifier($eventFormat->getFormat());
+            $entityManager->persist($eventFormat);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La format pour les évènements a bien été créé');
+        }
+
+        $eventFormats = $eventFormatRepository->findAll();
 
 
         return $this->render('admin/index.html.twig', [
@@ -100,6 +118,8 @@ class AdminController extends AbstractController
             'expertises' => $expertises,
             'form_resource_format' => $formResourceFormat->createView(),
             'formats' => $resourceFormats,
+            'form_event_format'=> $formEventFormat->createView(),
+            'event_formats' => $eventFormats
         ]);
     }
 

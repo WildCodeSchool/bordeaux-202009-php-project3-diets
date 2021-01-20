@@ -1,0 +1,14 @@
+{% extends "layoutEmail.html.twig" %}
+
+{% block body %}
+    <h2>Vous avez un nouveau message</h2>
+
+    <p>Bonjour,</p>
+    <br>
+    <p>{{ contact.firstname }} {{ contact.lastname }} vous a envoyé un nouveau message</p>
+    <br>
+    <p>Message:</p>
+    <p>{{ contact.message }}</p>
+    <br>
+    <p>Vous pouvez le/la recontacter à {{contact.email }} ou au {{ contact.phone }}
+{% endblock %}
