@@ -77,6 +77,9 @@
                             {{ resource.description }}
                         </p>
                     </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
+                    {% endif %}
                 </div>
                 <div class="">
                     <div>

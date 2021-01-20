@@ -25,7 +25,9 @@ class ResourceType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description',
             ])
-            ->add('link')
+            ->add('link', TextType::class, [
+                'label' => 'Lien',
+            ])
             ->add('pathology', EntityType::class, [
                 'class' => Pathology::class,
                 'choice_label' => 'name',
