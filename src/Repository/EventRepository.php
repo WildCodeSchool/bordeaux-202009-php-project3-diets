@@ -23,6 +23,7 @@ class EventRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('e')
             ->where('e.name LIKE :name')
+            ->orWhere('e.description LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('e.name', 'ASC')
             ->getQuery();
