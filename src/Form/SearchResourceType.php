@@ -13,8 +13,9 @@ class SearchResourceType extends AbstractType
     {
         $builder
             ->add('search', SearchType::class, [
-            'label' => false])
-        ;
+            'label' => false,
+            'required' => false,
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

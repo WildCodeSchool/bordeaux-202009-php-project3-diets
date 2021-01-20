@@ -14,6 +14,7 @@ class SearchServiceFormType extends AbstractType
         $builder
             ->add('search', SearchType::class, [
                 'label' => false,
+                'required' => false,
             ]);
     }
 

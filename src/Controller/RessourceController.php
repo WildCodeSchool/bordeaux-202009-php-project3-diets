@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class RessourceController extends AbstractController
 {
+    private const NBRESOURCE = 12;
     /**
      * @Route("/", name="index")
      */
@@ -45,7 +46,7 @@ class RessourceController extends AbstractController
             [
                 'updatedAt' => 'DESC'
             ],
-            12
+            self::NBRESOURCE
         );
 
 
