@@ -20,7 +20,11 @@
                 <p class="card-text">
                     {{ resource.description[:150] ~ '...' }}
                 </p>
-                <button type="button" class="btn text-white">Button</button>
+                {% if app.user %}
+                <button type="button" class="btn" data-toggle="modal" data-target="#id{{ resource.id }}">
+                    Voir
+                </button>
+                {% endif %}
             </div>
         </div>
     </div>
