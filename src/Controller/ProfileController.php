@@ -49,10 +49,14 @@ class ProfileController extends AbstractController
 
             $eventsById = $eventRepository->find(['id' => $user->getId()]);
         }
+
+        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
+
         return $this->render('profile/show.html.twig', [
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'events' => $eventsById,
+            'resources' => $resources,
         ]);
     }
 
