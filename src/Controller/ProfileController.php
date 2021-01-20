@@ -15,6 +15,7 @@ use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
+use App\Repository\ResourceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -156,6 +157,34 @@ class ProfileController extends AbstractController
             'formResource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
         ]);
+    }
+
+    /**
+     * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
+     * @return Response
+     */
+
+    public function editResource(Resource $resource,
+                                 Request $request,
+                                 EntityManagerInterface $entityManager,
+                                 int $id,
+                                 ResourceRepository $resourceRepository): Response
+    {
+        $resource = $resourceRepository->findOneBy(['id' => $id]);
+        $formEditResource = $this->createForm(ResourceType::class, $resource);
+        $formEditResource->handleRequest($request);
+        if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
+            $entityManager->persist($resource);
+            $entityManager->flush();
+        }
+
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('profile/resource_edit.html.twig', [
+            'form' => $formEditResource->createView(),
+        ]);
+
+
     }
 
     /**
