@@ -413,7 +413,6 @@ class User implements UserInterface
                 $registeredEvent->setUser(null);
             }
         }
-
         return $this;
     }
 }

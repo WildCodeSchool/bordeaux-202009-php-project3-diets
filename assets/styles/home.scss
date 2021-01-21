@@ -254,6 +254,14 @@
   }
 }
 
+@media screen and (max-width: 769px){
+  .home-page{
+    .home-main-container {
+      height: 80vh;
+    }
+  }
+}
+
 @media screen and (max-width: 375px) {
   .home-page {
     .fixed-bottom {
@@ -284,6 +292,9 @@
     .col-5,
     .non_underline {
       justify-content: center;
+    }
+    .form-control{
+      width: 100%;
     }
   }
 }
