@@ -115,11 +115,6 @@ button {
   outline:none;
 }
 
-@media screen and (max-width: 992px) {
-  .profile-main-forms {
-    margin: 3px;
-  }
-}
 
 @media screen and (max-width: 1200px) {
   .profile-informations {
@@ -132,14 +127,20 @@ button {
   }
 }
 
-@media screen and (min-width: 440px) {
-  .flex {
-    display: flex;
-  }
-}
-
 @media screen and (min-width: 993px) {
   .form-service, .form-event .form-edit-user {
     margin-right: 2em;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .profile-main-forms {
+    margin: 3px;
+  }
+}
+
+@media screen and (min-width: 440px) {
+  .flex {
+    display: flex;
   }
 }

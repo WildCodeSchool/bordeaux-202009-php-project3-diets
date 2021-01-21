@@ -19,32 +19,13 @@ class PathologyRepository extends ServiceEntityRepository
         parent::__construct($registry, Pathology::class);
     }
 
-    // /**
-    //  * @return Pathology[] Returns an array of Pathology objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function findLikeName(string $name) {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.identifier LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('p.identifier', 'ASC')
+            ->getQuery();
 
-    /*
-    public function findOneBySomeField($value): ?Pathology
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $queryBuilder->getResult();
     }
-    */
 }

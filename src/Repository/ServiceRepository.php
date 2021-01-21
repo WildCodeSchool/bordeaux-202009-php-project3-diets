@@ -23,6 +23,7 @@ class ServiceRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('s')
             ->where('s.name LIKE :name')
+            ->orWhere('s.description LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('s.name', 'ASC')
             ->getQuery();

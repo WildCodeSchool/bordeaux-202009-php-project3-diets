@@ -7,14 +7,14 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SearchServiceFormType extends AbstractType
+class SearchResourceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('search', SearchType::class, [
-                'label' => false,
-                'required' => false,
+            'label' => false,
+            'required' => false,
             ]);
     }
 
