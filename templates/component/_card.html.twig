@@ -2,7 +2,7 @@
     <div class="box-inner">
         <div class="box-front ">
             <img
-                    src="https://picsum.photos/200/300?random={{ resource.resourceFormat.icon }}"
+                    src="https://picsum.photos/200/300?random={{ random(100,300) }}"
                     class="card-img "
                     alt="..."
             />
@@ -24,9 +24,13 @@
         {% endif %}
 
                 <p class="card-text">
-                    {{ resource.description[:150] ~ '...' }}
+                    {{ resource.description[:100] ~ '...' }}
                 </p>
-                <button type="button" class="btn text-white">Button</button>
+                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                <button type="button" class="btn" data-toggle="modal" data-target="#id{{ resource.id }}">
+                    Voir
+                </button>
+                {% endif %}
             </div>
         </div>
     </div>

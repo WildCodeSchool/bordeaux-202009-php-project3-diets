@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @Route("/ressource", name="ressource_")
@@ -57,5 +58,18 @@ class RessourceController extends AbstractController
             'resourcesSearch' => $resourcesSearch,
             'formSearch' => $formSearch->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/download", name="download", methods={"POST"})
+     */
+    public function download(): Response
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $path = $_POST['path'];
+            $fullPath = 'uploads/resources/' . $path;
+            $file = new File($fullPath);
+            return $this->file($file);
+        }
     }
 }

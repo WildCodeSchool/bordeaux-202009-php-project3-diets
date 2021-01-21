@@ -38,3 +38,40 @@
   margin-right: 2vh;
   margin-left: 2vh;
 }
+
+.modal-resource {
+  height: 80vh;
+}
+
+.ressource-link{
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.ressource-link-button {
+  margin: 0.5rem;
+  border: solid 1px;
+  border-color: $main-blue;
+  border-radius: 4px;
+  &:hover {
+    color: #fff;
+    background-color: $main-blue;
+  }
+}
+
+.ressource-modal-title {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.ressource-modal-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
+  &:hover {
+    color: #fff;
+  }
+}
