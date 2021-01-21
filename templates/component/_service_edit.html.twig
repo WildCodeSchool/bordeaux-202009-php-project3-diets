@@ -19,7 +19,11 @@
         <div class="card-container justify-content-center">
             <div class="overflow-hidden mb-3">
                 <a href="{{ event_organized.event.link }}" target="_blank">
-                    <img src="{{ event_organized.event.picture.name }}" alt='événement organisé'>
+                      {% for picture in pictures %}
+                        {% if event_organized.event.picture.id is same as (picture.id) %}
+                            <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture évènement proposé'>
+                        {% endif %}
+                      {% endfor %}
                 </a>
             </div>
             <div class="text-center">{% include '/component/event/_participants.html.twig' %}</div>
@@ -36,7 +40,7 @@
             <a href="{{ service.link }}" target="_blank">
                 {% for picture in pictures %}
                     {% if service.picture.id is same as (picture.id) %}
-                        <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture service proposé'>
+                        <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='Picture service proposé'>
                     {% endif %}
                 {% endfor %}
             </a>

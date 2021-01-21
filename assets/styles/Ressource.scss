@@ -38,8 +38,11 @@
   border: solid 1px;
   border-color: $main-blue;
   border-radius: 4px;
+  &:hover {
+    color: #fff;
+    background-color: $main-blue;
+  }
 }
-
 
 .ressource-modal-title {
   font-style: italic;
@@ -53,6 +56,5 @@
   border: none;
   &:hover {
     color: #fff;
-    background-color: $main-blue;
   }
 }

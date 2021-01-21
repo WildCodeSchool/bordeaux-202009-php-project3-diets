@@ -39,11 +39,15 @@ class RessourceController extends AbstractController
     }
 
     /**
-     * @Route("/download", name="download")
+     * @Route("/download", name="download", methods={"POST"})
      */
-    public function download($path): Response
+    public function download(): Response
     {
-        $file = new File('uploads/pictures/badge1.jpg');
-        return $this->file($file);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $path = $_POST['path'];
+            $fullPath = 'uploads/resources/' . $path;
+            $file = new File($fullPath);
+            return $this->file($file);
+        }
     }
 }
