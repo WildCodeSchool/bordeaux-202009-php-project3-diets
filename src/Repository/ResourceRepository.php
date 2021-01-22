@@ -31,4 +31,19 @@ class ResourceRepository extends ServiceEntityRepository
 
         return $queryBuilder->getResult();
     }
+
+    public function searchByPathologyFormatAndLikeName($name, $pathology, $format)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.pathology', 'p')
+            ->leftJoin('r.resourceFormat', 'f')
+            ->where('r.name LIKE :name')
+            ->andWhere('p.name = :pathology')
+            ->andWhere('f.format = :format')
+            ->setParameter('name', '%' . $name . '%')
+            ->setParameter('pathology', $pathology)
+            ->setParameter('format', $format)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }

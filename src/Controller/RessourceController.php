@@ -30,7 +30,9 @@ class RessourceController extends AbstractController
 
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $resourcesSearch = $resourceRepository->findLikeName($search);
+            $pathology = $formSearch->getData()['pathology'];
+            $format = $formSearch->getData()['format'];
+            $resourcesSearch = $resourceRepository->searchByPathologyFormatAndLikeName($search, $pathology, $format);
         } else {
             $resourcesSearch = [];
         }
