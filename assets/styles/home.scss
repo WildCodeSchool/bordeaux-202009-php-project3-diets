@@ -148,6 +148,13 @@
   right: 6vh;
 }
 
+.alert{
+  position: absolute;
+  width:100%;
+  margin-top: 6em;
+  text-align: center;
+}
+
 .subscribe{
   color: transparent;
 }
@@ -254,6 +261,14 @@
   }
 }
 
+@media screen and (max-width: 769px){
+  .home-page{
+    .home-main-container {
+      height: 80vh;
+    }
+  }
+}
+
 @media screen and (max-width: 375px) {
   .home-page {
     .fixed-bottom {
@@ -284,6 +299,9 @@
     .col-5,
     .non_underline {
       justify-content: center;
+    }
+    .form-control{
+      width: 100%;
     }
   }
 }

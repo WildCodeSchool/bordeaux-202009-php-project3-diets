@@ -19,6 +19,17 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findLikeName(string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->where('e.name LIKE :name')
+            ->orWhere('e.description LIKE :name')
+            ->setParameter('name', '%' . $name . '%')
+            ->orderBy('e.name', 'ASC')
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

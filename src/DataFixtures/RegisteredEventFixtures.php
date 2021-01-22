@@ -12,11 +12,11 @@ class RegisteredEventFixtures extends Fixture implements DependentFixtureInterfa
 {
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i <= 50; $i++) {
+        for ($i = 0; $i < 50; $i++) {
             $registeredEvent = new RegisteredEvent();
             $registeredEvent->setIsOrganizer(rand(0, 1));
             $registeredEvent->setEvent(($this->getReference('event_' . rand(0, 49))));
-            $registeredEvent->setUser(($this->getReference('user_' . rand(0, 49))));
+            $registeredEvent->setUser(($this->getReference('user_' . $i)));
             $this->addReference('registered_event_' . $i, $registeredEvent);
             $manager->persist($registeredEvent);
         }

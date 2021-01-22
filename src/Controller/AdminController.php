@@ -2,9 +2,21 @@
 
 namespace App\Controller;
 
+use App\Entity\EventFormat;
+use App\Entity\Expertise;
+use App\Entity\Pathology;
 use App\Entity\Resource;
+use App\Entity\ResourceFormat;
 use App\Entity\User;
+use App\Form\EventFormatType;
+use App\Form\ExpertiseType;
+use App\Form\PathologyType;
+use App\Form\ResourceFormatType;
+use App\Repository\EventFormatRepository;
 use App\Repository\EventRepository;
+use App\Repository\ExpertiseRepository;
+use App\Repository\PathologyRepository;
+use App\Repository\ResourceFormatRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,7 +32,13 @@ class AdminController extends AbstractController
      */
     public function index(UserRepository $userRepository,
                           EventRepository $eventRepository,
-                          ServiceRepository $serviceRepository): Response
+                          ServiceRepository $serviceRepository,
+                          EntityManagerInterface $entityManager,
+                          Request $request,
+                          PathologyRepository $pathologyRepository,
+                          ExpertiseRepository $expertiseRepository,
+                          ResourceFormatRepository $resourceFormatRepository,
+                          EventFormatRepository $eventFormatRepository): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -36,11 +54,72 @@ class AdminController extends AbstractController
             ['serviceIsValidated' => 0]
         );
 
+        $pathology = new Pathology();
+        $form = $this->createForm(PathologyType::class, $pathology);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pathology->setIdentifier($pathology->getName());
+            $entityManager->persist($pathology);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La pathologie a bien été créée');
+        }
+
+        $pathologies = $pathologyRepository->findAll();
+
+        $expertise = new Expertise();
+        $formExpertise = $this->createForm(ExpertiseType::class, $expertise);
+        $formExpertise->handleRequest($request);
+        if ($formExpertise->isSubmitted() && $formExpertise->isValid()) {
+            $entityManager->persist($expertise);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'L\'expertise a bien été créée');
+        }
+
+        $expertises = $expertiseRepository->findAll();
+
+        $resourceFormat = new ResourceFormat();
+        $formResourceFormat = $this->createForm(ResourceFormatType::class, $resourceFormat);
+        $formResourceFormat->handleRequest($request);
+        if ($formResourceFormat->isSubmitted() && $formResourceFormat->isValid()) {
+            $resourceFormat->setIdentifier($resourceFormat->getFormat());
+            $entityManager->persist($resourceFormat);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La format pour les ressources a bien été créé');
+        }
+
+        $resourceFormats = $resourceFormatRepository->findAll();
+
+        $eventFormat = new EventFormat();
+
+        $formEventFormat = $this->createForm(EventFormatType::class, $eventFormat);
+        $formEventFormat->handleRequest($request);
+        if ($formEventFormat->isSubmitted() && $formEventFormat->isValid()) {
+            $eventFormat->setIdentifier($eventFormat->getFormat());
+            $entityManager->persist($eventFormat);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La format pour les évènements a bien été créé');
+        }
+
+        $eventFormats = $eventFormatRepository->findAll();
+
+
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
             'registered_user' => $registeredUser,
             'event_for_validation' => $approveEvent,
-            'service_for_validation' => $approveService
+            'service_for_validation' => $approveService,
+            'form' => $form->createView(),
+            'pathologies' => $pathologies,
+            'form_expertise' => $formExpertise->createView(),
+            'expertises' => $expertises,
+            'form_resource_format' => $formResourceFormat->createView(),
+            'formats' => $resourceFormats,
+            'form_event_format'=> $formEventFormat->createView(),
+            'event_formats' => $eventFormats
         ]);
     }
 

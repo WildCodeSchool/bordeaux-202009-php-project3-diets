@@ -11,15 +11,50 @@ class ResourceFormatFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 50; $i++) {
-            $resourceFormat = new ResourceFormat();
-            $resourceFormat->setFormat($faker->word);
-            $resourceFormat->setIcon("https://picsum.photos/id/" . $i . "/400/300");
-            $resourceFormat->setIdentifier($resourceFormat->getFormat());
-            $manager->persist($resourceFormat);
-            $this->addReference('resource_format_' . $i, $resourceFormat);
-        }
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('video');
+        $resourceFormat->setIcon("fas fa-5x fa-video");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_1', $resourceFormat);
+
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('image');
+        $resourceFormat->setIcon("fas fa-5x fa-image");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_2', $resourceFormat);
+
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('pdf');
+        $resourceFormat->setIcon("fas fa-5x fa-file-pdf");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_3', $resourceFormat);
+
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('site web');
+        $resourceFormat->setIcon("fas fa-5x fa-globe");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_4', $resourceFormat);
+
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('audio');
+        $resourceFormat->setIcon("fas fa-5x fas fa-volume-up");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_5', $resourceFormat);
+
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('autre');
+        $resourceFormat->setIcon("fas fa-5x fas fa-circle");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_6', $resourceFormat);
+
+
+
         $manager->flush();
     }
 }

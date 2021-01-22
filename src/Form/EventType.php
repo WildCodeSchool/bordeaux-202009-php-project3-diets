@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class EventType extends AbstractType
 {
@@ -28,13 +29,11 @@ class EventType extends AbstractType
             ->add('eventFormat', EntityType::class, [
                 'class' => EventFormat::class,
                 'choice_label' => 'format',
+                'label' => 'Format',
             ])
-            ->add('picture', EntityType::class, [
-                'class' => Picture::class,
-                'choice_label' => 'name',
-                'label' => 'Image',
-            ])
-        ;
+            ->add('picture', PictureType::class, [
+                'label' => 'Charger un image'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

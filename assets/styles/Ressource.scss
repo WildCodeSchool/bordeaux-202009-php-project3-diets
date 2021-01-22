@@ -1,5 +1,22 @@
-.search-bar{
-  padding-top: 3vh;
+.search {
+  margin-bottom: 6em;
+  form {
+    display: flex;
+    justify-content: center;
+    margin-left: 5em;
+  }
+  .search-button{
+    padding: 7px 7px;
+    margin-left: 10px;
+    border-radius: 20px;
+    margin-top: 0;
+    background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+  }
+  input {
+    width: 500px;
+    border-radius: 20px;
+    height: 40px;
+  }
 }
 
 .ressource-caroussel{
@@ -20,4 +37,41 @@
   margin-bottom: 6vh;
   margin-right: 2vh;
   margin-left: 2vh;
+}
+
+.modal-resource {
+  height: 80vh;
+}
+
+.ressource-link{
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.ressource-link-button {
+  margin: 0.5rem;
+  border: solid 1px;
+  border-color: $main-blue;
+  border-radius: 4px;
+  &:hover {
+    color: #fff;
+    background-color: $main-blue;
+  }
+}
+
+.ressource-modal-title {
+  font-style: italic;
+  font-weight: 600;
+}
+
+.ressource-modal-bottom {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
+  &:hover {
+    color: #fff;
+  }
 }

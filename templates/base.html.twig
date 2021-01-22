@@ -9,6 +9,14 @@
     <header>
         {% include 'component/_nav.html.twig' %}
     </header>
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="mt-8 alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
 
     {% block body %}{% endblock %}
     {% for category, messages in app.flashes %}

@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Service;
+use App\Form\SearchServiceFormType;
 use App\Form\ServiceType;
+use App\Repository\PictureRepository;
+use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +21,20 @@ class ServiceController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(EntityManagerInterface $entityManager, Request $request): Response
+    public function index(EntityManagerInterface $entityManager,
+                          Request $request,
+                          ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
     {
+        $formSearch = $this->createForm(SearchServiceFormType::class);
+        $formSearch->handleRequest($request);
+
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            $services = $serviceRepository->findLikeName($search);
+        } else {
+            $services = [];
+        }
+
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
@@ -31,9 +46,13 @@ class ServiceController extends AbstractController
         $service = $this->getDoctrine()
             ->getRepository(Service::class)
             ->findBy(array(), array('id' => 'desc'));
+
         return $this->render('service/index.html.twig', [
             'formService' => $formService->createView(),
             'services' => $service,
+            'formSearch' => $formSearch->createView(),
+            'servicesSearch' => $services,
+            'pictures' => $pictureRepository->findAll(),
         ]);
     }
 }
