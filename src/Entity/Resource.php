@@ -244,6 +244,7 @@ class Resource implements \Serializable
         if ($image) {
             $this->updatedAt = new \DateTime('now');
         }
+        return $this;
     }
 
     public function serialize()

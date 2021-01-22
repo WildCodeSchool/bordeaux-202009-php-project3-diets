@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+    <div class="knowledge-full-screen "></div>
     <div class="firstdiv knowledge-page">
     <div class="d-flex justify-content-center search-bar">
         <h2 class="pb-5">Connaissances</h2>
@@ -62,13 +63,13 @@
                     <div>
                         <div class="pb-1">
                             Lien proposé par :
-                            <a class="knowledge-link" href="#">{{ resource.user.firstname }}</a>
+                            <a class="knowledge-link" href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
                         </div>
                         <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                         </div>
                         <div class="mt-4">
-                            Document : <a class="knowledge-link" href="{{ resource.link }}">Lien externe vers la ressource</a>
+                            Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center pt-3 pb-3">
@@ -81,11 +82,23 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                <div class="">
-                    <div>
-                        <img src="{{ resource.resourceFormat.icon }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
+                {% if resource.resourceFormat.format == 'image' and resource.fileName != null %}
+                    <div class="d-flex col-3 justify-content-center align-items-center">
+                        <div>
+                            <img src="/uploads/resources/{{ resource.fileName }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <div class="d-flex col-3 justify-content-center align-items-center">
+                        <div class="knowledge-icon">
+                            {% if resource.resourceFormat.format == 'image' %}
+                                <i class="{{ resource.resourceFormat.icon }}"></i>
+                            {% else %}
+                                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="container-fluid">
