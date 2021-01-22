@@ -63,7 +63,7 @@
                     <div>
                         <div class="pb-1">
                             Lien proposé par :
-                            <a class="knowledge-link" href="#">{{ resource.user.firstname }}</a>
+                            <a class="knowledge-link" href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
                         </div>
                         <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
@@ -82,7 +82,7 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                {% if resource.resourceFormat.format == 'image' %}
+                {% if resource.resourceFormat.format == 'image' and resource.fileName != null %}
                     <div class="d-flex col-3 justify-content-center align-items-center">
                         <div>
                             <img src="/uploads/resources/{{ resource.fileName }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
@@ -90,8 +90,12 @@
                     </div>
                 {% else %}
                     <div class="d-flex col-3 justify-content-center align-items-center">
-                        <div class="">
-                            <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                        <div class="knowledge-icon">
+                            {% if resource.resourceFormat.format == 'image' %}
+                                <i class="{{ resource.resourceFormat.icon }}"></i>
+                            {% else %}
+                                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                            {% endif %}
                         </div>
                     </div>
                 {% endif %}

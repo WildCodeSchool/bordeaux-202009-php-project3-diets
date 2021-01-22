@@ -9,12 +9,17 @@
     height: auto;
   }
 
-  .knowledge-link {
+  .knowledge-link,
+  .knowledge-icon,
+  .knowledge-icon a
+  {
     text-decoration: none;
     color: $main-black;
   }
 
-  .knowledge-link:hover {
+  .knowledge-link:hover,
+  .knowledge-icon a:hover
+  {
     text-decoration: none;
     color: $main-green;
   }
