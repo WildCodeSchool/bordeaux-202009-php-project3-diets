@@ -21,18 +21,19 @@ class SearchResourceType extends AbstractType
             ])
             ->add('pathology', EntityType::class, [
                 'class' => Pathology::class,
-                'choice_label' => 'name',
+                'choice_label' => 'identifier',
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
+                'label'    => 'pathologie',
             ])
             ->add('format', EntityType::class, [
                 'class' => ResourceFormat::class,
                 'choice_label' => 'identifier',
                 'multiple' => false,
                 'expanded' => false,
-                'empty_data' => 'support',
                 'required'   => false,
+                'label'    => 'support',
             ]);
     }
 

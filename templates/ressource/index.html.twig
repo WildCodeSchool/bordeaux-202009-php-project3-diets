@@ -7,21 +7,38 @@
 {% block body %}
     <div class="firstdiv">
         <div class="search">
+            {% form_theme formSearch 'bootstrap_4_layout.html.twig' %}
             {{ form_start(formSearch) }}
-            {{ form_widget(formSearch) }}
-            <button type="submit" class="search-button home-btn-main">Rechercher</button>
-            {{ form_end(formSearch) }}
+            <div class="d-flex flex-column">
+                <div class="d-flex">
+                    {{ form_row(formSearch.search) }}
+                    <button type="submit" class="buttons-search-bar search-button home-btn-main">Rechercher</button>
+                </div>
+                <div class="d-flex justify-content-start">
+                    {{ form_row(formSearch.format) }}
+                    {{ form_row(formSearch.pathology) }}
+                </div>
+            </div>
+            <div class="search-all-form-container">
+                {{ form_end(formSearch) }}
+                {{ form_start(form_search_all) }}
+                {{ form_widget(form_search_all) }}
+                <button type="submit" class="buttons-search-bar search-button home-btn-main">Tout voir</button>
+                {{ form_end(form_search_all) }}
+            </div>
         </div>
-
-        {% if resourcesSearch %}
+        {% if resourcesSearch is empty %}
+            <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
+        {% elseif resourcesSearch != last %}
             <div class="d-flex flex-wrap justify-content-center">
-            {% for resource in resourcesSearch %}
-                        <div class="card-container justify-content-center">
-                            <div class="test-card">
-                                {% include '/component/_card.html.twig' %}
-                            </div>
+                {% for resource in resourcesSearch %}
+                    {% include 'component/ressource/_ressource_informations.html.twig' %}
+                    <div class="card-container justify-content-center">
+                        <div class="test-card">
+                            {% include '/component/_card.html.twig' %}
                         </div>
-            {% endfor %}
+                    </div>
+                {% endfor %}
             </div>
         {% else %}
     </div>

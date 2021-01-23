@@ -18,32 +18,86 @@ class ResourceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Resource::class);
     }
-    public function findLikeName(string $name) {
+    public function searchLikeName(string $name) {
         $queryBuilder = $this->createQueryBuilder('r')
-            ->leftJoin('r.pathology', 'p')
-            ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
-            ->orWhere('r.description LIKE :name')
-            ->orWhere('p.name LIKE :name')
-            ->orWhere('f.format LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->getQuery();
 
         return $queryBuilder->getResult();
     }
 
-    public function searchByPathologyFormatAndLikeName($name, $pathology, $format)
+    public function searchByPathologyFormatAndLikeName(string $pathology, string $format, string $name)
     {
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.pathology', 'p')
             ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
-            ->andWhere('p.name = :pathology')
-            ->andWhere('f.format = :format')
+            ->andWhere('p.identifier = :pathology')
+            ->andWhere('f.identifier = :format')
             ->setParameter('name', '%' . $name . '%')
             ->setParameter('pathology', $pathology)
             ->setParameter('format', $format)
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function searchByFormat(string $format)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.resourceFormat', 'f')
+            ->andWhere('f.identifier = :format')
+            ->setParameter('format', $format)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function searchByPathology(string $pathology)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.pathology', 'p')
+            ->andWhere('p.identifier = :pathology')
+            ->setParameter('pathology', $pathology)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function searchByPathologyAndFormat(string $pathology, string $format)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.pathology', 'p')
+            ->leftJoin('r.resourceFormat', 'f')
+            ->andWhere('p.identifier = :pathology')
+            ->andWhere('f.identifier = :format')
+            ->setParameter('pathology', $pathology)
+            ->setParameter('format', $format)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function searchByPathologyAndLikeName(string $pathology, string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.pathology', 'p')
+            ->where('r.name LIKE :name')
+            ->andWhere('p.identifier = :pathology')
+            ->setParameter('name', '%' . $name . '%')
+            ->setParameter('pathology', $pathology)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+    public function searchByFormatAndLikeName(string $format, string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.resourceFormat', 'f')
+            ->where('r.name LIKE :name')
+            ->andWhere('f.identifier = :format')
+            ->setParameter('name', '%' . $name . '%')
+            ->setParameter('format', $format)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
+
 }
