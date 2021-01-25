@@ -91,6 +91,27 @@
   opacity:0;
 }
 
+.form-edit-user{
+    .form-check{
+      display: none;
+  }
+  a{
+    display: none;
+  }
+}
+
+.picture-event{
+  width: 400px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.picture-service{
+  width: 400px;
+  height: 200px;
+  object-fit: contain;
+}
+
 @media screen and (max-width: 770px) {
   .show-items .part-title {
     margin-top: 2em;

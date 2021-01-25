@@ -23,10 +23,12 @@
   }
 }
 
-.picture-event{
+.picture-service{
   width: 400px;
   height: 200px;
+  object-fit: contain;
 }
+
 .form-modal {
   .service-button {
     display: table-cell;

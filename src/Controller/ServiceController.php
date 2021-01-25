@@ -41,6 +41,7 @@ class ServiceController extends AbstractController
             $service->setUser($this->getUser());
             $entityManager->persist($service);
             $entityManager->flush();
+            $this->redirectToRoute('service_index');
         }
         $service = $this->getDoctrine()
             ->getRepository(Service::class)

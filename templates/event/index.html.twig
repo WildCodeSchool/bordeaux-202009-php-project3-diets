@@ -106,7 +106,7 @@
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
                                         {% endif %}
-                                        {% if app.user %}
+                                        {# {% if app.user %}
                                             {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user %}
                                                 <div class="font-weight-bold font-italic">Vous êtes l'organisateur·rice</div>
                                             {% elseif events_and_participants[event.id] is defined and app.user in events_and_participants[event.id] %}
@@ -133,7 +133,7 @@
                                                     </form>
                                                 </div>
                                             {% endif %}
-                                        {% endif %}
+                                        {% endif %} #}
                                     </div>
                                 </div>
                             {% endfor %}
