@@ -24,9 +24,11 @@
 }
 
 .picture-event{
-  width: 400px;
-  height: 200px;
+  max-width: 300px;
+  height: 250px;
+  object-fit: cover;
 }
+
 .form-modal {
   .service-button {
     display: table-cell;
