@@ -42,6 +42,9 @@ class KnowledgeController extends AbstractController
             $newResource->setUser($this->getUser());
             $entityManager->persist($newResource);
             $entityManager->flush();
+            return $this->redirectToRoute('knowledge_index', [
+                'length' => 'all'
+            ]);
         }
 
         return $this->render('knowledge/index.html.twig', [

@@ -94,7 +94,10 @@ class ProfileController extends AbstractController
             $expertises = substr($expertises, 0, -2);
         }
 
-        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
+        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy([
+            'user' => $user->getId()],
+            ['updatedAt' => 'desc']
+        );
 
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
