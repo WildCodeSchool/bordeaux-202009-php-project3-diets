@@ -57,7 +57,7 @@
                     </div>
                     <div class="col-lg-3 text-container">
                         <p>Titre: {{ event.name }} </p>
-                        <p>lien: {{ event.link }}</p>
+                        <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
@@ -94,7 +94,7 @@
                                     </div>
                                     <div class="col-lg-6 text-container">
                                         <p>Titre: {{ event.name }} </p>
-                                        <p>lien: {{ event.link }}</p>
+                                        <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
                                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                                         <p>Description:{{ event.description }}</p>

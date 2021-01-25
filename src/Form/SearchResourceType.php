@@ -2,6 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Pathology;
+use App\Entity\ResourceFormat;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,6 +18,22 @@ class SearchResourceType extends AbstractType
             ->add('search', SearchType::class, [
             'label' => false,
             'required' => false,
+            ])
+            ->add('pathology', EntityType::class, [
+                'class' => Pathology::class,
+                'choice_label' => 'identifier',
+                'multiple' => false,
+                'expanded' => false,
+                'required'   => false,
+                'label'    => 'pathologie',
+            ])
+            ->add('format', EntityType::class, [
+                'class' => ResourceFormat::class,
+                'choice_label' => 'identifier',
+                'multiple' => false,
+                'expanded' => false,
+                'required'   => false,
+                'label'    => 'support',
             ]);
     }
 

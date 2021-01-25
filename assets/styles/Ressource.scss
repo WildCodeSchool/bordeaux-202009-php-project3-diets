@@ -13,9 +13,9 @@
     background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   }
   input {
-    width: 500px;
+    width: 50vw;
     border-radius: 20px;
-    height: 40px;
+    height: 8vh;
   }
 }
 
@@ -74,4 +74,13 @@
   &:hover {
     color: #fff;
   }
+}
+
+.buttons-search-bar {
+ width: 9em;
+ height: 2.5em;
+}
+
+.search-all-form-container form{
+  margin-left: 0;
 }

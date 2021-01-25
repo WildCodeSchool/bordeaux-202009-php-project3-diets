@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Resource;
+use App\Form\ResourcesAllType;
 use App\Form\SearchResourceType;
 use App\Repository\PathologyRepository;
 use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
+use Container1zMksP6\getDoctrine_DatabaseDropCommandService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,11 +32,48 @@ class RessourceController extends AbstractController
         $formSearch->handleRequest($request);
 
         if($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $search = $formSearch->getData()['search'];
-            $resourcesSearch = $resourceRepository->findLikeName($search);
+            $formSearch->getData()['search'] !== NULL ?
+                $search = $formSearch->getData()['search'] : $search = '';
+            $formSearch->getData()['pathology'] !== NULL ?
+                $pathology = $formSearch->getData()['pathology']->getIdentifier() : $pathology = '';
+            $formSearch->getData()['format'] !== NULL ?
+                $format = $formSearch->getData()['format']->getIdentifier() : $format = '';
+            if (!$search && !$pathology && !$format) {
+                $resourcesSearch = ['last'];
+            } elseif ( !$search && !$pathology && $format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchByFormat($format);
+            } elseif (!$search && $pathology && !$format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchByPathology($pathology);
+            }  elseif ($search && !$pathology && !$format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchLikeName($search);
+            } elseif ($search && $pathology && !$format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchByPathologyAndLikeName($pathology, $search);
+            } elseif ($search && !$pathology && $format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchByFormatAndLikeName($format, $search);
+            } elseif (!$search && $pathology && $format) {
+                $resourcesSearch = $resourceRepository
+                    ->searchByPathologyAndFormat($pathology, $format);
+            } else {
+                $resourcesSearch = $resourceRepository
+                    ->searchByPathologyFormatAndLikeName($pathology, $format,$search);
+            }
         } else {
-            $resourcesSearch = [];
+            $resourcesSearch = ['last'];
         }
+
+        $formSearchAll = $this->createForm(ResourcesAllType::class);
+        $formSearchAll->handleRequest($request);
+
+        if ($formSearchAll->isSubmitted() && $formSearchAll->isValid()) {
+                $resourcesSearch = $resourceRepository
+                    ->findAll();
+        }
+
 
         $event = $this->getDoctrine()
             ->getRepository(Event::class)
@@ -56,7 +96,9 @@ class RessourceController extends AbstractController
             'events' => $event,
             'resourcesLastUpdate' => $resourcesLastUpdate,
             'resourcesSearch' => $resourcesSearch,
+            'last' => ['last'],
             'formSearch' => $formSearch->createView(),
+            'form_search_all' => $formSearchAll->createView(),
         ]);
     }
 
