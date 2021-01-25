@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class SearchEventType extends AbstractType
 {
@@ -15,6 +17,9 @@ class SearchEventType extends AbstractType
             ->add('search', SearchType::class, [
                 'label' => false,
                 'required' => false,
+                'constraints' => [
+                    new NotBlank(),
+                    new Length(['min' => 3])],
             ])
         ;
     }
