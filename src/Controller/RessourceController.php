@@ -31,7 +31,7 @@ class RessourceController extends AbstractController
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
-        if($formSearch->isSubmitted() && $formSearch->isValid()) {
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $formSearch->getData()['search'] !== NULL ?
                 $search = $formSearch->getData()['search'] : $search = '';
             $formSearch->getData()['pathology'] !== NULL ?
@@ -40,13 +40,13 @@ class RessourceController extends AbstractController
                 $format = $formSearch->getData()['format']->getIdentifier() : $format = '';
             if (!$search && !$pathology && !$format) {
                 $resourcesSearch = ['last'];
-            } elseif ( !$search && !$pathology && $format) {
+            } elseif (!$search && !$pathology && $format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByFormat($format);
             } elseif (!$search && $pathology && !$format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByPathology($pathology);
-            }  elseif ($search && !$pathology && !$format) {
+            } elseif ($search && !$pathology && !$format) {
                 $resourcesSearch = $resourceRepository
                     ->searchLikeName($search);
             } elseif ($search && $pathology && !$format) {
@@ -60,7 +60,7 @@ class RessourceController extends AbstractController
                     ->searchByPathologyAndFormat($pathology, $format);
             } else {
                 $resourcesSearch = $resourceRepository
-                    ->searchByPathologyFormatAndLikeName($pathology, $format,$search);
+                    ->searchByPathologyFormatAndLikeName($pathology, $format, $search);
             }
         } else {
             $resourcesSearch = ['last'];
@@ -89,7 +89,6 @@ class RessourceController extends AbstractController
             ],
             self::NBRESOURCE
         );
-
 
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',

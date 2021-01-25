@@ -44,11 +44,10 @@ class EventController extends AbstractController
         $formSearch = $this->createForm(SearchEventType::class);
         $formSearch->handleRequest($request);
 
+        $eventSearch = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
             $eventSearch = $eventRepository->findLikeName($search);
-        } else {
-            $eventSearch = [];
         }
 
         $eventsAndOrganizers = $this->getDoctrine()

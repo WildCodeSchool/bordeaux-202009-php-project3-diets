@@ -48,7 +48,7 @@
                 <h3 class="font-weight-bold">Notre prochain événement est :</h3>
             </div>
             <div>
-                <h4 class="m-4 text-center"><span class="font-weight-bold">{{ event.name }}</span>  - <span class="font-italic">{{ event.description }}</span></h4>
+                <h4 class="m-4 text-center"><span class="font-weight-bold">{{ event.dateStart|date("d/m/Y H:i") }} - {{ event.name }}</span>  - <span class="font-italic">{{ event.description }}</span></h4>
             </div>
         {% endfor %}
     </div>
