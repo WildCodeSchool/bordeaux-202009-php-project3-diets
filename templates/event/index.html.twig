@@ -46,6 +46,7 @@
         {% if eventsSearch %}
             {% for event in eventsSearch %}
                 <div class="row container-img-txt">
+                    <div class="col-lg-3" ></div>
                     <div class="col-lg-4">
                         <div class="img-container">
                             {% for picture in pictures %}
@@ -57,7 +58,9 @@
                     </div>
                     <div class="col-lg-3 text-container">
                         <p>Titre: {{ event.name }} </p>
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                         <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                        {% endif %}
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
@@ -94,7 +97,9 @@
                                     </div>
                                     <div class="col-lg-6 text-container">
                                         <p>Titre: {{ event.name }} </p>
+                                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                                         <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                                        {% endif %}
                                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                                         <p>Description:{{ event.description }}</p>

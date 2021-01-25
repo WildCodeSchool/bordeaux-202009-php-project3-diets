@@ -28,11 +28,10 @@ class ServiceController extends AbstractController
         $formSearch = $this->createForm(SearchServiceFormType::class);
         $formSearch->handleRequest($request);
 
+        $services = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
             $services = $serviceRepository->findLikeName($search);
-        } else {
-            $services = [];
         }
 
         $service = new Service();

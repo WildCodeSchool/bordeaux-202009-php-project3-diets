@@ -68,9 +68,11 @@
                         <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                         </div>
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                         <div class="mt-4">
                             Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="row d-flex justify-content-center pt-3 pb-3">
                         <div class="pl-3">Description :</div>
@@ -82,23 +84,7 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                {% if resource.resourceFormat.format == 'image' and resource.fileName != null %}
-                    <div class="d-flex col-3 justify-content-center align-items-center">
-                        <div>
-                            <img src="/uploads/resources/{{ resource.fileName }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="d-flex col-3 justify-content-center align-items-center">
-                        <div class="knowledge-icon">
-                            {% if resource.resourceFormat.format == 'image' %}
-                                <i class="{{ resource.resourceFormat.icon }}"></i>
-                            {% else %}
-                                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endif %}
+                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
             </div>
         </div>
         <div class="container-fluid">
