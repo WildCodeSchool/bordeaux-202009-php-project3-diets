@@ -1,11 +1,27 @@
 .event {
-
-
-
   .calendrier-form {
     position: absolute;
     margin-left: 2em;
   }
+  .button-calendar {
+    padding: 3px 7px;
+    margin-left: 10px;
+    border-radius: 20px;
+    margin-top: 0;
+    transition: 0.5s;
+    background-size: 200% auto;
+    font-weight: bold;
+    background-image: linear-gradient(to right, $main-blue 0%, #96e1ef 51%, $main-blue  100%);
+      &:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+
+
+  }
+
+
   .container-fluid {
     display: flex;
     justify-content: flex-start;
@@ -44,6 +60,8 @@
       margin-left: 10px;
       border-radius: 20px;
       margin-top: 0;
+      font-weight: bold;
+      text-transform: none;
       background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
     }
     input {
