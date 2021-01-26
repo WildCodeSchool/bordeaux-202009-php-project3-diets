@@ -1,23 +1,36 @@
-.search {
-  margin-bottom: 6em;
-  form {
-    display: flex;
-    justify-content: center;
-    margin-left: 5em;
+.firstdiv{
+  height: 50em;
+  background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.4dddb6b6.jpg');
+  background-size: 115em;
+  display: flex;
+  justify-content: center;
+    .cadre-title{
+      text-align: center;
+      background-color: #ffffffe0;
+      font-size: 3em;
+      font-family: $police-logo;
+      width: 50%;
+      border-style: double;
+      border-color: $main-orange;
+      height: 50%;
+      padding-top: 1em;
+      color: $main-green;
+      font-weight: bold;
+      border-radius: 20px;
+      margin-top: 2.5em;
+
+    }
+  .plateform{
+    font-family: $police-text;
+    font-size: 0.8em;
+    color: #929eaa;
   }
-  .search-button{
-    padding: 7px 7px;
-    margin-left: 10px;
-    border-radius: 20px;
-    margin-top: 0;
-    background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
-  }
-  input {
-    width: 50vw;
-    border-radius: 20px;
-    height: 8vh;
+  .fas{
+    color: $main-orange;
   }
 }
+
+
 
 .ressource-caroussel{
   padding-top: 6vh;
