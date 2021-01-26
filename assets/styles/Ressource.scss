@@ -1,93 +1,75 @@
-.search {
-  margin-bottom: 6em;
-  form {
+.container-fluid-resource{
+  .card-container{
+    margin: 0 1vh 4vh 1vh;
+  }
+  .col-card{
+    margin-bottom: 6vh;
+    margin-right: 2vh;
+    margin-left: 2vh;
+  }
+  .next-event {
+    .font-weight-bold{
+
+    }
+    flex-direction: column;
+    align-items: center;
+  }
+  .next-knowledge{
+    margin-bottom: 5vh;
+    text-align: center;
+  }
+  .next-service{
+    margin-bottom: 5vh;
+    text-align: center;
+  }
+  .modal-resource {
+    height: 80vh;
+  }
+  .ressource-link{
     display: flex;
     justify-content: center;
-    margin-left: 5em;
+    width: 80%;
+    border-bottom: 1px solid #dee2e6;
   }
-  .search-button{
-    padding: 7px 7px;
-    margin-left: 10px;
-    border-radius: 20px;
-    margin-top: 0;
-    background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+  .ressource-link-button {
+    margin: 0.5rem;
+    border: solid 1px;
+    border-color: $main-blue;
+    border-radius: 4px;
+    &:hover {
+      color: #fff;
+      background-color: $main-blue;
+    }
   }
-  input {
-    width: 50vw;
-    border-radius: 20px;
-    height: 8vh;
+
+  .ressource-modal-title {
+    font-style: italic;
+    font-weight: 600;
   }
-}
 
-.ressource-caroussel{
-  padding-top: 6vh;
-}
-
-.card-container{
-  margin: 0 1vh 4vh 1vh;
-}
-
-.next-event {
-  margin-bottom: 5vh;
-  flex-direction: column;
-  align-items: center;
-}
-
-.col-card{
-  margin-bottom: 6vh;
-  margin-right: 2vh;
-  margin-left: 2vh;
-}
-
-.modal-resource {
-  height: 80vh;
-}
-
-.ressource-link{
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.ressource-link-button {
-  margin: 0.5rem;
-  border: solid 1px;
-  border-color: $main-blue;
-  border-radius: 4px;
-  &:hover {
-    color: #fff;
-    background-color: $main-blue;
+  .ressource-modal-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+    &:hover {
+      color: #fff;
+    }
   }
-}
 
-.ressource-modal-title {
-  font-style: italic;
-  font-weight: 600;
-}
-
-.ressource-modal-bottom {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  border: none;
-  &:hover {
-    color: #fff;
+  .buttons-search-bar {
+    width: 9em;
+    height: 2.5em;
   }
-}
 
-.buttons-search-bar {
- width: 9em;
- height: 2.5em;
-}
+  .search-all-form-container form{
+    margin-left: 0;
+  }
 
-.search-all-form-container form{
-  margin-left: 0;
-}
-
-.card-img-overlay{
-  .fas{
-    margin-top: 0.75em;
+  .card-img-overlay{
+    .fas{
+      margin-top: 0.75em;
+    }
   }
 }
 
