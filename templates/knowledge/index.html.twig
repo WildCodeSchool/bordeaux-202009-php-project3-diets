@@ -10,24 +10,28 @@
     <div class="d-flex justify-content-center search-bar">
         <h2 class="pb-5">Connaissances</h2>
     </div>
-    <div class="d-flex justify-content-center search-bar">
-        {% if length == true %}
-            <h3 class="pb-5">Toutes les connaissances</h3>
-        {% elseif length == false %}
-            <h3 class="pb-5">Les 10 dernières connaissances</h3>
-        {% endif %}
-    </div>
-    <div class="d-flex flex-wrap justify-content-center align-items-end">
-        {% if length == false %}
-            <div class="knowledge-button justify-content-center">
-                <a href="{{ path('knowledge_index', {'length': 'last'}) }}">Voir toutes les connaissances</a>
+        <div class="search">
+            {% form_theme formSearch 'bootstrap_4_layout.html.twig' %}
+            {{ form_start(formSearch) }}
+            <div class="d-flex flex-column">
+                <div class="d-flex">
+                    {{ form_row(formSearch.search) }}
+                    <button type="submit" class="buttons-search-bar search-button home-btn-main">Rechercher</button>
+                </div>
+                <div class="d-flex justify-content-start">
+                    {{ form_row(formSearch.format) }}
+                    {{ form_row(formSearch.pathology) }}
+                </div>
             </div>
-        {% elseif length == true %}
-            <div class="d-flex knowledge-button">
-                <a href="{{ path('knowledge_index', {'length': 'all'}) }}">Voir les dernières connaissances</a>
+            <div class="search-all-form-container">
+                {{ form_end(formSearch) }}
+                {{ form_start(form_search_all) }}
+                {{ form_widget(form_search_all) }}
+                <button type="submit" class="buttons-search-bar search-button home-btn-main">Tout voir</button>
+                {{ form_end(form_search_all) }}
             </div>
-        {% endif %}
-        {% if app.user %}
+        </div>
+        {# {% if app.user %}
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="d-flex align-items-center">Je propose :</div>
                 <div class="form-modal">
@@ -94,5 +98,5 @@
             </div>
         </div>
     {% endfor %}
-    </div>
+    </div> #}
 {% endblock %}
