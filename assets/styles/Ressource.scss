@@ -1,9 +1,10 @@
-.firstdiv{
-  height: 50em;
-  background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.4dddb6b6.jpg');
-  background-size: 115em;
-  display: flex;
-  justify-content: center;
+.container-fluid-resource{
+  .firstdiv{
+    height: 50em;
+    background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.4dddb6b6.jpg');
+    background-size: 115em;
+    display: flex;
+    justify-content: center;
     .cadre-title{
       text-align: center;
       background-color: #ffffffe0;
@@ -20,87 +21,86 @@
       margin-top: 2.5em;
 
     }
-  .plateform{
-    font-family: $police-text;
-    font-size: 0.8em;
-    color: #929eaa;
+    .plateform{
+      font-family: $police-text;
+      font-size: 0.8em;
+      color: #929eaa;
+    }
+    .fas{
+      color: $main-orange;
+    }
   }
-  .fas{
-    color: $main-orange;
+  .card-container{
+    margin: 0 1vh 4vh 1vh;
   }
-}
-
-
-
-.ressource-caroussel{
-  padding-top: 6vh;
-}
-
-.card-container{
-  margin: 0 1vh 4vh 1vh;
-}
-
-.next-event {
-  margin-bottom: 5vh;
-  flex-direction: column;
-  align-items: center;
-}
-
-.col-card{
-  margin-bottom: 6vh;
-  margin-right: 2vh;
-  margin-left: 2vh;
-}
-
-.modal-resource {
-  height: 80vh;
-}
-
-.ressource-link{
-  display: flex;
-  justify-content: center;
-  width: 80%;
-  border-bottom: 1px solid #dee2e6;
-}
-
-.ressource-link-button {
-  margin: 0.5rem;
-  border: solid 1px;
-  border-color: $main-blue;
-  border-radius: 4px;
-  &:hover {
-    color: #fff;
-    background-color: $main-blue;
+  .col-card{
+    margin-bottom: 6vh;
+    margin-right: 2vh;
+    margin-left: 2vh;
   }
-}
+  .next-event {
+    .font-weight-bold{
 
-.ressource-modal-title {
-  font-style: italic;
-  font-weight: 600;
-}
-
-.ressource-modal-bottom {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  border: none;
-  &:hover {
-    color: #fff;
+    }
+    flex-direction: column;
+    align-items: center;
   }
-}
+  .next-knowledge{
+    margin-bottom: 5vh;
+    text-align: center;
+  }
+  .next-service{
+    margin-bottom: 5vh;
+    text-align: center;
+  }
+  .modal-resource {
+    height: 80vh;
+  }
+  .ressource-link{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    border-bottom: 1px solid #dee2e6;
+  }
+  .ressource-link-button {
+    margin: 0.5rem;
+    border: solid 1px;
+    border-color: $main-blue;
+    border-radius: 4px;
+    &:hover {
+      color: #fff;
+      background-color: $main-blue;
+    }
+  }
 
-.buttons-search-bar {
- width: 9em;
- height: 2.5em;
-}
+  .ressource-modal-title {
+    font-style: italic;
+    font-weight: 600;
+  }
 
-.search-all-form-container form{
-  margin-left: 0;
-}
+  .ressource-modal-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    border: none;
+    &:hover {
+      color: #fff;
+    }
+  }
 
-.card-img-overlay{
-  .fas{
-    margin-top: 0.75em;
+  .buttons-search-bar {
+    width: 9em;
+    height: 2.5em;
+  }
+
+  .search-all-form-container form{
+    margin-left: 0;
+  }
+
+  .card-img-overlay{
+    .fas{
+      margin-top: 0.75em;
+    }
   }
 }
 

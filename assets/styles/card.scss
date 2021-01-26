@@ -61,3 +61,19 @@ p{
   justify-items: flex-end;
 }
 
+@media screen and (max-width: 1200px) {
+  .card-container{
+    margin: 1em 1em;
+  }
+}
+
+
+@media screen and (max-width: 540px) {
+  .card-container{
+    margin: 3em 1em;
+  }
+  .box-back{
+    margin: 0;
+  }
+}
+
