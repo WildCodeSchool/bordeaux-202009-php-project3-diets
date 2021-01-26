@@ -25,7 +25,7 @@ class SearchResourceType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
-                'label'    => 'pathologie',
+                'label'    => 'catégorie',
             ])
             ->add('format', EntityType::class, [
                 'class' => ResourceFormat::class,

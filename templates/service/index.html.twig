@@ -2,14 +2,15 @@
 
 {% block title %} Services {% endblock %}
 {% block body %}
-    <div>
+    <div class="service">
         <div class="d-flex justify-content-center">
             <h2 class="page-title">Service</h2>
         </div>
         <div class="search">
             {{ form_start(formSearch) }}
             {{ form_widget(formSearch) }}
-            <button type="submit" class="search-button home-btn-main">Rechercher</button>
+            <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+            <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
             {{ form_end(formSearch) }}
         </div>
         {% if app.user %}
