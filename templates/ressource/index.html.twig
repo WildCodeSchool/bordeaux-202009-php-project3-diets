@@ -6,9 +6,17 @@
 
 {% block body %}
     <div class="container-fluid-resource">
+        <div class="firstdiv">
+            <div class="cadre-title">
+                Bienvenue sur Nous les Diets !!! </br><p class="plateform"> Plateforme de partage de connaissances  </br> entre diététiciens.</p>
+                <button class="btn-cadre">
+                    <a href="#ressource-event"> <i class="fas fa-1x fa-arrow-circle-down"></i></a>
+                </button>
+            </div>
+        </div>
         <div class="d-flex justify-content-center next-event">
             <div>
-                <h3 class="font-weight-bold">Les prochains événements sont :</h3>
+                <h3 id="ressource-event" class="font-weight-bold">Les prochains événements sont :</h3>
             </div>
             {% for event in events%}
                 <div>
