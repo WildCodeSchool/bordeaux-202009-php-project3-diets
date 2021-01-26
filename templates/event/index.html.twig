@@ -7,12 +7,14 @@
         <div class="d-flex justify-content-center">
             <h2 class="page-title">Evènements</h2>
         </div>
-        <div class="search">
+        <div class="search d-flex justify-content-center">
             {{ form_start(form) }}
             {{ form_widget(form) }}
-            <button type="submit" class="search-button home-btn-main">Rechercher</button>
+            <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+            <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
             {{ form_end(form) }}
         </div>
+
         <div class="event-modal">
         {% if app.user %}
             <div class="mb-4">
