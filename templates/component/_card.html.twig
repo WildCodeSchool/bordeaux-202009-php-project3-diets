@@ -52,13 +52,13 @@
         {% endif %}
         {% if service is defined %}
         <div class="box-back shadow p-3 mb-5 bg-white rounded">
-            {# {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == service.user.id)) or is_granted('ROLE_ADMIN')) %}
-                {{ include('profile/_delete_resource.html.twig') }}
-            {% endif %} #}
+            {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == service.user.id)) or is_granted('ROLE_ADMIN')) %}
+                {{ include('service/_delete_service.html.twig') }}
+            {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ service.name }}</h5>
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('profile_resource_edit', {'id': service.id}) }}">Editer</a>
+                    <a href="{{ path('profile_service_edit', {'id': service.id}) }}">Editer</a>
                 {% endif %}
 
                 <p class="card-text">

@@ -269,4 +269,24 @@ class ProfileController extends AbstractController
         }
         return $this->redirectToRoute('ressource_index');
     }
+
+    /**
+     * @Route("/service/{id}", name="delete_service", methods={"DELETE"})
+     */
+    public function deleteService(
+                                    Request $request,
+                                    Service $service
+                                ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
+            $picture = $this->getDoctrine()
+                ->getManager()->find(['id' => '$service->getPicture()']);
+            dd($picture);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($picture);
+            $entityManager->remove($service);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('service_index');
+    }
 }

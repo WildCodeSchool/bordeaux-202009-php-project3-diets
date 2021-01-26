@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="id{{ service.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-resource">
+            <div class="modal-header d-flex justify-content-center">
+                <h5 class="modal-title text-center font-weight-bold" id="exampleModalLongTitle">{{ service.name }}</h5>
+            </div>
+            <div class="modal-body">
+                <p>{{ service.description }}</p>
+                <p class="font-weight-bold text-right">{{ service.user.firstname }} {{ service.user.lastname }}</p>
+                {# <p class="font-italic text-right"> Mis à jour le {{ resource.updatedAt|date("d/m/Y") }}</p> #}
+                <div class="d-flex justify-content-center">
+                    <div class="ressource-link mt-3 mb-3">
+                        <p class="ressource-modal-title">Service</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-around">
+                        <a href="{{ service.link }}" target="_blank">
+                            <button class="btn-outline-info ressource-link-button">Voir le lien</button>
+                        </a>
+                </div>
+                <div class="modal-footer ressource-modal-bottom">
+                    <button type="button" class="btn" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
