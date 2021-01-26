@@ -48,7 +48,8 @@
         {% if eventsSearch %}
             {% for event in eventsSearch %}
                 <div class="row container-img-txt">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3" ></div>
+                    <div class="col-lg-4 d-flex align-items-center justify-content-center">
                         <div class="img-container">
                             {% for picture in pictures %}
                                 {% if event.picture.id is same as (picture.id) %}
@@ -59,7 +60,9 @@
                     </div>
                     <div class="col-lg-3 text-container">
                         <p>Titre: {{ event.name }} </p>
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                         <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                        {% endif %}
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
@@ -85,7 +88,7 @@
                         <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
                             {% for event in events %}
                                 <div class="row container-img-txt justify-content-end">
-                                    <div class="col-lg-4">
+                                    <div class="col-lg-4 d-flex justify-content-start align-items-center">
                                         <div class="img-container">
                                             {% for picture in pictures %}
                                                 {% if event.picture.id is same as (picture.id) %}
@@ -96,14 +99,16 @@
                                     </div>
                                     <div class="col-lg-6 text-container">
                                         <p>Titre: {{ event.name }} </p>
+                                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                                         <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                                        {% endif %}
                                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                                         <p>Description:{{ event.description }}</p>
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
                                         {% endif %}
-                                        {% if app.user %}
+                                        {# {% if app.user %}
                                             {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user %}
                                                 <div class="font-weight-bold font-italic">Vous êtes l'organisateur·rice</div>
                                             {% elseif events_and_participants[event.id] is defined and app.user in events_and_participants[event.id] %}
@@ -130,7 +135,7 @@
                                                     </form>
                                                 </div>
                                             {% endif %}
-                                        {% endif %}
+                                        {% endif %} #}
                                     </div>
                                 </div>
                             {% endfor %}

@@ -26,6 +26,7 @@
   height: 200px;
   border-radius:25px;
   margin-top: 8vh;
+  margin-bottom: 4vh;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 1);
   font-family: $police-text;
   font-weight: bold;
@@ -144,6 +145,9 @@
   }
   .ul-contact{
     margin-bottom: 4vh;
+  }
+  .profile-main-forms{
+    max-width: 80%;
   }
 }
 
