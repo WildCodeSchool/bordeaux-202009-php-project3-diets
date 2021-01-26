@@ -12,7 +12,13 @@
     margin-top: 0;
     background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   }
-  #search_service_form {
+  label{
+    display: none;
+  }
+  select{
+    display: none;
+  }
+  #search_resource {
     display: flex;
     justify-content: center;
     input{
@@ -20,7 +26,9 @@
       border-radius: 20px;
       height: 40px;
     }
+
   }
+
 }
 
 .picture-event{

@@ -7,8 +7,8 @@ use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Form\EventType;
 use App\Form\PictureType;
-use App\Form\SearchEventType;
 use App\Form\RegisterType;
+use App\Form\SearchResourceType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
@@ -41,7 +41,7 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
         }
-        $formSearch = $this->createForm(SearchEventType::class);
+        $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         $eventSearch = [];

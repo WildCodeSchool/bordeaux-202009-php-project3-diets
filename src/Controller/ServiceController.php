@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Service;
-use App\Form\SearchServiceFormType;
+use App\Form\SearchResourceType;
 use App\Form\ServiceType;
 use App\Repository\PictureRepository;
 use App\Repository\ServiceRepository;
@@ -25,7 +25,7 @@ class ServiceController extends AbstractController
                           Request $request,
                           ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
     {
-        $formSearch = $this->createForm(SearchServiceFormType::class);
+        $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         $services = [];
