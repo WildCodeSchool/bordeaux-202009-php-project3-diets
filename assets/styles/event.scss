@@ -1,4 +1,7 @@
 .event {
+
+
+
   .calendrier-form {
     position: absolute;
     margin-left: 2em;
@@ -47,6 +50,12 @@
       width: 500px;
       border-radius: 20px;
       height: 40px;
+    }
+    label{
+      display: none;
+    }
+    select{
+      display: none;
     }
   }
 
