@@ -279,7 +279,6 @@ class ProfileController extends AbstractController
                                 ): Response
     {
         if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
-            dd($service);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($service);
             $entityManager->flush();
