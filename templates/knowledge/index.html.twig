@@ -33,20 +33,13 @@
         </div>
          {% if app.user %}
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                <div class="d-flex align-items-center">Je propose :</div>
                 <div class="form-modal">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
-                        une connaissance
+                        Créer une connaissance
                     </button>
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvelle connaissance</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
-                                    </button>
-                                </div>
                                 <div class="modal-body">
                                     {% include '/component/_newfiche_edit.html.twig' %}
                                 </div>
