@@ -20,13 +20,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/event", name="event_")
+ */
+
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event", name="event_index")
+     * @Route("/", name="index")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager,
-                          EventRepository $eventRepository, PictureRepository $pictureRepository): Response
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventRepository $eventRepository,
+        PictureRepository $pictureRepository
+    ): Response
     {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -88,5 +96,27 @@ class EventController extends AbstractController
             'events_and_participants' => $eventsAndParticipantsArray,*/
                 'pictures'            => $pictureRepository->findAll(),
             ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     *
+     */
+    public function deleteEvent(
+        Request $request,
+        Event $event,
+        RegisteredEventRepository $registeredEventRepository
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $registeredEvents = $registeredEventRepository->findBy(['event' => $event]);
+            foreach ($registeredEvents as $registeredEvent) {
+                $entityManager->remove($registeredEvent);
+            }
+            $entityManager->remove($event);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('event_index');
     }
 }

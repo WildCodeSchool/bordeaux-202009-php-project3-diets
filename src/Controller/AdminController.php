@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\EventFormat;
 use App\Entity\Expertise;
 use App\Entity\Pathology;
-use App\Entity\Resource;
 use App\Entity\ResourceFormat;
 use App\Entity\User;
 use App\Form\EventFormatType;
@@ -16,7 +15,9 @@ use App\Repository\EventFormatRepository;
 use App\Repository\EventRepository;
 use App\Repository\ExpertiseRepository;
 use App\Repository\PathologyRepository;
+use App\Repository\RegisteredEventRepository;
 use App\Repository\ResourceFormatRepository;
+use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,15 +31,17 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $userRepository,
-                          EventRepository $eventRepository,
-                          ServiceRepository $serviceRepository,
-                          EntityManagerInterface $entityManager,
-                          Request $request,
-                          PathologyRepository $pathologyRepository,
-                          ExpertiseRepository $expertiseRepository,
-                          ResourceFormatRepository $resourceFormatRepository,
-                          EventFormatRepository $eventFormatRepository): Response
+    public function index(
+        UserRepository $userRepository,
+        EventRepository $eventRepository,
+        ServiceRepository $serviceRepository,
+        EntityManagerInterface $entityManager,
+        Request $request,
+        PathologyRepository $pathologyRepository,
+        ExpertiseRepository $expertiseRepository,
+        ResourceFormatRepository $resourceFormatRepository,
+        EventFormatRepository $eventFormatRepository
+    ): Response
     {
         $registeredUser = $userRepository->findBy(
             [
@@ -126,9 +129,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/event/", methods={"POST"}, name="valid_event")
      */
-    public function validAnEvent(Request $request,
-                                 EntityManagerInterface $entityManager,
-                                 EventRepository $eventRepository): Response
+    public function validAnEvent(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventRepository $eventRepository
+    ): Response
     {
         $event = $eventRepository->find($request->get('event'));
         $event->setEventIsValidated(true);
@@ -143,9 +148,11 @@ class AdminController extends AbstractController
      * @Route("/admin/service/", methods={"POST"}, name="valid_service")
      *
      */
-    public function validService(Request $request,
-                                 EntityManagerInterface $entityManager,
-                                 ServiceRepository $serviceRepository): Response
+    public function validService(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ServiceRepository $serviceRepository
+    ): Response
     {
         $service = $serviceRepository->find($request->get('service'));
         $service->setServiceIsValidated(true);
@@ -160,11 +167,22 @@ class AdminController extends AbstractController
      * @Route("/admin/{id}", name="admin_delete_user", methods={"DELETE"})
      *
      */
-    public function deleteUser(Request $request,
-                           User $user): Response
-    {
+    public function deleteUser(
+        Request $request,
+        User $user,
+        RegisteredEventRepository $registeredEventRepository,
+        ResourceRepository $resourceRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $registeredEvents = $registeredEventRepository->findBy(['user' => $user]);
+            $resources = $resourceRepository->findBy(['user' => $user]);
+            foreach ($registeredEvents as $registeredEvent) {
+                $entityManager->remove($registeredEvent);
+            }
+            foreach ($resources as $resource) {
+                $entityManager->remove($resource);
+            }
             $entityManager->remove($user);
             $entityManager->flush();
         }

@@ -58,8 +58,13 @@
         <div class="container-fluid">
             <div class="row d-flex justify-content-center pb-3 pt-3">
                 <div class="col-5 pb-4">
-                    <div class="pb-2">
-                        <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                    <div class="pb-2 row">
+                        <h3 class="pb-1 knowledge-title col-11">{{ resource.name }}</h3>
+                        <div class="col-1">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {% include '/knowledge/_delete_knowledge.html.twig' %}
+                            {% endif %}
+                        </div>
                     </div>
                     <div>
                         <div class="pb-1">

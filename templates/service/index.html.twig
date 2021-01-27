@@ -77,14 +77,20 @@
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
-                        <p>Titre: {{ service.name }}</p>
+                        <div class="row justify-content-between">
+                            <p class="">Titre: {{ service.name }}</p>
+                            <div class="row">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                    {% include '/service/_delete_service.html.twig' %}
+                                {% endif %}
+                            </div>
+                        </div>
                         <p>Prix: {{ service.price }}</p>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="">Editer</a>
-                        {% endif %}
+
                     </div>
                 {% endfor %}
                 {% endif %}
