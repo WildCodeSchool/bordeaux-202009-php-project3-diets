@@ -35,21 +35,28 @@
             <div class="col-xl-7 col-12 d-sm-flex  text-center text-sm-left justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
                     <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
-                    <p> Spécialisation:
-                        {% for expertise in infos.expertise %}
-                            {{ expertise.name }}.
-                        {% endfor %}
-                    </p>
                     <p> {{ infos.address }} </p>
                     <p> {{ infos.email }} </p>
                     <p> {{ infos.phone }} </p>
+                    {% if infos.website %}
                     <p>Site internet : {{ infos.website }} </p>
+                    {% endif %}
                 </div>
                 <div class="col-12 col-sm-7 profile-main-forms">
                     <div class="form-edit-user">
                     {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
                         {{ form_start(formEditUser) }}
-                        {{ form_widget(formEditUser) }}
+                        {{ form_row(formEditUser.email) }}
+                        {{ form_row(formEditUser.lastname) }}
+                        {{ form_row(formEditUser.firstname) }}
+                        {{ form_row(formEditUser.birthday) }}
+                        {{ form_row(formEditUser.country) }}
+                        {{ form_row(formEditUser.adeli) }}
+                        <p class="adeli-notes">Si vous ne souhaitez pas indiquer votre numéro ADELI, <a href="{{ path('contact') }}">contactez-nous !</a></p>
+                        {{ form_row(formEditUser.address) }}
+                        {{ form_row(formEditUser.phone) }}
+                        {{ form_row(formEditUser.website) }}
+                        {{ form_row(formEditUser.picture) }}
                     </div>
                     <div class="d-flex flex-row-reverse">
                         <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
