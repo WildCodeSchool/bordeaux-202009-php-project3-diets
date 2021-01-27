@@ -44,14 +44,33 @@
     }
     flex-direction: column;
     align-items: center;
+    text-align: center;
+    .fas{
+      margin: 0 1em;
+      color: $main-green;
+    }
+    .far{
+      margin: 0 1em;
+      color: $main-green;
+    }
   }
   .next-knowledge{
     margin-bottom: 5vh;
     text-align: center;
+    .next-knowledge-title{
+      .fas{
+        margin: 0 1em;
+        color: $main-green;
+      }
+    }
   }
   .next-service{
     margin-bottom: 5vh;
     text-align: center;
+    .fas{
+      margin: 0 1em;
+      color: $main-green;
+    }
   }
   .modal-resource {
     height: 80vh;
