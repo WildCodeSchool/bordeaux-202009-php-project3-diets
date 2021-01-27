@@ -18,16 +18,12 @@
 <div class="d-flex flex-wrap justify-content-center">
     {% for event_organized in events_organized %}
         <div class="card-container justify-content-center">
-            <div class="overflow-hidden mb-3">
-                <a href="{{ event_organized.event.link }}" target="_blank">
-                      {% for picture in pictures %}
-                        {% if event_organized.event.picture.id is same as (picture.id) %}
-                            <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture évènement proposé'>
-                        {% endif %}
-                      {% endfor %}
-                </a>
-            </div>
-            {# <div class="text-center">{% include '/component/event/_participants.html.twig' %}</div> #}
+            {% include 'component/event/_event_informations.html.twig' %}
+                <div class="card-container justify-content-center">
+                    <div class="test-card">
+                        {% include '/component/_card.html.twig' %}
+                    </div>
+                </div>
         </div>
     {% endfor %}
 </div>
@@ -38,13 +34,12 @@
 <div class="d-flex flex-wrap justify-content-center">
     {% for service in services %}
         <div class="card-container justify-content-center">
-            <a href="{{ service.link }}" target="_blank">
-                {% for picture in pictures %}
-                    {% if service.picture.id is same as (picture.id) %}
-                        <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture service proposé'>
-                    {% endif %}
-                {% endfor %}
-            </a>
+            {% include 'component/service/_service_informations.html.twig' %}
+                <div class="card-container justify-content-center">
+                    <div class="test-card">
+                        {% include '/component/_card.html.twig' %}
+                    </div>
+                </div>
         </div>
     {% endfor %}
 </div>

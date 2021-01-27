@@ -1,20 +1,47 @@
 <div class="box">
     <div class="box-inner">
         <div class="box-front ">
-            {# <img
-                    src="{{ resource.resourceFormat.icon }}"
-                    class="card-img "
-                    alt="..."
-            /> #}
+            {% if resource is defined %}
+                <img
+                        src="https://picsum.photos/200/300?random=1"
+                        class="card-img "
+                        alt="..."
+                />
+            {% endif %}
+            {% if service is defined %}
+                <img
+                        src="/uploads/pictures/{{ service.picture.name }}"
+                        class="card-img "
+                        alt="..."
+                />
+            {% endif %}
+            {% if event_organized is defined %}
+                <img
+                        src="/uploads/pictures/{{ event_organized.event.picture.name }}"
+                        class="card-img "
+                        alt="..."
+                />
+            {% endif %}
 
-
+            {% if resource is defined %}
             <div class="card-img-overlay ">
                 <h5 class="card-title">{{ resource.name }}</h5>
                 <i class="{{ resource.resourceFormat.icon }}"></i>
             </div>
+            {% endif %}
+            {% if service is defined %}
+            <div class="card-img-overlay ">
+                <h5 class="card-title">{{ service.name }}</h5>
+            </div>
+            {% endif %}
+            {% if event_organized is defined %}
+                <div class="card-img-overlay ">
+                    <h5 class="card-title">{{ event_organized.event.name }}</h5>
+                </div>
+            {% endif %}
         </div>
 
-
+        {% if resource is defined %}
         <div class="box-back shadow p-3 mb-5 bg-white rounded">
             {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == resource.user.id)) or is_granted('ROLE_ADMIN')) %}
                 {{ include('profile/_delete_resource.html.twig') }}
@@ -35,5 +62,50 @@
                 {% endif %}
             </div>
         </div>
+        {% endif %}
+        {% if service is defined %}
+        <div class="box-back shadow p-3 mb-5 bg-white rounded">
+            {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == service.user.id)) or is_granted('ROLE_ADMIN')) %}
+                {{ include('service/_delete_service.html.twig') }}
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ service.name }}</h5>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('profile_service_edit', {'id': service.id}) }}">Editer</a>
+                {% endif %}
+
+                <p class="card-text">
+                    {{ service.description[:100] ~ '...' }}
+                </p>
+                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                    <button type="button" class="btn" data-toggle="modal" data-target="#id{{ service.id }}">
+                        Voir
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+        {% if event_organized is defined %}
+            <div class="box-back shadow p-3 mb-5 bg-white rounded">
+                {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == event_organized.user.id)) or is_granted('ROLE_ADMIN')) %}
+                {# {{ include('service/_delete_service.html.twig') }} #}
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ event_organized.event.name }}</h5>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('profile_service_edit', {'id': event_organized.event.id}) }}">Editer</a>
+                    {% endif %}
+
+                    <p class="card-text">
+                        {{ event_organized.event.description[:100] ~ '...' }}
+                    </p>
+                    {% if is_granted('ROLE_CONTRIBUTOR') %}
+                        <button type="button" class="btn" data-toggle="modal" data-target="#id{{ event_organized.event.id }}">
+                            Voir
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
