@@ -77,11 +77,13 @@ class EventController extends AbstractController
             return $this->redirectToRoute('unregister_event', array('id' => $eventId));
         }*/
 
+        $events = $eventRepository->nextEvent();
+
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'eventsSearch' => $eventSearch,
-            'events' => $eventRepository->findBy(array(), array('dateStart' => 'desc')),
-            'formEvent'               => $formEvent->createView(),
+            'events' => $events,
+            'formEvent' => $formEvent->createView(),
             /*'events_and_organizers'   => $eventsAndOrganizersArray,
             'events_and_participants' => $eventsAndParticipantsArray,*/
                 'pictures'            => $pictureRepository->findAll(),
