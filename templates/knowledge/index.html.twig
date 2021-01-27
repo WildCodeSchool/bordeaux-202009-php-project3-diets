@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="knowledge-full-screen "></div>
+    <div class="knowledge-full-screen ">
     <div class="knowledge-page">
     <div class="d-flex justify-content-center search-bar">
         <h2 class="pb-5">Connaissances</h2>
@@ -124,7 +124,7 @@
                                 <div class="mt-4">
                                     Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                                 </div>
-                            {% endif %} #}
+                            {% endif %}
                         </div>
                         <div class="row d-flex justify-content-center pt-3 pb-3">
                             <div class="pl-3">Description :</div>
@@ -148,4 +148,5 @@
         {% endfor %}
     </div>
     {% endif %}
+    </div>
 {% endblock %}

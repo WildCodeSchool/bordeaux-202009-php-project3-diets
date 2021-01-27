@@ -59,8 +59,7 @@
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
-                        <p>Titre: {{ service.name }}</p>
-                        <p>Prix: {{ service.price }}</p>
+                        <h3 class="service-title">Titre: {{ service.name }}</h3>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
@@ -68,6 +67,7 @@
                 {% endfor %}
                 {% else %}
                 {% for service in services %}
+                <div class="container-fluid">
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 d-flex justify-content-center align-items-center">
@@ -80,15 +80,21 @@
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
-                        <p>Titre: {{ service.name }}</p>
-                        <p>Prix: {{ service.price }}</p>
+                        <h3 class="service-title">{{ service.name }}</h3>
+                        <p>Service proposé par {{ service.user.firstname }} {{ service.user.lastname }}</p>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
-                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
-                        <p>Description:{{ service.description }}</p>
+                        <p>Description: {{ service.description }}</p>
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="">Editer</a>
                         {% endif %}
                     </div>
+                    <div class="container-fluid-line">
+                        <div class="row d-flex justify-content-center">
+                            <div class="border-bottom col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {% endfor %}
                 {% endif %}
             </div>
