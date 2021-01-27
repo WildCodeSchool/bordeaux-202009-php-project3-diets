@@ -3,7 +3,7 @@
         <div class="box-front ">
             {% if resource is defined %}
                 <img
-                        src="https://picsum.photos/200/300?random=1"
+                        src="{{ resource.resourceFormat.background }}"
                         class="card-img "
                         alt="..."
                 />

@@ -3,7 +3,6 @@
 {% block title %}Evenements{% endblock %}
 
 {% block body %}
-
     <div class="event">
         <div class="event-img">
             <div class="page-event">
@@ -18,12 +17,10 @@
                 </div>
             </div>
         </div>
-
-
     <div class="d-flex row justify-content-center">
         <div class="calendar-modal">
                 <div class="mb-4">
-                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2 mt-3">
                         <div class="form-modal">
                             <button type="button" class="button-calendar" data-toggle="modal" data-target="#exampleModalCenterCalendar">
                                 Calendrier
@@ -60,10 +57,10 @@
         {% if app.user %}
             <div class="mb-4">
                 <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                    {#  <div class="d-flex align-items-center">Je propose :</div>#}
+                    <div class="d-flex align-items-center">Je propose :</div>
                     <div class="form-modal">
                         <button type="button" class="event-button" data-toggle="modal" data-target="#exampleModalCenter">
-                            Créer un évènement
+                            un évènement
                         </button>
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -86,15 +83,16 @@
         {% endif %}
         </div>
     </div>
-
-
-    </div>
         <div>
         {% if eventsSearch %}
-            {% for event in eventsSearch %}
-                <div class="row container-img-txt">
-                    <div class="col-lg-3" ></div>
-                    <div class="col-lg-4 d-flex align-items-center justify-content-center">
+            <div>
+                <h3 class="part-title mt-4">Evènements trouvés :</h3>
+            </div>
+            <div class="container-fluid-event row justify-content-start">
+                {% for event in eventsSearch %}
+                    <div class="col-lg-2">
+                    </div>
+                    <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in pictures %}
                                 {% if event.picture.id is same as (picture.id) %}
@@ -103,88 +101,66 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="col-lg-3 text-container">
-                        <p>Titre: {{ event.name }} </p>
+                    <div class="col-lg-6 text-container">
+                        <p>Titre: {{ event.name }}</p>
+                        <p>Type: {{ event.eventFormat.format }}</p>
                         {% if is_granted('ROLE_CONTRIBUTOR') %}
-                        <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                            <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
                         {% endif %}
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
+                        {% endif %}
                     </div>
-                </div>
-            {% endfor %}
-        {% else %}
-            <div class="d-flex container-fluid">
-            <div class="d-flex col-10">
-                <div class="d-flex">
-                    <div class="col justify-content-end bloc-img">
-                        <div class="row justify-content-center"><h3>Tri des évènements</h3></div>
-                            {% for event in events %}
-                                <div class="row container-img-txt justify-content-end">
-                                    <div class="col-lg-4 d-flex justify-content-start align-items-center">
-                                        <div class="img-container">
-                                            {% for picture in pictures %}
-                                                {% if event.picture.id is same as (picture.id) %}
-                                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 text-container">
-                                        <p>Titre: {{ event.name }} </p>
-                                        {% if is_granted('ROLE_CONTRIBUTOR') %}
-                                        <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
-                                        {% endif %}
-                                        <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
-                                        <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
-                                        <p>Description:{{ event.description }}</p>
-                                        {% if is_granted('ROLE_ADMIN') %}
-                                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
-                                        {% endif %}
-                                        {# {% if app.user %}
-                                            {% if events_and_organizers[event.id] is defined and events_and_organizers[event.id] == app.user %}
-                                                <div class="font-weight-bold font-italic">Vous êtes l'organisateur·rice</div>
-                                            {% elseif events_and_participants[event.id] is defined and app.user in events_and_participants[event.id] %}
-                                                <div class="font-weight-bold font-italic">Vous y participez déjà</div>
-                                                <div>
-                                                    <form method="post"
-                                                          onsubmit="return confirm('Étes-vous sûr de vouloir vous désinscrire ?');">
-                                                        <div class="unregister-event-form">
-                                                            <input type="hidden" name="_method" value="DELETE">
-                                                            <input type="hidden" name="_token"
-                                                                   value="{{ csrf_token('delete-registeredEvent') }}">
-                                                            <input type="hidden" name="eventIdUnregister" value={{ event.id }}>
-                                                            <button class='btn btn-primary'>Se désinscrire</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            {% else %}
-                                                <div>
-                                                    <form action="" method="post">
-                                                        <div class="register-event-form">
-                                                            <input type="hidden" name="eventIdRegister" value={{ event.id }}>
-                                                            <button class='btn btn-primary'>S'inscrire</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            {% endif %}
-                                        {% endif %} #}
-                                    </div>
-                                </div>
-                            {% endfor %}
-
-                    </div>
-                </div>
-            </div>
+                    <div class="container-fluid">
+                        <div class="row d-flex justify-content-center">
+                            <div class="border-bottom col-md-8">
+                            </div>
                         </div>
                     </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div>
+                <h3 class="part-title mt-4">Evènements Proposés :</h3>
+            </div>
+            <div class="container-fluid-event row justify-content-start">
+                {% for event in events %}
+                <div class="col-lg-2">
                 </div>
+                <div class="col-lg-4 justify-content-center d-flex align-items-center">
+                    <div class="img-container">
+                        {% for picture in pictures %}
+                            {% if event.picture.id is same as (picture.id) %}
+                                <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-6 text-container">
+                    <p>Titre: {{ event.name }}</p>
+                    <p>Type: {{ event.eventFormat.format }}</p>
+                    {% if is_granted('ROLE_CONTRIBUTOR') %}
+                        <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>
+                    {% endif %}
+                    <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
+                    <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
+                    <p>Description:{{ event.description }}</p>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
+                    {% endif %}
+                </div>
+                    <div class="container-fluid">
+                        <div class="row d-flex justify-content-center">
+                            <div class="border-bottom col-md-8">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         {% endif %}
         </div>
     </div>
-
-
-
 {% endblock %}
