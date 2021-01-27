@@ -63,6 +63,7 @@
                     </div>
                 {% endfor %}
                 {% else %}
+                <div class="d-flex flex-wrap justify-content-center">
                 {% for service in services %}
                 <div class="container-fluid">
                     <div class="col-lg-2">
@@ -85,16 +86,15 @@
                             <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="">Editer</a>
                         {% endif %}
                     </div>
-
                 </div>
-                    <div class="">
+                    <div class="container-fluid">
                         <div class="row d-flex justify-content-center">
                             <div class="border-bottom col-md-8">
                             </div>
                         </div>
                     </div>
-
                 {% endfor %}
+                </div>
                 {% endif %}
             </div>
         </div>
