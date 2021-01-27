@@ -81,7 +81,7 @@
                         </p>
                     </div>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
+                        <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Modifier</a>
                     {% endif %}
                 </div>
                 <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
