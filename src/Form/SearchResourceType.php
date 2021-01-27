@@ -25,7 +25,8 @@ class SearchResourceType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
-                'label'    => 'catégorie',
+                'label'    => ' ',
+                'placeholder' => 'catégorie',
             ])
             ->add('format', EntityType::class, [
                 'class' => ResourceFormat::class,
@@ -33,7 +34,8 @@ class SearchResourceType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
-                'label'    => 'support',
+                'label'    => ' ',
+                'placeholder' => 'support',
             ]);
     }
 

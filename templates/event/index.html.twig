@@ -36,7 +36,8 @@
                                                     {% for event in events %}
                                                         <ul class="d-flex">
                                                             {{ event.dateStart|date("d/m/Y H:i") }}<br>
-                                                            {{ event.name }}
+                                                            {{ event.name }}<br>
+                                                            {{ event.eventFormat.format }}
                                                         </ul>
                                                     {% endfor %}
                                                 </div>
