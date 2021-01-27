@@ -70,10 +70,6 @@
                     </div>
                     <div>
                         <div class="pb-1">
-                            Lien proposé par :
-                            <a class="knowledge-link" href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
-                        </div>
-                        <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                         </div>
                         {% if is_granted('ROLE_CONTRIBUTOR') %}
@@ -113,10 +109,6 @@
                             <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
                         </div>
                         <div>
-                            <div class="pb-1">
-                                Lien proposé par :
-                                <a class="knowledge-link" href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
-                            </div>
                             <div class="pb-1">
                                 dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                             </div>

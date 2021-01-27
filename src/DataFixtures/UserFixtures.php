@@ -33,6 +33,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setAddress($faker->address);
             $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
+            $user->setCountry($faker->country);
             $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
             if ($i % 2 === 1) {
                 $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
@@ -51,6 +52,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
+        $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
         $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
@@ -70,6 +72,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
+        $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
         $user->setRoles(['ROLE_CONTRIBUTOR']);
         $user->setPassword($this->passwordEncoder->encodePassword(

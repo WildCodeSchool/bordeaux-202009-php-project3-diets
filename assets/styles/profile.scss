@@ -188,3 +188,15 @@ button {
     display: flex;
   }
 }
+
+.adeli-notes {
+  font-size: 100%;
+  a{
+    color: $main-blue;
+    display: inline;
+    &:hover{
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
