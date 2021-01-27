@@ -96,6 +96,11 @@
                     </div>
                     <div class="col-lg-6 text-container">
                         <p>Titre: {{ event.name }}</p>
+                        <div class="col-1">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {% include '/event/_delete_event.html.twig' %}
+                            {% endif %}
+                        </div>
                         <p>Type: {{ event.eventFormat.format }}</p>
                         {% if is_granted('ROLE_CONTRIBUTOR') %}
                             <p>lien: <a href="{{ event.link }}" target="_blank">{{ event.link }}</a></p>

@@ -25,7 +25,7 @@ class RegisteredEvent
     private $isOrganizer;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="registeredEvents")
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="registeredEvents", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $event;

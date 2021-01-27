@@ -101,7 +101,7 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
@@ -206,7 +206,7 @@ class User implements UserInterface
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -218,7 +218,7 @@ class User implements UserInterface
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -361,7 +361,7 @@ class User implements UserInterface
         return $this->resources;
     }
 
-    public function addResource(Resource $resource): self
+    public function addResource(?Resource $resource): self
     {
         if (!$this->resources->contains($resource)) {
             $this->resources[] = $resource;
@@ -371,7 +371,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeResource(Resource $resource): self
+    public function removeResource(?Resource $resource): self
     {
         if ($this->resources->removeElement($resource)) {
             // set the owning side to null (unless already changed)
@@ -402,7 +402,7 @@ class User implements UserInterface
         return $this->registeredEvents;
     }
 
-    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function addRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if (!$this->registeredEvents->contains($registeredEvent)) {
             $this->registeredEvents[] = $registeredEvent;
@@ -412,7 +412,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function removeRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if ($this->registeredEvents->removeElement($registeredEvent)) {
             // set the owning side to null (unless already changed)
