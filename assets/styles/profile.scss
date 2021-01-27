@@ -91,11 +91,28 @@
   opacity:0;
 }
 
-@media screen and (max-width: 770px) {
-  .show-items .part-title {
-    margin-top: 2em;
+.form-edit-user{
+    .form-check{
+      display: none;
+  }
+  a{
+    display: none;
   }
 }
+
+.picture-event{
+  width: 400px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.picture-service{
+  width: 400px;
+  height: 200px;
+  object-fit: contain;
+}
+
+
 
 .delete-btn {
   justify-content: center;
@@ -134,8 +151,35 @@ button {
 }
 
 @media screen and (max-width: 992px) {
+  .text-center{
+    max-width: 80%;
+    margin-left: 5em;
+    .profile-main-forms {
+      margin: 3px;
+      flex: 0 0 80%;
+    }
+  }
   .profile-main-forms {
     margin: 3px;
+    flex: 0 0 80%;
+    max-width: 80%;
+  }
+  .card-container{
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .show-items .part-title {
+    margin-top: 2em;
+  }
+  .text-center{
+    max-width: 80%;
+    margin-left: 5em;
+  }
+  .profile-picture{
+    width: 300px;
+    height: auto;
   }
 }
 

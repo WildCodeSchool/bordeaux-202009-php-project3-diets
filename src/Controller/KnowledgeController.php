@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 class KnowledgeController extends AbstractController
 {
     /*private const LIMIT = 10;*/
@@ -23,8 +22,10 @@ class KnowledgeController extends AbstractController
     /**
      * @Route("/knowledge", name="knowledge")
      */
-    public function index(Request $request, ResourceRepository $resourceRepository): Response
-    {
+    public function index(Request $request,
+        ResourceRepository $resourceRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
@@ -71,6 +72,15 @@ class KnowledgeController extends AbstractController
                 ->findAll();
         }
 
+        $newResource = new Resource();
+        $formResource = $this->createForm(ResourceType::class, $newResource);
+        $formResource->handleRequest($request);
+        if ($formResource->isSubmitted() && $formResource->isValid()) {
+            $newResource->setUser($this->getUser());
+            $entityManager->persist($newResource);
+            $entityManager->flush();
+        }
+
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
             ],
@@ -81,9 +91,10 @@ class KnowledgeController extends AbstractController
         );
 
         return $this->render('knowledge/index.html.twig', [
-        'resourcesLastUpdate' => $resourcesLastUpdate,
+            'resourcesLastUpdate' => $resourcesLastUpdate,
             'resourcesSearch' => $resourcesSearch,
             'last' => ['last'],
+            'formResource' => $formResource->createView(),
             'formSearch' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
         ]);

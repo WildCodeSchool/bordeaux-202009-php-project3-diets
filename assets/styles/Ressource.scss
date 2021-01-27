@@ -90,3 +90,12 @@
     margin-top: 0.75em;
   }
 }
+
+@media screen and (max-width: 770px){
+  .card-container{
+    margin: 0;
+  }
+  .profile-main-forms{
+    flex: 0 0 80%;
+  }
+}
