@@ -29,47 +29,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
-     * @return Response
-     */
-    public function show(User $user, EventRepository $eventRepository,
-                         Request $request,
-                         EntityManagerInterface $entityManager,
-                         ResourceRepository $resourceRepository ): Response
-    {
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
-            );
-        } else {
-            $userInfos = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findBy(['id' => $user->getId()]);
-            $expertises = "";
-            foreach ($userInfos[0]->getExpertise() as $expertise) {
-                $expertises = $expertises . $expertise->getname() . ', ';
-            }
-            $expertises = substr($expertises, 0, -2);
-
-            $eventsById = $eventRepository->find(['id' => $user->getId()]);
-
-            $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
-
-
-
-        }
-
-        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
-
-        return $this->render('profile/show.html.twig', [
-            'user_infos' => $userInfos[0],
-            'expertises' => $expertises,
-            'events' => $eventsById,
-            'resources' => $resources,
-        ]);
-    }
-
-    /**
      * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
@@ -78,7 +37,6 @@ class ProfileController extends AbstractController
                          User $user,
                          PictureRepository $pictureRepository): Response
     {
-
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -109,7 +67,6 @@ class ProfileController extends AbstractController
                 $entityManager->flush();
             }
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('service_index');
         }
 
         $eventsOrganized = $this->getDoctrine()

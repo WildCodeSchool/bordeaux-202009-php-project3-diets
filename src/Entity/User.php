@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
@@ -104,6 +105,12 @@ class User implements UserInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
+
+    /**
+     * @Assert\Country
+     * @ORM\Column(type="string", length=255)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -413,6 +420,18 @@ class User implements UserInterface
                 $registeredEvent->setUser(null);
             }
         }
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
         return $this;
     }
 }
