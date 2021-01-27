@@ -20,7 +20,7 @@
     <div class="d-flex row justify-content-center">
         <div class="calendar-modal">
                 <div class="mb-4">
-                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2 mt-3">
+                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                         <div class="form-modal">
                             <button type="button" class="button-calendar" data-toggle="modal" data-target="#exampleModalCenterCalendar">
                                 Calendrier
@@ -57,20 +57,13 @@
         {% if app.user %}
             <div class="mb-4">
                 <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                    <div class="d-flex align-items-center">Je propose :</div>
                     <div class="form-modal">
                         <button type="button" class="event-button" data-toggle="modal" data-target="#exampleModalCenter">
-                            un évènement
+                            Créer un évènement
                         </button>
                         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvel évènement</h3>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
-                                        </button>
-                                    </div>
                                     <div class="modal-body">
                                         {% include '/component/_newevent_edit.html.twig' %}
                                     </div>
