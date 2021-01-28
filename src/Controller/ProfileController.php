@@ -131,6 +131,7 @@ class ProfileController extends AbstractController
             'resources' => $resources,
             'formResource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
+            'path' => 'profile_edit',
         ]);
     }
 
