@@ -26,6 +26,10 @@
     margin-bottom: 1em;
     font-weight: bold;
   }
+  .service-title {
+    border-bottom: solid;
+    border-bottom-color: $main-orange;
+  }
   .search-loop {
     display: none;
   }
