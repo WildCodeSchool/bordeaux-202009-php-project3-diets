@@ -53,6 +53,7 @@ class ServiceController extends AbstractController
             'formSearch' => $formSearch->createView(),
             'servicesSearch' => $services,
             'pictures' => $pictureRepository->findAll(),
+            'path' => 'service_index',
         ]);
     }
 

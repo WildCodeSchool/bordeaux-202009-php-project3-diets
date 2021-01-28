@@ -32,20 +32,28 @@
                     <a class="navbar-title" href="{{ path('ressource_index') }}">Nous les diets</a>
                 </div>
             </div>
-
+            <div id="nav-color">
+                {% if path is defined %}
+                    {% if path == 'knowledge_index' %} {{ 1 }}
+                        {% elseif path == 'event_index' %} {{ 2 }}
+                        {% elseif path == 'service_index' %} {{ 3 }}
+                        {% elseif path == 'profile_edit'%} {{ 4 }}
+                    {% endif %}
+                {% endif %}
+            </div>
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('knowledge_index') }}">Connaissances</a>
+                    <a class="nav-link" id="nav-1" href="{{ path('knowledge_index') }}">Connaissances</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('event_index') }}">Evènements</a>
+                    <a class="nav-link" id="nav-2" href="{{ path('event_index') }}">Evènements</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ path('service_index') }}" class="nav-link">Services</a>
+                    <a href="{{ path('service_index') }}" id="nav-3" class="nav-link">Services</a>
                 </li>
                  {% if app.user %}
                      <li class="nav-item">
-                        <a class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
+                        <a id="nav-4" class="nav-link" href="{{path('profile_edit', {'id': app.user.id})}}">Mon espace</a>
                      </li>
                  {% endif %}
             </ul>
