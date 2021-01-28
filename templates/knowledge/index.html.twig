@@ -7,32 +7,37 @@
 {% block body %}
     <div class="knowledge-full-screen ">
     <div class="knowledge-page">
-    <div class="d-flex justify-content-center search-bar">
-        <h2 class="pb-5">Connaissances</h2>
-    </div>
-        <div class="search">
-            {% form_theme formSearch 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(formSearch) }}
-            <div class="d-flex flex-column">
-                <div class="d-flex">
-                    {{ form_row(formSearch.search) }}
-                    <button type="submit" class="buttons-search-bar search-button home-btn-main">Rechercher</button>
-                </div>
-                <div class="d-flex justify-content-start">
-                    {{ form_row(formSearch.format) }}
-                    {{ form_row(formSearch.pathology) }}
-                </div>
-            </div>
-            <div class="search-all-form-container">
-                {{ form_end(formSearch) }}
-                {{ form_start(form_search_all) }}
-                {{ form_widget(form_search_all) }}
-                <button type="submit" class="buttons-search-bar search-button home-btn-main">Tout voir</button>
-                {{ form_end(form_search_all) }}
-            </div>
+        <div class="d-flex justify-content-center">
+            <h2 class="page-title">Connaissances</h2>
         </div>
-         {% if app.user %}
-            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+
+        <div class="search">
+            <form class="form-inline">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        {{ form_row(formSearch.format) }}
+                        {{ form_row(formSearch.pathology) }}
+                        {{ form_start(formSearch) }}
+                    {{ form_widget(formSearch.search) }}
+                    <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+                    <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
+                    {{ form_end(formSearch) }}
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="search-all-form-container">
+
+            {{ form_start(form_search_all) }}
+            {{ form_widget(form_search_all) }}
+            <button type="submit" class="buttons-search-bar search-button home-btn-main">Tout voir</button>
+            {{ form_end(form_search_all) }}
+        </div>
+
+    {% if app.user %}
+        <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
                         Créer une connaissance
@@ -64,8 +69,8 @@
                             {% if is_granted('ROLE_ADMIN') %}
                                 {% include '/knowledge/_delete_knowledge.html.twig' %}
                             {% endif %}
-                        </div>
                     </div>
+                        </div>
                     <div>
                         <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
