@@ -92,6 +92,7 @@
       margin-top: 23px;
       font-weight: bold;
       text-transform: none;
+      color: white;
       background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
     }
     input {
@@ -99,6 +100,7 @@
       border-radius: 20px;
       height: 40px;
       font-size: 20pt;
+      outline-width: 0;
     }
     label{
       display: none;
