@@ -3,33 +3,30 @@
 {% block title %} Services {% endblock %}
 {% block body %}
     <div class="service">
-        <div class="d-flex justify-content-center">
-            <h2 class="page-title">Service</h2>
-        </div>
-        <div class="search">
-            {{ form_start(formSearch) }}
-            {{ form_widget(formSearch) }}
-            <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
-            <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
-            {{ form_end(formSearch) }}
+        <div class="service-img">
+            <div class="cadre-service">
+                <div class="d-flex justify-content-center">
+                    <h2 class="page-title">Service</h2>
+                </div>
+                <div class="search">
+                    {{ form_start(formSearch) }}
+                    {{ form_widget(formSearch) }}
+                    <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+                    <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
+                    {{ form_end(formSearch) }}
+                </div>
+            </div>
         </div>
         {% if app.user %}
         <div>
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                <div class="d-flex align-items-center">Je propose :</div>
                 <div class="form-modal">
                     <button type="button" class="service-button" data-toggle="modal" data-target="#exampleModalCenter">
-                        un service
+                        Créer un service
                     </button>
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouveau service</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
-                                    </button>
-                                </div>
                                 <div class="modal-body">
                                     {% include '/component/_newservice_edit.html.twig' %}
                                 </div>
@@ -59,37 +56,61 @@
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
-                        <p>Titre: {{ service.name }}</p>
-                        <p>Prix: {{ service.price }}</p>
+                        <h3 class="service-title">Titre: {{ service.name }}</h3>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
                     </div>
                 {% endfor %}
                 {% else %}
-                {% for service in services %}
-                    <div class="col-lg-2">
+                    <div class="d-flex flex-wrap justify-content-center">
+                        {%  for service in services  %}
+
+                            <div class="container-fluid">
+                                <div class="row d-flex justify-content-center pb-3 pt-3">
+                                    <div class="col-lg-4 d-flex justify-content-center align-items-center">
+                                        <div class="img-container">
+                                            {% for picture in pictures %}
+                                                {% if service.picture.id is same as (picture.id) %}
+                                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="col-5 pb-4">
+                                        <div class="pb-2">
+                                            <h3 class="pb-1 service-title">{{ service.name }}</h3>
+                                        </div>
+                                        <div class="row">
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                                {% include '/service/_delete_service.html.twig' %}
+                                            {% endif %}
+                                        </div>
+                                        <div>
+                                            {% if is_granted('ROLE_CONTRIBUTOR') %}
+                                                <div class="mt-4">
+                                                    Document : <a class="service-link" href="{{ service.link }}" target="_blank">Lien externe vers le service</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row d-flex justify-content-center pt-3 pb-3">
+                                            <div class="pl-3">Description :</div>
+                                            <p class="col">
+                                                {{ service.description }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container-fluid">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="border-bottom col-md-8">
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
                     </div>
-                    <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                        <div class="img-container">
-                            {% for picture in pictures %}
-                                {% if service.picture.id is same as (picture.id) %}
-                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <div class="col-lg-5 text-container">
-                        <p>Titre: {{ service.name }}</p>
-                        <p>Prix: {{ service.price }}</p>
-                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
-                        {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
-                        <p>Description:{{ service.description }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="">Editer</a>
-                        {% endif %}
-                    </div>
-                {% endfor %}
                 {% endif %}
             </div>
         </div>

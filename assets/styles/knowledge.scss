@@ -1,4 +1,4 @@
-.knowledge-page {
+.knowledge-full-screen {
 
   .search {
     margin-bottom: 6em;
@@ -55,16 +55,18 @@
 
   .knowledge-button {
     display: table-cell;
-    background-color: $main-green;
+    background-color: $main-orange;
     color: white;
     border-radius: 500px;
-    margin:1rem;
-    padding:5px 16px;
+    margin: 1rem;
+    padding: 5px 16px;
     transition: 0.5s;
-    &:hover{
+
+    &:hover {
       font-weight: bold;
-      background-color: #18e48d;
+      background-color: #e5bc70;
     }
+
     a {
       text-decoration: none;
       color: $main-white;

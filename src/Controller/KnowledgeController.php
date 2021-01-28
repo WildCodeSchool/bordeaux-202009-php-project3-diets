@@ -14,18 +14,23 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/knowledge", name="knowledge_")
+ */
+
 class KnowledgeController extends AbstractController
 {
-    /*private const LIMIT = 10;*/
     private const NBRESOURCE = 12;
 
     /**
-     * @Route("/knowledge", name="knowledge")
+     * @Route("/", name="index")
      */
-    public function index(Request $request,
+    public function index(
+        Request $request,
         ResourceRepository $resourceRepository,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
@@ -98,5 +103,22 @@ class KnowledgeController extends AbstractController
             'formSearch' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     *
+     */
+    public function deleteKnowledge(
+        Request $request,
+        Resource $resource
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $resource->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($resource);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('knowledge_index');
     }
 }

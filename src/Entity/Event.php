@@ -76,7 +76,7 @@ class Event
     private $picture;
 
     /**
-     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event")
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
@@ -248,7 +248,7 @@ class Event
         return $this->registeredEvents;
     }
 
-    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function addRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if (!$this->registeredEvents->contains($registeredEvent)) {
             $this->registeredEvents[] = $registeredEvent;
@@ -258,7 +258,7 @@ class Event
         return $this;
     }
 
-    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function removeRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if ($this->registeredEvents->removeElement($registeredEvent)) {
             // set the owning side to null (unless already changed)

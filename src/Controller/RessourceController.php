@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\Resource;
 use App\Form\ResourcesAllType;
 use App\Form\SearchResourceType;
+use App\Repository\EventRepository;
 use App\Repository\PathologyRepository;
 use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
@@ -28,7 +29,8 @@ class RessourceController extends AbstractController
      */
     public function index(ResourceRepository $resourceRepository,
                           Request $request,
-                          ServiceRepository $serviceRepository): Response
+                          ServiceRepository $serviceRepository,
+                          EventRepository $eventRepository): Response
     {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -77,9 +79,10 @@ class RessourceController extends AbstractController
         }
 
 
-        $event = $this->getDoctrine()
+        /*$events = $this->getDoctrine()
             ->getRepository(Event::class)
-            ->findBy(array(), array('dateStart' => 'desc'), 4);
+            ->findBy(array(), array('dateStart' => 'desc'), 4);*/
+        $events = $eventRepository->nextEventByFour();
 
 
 
@@ -103,7 +106,7 @@ class RessourceController extends AbstractController
         
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
-            'events' => $event,
+            'events' => $events,
             'resourcesLastUpdate' => $resourcesLastUpdate,
             'servicesLastUpdate' => $servicesLastUpdate,
             'resourcesSearch' => $resourcesSearch,

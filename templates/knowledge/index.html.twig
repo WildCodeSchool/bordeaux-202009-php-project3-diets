@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="knowledge-full-screen "></div>
+    <div class="knowledge-full-screen ">
     <div class="knowledge-page">
         <div class="d-flex justify-content-center">
             <h2 class="page-title">Connaissances</h2>
@@ -38,128 +38,110 @@
 
     {% if app.user %}
         <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-            <div class="d-flex align-items-center">Je propose :</div>
-            <div class="form-modal">
-                <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
-                    une connaissance
-                </button>
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvelle
-                                    connaissance</h3>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                {% include '/component/_newfiche_edit.html.twig' %}
+                <div class="form-modal">
+                    <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
+                        Créer une connaissance
+                    </button>
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_newfiche_edit.html.twig' %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    {% endif %}
-
+        {% endif %}
+    </div>
     {% if resourcesSearch is empty %}
-        <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
+    <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
     {% elseif resourcesSearch != last %}
-        <div class="d-flex flex-wrap justify-content-center">
-            {% for resource in resourcesSearch %}
-                <div class="container-fluid">
-                    <div class="row d-flex justify-content-center pb-3 pt-3">
-                        <div class="col-5 pb-4">
-                            <div class="pb-2">
-                                <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
-                            </div>
-                            <div>
-                                <div class="pb-1">
-                                    Lien proposé par :
-                                    <a class="knowledge-link"
-                                       href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
-                                </div>
-                                <div class="pb-1">
-                                    dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
-                                </div>
-                                {% if is_granted('ROLE_CONTRIBUTOR') %}
-                                    <div class="mt-4">
-                                        Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien
-                                            externe vers la ressource</a>
-                                    </div>
-                                {% endif %} #}
-                            </div>
-                            <div class="row d-flex justify-content-center pt-3 pb-3">
-                                <div class="pl-3">Description :</div>
-                                <p class="col">
-                                    {{ resource.description }}
-                                </p>
-                            </div>
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for resource in resourcesSearch %}
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center pb-3 pt-3">
+                <div class="col-5 pb-4">
+                    <div class="pb-2 row">
+                        <h3 class="pb-1 knowledge-title col-11">{{ resource.name }}</h3>
+                        <div class="col-1">
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Modifier</a>
+                                {% include '/knowledge/_delete_knowledge.html.twig' %}
                             {% endif %}
-                        </div>
-                        <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i
-                                    class="{{ resource.resourceFormat.icon }}"></i></a>
                     </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row d-flex justify-content-center">
-                        <div class="border-bottom col-md-8">
                         </div>
+                    <div>
+                        <div class="pb-1">
+                            dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
+                        </div>
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
+                        <div class="mt-4">
+                            Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
+                        </div>
+                        {% endif %} #}
                     </div>
+                    <div class="row d-flex justify-content-center pt-3 pb-3">
+                        <div class="pl-3">Description :</div>
+                        <p class="col">
+                            {{ resource.description }}
+                        </p>
+                    </div>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
+                    {% endif %}
                 </div>
-            {% endfor %}
+                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+            </div>
         </div>
+        <div class="container-fluid">
+            <div class="row d-flex justify-content-center">
+                <div class="border-bottom col-md-8">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     {% else %}
-        <div class="d-flex flex-wrap justify-content-center">
-            {% for resource in resourcesLastUpdate %}
-                <div class="container-fluid">
-                    <div class="row d-flex justify-content-center pb-3 pt-3">
-                        <div class="col-5 pb-4">
-                            <div class="pb-2">
-                                <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+    <div class="d-flex flex-wrap justify-content-center">
+        {%  for resource in resourcesLastUpdate  %}
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center pb-3 pt-3">
+                    <div class="col-5 pb-4">
+                        <div class="pb-2">
+                            <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                        </div>
+                        <div>
+                            <div class="pb-1">
+                                dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                             </div>
-                            <div>
-                                <div class="pb-1">
-                                    Lien proposé par :
-                                    <a class="knowledge-link"
-                                       href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
+                            {% if is_granted('ROLE_CONTRIBUTOR') %}
+                                <div class="mt-4">
+                                    Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                                 </div>
-                                <div class="pb-1">
-                                    dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
-                                </div>
-                                {% if is_granted('ROLE_CONTRIBUTOR') %}
-                                    <div class="mt-4">
-                                        Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien
-                                            externe vers la ressource</a>
-                                    </div>
-                                {% endif %} #}
-                            </div>
-                            <div class="row d-flex justify-content-center pt-3 pb-3">
-                                <div class="pl-3">Description :</div>
-                                <p class="col">
-                                    {{ resource.description }}
-                                </p>
-                            </div>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Modifier</a>
                             {% endif %}
                         </div>
-                        <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i
-                                    class="{{ resource.resourceFormat.icon }}"></i></a>
-                    </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row d-flex justify-content-center">
-                        <div class="border-bottom col-md-8">
+                        <div class="row d-flex justify-content-center pt-3 pb-3">
+                            <div class="pl-3">Description :</div>
+                            <p class="col">
+                                {{ resource.description }}
+                            </p>
                         </div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
+                        {% endif %}
+                    </div>
+                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center">
+                    <div class="border-bottom col-md-8">
                     </div>
                 </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% endfor %}
+    </div>
     {% endif %}
     </div>
 {% endblock %}

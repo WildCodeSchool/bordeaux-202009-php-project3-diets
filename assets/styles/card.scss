@@ -25,8 +25,14 @@
 }
 .box-front {
   background-color: #cccccc;
-  color: #111111;
+  color: $main-black;
   display: flex;
+  .card-title {
+    background-color: #4950577d;
+    border-radius: 20px;
+    width: auto;
+    color:white;
+  }
 }
 .box-back {
   background-color: $bg-body;
@@ -38,6 +44,7 @@
   text-align: center;
   color:$main-orange;
   font-weight: bold;
+  font-size: x-large;
 
 }
 
@@ -46,6 +53,7 @@
   height: 300px;
   filter:brightness(60%);
   object-fit: cover;
+
 }
 
 .btn{
