@@ -3,8 +3,9 @@
   padding-top: 15vh;
 }
 .home-full-screen{
-  background-image: url('/build/images/home-picture.5d9aa13c.jpg');
+  background-image: url('/build/images/image-première-page-5.64e851f6.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .home-main-container{
@@ -14,11 +15,13 @@
 .home-logo {
   font-size: 7rem;
   font-family: $police-logo;
+  color: $main-black;
 }
 
 .home-slogan {
   font-size: 3.5rem;
   padding-bottom: 1.5em;
+  color: $main-black;
 }
 
 .home-btn-container{
@@ -29,16 +32,15 @@
 }
 
 .home-btn-main {
-  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
+  background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   margin: 10px;
   padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
-  text-transform: uppercase;
+  font-weight: bold;
   transition: 0.5s;
   background-size: 200% auto;
-  color: $main-white;
-  box-shadow: 0 0 20px #eee;
+  color: $main-black;
   border-radius: 10px;
   display: block;
   &:hover {
@@ -48,16 +50,15 @@
   }
 }
 .home-btn-second {
-  background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
+  background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   margin: 10px;
   padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
-  text-transform: uppercase;
   transition: 0.5s;
+  font-weight: bold;
   background-size: 200% auto;
   color: $main-white;
-  box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
   &:hover {
@@ -70,7 +71,7 @@
 .visit-link {
   margin-top: 0;
   h2 {
-    color: black;
+    color: white;
     font-weight: bold;
     margin-bottom: 0;
     font-size: 35px;
@@ -86,9 +87,11 @@
 }
 
 .main-green{
-  color: $main-green;
+  color: $main-orange;
 }
-
+.visit-title:hover{
+  text-decoration: none;
+}
 .container-table {
   height: 100%;
   display: table;
@@ -119,7 +122,7 @@
   }
 
   .card-radius {
-    background-color: transparentize($bg-navbar, 0.3);
+    background-color: transparentize(white, 0.4);
     border-radius: 25px;
   }
 
@@ -133,7 +136,7 @@
   }
 
   .non_underline {
-    color: $main-grey;
+    color: $main-black;
     &:hover {
       text-decoration: none;
     }
