@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer ton profil{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid-profil-edit">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-5 d-flex justify-content-center">
+                <div>
+                    <div class="overflow-hidden">
+                        <img class="profile-picture"
+                             src=
+                             {% if (user.picture) == false %}
+                                    {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
+                                {% else %}
+                             /uploads/pictures/{{ user.picture.name }}
+                                {% endif %}
+                             alt="photo_de_profil">
+                    </div>
+                </div>
+            </div>
+            <div class="col-7 profile-main-forms ">
+                <div class="form-user">
+                    {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(formEditUser) }}
+                    {{ form_widget(formEditUser) }}
+                    <button type="submit" class="btn mt-5">Editer mon profil</button>
+                    {{ form_end(formEditUser) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
