@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -25,20 +26,26 @@ class UserEditType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email *',
+                'required' => true,
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom *',
+                'required' => true,
             ])
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom *',
+                'required' => true,
             ])
-            ->add('birthday', DateTimeType::class, [
+            ->add('birthday', DateType::class, [
                 'label' => 'Date d\'anniversaire *',
+                'years' => range(1920, 2020,1),
+                'format' => 'dd-MM-yyyy',
+                'required' => true,
             ])
             ->add('country', ChoiceType::class, [
                 'label' => 'Pays *',
                 'choices' => $countries,
-                'placeholder' => 'Faites votre choix'
+                'placeholder' => 'Faites votre choix',
             ])
             ->add('adeli', TextType::class, [
                 'label' => 'Numéro ADELI *',

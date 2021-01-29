@@ -95,6 +95,7 @@ class EventController extends AbstractController
             /*'events_and_organizers'   => $eventsAndOrganizersArray,
             'events_and_participants' => $eventsAndParticipantsArray,*/
                 'pictures'            => $pictureRepository->findAll(),
+            'path' => 'event_index',
             ]);
     }
 

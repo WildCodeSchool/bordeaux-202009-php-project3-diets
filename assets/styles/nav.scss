@@ -6,6 +6,11 @@
   z-index: 99;
 }
 
+#nav-color{
+  z-index: -500;
+  visibility: hidden;
+}
+
 .logo-design {
   width: 15%;
   zoom: normal;

@@ -102,6 +102,7 @@ class KnowledgeController extends AbstractController
             'formResource' => $formResource->createView(),
             'formSearch' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
+            'path' => 'knowledge_index',
         ]);
     }
 
