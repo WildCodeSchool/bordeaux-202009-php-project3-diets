@@ -6,7 +6,7 @@
 {% set services = infos.services %}
 {% set resources = infos.resources %}
 {% set registered_events = infos.registeredEvents %}
-
+<div class="profile">
 <div>
     {% include '/component/_profile_edit.html.twig' %}
 </div>
@@ -30,5 +30,5 @@
     <div style="height:20px"></div>
 </div>
     {% endif %}
-
+</div>
 {% endblock %}

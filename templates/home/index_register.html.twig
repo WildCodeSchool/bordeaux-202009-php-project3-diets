@@ -10,49 +10,57 @@
             <div class="row vertical-center-row">
                 <div class="card col-6 m-auto card-radius">
                     <div>
-                        <div class="-align-right mt-2">
-                            <div class="close">
-                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
-                            </div>
-
+                        <div class="position-absolute close mt-2">
+                            <a href="{{ path('home') }}"><i class="fas fa-times-circle close"></i></a>
                         </div>
-                        <div class="row justify-content-center">
+                        <div class="d-flex justify-content-center">
                             <div class="text-center p-1 card-title home-form-title">Je m'inscris :</div>
                         </div>
                     </div>
+                    <div>
                     {% for flashError in app.flashes('verify_email_error') %}
                         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                     {% endfor %}
                     {{ form_start(registrationForm) }}
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Prénom :</div>
-                        <div class="subscribe">{{ form_row(registrationForm.firstname) }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Nom :</div>
-                        <div class="subscribe">{{ form_row(registrationForm.lastname) }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Adresse e-mail :</div>
-                        <div class="subscribe">{{ form_row(registrationForm.email) }}</div>
-                    </div>
-
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Password :</div>
-                        <div class="subscribe">{{ form_row(registrationForm.plainPassword, {
-                                label: 'Password'
-                            }) }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="text-center px-4 home-form">J'accepte les conditions d'utilisation :</div>
-                        <div class="subscribe">{{ form_row(registrationForm.agreeTerms) }}</div>
-                    </div>
-                    <div class="row pt-3">
-                        <div class="col-4 text-center p-1 home-form-lg">
-                            <button type="submit" class="home-btn-second non_underline">S'inscrire</button>
-                                {{ form_end(registrationForm) }}
+                    <div class="justify-content-center align-items-center container home-email">
+                        <div class="col-3 align-items-center home-form">Prénom :</div>
+                        <div class="col-5">
+                            {{ form_row(registrationForm.firstname, {'attr': {'class': 'form-control'}}) }}
                         </div>
                     </div>
+                    <div class="justify-content-center align-items-center container home-email">
+                        <div class="col-3 align-items-center home-form">Nom :</div>
+                        <div class="col-5">
+                            {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="justify-content-center align-items-center container home-email">
+                        <div class="col-3 align-items-center home-form">Adresse e-mail :</div>
+                        <div class="col-5">
+                            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    <div class="justify-content-center align-items-center container home-email">
+                        <div class="col-3 align-items-center home-form">Mot de passe :</div>
+                        <div class="col-5">
+                            {{ form_row(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center container home-email my-4">
+                        <div class="col-5 align-items-center home-form">
+                            J'accepte les conditions d'utilisation :
+                        </div>
+                        <div class="col-1">
+                            {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-agree'}}) }}
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center container home-email">
+                        <div class="home-form-lg">
+                            <button type="submit" class="home-btn-second non_underline text-center">S'inscrire</button>
+                        </div>
+                    </div>
+                        {{ form_end(registrationForm) }}
                     {#
 
                     <div class="row">
@@ -69,6 +77,7 @@
                         </div>
                     </div>
                     #}
+                </div>
                 </div>
             </div>
         </div>

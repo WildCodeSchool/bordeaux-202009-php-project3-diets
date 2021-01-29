@@ -43,6 +43,7 @@
   color: $main-black;
   border-radius: 10px;
   display: block;
+  border: none;
   &:hover {
     background-position: right center;
     color: #fff;
@@ -61,6 +62,7 @@
   color: $main-white;
   border-radius: 10px;
   display: block;
+  border: none;
   &:hover {
     background-position: right center;
     color: #fff;
@@ -104,21 +106,46 @@
 
 
 .home-page {
+  .form-control:focus {
+    box-shadow: none;
+    border-color: $main-black;
+  }
+
+  input {
+    max-width: 100%;
+  }
+
+  .form-agree {
+    zoom: 160%;
+  }
+
   .row {
     justify-content: center;
     margin: 0;
   }
 
+  .no-registered {
+    color : $main-black;
+  }
+
   .home-form-title {
+    display: flex;
+    justify-content: center;
+    width: auto;
     font-family: $police-logo;
     font-size: $fs-h3;
     color: $main-black;
-    border-bottom: solid;
+    border-bottom: 0.08em solid;
     border-bottom-color: $main-orange;
   }
 
   .home-form {
     font-size: $fs-h4;
+  }
+
+  .home-email,
+  .home-password {
+    display: flex;
   }
 
   .card-radius {
@@ -127,11 +154,12 @@
   }
 
   .underline {
-    color: $main-grey;
-    border-bottom: solid;
+    color: $main-black;
+    border-bottom: 0.11em solid;
     border-bottom-color: $main-orange;
     &:hover {
       text-decoration: none;
+      color: $main-green;
     }
   }
 
@@ -142,6 +170,10 @@
     }
   }
 
+  .close {
+    right: 10px;
+    color: $main-black;
+  }
 }
 
 .visit-link {
@@ -156,14 +188,6 @@
   width:100%;
   margin-top: 6em;
   text-align: center;
-}
-
-.subscribe{
-  color: transparent;
-}
-.forgot .mdp-forgot{
-  display: flex;
-  justify-content: center;
 }
 
 @media screen and (max-width: 1380px) {
@@ -191,6 +215,7 @@
     }
     .home-form-title {
       font-size: $fs-h3;
+      margin-left: 0;
     }
 
     .home-logo {
@@ -211,6 +236,24 @@
       justify-content: center;
     }
 
+    .home-email,
+    .home-password {
+      display: block;
+      max-width: 100%;
+      justify-content: center;
+      .col-3,
+      .col-5 {
+        flex: auto;
+        max-width: 100%;
+      }
+      .col-3 {
+        margin-top: 10px;
+        margin-bottom: 0;
+        text-align: center;
+      }
+
+    }
+
     .home-btn-main,
     .home-btn-second {
       padding: 8px 10px;
@@ -221,6 +264,10 @@
 
 @media screen and (max-width: 972px) {
   .home-page {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+
     .home-main-container {
       height: 93vh;
     }
@@ -229,7 +276,7 @@
     }
     .home-slogan {
       font-size: 2rem;
-      padding-bottom: 0.1em;
+
     }
     .visit-link{
       margin-top: 1vh;
@@ -239,12 +286,6 @@
     }
     .p-3 {
       padding: 0;
-    }
-
-    .col-8,
-    .col-6 {
-      flex: auto;
-      max-width: 100%;
     }
 
     .visit-link h2 {
@@ -266,6 +307,9 @@
 
 @media screen and (max-width: 769px){
   .home-page{
+    .col-6 {
+      max-width: 95%;
+    }
     .home-main-container {
       height: 80vh;
     }
@@ -274,6 +318,10 @@
 
 @media screen and (max-width: 375px) {
   .home-page {
+    .home-form-title {
+      font-size: 1.35em;
+    }
+
     .fixed-bottom {
       bottom: 15px;
     }
@@ -306,14 +354,22 @@
     .form-control{
       width: 100%;
     }
+    a.home-form {
+      z-index: 5;
+      font-size: 1em;
+    }
   }
 }
 
 @media screen and (max-height: 375px) {
   .home-page {
-    .col-8 {
+    margin: 0;
+    padding: 0;
+    zoom: 80%;
+
+    .col-6 {
       flex: auto;
-      max-width: 100%;
+      max-width: 90%;
     }
     .row {
       .row {

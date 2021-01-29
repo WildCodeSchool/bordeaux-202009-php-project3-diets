@@ -10,54 +10,58 @@
             <div class="row vertical-center-row">
                 <div class="card col-6 m-auto card-radius">
                     <div>
-                        <div class="-align-right mt-2">
-                            <div class="close">
-                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
-                            </div>
-
+                        <div class="position-absolute close mt-2">
+                            <a href="{{ path('home') }}"><i class="fas fa-times-circle close"></i></a>
                         </div>
-
-                        <div class="row justify-content-center">
-                            <div class="text-center p-1 card-title home-form-title">Je me connecte :</div>
+                        <div class="d-flex justify-content-center">
+                            <div class="text-center pt-1 card-title home-form-title">Je me connecte :</div>
                         </div>
                     </div>
+                    <div>
                     <form method="post">
+                        <div>
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}
-                        <div class="row">
+                        </div>
+                        <div class="justify-content-center">
                             {% if app.user %}
-                                <div class="row">
-                                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-                                </div>
+                            <div class="d-flex justify-content-center mb-3">
+                                You are logged in as {{ app.user.username }}  <a href="{{ path('app_logout') }}" class="underline">.   Logout ?</a>
+                            </div>
                             {% endif %}
-                            <label for="inputEmail" class="text-center px-1 home-form">Adresse e-mail :</label>
-                            <div>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                            <div class="justify-content-center align-items-center container home-email">
+                                <div class="col-3 align-items-center">
+                                    <label for="inputEmail" class="text-center home-form">Adresse e-mail :</label>
+                                </div>
+                                <div class="col-5">
+                                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <label for="inputPassword" class="text-center p-1 home-form">Mot de passe :</label>
-                            <div>
+                        <div class="justify-content-center align-items-center container home-password">
+                            <div class="col-3 align-items-center">
+                                <label for="inputPassword" class="text-center home-form">Mot de passe :</label>
+                            </div>
+                            <div class="col-5">
                                 <input type="password" name="password" id="inputPassword" class="form-control" required>
                             </div>
                             <input type="hidden" name="_csrf_token"
                                    value="{{ csrf_token('authenticate') }}">
                         </div>
-                        <div class="forgot">
-                            <a href="{{ path('app_forgot_password_request') }}" class="mdp-forgot">Mot de passe oublié</a>
+                        <div class="d-flex forgot justify-content-center mt-3">
+                            <a href="{{ path('app_forgot_password_request') }}" class="underline no-registered">Mot de passe oublié</a>
                         </div>
-                        <div class="row justify-content-between pt-3">
-                            <div class="col-5 p-3 ml-2 home-form-lg">
-                                <a href="{{ path('app_register') }}" class="underline home-form">Je ne suis pas encore inscrit</a>
+                        <div class="d-flex justify-content-around pt-3">
+                            <div class="d-flex align-items-center">
+                                <a href="{{ path('app_register') }}" class="underline home-form no-registered">Je ne suis pas encore inscrit</a>
                             </div>
-                            <div class="col-md-6 text-center home-form-lg">
-                                <div class="">
-                                    <button type="submit" class="home-btn-second non_underline" >Valider</button>
-                                </div>
+                            <div class="home-form-lg justify-content-end">
+                                <button type="submit" class="home-btn-second non_underline text-center" >Valider</button>
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
