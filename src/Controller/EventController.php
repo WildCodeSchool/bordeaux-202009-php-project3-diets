@@ -7,8 +7,8 @@ use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Form\EventType;
 use App\Form\PictureType;
-use App\Form\SearchEventType;
 use App\Form\RegisterType;
+use App\Form\SearchResourceType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
@@ -20,13 +20,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/event", name="event_")
+ */
+
 class EventController extends AbstractController
 {
     /**
-     * @Route("/event", name="event_index")
+     * @Route("/", name="index")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager,
-                          EventRepository $eventRepository, PictureRepository $pictureRepository): Response
+    public function index(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventRepository $eventRepository,
+        PictureRepository $pictureRepository
+    ): Response
     {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -41,17 +49,16 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
         }
-        $formSearch = $this->createForm(SearchEventType::class);
+        $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
+        $eventSearch = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
             $eventSearch = $eventRepository->findLikeName($search);
-        } else {
-            $eventSearch = [];
         }
 
-        $eventsAndOrganizers = $this->getDoctrine()
+        /*$eventsAndOrganizers = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
             ->findBy(['isOrganizer' => true]);
         $eventsAndOrganizersArray = [];
@@ -76,16 +83,41 @@ class EventController extends AbstractController
         if ($this->isCsrfTokenValid('delete-registeredEvent', $request->request->get('_token'))) {
             $eventId = $_POST['eventIdUnregister'];
             return $this->redirectToRoute('unregister_event', array('id' => $eventId));
-        }
+        }*/
+
+        $events = $eventRepository->nextEvent();
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'eventsSearch' => $eventSearch,
-            'events' => $eventRepository->findAll(),
-            'formEvent'               => $formEvent->createView(),
-            'events_and_organizers'   => $eventsAndOrganizersArray,
-            'events_and_participants' => $eventsAndParticipantsArray,
+            'events' => $events,
+            'formEvent' => $formEvent->createView(),
+            /*'events_and_organizers'   => $eventsAndOrganizersArray,
+            'events_and_participants' => $eventsAndParticipantsArray,*/
                 'pictures'            => $pictureRepository->findAll(),
+            'path' => 'event_index',
             ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     *
+     */
+    public function deleteEvent(
+        Request $request,
+        Event $event,
+        RegisteredEventRepository $registeredEventRepository
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $registeredEvents = $registeredEventRepository->findBy(['event' => $event]);
+            foreach ($registeredEvents as $registeredEvent) {
+                $entityManager->remove($registeredEvent);
+            }
+            $entityManager->remove($event);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('event_index');
     }
 }

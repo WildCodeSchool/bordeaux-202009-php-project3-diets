@@ -25,8 +25,14 @@
 }
 .box-front {
   background-color: #cccccc;
-  color: #111111;
+  color: $main-black;
   display: flex;
+  .card-title {
+    background-color: #4950577d;
+    border-radius: 20px;
+    width: auto;
+    color:white;
+  }
 }
 .box-back {
   background-color: $bg-body;
@@ -38,6 +44,7 @@
   text-align: center;
   color:$main-orange;
   font-weight: bold;
+  font-size: x-large;
 
 }
 
@@ -45,6 +52,8 @@
   width: 380px;
   height: 300px;
   filter:brightness(60%);
+  object-fit: cover;
+
 }
 
 .btn{
@@ -58,5 +67,21 @@ p{
 
 .card-img-overlay{
   justify-items: flex-end;
+}
+
+@media screen and (max-width: 1200px) {
+  .card-container{
+    margin: 1em 1em;
+  }
+}
+
+
+@media screen and (max-width: 540px) {
+  .card-container{
+    margin: 3em 1em;
+  }
+  .box-back{
+    margin: 0;
+  }
 }
 

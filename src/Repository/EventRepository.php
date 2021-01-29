@@ -30,6 +30,29 @@ class EventRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
+    public function nextEvent()
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->where('e.dateStart >= :datecourant')
+            ->setParameter('datecourant', new \Datetime(date('now')))
+            ->orderBy('e.dateStart', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function nextEventByFour()
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->where('e.dateStart >= :datecourant')
+            ->setParameter('datecourant', new \Datetime(date('now')))
+            ->orderBy('e.dateStart', 'DESC')
+            ->setMaxResults('4');
+
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

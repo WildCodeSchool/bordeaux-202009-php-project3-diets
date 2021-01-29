@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Service;
-use App\Form\SearchServiceFormType;
+use App\Form\SearchResourceType;
 use App\Form\ServiceType;
 use App\Repository\PictureRepository;
 use App\Repository\ServiceRepository;
@@ -25,14 +25,13 @@ class ServiceController extends AbstractController
                           Request $request,
                           ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
     {
-        $formSearch = $this->createForm(SearchServiceFormType::class);
+        $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
+        $services = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
             $services = $serviceRepository->findLikeName($search);
-        } else {
-            $services = [];
         }
 
         $service = new Service();
@@ -42,6 +41,7 @@ class ServiceController extends AbstractController
             $service->setUser($this->getUser());
             $entityManager->persist($service);
             $entityManager->flush();
+            $this->redirectToRoute('service_index');
         }
         $service = $this->getDoctrine()
             ->getRepository(Service::class)
@@ -53,6 +53,23 @@ class ServiceController extends AbstractController
             'formSearch' => $formSearch->createView(),
             'servicesSearch' => $services,
             'pictures' => $pictureRepository->findAll(),
+            'path' => 'service_index',
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     *
+     */
+    public function deleteService(
+        Request $request,
+        Service $service
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($service);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('service_index');
     }
 }

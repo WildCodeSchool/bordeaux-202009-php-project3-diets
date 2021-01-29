@@ -17,6 +17,7 @@ use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,47 +30,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/show/{id}", methods={"GET"}, name="show", requirements={"id":"\d+"})
-     * @return Response
-     */
-    public function show(User $user, EventRepository $eventRepository,
-                         Request $request,
-                         EntityManagerInterface $entityManager,
-                         ResourceRepository $resourceRepository ): Response
-    {
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
-            );
-        } else {
-            $userInfos = $this->getDoctrine()
-                ->getRepository(User::class)
-                ->findBy(['id' => $user->getId()]);
-            $expertises = "";
-            foreach ($userInfos[0]->getExpertise() as $expertise) {
-                $expertises = $expertises . $expertise->getname() . ', ';
-            }
-            $expertises = substr($expertises, 0, -2);
-
-            $eventsById = $eventRepository->find(['id' => $user->getId()]);
-
-            $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
-
-
-
-        }
-
-        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
-
-        return $this->render('profile/show.html.twig', [
-            'user_infos' => $userInfos[0],
-            'expertises' => $expertises,
-            'events' => $eventsById,
-            'resources' => $resources,
-        ]);
-    }
-
-    /**
      * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
@@ -78,7 +38,6 @@ class ProfileController extends AbstractController
                          User $user,
                          PictureRepository $pictureRepository): Response
     {
-
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -94,20 +53,10 @@ class ProfileController extends AbstractController
             $expertises = substr($expertises, 0, -2);
         }
 
-        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(['user' => $user->getId()]);
-
-        $formEditUser = $this->createForm(UserEditType::class, $user);
-        $formEditUser->handleRequest($request);
-        if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if ($user->getRoles() != ['ROLE_ADMIN']) {
-                $user->setRoles(['ROLE_CONTRIBUTOR']);
-                $user->isVerified(true);
-                $entityManager->persist($user);
-                $entityManager->flush();
-            }
-            $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('service_index');
-        }
+        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy([
+            'user' => $user->getId()],
+            ['updatedAt' => 'desc']
+        );
 
         $eventsOrganized = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
@@ -165,14 +114,50 @@ class ProfileController extends AbstractController
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'events_and_participants' => $eventsAndParticipantsArray,
-            'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
             'formResource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
+            'path' => 'profile_edit',
         ]);
     }
+
+
+    /**
+     * @Route("/profil/edit/{id}", methods={"GET", "POST"}, name="profil_edit")
+     * @return Response
+     */
+
+    public function editProfil(Request $request,
+                               int $id,
+                               UserRepository $userRepository,
+                               EntityManagerInterface $entityManager): Response
+    {
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        $formEditUser = $this->createForm(UserEditType::class, $user);
+        $formEditUser->handleRequest($request);
+        if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
+            /*if ($user->getRoles() != ['ROLE_ADMIN']) {
+                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->isVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }*/
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('profile_edit', [
+                'id' => $id,
+            ]);
+        }
+
+        return $this->render('component/_profil_edit.html.twig', [
+            'formEditUser' => $formEditUser->createView(),
+            'user' => $user,
+        ]);
+
+    }
+
 
     /**
      * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
@@ -190,8 +175,7 @@ class ProfileController extends AbstractController
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('knowledge_index', [
-                'length' => 'all'
+            return $this->redirectToRoute('knowledge', [
             ]);
         }
 
@@ -265,5 +249,21 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('ressource_index');
+    }
+
+    /**
+     * @Route("/service/{id}", name="delete_service", methods={"DELETE"})
+     */
+    public function deleteService(
+        Request $request,
+        Service $service
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($service);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('service_index');
     }
 }

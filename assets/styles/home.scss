@@ -3,8 +3,9 @@
   padding-top: 15vh;
 }
 .home-full-screen{
-  background-image: url('/build/images/home-picture.5d9aa13c.jpg');
+  background-image: url('/build/images/image-première-page-5.64e851f6.jpg');
   background-size: cover;
+  background-attachment: fixed;
 }
 
 .home-main-container{
@@ -14,11 +15,13 @@
 .home-logo {
   font-size: 7rem;
   font-family: $police-logo;
+  color: $main-black;
 }
 
 .home-slogan {
   font-size: 3.5rem;
   padding-bottom: 1.5em;
+  color: $main-black;
 }
 
 .home-btn-container{
@@ -29,18 +32,18 @@
 }
 
 .home-btn-main {
-  background-image: linear-gradient(to right, $main-green 0%, #18e48d 51%, $main-green 100%);
+  background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   margin: 10px;
   padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
-  text-transform: uppercase;
+  font-weight: bold;
   transition: 0.5s;
   background-size: 200% auto;
-  color: $main-white;
-  box-shadow: 0 0 20px #eee;
+  color: $main-black;
   border-radius: 10px;
   display: block;
+  border: none;
   &:hover {
     background-position: right center;
     color: #fff;
@@ -48,18 +51,18 @@
   }
 }
 .home-btn-second {
-  background-image: linear-gradient(to right, $main-blue 0%, #5bdff5  51%, $main-blue  100%);
+  background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
   margin: 10px;
   padding: 10px 30px;
   text-align: center;
   font-size: $fs-h4;
-  text-transform: uppercase;
   transition: 0.5s;
+  font-weight: bold;
   background-size: 200% auto;
   color: $main-white;
-  box-shadow: 0 0 20px #eee;
   border-radius: 10px;
   display: block;
+  border: none;
   &:hover {
     background-position: right center;
     color: #fff;
@@ -70,7 +73,7 @@
 .visit-link {
   margin-top: 0;
   h2 {
-    color: black;
+    color: white;
     font-weight: bold;
     margin-bottom: 0;
     font-size: 35px;
@@ -86,9 +89,11 @@
 }
 
 .main-green{
-  color: $main-green;
+  color: $main-orange;
 }
-
+.visit-title:hover{
+  text-decoration: none;
+}
 .container-table {
   height: 100%;
   display: table;
@@ -101,16 +106,36 @@
 
 
 .home-page {
+  .form-control:focus {
+    box-shadow: none;
+    border-color: $main-black;
+  }
+
+  input {
+    max-width: 100%;
+  }
+
+  .form-agree {
+    zoom: 160%;
+  }
+
   .row {
     justify-content: center;
     margin: 0;
   }
 
+  .no-registered {
+    color : $main-black;
+  }
+
   .home-form-title {
+    display: flex;
+    justify-content: center;
+    width: auto;
     font-family: $police-logo;
     font-size: $fs-h3;
     color: $main-black;
-    border-bottom: solid;
+    border-bottom: 0.08em solid;
     border-bottom-color: $main-orange;
   }
 
@@ -118,27 +143,37 @@
     font-size: $fs-h4;
   }
 
+  .home-email,
+  .home-password {
+    display: flex;
+  }
+
   .card-radius {
-    background-color: transparentize($bg-navbar, 0.3);
+    background-color: transparentize(white, 0.4);
     border-radius: 25px;
   }
 
   .underline {
-    color: $main-grey;
-    border-bottom: solid;
+    color: $main-black;
+    border-bottom: 0.11em solid;
     border-bottom-color: $main-orange;
     &:hover {
       text-decoration: none;
+      color: $main-green;
     }
   }
 
   .non_underline {
-    color: $main-grey;
+    color: $main-black;
     &:hover {
       text-decoration: none;
     }
   }
 
+  .close {
+    right: 10px;
+    color: $main-black;
+  }
 }
 
 .visit-link {
@@ -153,14 +188,6 @@
   width:100%;
   margin-top: 6em;
   text-align: center;
-}
-
-.subscribe{
-  color: transparent;
-}
-.forgot .mdp-forgot{
-  display: flex;
-  justify-content: center;
 }
 
 @media screen and (max-width: 1380px) {
@@ -188,6 +215,7 @@
     }
     .home-form-title {
       font-size: $fs-h3;
+      margin-left: 0;
     }
 
     .home-logo {
@@ -208,6 +236,24 @@
       justify-content: center;
     }
 
+    .home-email,
+    .home-password {
+      display: block;
+      max-width: 100%;
+      justify-content: center;
+      .col-3,
+      .col-5 {
+        flex: auto;
+        max-width: 100%;
+      }
+      .col-3 {
+        margin-top: 10px;
+        margin-bottom: 0;
+        text-align: center;
+      }
+
+    }
+
     .home-btn-main,
     .home-btn-second {
       padding: 8px 10px;
@@ -218,6 +264,10 @@
 
 @media screen and (max-width: 972px) {
   .home-page {
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+
     .home-main-container {
       height: 93vh;
     }
@@ -226,7 +276,7 @@
     }
     .home-slogan {
       font-size: 2rem;
-      padding-bottom: 0.1em;
+
     }
     .visit-link{
       margin-top: 1vh;
@@ -236,12 +286,6 @@
     }
     .p-3 {
       padding: 0;
-    }
-
-    .col-8,
-    .col-6 {
-      flex: auto;
-      max-width: 100%;
     }
 
     .visit-link h2 {
@@ -263,6 +307,9 @@
 
 @media screen and (max-width: 769px){
   .home-page{
+    .col-6 {
+      max-width: 95%;
+    }
     .home-main-container {
       height: 80vh;
     }
@@ -271,6 +318,10 @@
 
 @media screen and (max-width: 375px) {
   .home-page {
+    .home-form-title {
+      font-size: 1.35em;
+    }
+
     .fixed-bottom {
       bottom: 15px;
     }
@@ -303,14 +354,22 @@
     .form-control{
       width: 100%;
     }
+    a.home-form {
+      z-index: 5;
+      font-size: 1em;
+    }
   }
 }
 
 @media screen and (max-height: 375px) {
   .home-page {
-    .col-8 {
+    margin: 0;
+    padding: 0;
+    zoom: 80%;
+
+    .col-6 {
       flex: auto;
-      max-width: 100%;
+      max-width: 90%;
     }
     .row {
       .row {

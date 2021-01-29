@@ -3,118 +3,269 @@
   width: auto;
 }
 
-.profile-title-space{
-  margin-left: 7em;
-}
-
-.profile-button{
-  background-color: $main-green;
-  color: white;
-  border-radius: 500px;
-  margin:1rem;
-  padding:5px 16px;
-  transition: 0.5s;
-  &:hover{
-    font-weight: bold;
-    background-color: #18e48d;
+  .profile-title-space {
+    margin-left: 7em;
   }
-  a {
-    text-decoration: none;
-    color: $main-white;
-    font-size: 26px;
-  }
-}
 
-.profile-edit{
-  p{
-    margin-bottom: 0;
-  }
-}
-
-.profile-informations{
-  border-left: solid 5px $main-black;
-  padding-left: 1rem;
-  p{
-    margin: 4px 0;
-    font-size: 22px;
-  }
-}
-
-.profile-main{
-  p{
-    margin: 4px 0;
-    font-size: 22px;
-  }
-}
-
-.profile-separation {
-  width: 80%;
-  border-bottom: solid 5px $main-blue;
-  margin: 5em 0;
-}
-
-.green-string {
-  color:$main-green;
-}
-
-
-
-.profile-main-forms {
-  input, textarea, select {
+  .profile-button {
+    display: table-cell;
+    background-color: $main-orange;
+    color: white;
     border-radius: 500px;
-    border: solid 2px $main-green;
+    margin: 1rem;
+    padding: 5px 16px;
+    transition: 0.5s;
+
+    &:hover {
+      font-weight: bold;
+      background-color: #e5bc70;
+    }
+
+    a {
+      text-decoration: none;
+      color: $main-white;
+      font-size: 26px;
+    }
   }
-  textarea {
-    border-radius: 15px;
+
+  .form-modal-service {
+
+    .service-button {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #e5bc70;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+
+    button {
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      text-decoration: none;
+      color: $main-white;
+      font-size: 26px;
+    }
+
+    h3 {
+      margin-top: 20px;
+    }
+
+    .close {
+      color: $main-red;
+    }
   }
-  label, legend {
-    margin-bottom: 0.2rem;
-    margin-top: 0.5rem;
-    font-weight: bold;
+
+  .form-modal-knowledge {
+
+    .knowledge-button {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #e5bc70;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+
+    button {
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      text-decoration: none;
+      color: $main-white;
+      font-size: 26px;
+    }
+
+    h3 {
+      margin-top: 20px;
+    }
+
+    .close {
+      color: $main-red;
+    }
   }
-}
 
-.validate-button{
-  all: unset;
-  background-color: $main-green;
-  color: $main-white;
-  border-radius: 500px;
-  margin-top: 7px;
-  padding: 5px 20px;
-}
+  .form-modal-event {
 
-.custom-file-input{
-  opacity: 100%;
-}
+    .event-button {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
 
-.custom-file-label{
-  opacity:0;
-}
+      &:hover {
+        font-weight: bold;
+        background-color: #e5bc70;
+      }
 
-@media screen and (max-width: 770px) {
-  .show-items .part-title {
-    margin-top: 2em;
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+
+    button {
+      background-repeat: no-repeat;
+      border: none;
+      cursor: pointer;
+      overflow: hidden;
+      outline: none;
+      text-decoration: none;
+      color: $main-white;
+      font-size: 26px;
+    }
+
+    h3 {
+      margin-top: 20px;
+    }
+
+    .close {
+      color: $main-red;
+    }
   }
-}
 
-.delete-btn {
-  justify-content: center;
-  align-items: center;
-  color: $main-orange;
-  &:hover {
-    color: $main-red;
+  .profile-edit {
+    p {
+      margin-bottom: 0;
+    }
   }
-}
 
-button {
-  background-color: Transparent;
-  background-repeat:no-repeat;
-  border: none;
-  cursor:pointer;
-  overflow: hidden;
-  outline:none;
-}
+  .profile-informations {
+    border-left: solid 5px $main-black;
+    padding-left: 1rem;
 
+    p {
+      margin: 4px 0;
+      font-size: 22px;
+    }
+  }
+
+  .profile-main {
+    p {
+      margin: 4px 0;
+      font-size: 22px;
+    }
+  }
+
+  .profile-separation {
+    width: 80%;
+    border-bottom: solid 5px $main-blue;
+    margin: 5em 0;
+  }
+
+  .green-string {
+    color: $main-green;
+  }
+
+
+  .profile-main-forms {
+    input, textarea, select {
+      border-radius: 500px;
+      border: solid 2px $main-green;
+    }
+
+    textarea {
+      border-radius: 15px;
+    }
+
+    label, legend {
+      margin-bottom: 0.2rem;
+      margin-top: 0.5rem;
+      font-weight: bold;
+    }
+  }
+
+  .validate-button {
+    all: unset;
+    background-color: $main-green;
+    color: $main-white;
+    border-radius: 500px;
+    margin-top: 7px;
+    padding: 5px 20px;
+  }
+
+  .custom-file-input {
+    opacity: 100%;
+  }
+
+  .custom-file-label {
+    opacity: 0;
+  }
+
+  .form-edit-user {
+    .form-check {
+      display: none;
+    }
+
+    a {
+      display: none;
+    }
+  }
+
+  .picture-event {
+    width: 400px;
+    height: 200px;
+    object-fit: contain;
+  }
+
+  .picture-service {
+    width: 400px;
+    height: 200px;
+    object-fit: contain;
+  }
+
+
+  .delete-btn {
+    justify-content: center;
+    align-items: center;
+    color: $main-orange;
+
+    &:hover {
+      color: $main-red;
+    }
+  }
+
+  button {
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+  }
 
 @media screen and (max-width: 1200px) {
   .profile-informations {
@@ -134,8 +285,35 @@ button {
 }
 
 @media screen and (max-width: 992px) {
+  .text-center{
+    max-width: 80%;
+    margin-left: 5em;
+    .profile-main-forms {
+      margin: 3px;
+      flex: 0 0 80%;
+    }
+  }
   .profile-main-forms {
     margin: 3px;
+    flex: 0 0 80%;
+    max-width: 80%;
+  }
+  .card-container{
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .show-items .part-title {
+    margin-top: 2em;
+  }
+  .text-center{
+    max-width: 80%;
+    margin-left: 5em;
+  }
+  .profile-picture{
+    width: 300px;
+    height: auto;
   }
 }
 
@@ -144,3 +322,16 @@ button {
     display: flex;
   }
 }
+
+.adeli-notes {
+  font-size: 100%;
+  a{
+    color: $main-blue;
+    display: inline;
+    &:hover{
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+}
+

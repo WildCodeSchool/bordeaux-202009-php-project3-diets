@@ -3,41 +3,43 @@
 {% block title %}Contact{% endblock %}
 
 {% block contact %}
-    <div class="background-image page-contact">
-        <div class="divbody"><h2 class="page-title">Contactez-moi <i class="far fa-envelope"></i></h2></div>
-        <div class="contact-form">
-        <section class="contact-diet">
-            <ul class="ul-contact">
-                <li class="item-contact">
-                    Alexandra Jacob
-                </li>
-                <li class="item-contact">
-                    Rue des diéts - 33000 Bordeaux
-                </li>
-                <li class="item-contact">
-                    06.07.09.08.10
-                </li>
-                <li class="item-contact">
-                    contact@alexandra-jacob-diet.fr
-                </li>
-                <li class="item-contact">
-                    www.alexandra-jacob-dieteticienne.fr
-                </li>
-            </ul>
-        </section>
-            <div class="col-7 profile-main-forms">
-                <div class="form-service">
-                    {% form_theme formContact 'bootstrap_4_layout.html.twig' %}
-                    {{ form_start(formContact) }}
-                    {{ form_row(formContact.lastname) }}
-                    {{ form_row(formContact.firstname) }}
-                    {{ form_row(formContact.email) }}
-                    {{ form_row(formContact.phone) }}
-                    {{ form_row(formContact.message) }}
-                    <div class="d-flex flex-row-reverse">
-                        <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+    <div class="contact">
+        <div class="background-image page-contact">
+            <div class="divbody"><h2 class="page-title">Contactez-moi <i class="far fa-envelope"></i></h2></div>
+            <div class="contact-form">
+            <section class="contact-diet">
+                <ul class="ul-contact">
+                    <li class="item-contact">
+                        Alexandra Jacob
+                    </li>
+                    <li class="item-contact">
+                        Rue des diéts - 33000 Bordeaux
+                    </li>
+                    <li class="item-contact">
+                        06.07.09.08.10
+                    </li>
+                    <li class="item-contact">
+                        contact@alexandra-jacob-diet.fr
+                    </li>
+                    <li class="item-contact">
+                        www.alexandra-jacob-dieteticienne.fr
+                    </li>
+                </ul>
+            </section>
+                <div class="col-7 profile-main-forms">
+                    <div class="form-service">
+                        {% form_theme formContact 'bootstrap_4_layout.html.twig' %}
+                        {{ form_start(formContact) }}
+                        {{ form_row(formContact.lastname) }}
+                        {{ form_row(formContact.firstname) }}
+                        {{ form_row(formContact.email) }}
+                        {{ form_row(formContact.phone) }}
+                        {{ form_row(formContact.message) }}
+                        <div class="d-flex flex-row-reverse">
+                            <button class="btn mt-5">{{ button_label|default('Envoyer le mail') }}</button>
+                        </div>
+                        {{ form_end(formContact) }}
                     </div>
-                    {{ form_end(formContact) }}
                 </div>
             </div>
         </div>

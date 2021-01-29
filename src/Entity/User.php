@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
@@ -39,12 +40,12 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstname;
 
@@ -100,10 +101,16 @@ class User implements UserInterface
     private $isVerified = false;
 
     /**
-     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="user", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $registeredEvents;
+
+    /**
+     * @Assert\Country
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $country;
 
     public function __construct()
     {
@@ -199,7 +206,7 @@ class User implements UserInterface
         return $this->lastname;
     }
 
-    public function setLastname(string $lastname): self
+    public function setLastname(?string $lastname): self
     {
         $this->lastname = $lastname;
 
@@ -211,7 +218,7 @@ class User implements UserInterface
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): self
+    public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
 
@@ -354,7 +361,7 @@ class User implements UserInterface
         return $this->resources;
     }
 
-    public function addResource(Resource $resource): self
+    public function addResource(?Resource $resource): self
     {
         if (!$this->resources->contains($resource)) {
             $this->resources[] = $resource;
@@ -364,7 +371,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeResource(Resource $resource): self
+    public function removeResource(?Resource $resource): self
     {
         if ($this->resources->removeElement($resource)) {
             // set the owning side to null (unless already changed)
@@ -395,7 +402,7 @@ class User implements UserInterface
         return $this->registeredEvents;
     }
 
-    public function addRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function addRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if (!$this->registeredEvents->contains($registeredEvent)) {
             $this->registeredEvents[] = $registeredEvent;
@@ -405,7 +412,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeRegisteredEvent(RegisteredEvent $registeredEvent): self
+    public function removeRegisteredEvent(?RegisteredEvent $registeredEvent): self
     {
         if ($this->registeredEvents->removeElement($registeredEvent)) {
             // set the owning side to null (unless already changed)
@@ -413,6 +420,18 @@ class User implements UserInterface
                 $registeredEvent->setUser(null);
             }
         }
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
+
         return $this;
     }
 }

@@ -5,44 +5,55 @@
 {% endblock %}
 
 {% block body %}
-    <div class="knowledge-full-screen "></div>
-    <div class="firstdiv knowledge-page">
-    <div class="d-flex justify-content-center search-bar">
-        <h2 class="pb-5">Connaissances</h2>
-    </div>
-    <div class="d-flex justify-content-center search-bar">
-        {% if length == true %}
-            <h3 class="pb-5">Toutes les connaissances</h3>
-        {% elseif length == false %}
-            <h3 class="pb-5">Les 10 dernières connaissances</h3>
-        {% endif %}
-    </div>
-    <div class="d-flex flex-wrap justify-content-center align-items-end">
-        {% if length == false %}
-            <div class="knowledge-button justify-content-center">
-                <a href="{{ path('knowledge_index', {'length': 'last'}) }}">Voir toutes les connaissances</a>
+    <div class="knowledge-full-screen">
+        <div class="knowledge-image">
+            <div class="knowledge-page">
+                <div class="d-flex justify-content-center">
+                    <h2 class="page-title">Connaissances</h2>
+                </div>
+
+                <div class="search">
+                    <div class="form">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                {#  {{ form_row(formSearch.format) }}
+                                {{ form_row(formSearch.pathology) }}#}
+                                {{ form_start(formSearch) }}
+                            {{ form_widget(formSearch.search) }}
+                            <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+                            <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
+
+                            </div>
+
+                        </div>
+                        <div class=" d-flex row justify-content-around mt-4">
+                            {{ form_widget(formSearch.format) }}
+                            {{ form_widget(formSearch.pathology) }}
+                        </div>
+                        {{ form_end(formSearch) }}
+                    </div>
+                </div>
             </div>
-        {% elseif length == true %}
-            <div class="d-flex knowledge-button">
-                <a href="{{ path('knowledge_index', {'length': 'all'}) }}">Voir les dernières connaissances</a>
-            </div>
-        {% endif %}
-        {% if app.user %}
-            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                <div class="d-flex align-items-center">Je propose :</div>
+        </div>
+
+    <div class="two-btn">
+        <div class="search-all-form-container">
+
+            {{ form_start(form_search_all) }}
+            {{ form_widget(form_search_all) }}
+            <button type="submit" class="knowledge-see">Voir toutes les connaissances</button>
+            {{ form_end(form_search_all) }}
+        </div>
+
+    {% if app.user %}
+        <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
-                        une connaissance
+                        Créer une connaissance
                     </button>
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <h3 class="modal-title text-black-50" id="exampleModalLongTitle">Nouvelle connaissance</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
-                                    </button>
-                                </div>
                                 <div class="modal-body">
                                     {% include '/component/_newfiche_edit.html.twig' %}
                                 </div>
@@ -53,24 +64,32 @@
             </div>
         {% endif %}
     </div>
-    {% for resource in resources %}
+    </div>
+    {% if resourcesSearch is empty %}
+    <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
+    {% elseif resourcesSearch != last %}
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for resource in resourcesSearch %}
         <div class="container-fluid">
             <div class="row d-flex justify-content-center pb-3 pt-3">
                 <div class="col-5 pb-4">
-                    <div class="pb-2">
-                        <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                    <div class="pb-2 row">
+                        <h3 class="pb-1 knowledge-title col-11">{{ resource.name }}</h3>
+                        <div class="col-1">
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {% include '/knowledge/_delete_knowledge.html.twig' %}
+                            {% endif %}
                     </div>
-                    <div>
-                        <div class="pb-1">
-                            Lien proposé par :
-                            <a class="knowledge-link" href="{{ path('profile_show', {'id': resource.user.id}) }}">{{ resource.user.firstname }}</a>
                         </div>
+                    <div>
                         <div class="pb-1">
                             dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                         </div>
+                        {% if is_granted('ROLE_CONTRIBUTOR') %}
                         <div class="mt-4">
                             Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                         </div>
+                        {% endif %} #}
                     </div>
                     <div class="row d-flex justify-content-center pt-3 pb-3">
                         <div class="pl-3">Description :</div>
@@ -82,23 +101,7 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                {% if resource.resourceFormat.format == 'image' and resource.fileName != null %}
-                    <div class="d-flex col-3 justify-content-center align-items-center">
-                        <div>
-                            <img src="/uploads/resources/{{ resource.fileName }}" class="knowledge-img" alt="{{ resource.resourceFormat.format }}">
-                        </div>
-                    </div>
-                {% else %}
-                    <div class="d-flex col-3 justify-content-center align-items-center">
-                        <div class="knowledge-icon">
-                            {% if resource.resourceFormat.format == 'image' %}
-                                <i class="{{ resource.resourceFormat.icon }}"></i>
-                            {% else %}
-                                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
-                            {% endif %}
-                        </div>
-                    </div>
-                {% endif %}
+                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
             </div>
         </div>
         <div class="container-fluid">
@@ -107,6 +110,48 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="d-flex flex-wrap justify-content-center">
+        {%  for resource in resourcesLastUpdate  %}
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center pb-3 pt-3">
+                    <div class="col-5 pb-4">
+                        <div class="pb-2">
+                            <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                        </div>
+                        <div>
+                            <div class="pb-1">
+                                dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
+                            </div>
+                            {% if is_granted('ROLE_CONTRIBUTOR') %}
+                                <div class="mt-4">
+                                    Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="row d-flex justify-content-center pt-3 pb-3">
+                            <div class="pl-3">Description :</div>
+                            <p class="col">
+                                {{ resource.description }}
+                            </p>
+                        </div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
+                        {% endif %}
+                    </div>
+                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row d-flex justify-content-center">
+                    <div class="border-bottom col-md-8">
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     </div>
 {% endblock %}
