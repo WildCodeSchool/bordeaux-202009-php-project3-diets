@@ -33,9 +33,9 @@ class EventRepository extends ServiceEntityRepository
     public function nextEvent()
     {
         $queryBuilder = $this->createQueryBuilder('e')
-            ->where('e.dateStart >= :datecourant')
+            ->where('e.dateEnd >= :datecourant')
             ->setParameter('datecourant', new \Datetime(date('now')))
-            ->orderBy('e.dateStart', 'DESC');
+            ->orderBy('e.dateEnd', 'ASC');
 
         return $queryBuilder->getQuery()->getResult();
     }

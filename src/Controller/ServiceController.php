@@ -23,16 +23,21 @@ class ServiceController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager,
                           Request $request,
-                          ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
-    {
+                          ServiceRepository $serviceRepository,
+                          PictureRepository $pictureRepository): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         $services = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $services = $serviceRepository->findLikeName($search);
+            if (!$search) {
+                $services = $serviceRepository->findAll();
+            } else {
+                $services = $serviceRepository->findLikeName($search);
+            }
         }
+
 
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
