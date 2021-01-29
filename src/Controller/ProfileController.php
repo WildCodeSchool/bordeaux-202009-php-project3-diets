@@ -17,6 +17,7 @@ use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -56,18 +57,6 @@ class ProfileController extends AbstractController
             'user' => $user->getId()],
             ['updatedAt' => 'desc']
         );
-
-        $formEditUser = $this->createForm(UserEditType::class, $user);
-        $formEditUser->handleRequest($request);
-        if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if ($user->getRoles() != ['ROLE_ADMIN']) {
-                $user->setRoles(['ROLE_CONTRIBUTOR']);
-                $user->isVerified(true);
-                $entityManager->persist($user);
-                $entityManager->flush();
-            }
-            $this->getDoctrine()->getManager()->flush();
-        }
 
         $eventsOrganized = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
@@ -125,14 +114,50 @@ class ProfileController extends AbstractController
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'events_and_participants' => $eventsAndParticipantsArray,
-            'formEditUser' => $formEditUser->createView(),
             'formService' => $formService->createView(),
             'formEvent' => $formEvent->createView(),
             'resources' => $resources,
             'formResource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
+            'path' => 'profile_edit',
         ]);
     }
+
+
+    /**
+     * @Route("/profil/edit/{id}", methods={"GET", "POST"}, name="profil_edit")
+     * @return Response
+     */
+
+    public function editProfil(Request $request,
+                               int $id,
+                               UserRepository $userRepository,
+                               EntityManagerInterface $entityManager): Response
+    {
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        $formEditUser = $this->createForm(UserEditType::class, $user);
+        $formEditUser->handleRequest($request);
+        if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
+            /*if ($user->getRoles() != ['ROLE_ADMIN']) {
+                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->isVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }*/
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('profile_edit', [
+                'id' => $id,
+            ]);
+        }
+
+        return $this->render('component/_profil_edit.html.twig', [
+            'formEditUser' => $formEditUser->createView(),
+            'user' => $user,
+        ]);
+
+    }
+
 
     /**
      * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
@@ -230,9 +255,9 @@ class ProfileController extends AbstractController
      * @Route("/service/{id}", name="delete_service", methods={"DELETE"})
      */
     public function deleteService(
-                                    Request $request,
-                                    Service $service
-                                ): Response
+        Request $request,
+        Service $service
+    ): Response
     {
         if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
