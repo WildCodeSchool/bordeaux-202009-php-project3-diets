@@ -1,4 +1,23 @@
 .service {
+  .home-btn-main {
+    background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+    margin: 10px;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: $fs-h4;
+    font-weight: bold;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: $main-black;
+    border-radius: 10px;
+    display: block;
+    border: none;
+    &:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
   .service-img {
     height: 40em;
     background-image: url('/build/images/jwlez-9zy3GaH8NKM-unsplash.00855640.jpg');
