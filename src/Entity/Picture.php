@@ -11,7 +11,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @ORM\Entity(repositoryClass=PictureRepository::class)
  * @Vich\Uploadable
  */
-class Picture
+class Picture implements \Serializable
 {
     /**
      * @ORM\Id
@@ -123,5 +123,15 @@ class Picture
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return $this->name;
+    }
+
+    public function unserialize($serialized)
+    {
+        return $this->name;
     }
 }
