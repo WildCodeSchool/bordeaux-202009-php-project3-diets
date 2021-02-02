@@ -1,4 +1,26 @@
 .service {
+  .btn{
+    background-color: $bg-titleCard;
+  }
+  .home-btn-main {
+    background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+    margin: 10px;
+    padding: 10px 30px;
+    text-align: center;
+    font-size: $fs-h4;
+    font-weight: bold;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: $main-black;
+    border-radius: 10px;
+    display: block;
+    border: none;
+    &:hover {
+      background-position: right center;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
   .service-img {
     height: 40em;
     background-image: url('/build/images/jwlez-9zy3GaH8NKM-unsplash.00855640.jpg');
@@ -66,7 +88,7 @@
       justify-content: center;
 
       input {
-        width: 500px;
+        width: 100%;
         border-radius: 20px;
         height: 40px;
         outline-width: 0;
@@ -131,119 +153,43 @@
         }
       }
 
-      @media screen and (max-width: 834px) {
-
-        .search {
-          #search_resource {
-            margin-left: 0;
-          input {
-            width: 400px;
-          }
-        }
-          .search-text {
-            display: none;
-          }
-          .search-loop {
-            display: flex;
-            width: 40px;
-            height: 40px;
-            font-size: 18pt;
-            margin-bottom: 0;
-          }
+  @media screen and (max-width: 980px) {
+      .resultEmpty{
+        text-align: center;
+      }
+    .search {
+      #search_resource {
+        margin-left: 0;
+        input {
+          width: 100%;
         }
       }
-
-
-      @media screen and (max-width: 770px) {
-        h3 {
-          font-size: 25px;
-        }
-        .part-title {
-          margin-top: 0;
-        }
-        #service-textarea {
-          width: 300px;
-        }
-
-        .img-container {
-          img {
-            width: 300px;
-            height: auto;
-          }
-        }
-        .form-service {
-          padding-bottom: 5em;
-        }
-        .text-container {
-          margin: 1em 4em;
-        }
+      .search-text {
+        display: none;
       }
-
-      @media screen and (max-width: 540px) {
-        h3 {
-          font-size: 25px;
-        }
-        .part-title {
-      margin-top: 0;
-        }
-        #service-textarea {
-          width: 300px;
-        }
-
-        .img-container {
-          text-align: center;
-
-          img {
-            width: 300px;
-            height: auto;
-          }
-        }
-        .form-service {
-          padding-bottom: 5em;
-        }
-
-        .text-container {
-          margin-bottom: 3em;
-          margin-left: 2em;
-          margin-right: 2em;
-        }
+      .search-loop {
+        display: flex;
+        width: 40px;
+        height: 40px;
+        font-size: 18pt;
+        margin-bottom: 0;
       }
-      @media (min-width: 450px) and (max-width: 550px) {
-        .search {
-          #search_resource {
-            form {
-              align-items: center;
-              margin-right: 2em;
-            }
-            input {
-              width: 300px;
-            }
-          }
-        }
+    }
+    .service-img {
+      .cadre-service {
+        width: 70%;
       }
-      @media screen and (max-width: 450px) {
-        .search {
-          #search_resource {
-            input {
-              width: 250px;
-            }
-            form {
-              align-items: center;
-              margin-right: 50px;
-            }
-          }
-        }
-      }
+    }
+    .container-service{
+      width: 80%;
+    }
+    .proposed-services{
+      text-align: center;
+    }
+  }
 
-      @media screen and (max-width: 350px) {
-        .search {
-          #search_resource {
-            input {
-              width: 200px;
-            }
-          }
-        }
-      }
+
+
 }
 
 

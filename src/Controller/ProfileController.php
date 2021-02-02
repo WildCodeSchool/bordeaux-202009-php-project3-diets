@@ -139,16 +139,14 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            /*if ($user->getRoles() != ['ROLE_ADMIN']) {
+            if ($user->getRoles() != ['ROLE_ADMIN']) {
                 $user->setRoles(['ROLE_CONTRIBUTOR']);
                 $user->isVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
-            }*/
+            }
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile_edit', [
-                'id' => $id,
-            ]);
+            return $this->redirectToRoute('ressource_index');
         }
 
         return $this->render('component/_profil_edit.html.twig', [
