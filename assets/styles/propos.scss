@@ -3,13 +3,17 @@
     width: 400px;
     text-align: center;
   }
+  p {
+    line-height: 200%;
+  }
 }
 
 .propos-img-container{
   object-fit: cover;
   overflow: hidden;
-  display: flex;
   justify-content: center;
+  display: flex;
+  align-items: center;
 }
 
 .propos-part-title {
