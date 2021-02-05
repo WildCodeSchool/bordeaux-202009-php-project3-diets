@@ -18,12 +18,12 @@
                 {% form_theme form 'bootstrap_4_layout.html.twig' %}
                 {{ form_start(form) }}
                     {{ form_widget(form) }}
-                <button type="submit" class="home-btn-main">Créer une pathologie</button>
+                <button type="submit" class="home-btn-main">Créer une catégorie</button>
                 {{ form_end(form) }}
             </div>
             <div class="block-list mt-5">
                 <div>
-                    <h4>Les Pathologies en ligne</h4>
+                    <h4>Les Catégories en ligne</h4>
                 </div>
                 <div class="row text-center users-list mx-5">
                     {% for pathology in pathologies %}
@@ -68,7 +68,7 @@
         </div>
         <div class="block-list mt-5">
             <div>
-                <h4>Les Formats des ressources disponible</h4>
+                <h4>Les Formats des ressources disponibles</h4>
             </div>
             <div class="row text-center users-list mx-5">
                 {% for format in formats %}
@@ -90,7 +90,7 @@
         </div>
         <div class="block-list mt-5">
             <div>
-                <h4>Les Formats des évènements disponible</h4>
+                <h4>Les Formats des évènements disponibles</h4>
             </div>
             <div class="row text-center users-list mx-5">
                 {% for format in event_formats %}
