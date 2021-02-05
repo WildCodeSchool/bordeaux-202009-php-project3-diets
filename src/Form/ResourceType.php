@@ -33,7 +33,7 @@ class ResourceType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
-                'label' => 'Choisir une pathologie',
+                'label' => 'Choisir une catégorie',
             ])
             ->add('resourceFormat', EntityType::class, [
                 'label' => 'Choisir un format',
