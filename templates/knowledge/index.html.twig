@@ -101,7 +101,11 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                {% if resource.fileName is empty %}
+                    <div></div>
+                {% else %}
+                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                {% endif %}
             </div>
         </div>
         <div class="container-fluid">
@@ -141,7 +145,11 @@
                             <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                         {% endif %}
                     </div>
+            {% if resource.fileName is empty %}
+                    <div></div>
+            {% else %}
                     <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+            {% endif %}
                 </div>
             </div>
             <div class="container-fluid">
