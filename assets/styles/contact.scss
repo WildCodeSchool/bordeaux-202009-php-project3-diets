@@ -15,8 +15,6 @@
     font-size: 55px;
     margin-left: 40px;
 
-
-
   }
 
   .fa-envelope{
@@ -109,7 +107,7 @@
   @media screen and (max-width: 1024px){
     .contact-form {
       flex-direction: column;
-      margin-left: 19vh;
+      align-items: center;
       margin-top: 0;
       height: 800px;
       padding-bottom: 5vh;
@@ -134,7 +132,7 @@
   @media screen and (max-width: 768px){
     .contact-form {
       flex-direction: column;
-      margin-left: 14vh;
+      align-items: center;
       margin-top: 0;
       height: 750px;
     }
@@ -161,13 +159,14 @@
   @media screen and (max-width: 540px){
     .contact-form{
       margin-left: 2.5vh;
+      align-items: center;
     }
     .contact-diet{
-      width: 320px;
+      width: 100%;
       margin-bottom: 2em;
     }
     .form-control{
-      width: 150%;
+      width: 100%;
     }
   }
 }
