@@ -127,7 +127,7 @@
                 {%  for event in events  %}
                     <div class="container-fluid">
                         <div class="row d-flex justify-content-center pb-3 pt-3">
-                            <div class="col-lg-4 d-flex justify-content-center align-items-center">
+                            <div class="div-container col-lg-4 d-flex justify-content-center align-items-center">
                                 <div class="img-container">
                                     {% for picture in pictures %}
                                         {% if event.picture.id is same as (picture.id) %}
@@ -136,7 +136,7 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="col-5 pb-4">
+                            <div class="responsive col-5 pb-4">
                                 <div class="pb-2">
                                     <h3 class="pb-1 event-title">{{ event.name }}</h3>
                                 </div>
@@ -151,7 +151,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="row d-flex justify-content-center pt-3 pb-3">
-                                    <div class="pl-3">Description :</div>
+                                    <div class="descript pl-3">Description :</div>
                                     <p class="col">
                                         {{ event.description }}
                                     </p>
