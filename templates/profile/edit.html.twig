@@ -2,7 +2,6 @@
 
 {% block title %} Mon espace {% endblock %}
 {% block body %}
-    <div class="profile">
     {% set infos = user_infos %}
     {% set services = infos.services %}
     {% set resources = infos.resources %}
@@ -18,5 +17,4 @@
                 <div style="height:20px"></div>
             </div>
         {% endif %}
-    </div>
 {% endblock %}

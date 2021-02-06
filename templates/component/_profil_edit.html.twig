@@ -24,7 +24,31 @@
                 <div class="form-user">
                     {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(formEditUser) }}
-                    {{ form_widget(formEditUser) }}
+                    <div> {{ form_row(formEditUser.email) }} </div>
+                    <div> {{ form_row(formEditUser.lastname) }} </div>
+                    <div> {{ form_row(formEditUser.firstname) }} </div>
+                    <div> {{ form_row(formEditUser.birthday) }} </div>
+                    <div> {{ form_row(formEditUser.country) }} </div>
+                    <div> {{ form_row(formEditUser.adeli) }} </div>
+                    <div class="form-modal-event">
+                        <button type="button" class="no-adeli mb-2" data-toggle="modal" data-target="#modalEvent">
+                            je n'ai pas de numéro ADELI
+                        </button>
+                        <div class="modal fade" id="modalEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body text-center">
+                                        Vous pouvez tout de même vous inscrire sur le site Nous Les Diets.
+                                        Pour cela, il vous suffit de contacter <a href="{{ path('contact') }}">alexandra.jacob.diet@gmail.com</a>.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div> {{ form_row(formEditUser.address) }} </div>
+                    <div> {{ form_row(formEditUser.phone) }} </div>
+                    <div> {{ form_row(formEditUser.website) }} </div>
+                    <div> {{ form_row(formEditUser.picture) }} </div>
                     <button type="submit" class="btn mt-5">Editer mon profil</button>
                     {{ form_end(formEditUser) }}
                 </div>

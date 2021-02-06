@@ -33,9 +33,7 @@ class EventController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
-        PictureRepository $pictureRepository
-    ): Response
-    {
+        PictureRepository $pictureRepository): Response {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
@@ -55,7 +53,11 @@ class EventController extends AbstractController
         $eventSearch = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $eventSearch = $eventRepository->findLikeName($search);
+            if (!$search) {
+                $eventSearch = $eventRepository->findAll();
+            } else {
+                $eventSearch = $eventRepository->findLikeName($search);
+            }
         }
 
         /*$eventsAndOrganizers = $this->getDoctrine()
@@ -106,9 +108,7 @@ class EventController extends AbstractController
     public function deleteEvent(
         Request $request,
         Event $event,
-        RegisteredEventRepository $registeredEventRepository
-    ): Response
-    {
+        RegisteredEventRepository $registeredEventRepository): Response {
         if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $registeredEvents = $registeredEventRepository->findBy(['event' => $event]);

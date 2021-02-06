@@ -21,7 +21,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
-        for ($i = 0; $i <= 49; $i++) {
+        for ($i = 0; $i <= 48; $i++) {
             $user = new User();
             $user->setLastname($faker->lastName);
             $user->setFirstname($faker->firstName);
@@ -34,14 +34,34 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setPhone($faker->numberBetween(100000, 500000));
             $user->setWebsite($faker->domainName);
             $user->setCountry($faker->country);
-            $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
+            $user->addExpertise($this->getReference('expertise_' . rand(0, 48)));
             if ($i % 2 === 1) {
-                $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
+                $user->addExpertise($this->getReference('expertise_' . rand(0, 48)));
             };
             $user->setPicture($this->getReference('picture_' . $i));
             $this->addReference('user_' . $i, $user);
             $manager->persist($user);
         }
+
+        $user = new User();
+        $user->setLastname($faker->lastName);
+        $user->setFirstname($faker->firstName);
+        $user->setBirthday($faker->dateTime);
+        $user->setAdeli($faker->swiftBicNumber);
+        $user->setEmail('user@gmail.com');
+        $user->setAddress($faker->address);
+        $user->setPhone($faker->numberBetween(100000, 500000));
+        $user->setWebsite($faker->domainName);
+        $user->setCountry($faker->country);
+        $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
+        $user->setRoles(['ROLE_USER']);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'user'
+        ));
+        $user->setPicture($this->getReference('picture_49'));
+        $this->addReference('user_50', $user);
+        $manager->persist($user);
 
         $user = new User();
         $user->setLastname($faker->lastName);
@@ -54,10 +74,10 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setWebsite($faker->domainName);
         $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_CONTRIBUTOR']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'contributorpassword'
+            'contributor'
         ));
         $user->setPicture($this->getReference('picture_50'));
         $this->addReference('user_50', $user);
@@ -68,16 +88,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setFirstname($faker->firstName);
         $user->setBirthday($faker->dateTime);
         $user->setAdeli($faker->swiftBicNumber);
-        $user->setEmail('bonjour@bonjour.com');
+        $user->setEmail('admin@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
         $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 49)));
-        $user->setRoles(['ROLE_CONTRIBUTOR']);
+        $user->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'bonjour'
+            'admin'
         ));
         $user->setPicture($this->getReference('picture_51'));
         $this->addReference('user_51', $user);

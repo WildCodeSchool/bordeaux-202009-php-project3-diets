@@ -27,7 +27,7 @@
                         <div class="justify-content-center">
                             {% if app.user %}
                             <div class="d-flex justify-content-center mb-3">
-                                You are logged in as {{ app.user.username }}  <a href="{{ path('app_logout') }}" class="underline">.   Logout ?</a>
+                                Vous êtes connecté•ée en tant que {{ app.user.username }}  <a href="{{ path('app_logout') }}" class="underline">.   Se déconnecter ?</a>
                             </div>
                             {% endif %}
                             <div class="justify-content-center align-items-center container home-email">

@@ -3,8 +3,34 @@
     width: 400px;
     text-align: center;
   }
-
+  p {
+    line-height: 200%;
+  }
 }
+
+.propos-img-container{
+  object-fit: cover;
+  overflow: hidden;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.propos-part-title {
+  display: flex;
+  justify-content: center;
+}
+
+.propos-part-title-margin {
+  margin-top: 2em;
+}
+
+@media screen and (min-width: 540px) {
+  .propos-part-title-margin {
+    margin-top: 3em;
+  }
+}
+
 
 @media screen and (max-width: 768px){
   .container-fluid-propos{
@@ -13,7 +39,7 @@
       margin-left: auto;
       margin-right: auto;
     }
-    .img-container{
+    .propos-img-container{
       margin-left: auto;
       margin-right: auto;
     }
@@ -40,9 +66,8 @@
     img{
       margin-bottom: 1em;
     }
-    .img-container{
+    .propos-img-container{
       text-align: left;
-      padding: inherit;
     }
 
     .part-title{

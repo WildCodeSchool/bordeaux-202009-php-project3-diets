@@ -88,7 +88,7 @@
                         <div class="mt-4">
                             Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
                         </div>
-                        {% endif %} #}
+                        {% endif %}
                     </div>
                     <div class="row d-flex justify-content-center pt-3 pb-3">
                         <div class="pl-3">Description :</div>
@@ -100,7 +100,11 @@
                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                     {% endif %}
                 </div>
-                <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                {% if resource.fileName is empty %}
+                    <div></div>
+                {% else %}
+                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                {% endif %}
             </div>
         </div>
         <div class="container-fluid">
@@ -140,7 +144,11 @@
                             <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
                         {% endif %}
                     </div>
+            {% if resource.fileName is empty %}
+                    <div></div>
+            {% else %}
                     <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+            {% endif %}
                 </div>
             </div>
             <div class="container-fluid">

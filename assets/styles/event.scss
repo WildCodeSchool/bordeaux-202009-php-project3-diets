@@ -1,3 +1,6 @@
+.custom-file-input {
+  opacity: 100%;
+}
 .event-img {
   height: 40em;
   background-image: url('/build/images/louis-hansel-shotsoflouis-6Zor4BJCujY-unsplash.2400fefa.jpg');
@@ -9,7 +12,7 @@
     background-color: rgba(255, 255, 255, 0.7);
     font-size: 3em;
     font-family: $police-text;
-    width: 45%;
+    width: auto;
     border-style: double;
     border-color: $main-orange;
     height: 40%;
@@ -50,7 +53,6 @@
     }
   }
   .container-fluid {
-    display: flex;
     justify-content: flex-start;
     .event-title{
       border-bottom: solid;
@@ -148,8 +150,19 @@
 }
 
 @media screen and (max-width: 1200px){
+  .search {
+    input {
+      width: 90%;
+    }
+  }
   .text-container{
     margin: 1em 4em;
+  }
+  .event-img{
+    background-size: 80em;
+  }
+  .responsive {
+    margin-left: 8em;
   }
 }
 @media screen and (max-width: 834px) {
@@ -157,7 +170,7 @@
     #search_resource {
       margin-left: 0;
       input {
-        width: 400px;
+        width: 90%;
       }
     }
     .search-text {
@@ -171,14 +184,22 @@
       margin-bottom: 0;
     }
   }
+  .responsive {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 770px) {
+  .search {
+    input {
+      width: 90%;
+    }
+  }
   .text-container {
     margin: 1em 4em;
   }
 }
-  @media (min-width: 450px) and (max-width: 550px) {
+  @media (min-width: 530px) and (max-width: 550px) {
     .search {
       #search_resource {
         form {
@@ -186,31 +207,145 @@
           margin-right: 2em;
         }
         input {
-          width: 300px;
+          width: 90%;
         }
+
       }
     }
   }
+@media (min-width: 450px) and (max-width: 530px) {
+  .event {
+  .event-img {
+    background-size: 62em;
+    .page-event {
+      background-color: transparent;
+      font-size: 2em;
+      width: auto;
+      border-color: transparent;
+      height: 40%;
+      padding-top: 0.5em;
+      color: $main-green;
+      font-weight: bold;
+      border-radius: 20px;
+      margin-top: 5em;
+    }
+  }
+  .search {
+    .search-button{
+      margin-top: 0.4em;
+      margin-left: 0;
+    }
+    #search_resource {
+      form {
+        align-items: center;
+        margin-right: 2em;
+      }
+      input {
+        width: 90%;
+      }
 
-  @media screen and (max-width: 450px) {
-    .search {
-      #search_resource {
-        input {
-          width: 250px;
+
+    }
+  }
+}
+
+}
+
+  @media (min-width: 350px) and (max-width: 450px) {
+    .event {
+      .picture-service {
+        width: 350px;
+      }
+
+      .container-fluid{
+        padding-left: 0;
+        .descript{
+          padding-left: 0;
         }
+      }
+      .event-img {
+        background-size: 62em;
+
+        .page-event {
+          background-color: transparent;
+          font-size: 2em;
+          width: auto;
+          border-color: transparent;
+          height: 40%;
+          padding-top: 0.5em;
+          color: $main-green;
+          font-weight: bold;
+          border-radius: 20px;
+          margin-top: 5em;
+        }
+      }
+
+      .search {
         form {
-          align-items: center;
-          margin-right: 50px;
+          flex-direction: column;
+          margin-left: 0;
+        }
+        .search-button{
+          width:50%;
+          justify-content: center;
+          margin-left: 25%;
+        }
+        #search_resource {
+          form {
+            align-items: center;
+            margin-right: 50px;
+          }
+          input {
+            width: 90%;
+          }
         }
       }
     }
   }
 
-  @media screen and (max-width: 350px) {
-    .search {
-      #search_resource {
-        input {
-          width: 200px;
+  @media (min-width: 250px) and (max-width: 350px) {
+    .event {
+      .picture-service {
+        width: 270px;
+      }
+      .container-fluid{
+        padding-left: 0;
+      }
+      .event-img {
+        background-size: 62em;
+
+        .page-event {
+          background-color: transparent;
+          font-size: 2em;
+          width: auto;
+          border-color: transparent;
+          height: 40%;
+          padding-top: 0.5em;
+          color: $main-green;
+          font-weight: bold;
+          border-radius: 20px;
+          margin-top: 5em;
+        }
+      }
+
+      .search {
+        form {
+          flex-direction: column;
+          margin-left: 0;
+        }
+        .search-button{
+          width:50%;
+          justify-content: center;
+          margin-left: 25%;
+        }
+        #search_resource {
+          form {
+            align-items: center;
+            margin-right: 50px;
+          }
+          input {
+            width: 90%;
+          }
         }
       }
     }

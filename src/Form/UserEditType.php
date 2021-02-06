@@ -21,7 +21,7 @@ class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        \Locale::setDefault('en');
+        \Locale::setDefault('fr');
         $countries = array_flip(Countries::getNames());
         $builder
             ->add('email', EmailType::class, [
@@ -38,7 +38,7 @@ class UserEditType extends AbstractType
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Date d\'anniversaire *',
-                'years' => range(1920, 2020,1),
+                'years' => range(1920, 2020, 1),
                 'format' => 'dd-MM-yyyy',
                 'required' => true,
             ])
