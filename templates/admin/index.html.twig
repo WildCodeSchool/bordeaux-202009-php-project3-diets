@@ -3,8 +3,9 @@
 {% block title %} Page admin {% endblock %}
 {% block body %}
     <div class="admin-page">
+        <div class="input-group admin-title">
         <div class="d-flex justify-content-center">
-            <h2 class="page-title">• Admin •</h2>
+            <h2 class="page-title">• Ma page Admin •</h2>
         </div>
         <div class="container">
             <div class="row col-3">
@@ -14,121 +15,130 @@
                 </div>
             </div>
         </div>
-        <div class="container d-flex justify-content-center mt-3 mb-5">
-                {% form_theme form 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(form) }}
-                    {{ form_widget(form) }}
-                <button type="submit" class="home-btn-main">Créer une catégorie</button>
-                {{ form_end(form) }}
-            </div>
-            <div class="block-list mt-5">
-                <div>
-                    <h4>Les Catégories en ligne</h4>
+        </div>
+        <div class="container-fluid admin-create mt-5">
+            <div class="col-3 border">
+                <div class="container d-flex justify-content-center mt-3 mb-5">
+                    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                    <button type="submit" class="home-btn-main">Créer une catégorie</button>
+                    {{ form_end(form) }}
                 </div>
-                <div class="row text-center users-list mx-5">
-                    {% for pathology in pathologies %}
-                        <div class="col-md-4">
-                            <div class="d-flex pb-1">
-                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ pathology.name }} </a>
-                                <br>
-                            </div>
-                        </div>
-                    {% endfor %}
+                <div class="block-list mt-5">
+                    <div>
+                        <h4>Les Catégories en ligne</h4>
+                    </div>
+                    <div class="text-center users-list">
+                        {% for pathology in pathologies %}
+
+                                <div class="d-flex pb-1">
+                                    <p class="justify-content-start">{{ loop.index }}. {{ pathology.name }} </p>
+                                    <br>
+                                </div>
+
+                        {% endfor %}
+                    </div>
                 </div>
-        </div>
-
-        <div class="container d-flex justify-content-center mt-3 mb-5">
-            {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(form_expertise) }}
-            {{ form_widget(form_expertise) }}
-            <button type="submit" class="home-btn-second">Créer une expertise</button>
-            {{ form_end(form_expertise) }}
-        </div>
-        <div class="block-list mt-5">
-            <div>
-                <h4>Les Expertises en ligne</h4>
             </div>
-            <div class="row text-center users-list mx-5">
-                {% for expertise in expertises %}
-                    <div class="col-md-4">
-                        <div class="d-flex pb-1">
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ expertise.name }}
-                        </div>
+            <div class="col-3 border">
+                <div class="container d-flex justify-content-center mt-3 mb-5">
+                    {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_expertise) }}
+                    {{ form_widget(form_expertise) }}
+                    <button type="submit" class="home-btn-main">Créer une expertise</button>
+                    {{ form_end(form_expertise) }}
+                </div>
+                <div class="block-list mt-5">
+                    <div>
+                        <h4>Les Expertises en ligne</h4>
                     </div>
-                {% endfor %}
-            </div>
-        </div>
+                    <div class="text-center users-list">
+                        {% for expertise in expertises %}
 
-        <div class="container d-flex justify-content-center mt-3 mb-5">
-            {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(form_resource_format) }}
-            {{ form_widget(form_resource_format) }}
-            <button type="submit" class="btn-create-format">Créer un format de ressources</button>
-            {{ form_end(form_resource_format) }}
-        </div>
-        <div class="block-list mt-5">
-            <div>
-                <h4>Les Formats des ressources disponibles</h4>
-            </div>
-            <div class="row text-center users-list mx-5">
-                {% for format in formats %}
-                    <div class="col-md-4">
-                        <div class="d-flex pb-1">
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ format.format }}
-                        </div>
+                                <div class="d-flex pb-1">
+                                    <p class="justify-content-start">{{ loop.index }}. {{ expertise.name }} </p>
+                                </div>
+
+                        {% endfor %}
                     </div>
-                {% endfor %}
+                </div>
             </div>
-        </div>
-
-        <div class="container d-flex justify-content-center mt-3 mb-5">
-            {% form_theme form_event_format 'bootstrap_4_layout.html.twig' %}
-            {{ form_start(form_event_format) }}
-            {{ form_widget(form_event_format) }}
-            <button type="submit" class="home-btn-main">Créer un format pour les évènements</button>
-            {{ form_end(form_event_format) }}
-        </div>
-        <div class="block-list mt-5">
-            <div>
-                <h4>Les Formats des évènements disponibles</h4>
-            </div>
-            <div class="row text-center users-list mx-5">
-                {% for format in event_formats %}
-                    <div class="col-md-4">
-                        <div class="d-flex pb-1">
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ format.format }}
-                        </div>
+            <div class="col-3 border">
+                <div class="container d-flex justify-content-center mt-3 mb-5">
+                    {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_resource_format) }}
+                    {{ form_widget(form_resource_format) }}
+                    <button type="submit" class="home-btn-main">Créer un format de ressources</button>
+                    {{ form_end(form_resource_format) }}
+                </div>
+                <div class="block-list mt-5">
+                    <div>
+                        <h4>Les Formats des ressources disponibles</h4>
                     </div>
-                {% endfor %}
+                    <div class="text-center users-list">
+                        {% for format in formats %}
+
+                                <div class="d-flex pb-1">
+                                    <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
+                                </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-3 border">
+                <div class="container d-flex justify-content-center mt-3 mb-5">
+                    {% form_theme form_event_format 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_event_format) }}
+                    {{ form_widget(form_event_format) }}
+                    <button type="submit" class="home-btn-main">Créer un format pour les évènements</button>
+                    {{ form_end(form_event_format) }}
+                </div>
+                <div class="block-list mt-5">
+                    <div>
+                        <h4>Les Formats des évènements disponibles</h4>
+                    </div>
+                    <div class="text-center users-list">
+                        {% for format in event_formats %}
+
+                                <div class="d-flex pb-1">
+                                    <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
+                                </div>
+
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
-
-
-        <div class="block-list">
-            <div>
+        <div class="admin-create flex-column my-5">
+            <div class="d-flex justify-content-center">
                 <h4>Liste des inscrits </h4>
             </div>
-            <div class="row text-center users-list mx-5">
+            <div class="d-flex justify-content-center">
+            <div class="row text-center users-list col-9">
                 {% for listed_user in registered_user %}
                     {% if app.user.id != listed_user.id %}
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <div class="d-flex pb-1">
-                            {{ include('admin/_delete_user.html.twig') }}
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
-                            <br>
+                                {{ include('admin/_delete_user.html.twig') }}
+                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
+                                <br>
                             </div>
                         </div>
                     {% endif %}
                 {% endfor %}
             </div>
-        </div>
-        <div class="block-list">
-            <div>
-            <h4>Liste des évènements à valider </h4>
             </div>
-            <div class="row text-center users-list mx-5">
+        </div>
+        <div class="admin-create flex-column my-5">
+            <div class="d-flex justify-content-center">
+                <h4>Liste des évènements à valider </h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="row text-center users-list col-9">
                 {% for event in event_for_validation %}
-                    <div class="col-md-4">
+                    <div class="col-4">
                         <div class="d-flex pb-1">
                             <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} </a>
                             <form method="post" action="{{ path('valid_event') }}"><input type="hidden" value="{{ event.id }}" name="event"><button>Ok</button></form>
@@ -136,13 +146,15 @@
                         </div>
                     </div>
                 {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="block-list">
-            <div>
-            <h4>Liste des services à valider </h4>
+        <div class="admin-create flex-column my-5">
+            <div class="d-flex justify-content-center">
+                <h4>Liste des services à valider </h4>
             </div>
-            <div class="row text-center users-list mx-5">
+            <div class="d-flex justify-content-center">
+                <div class="row text-center users-list col-9">
                 {% for service in service_for_validation %}
                     <div class="col-md-4">
                         <div class="d-flex pb-1">
@@ -152,6 +164,7 @@
                         </div>
                     </div>
                 {% endfor %}
+            </div>
             </div>
         </div>
     </div>

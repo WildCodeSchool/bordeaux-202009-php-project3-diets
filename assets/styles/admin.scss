@@ -1,7 +1,33 @@
 .admin-page {
+  .admin-title {
+    background-image: url('/build/images/image-ressource.19d4737e.jpg');
+    background-size: 110em;
+    justify-content: center;
+    margin: 0 auto;
+    width: 80%;
+
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-family: $police-text;
+
+    border-style: double;
+    border-color: $main-orange;
+    padding-top: 0.5em;
+    color: $main-green;
+    font-weight: bold;
+    border-radius: 20px;
+  }
+
   .page-title {
     margin-top: 3em;
     margin-bottom: 0;
+    border-style: double;
+    border-color: $main-orange;
+    padding: 0.25em 0.5em;
+    color: $main-green;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: white;
   }
 
   .block-list {
@@ -25,6 +51,7 @@
 
   .admin-count {
     display: flex;
+    align-items: center;
     font-size: $fs-h4;
     padding: 0 1em;
     margin: 0 0 0.5em 0;
@@ -32,10 +59,12 @@
     border-radius: 0.5em;
     border-width: 0.1em 0.2em;
     border-color: $main-green;
+    background-color: $main-white;
   }
 
   .admin-count-title {
     display: flex;
+    color: $main-white;
     background-color: $main-green;
     font-size: $fs-h5;
     padding: 0.1em 1em;
@@ -43,6 +72,10 @@
     border-radius: 1em;
     border-color: $main-green;
     margin-bottom: 2em;
+  }
+
+  .admin-create {
+    display: flex;
   }
 
   .user-link {
