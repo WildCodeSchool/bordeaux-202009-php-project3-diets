@@ -3,13 +3,12 @@
   padding-top: 15vh;
 }
 .home-full-screen{
-  background-image: url('/build/images/image-première-page-5.64e851f6.jpg');
+  background: url('/build/images/image-première-page-5.64e851f6.jpg') no-repeat center center fixed;
   background-size: cover;
-  background-attachment: fixed;
 }
 
 .home-main-container{
-  height: 80vh;
+  height: 95%;
 }
 
 .home-logo {
@@ -113,6 +112,7 @@
 
   input {
     max-width: 100%;
+
   }
 
   .form-agree {
@@ -146,11 +146,15 @@
   .home-email,
   .home-password {
     display: flex;
+    margin-bottom: 0.5em;
   }
 
   .card-radius {
     background-color: transparentize(white, 0.4);
     border-radius: 25px;
+    border: solid;
+    border-style: double;
+    border-color: $main-orange;
   }
 
   .underline {
@@ -179,7 +183,7 @@
 .visit-link {
   display: flex;
   align-items: center;
-  position: fixed;
+  justify-content: flex-end;
   right: 6vh;
 }
 
@@ -191,8 +195,19 @@
 }
 
 @media screen and (max-width: 1380px) {
+  .home-full-screen{
+    background-size: 100% 100%;
+  }
   .home-main-container {
-    height: 95vh;
+    //height: 95vh;
+  }
+
+  .text-center {
+    margin-left: 0;
+    .home-email,
+    .home-password {
+      display: flex;
+    }
   }
 }
 
@@ -201,15 +216,21 @@
     display: grid;
     align-items: center;
 
+    .text-center {
+      margin-left: 0;
+      .home-email,
+      .home-password {
+        display: flex;
+      }
+    }
+
     .home-main-container{
-      height: 95vh;
+      //height: 95vh;
     }
     .container {
       max-width: 100%;
     }
-    .row {
-      display: block;
-    }
+
     .container-table .row {
       margin-top: 80px;
     }
@@ -241,6 +262,7 @@
       display: block;
       max-width: 100%;
       justify-content: center;
+      margin-left: 0;
       .col-3,
       .col-5 {
         flex: auto;
@@ -258,6 +280,7 @@
     .home-btn-second {
       padding: 8px 10px;
       margin: 30px 10px;
+      max-width: 100%;
     }
   }
 }
@@ -268,8 +291,16 @@
     padding: 0;
     max-width: 100%;
 
+    .text-center {
+      margin-left: 0;
+      .home-email,
+      .home-password {
+        display: flex;
+      }
+    }
+
     .home-main-container {
-      height: 93vh;
+      //height: 93vh;
     }
     .home-logo {
       font-size: 3rem;
@@ -306,18 +337,49 @@
 }
 
 @media screen and (max-width: 769px){
+  .home-full-screen{
+    background-size: 135% 100%;
+  }
   .home-page{
+    .text-center {
+      margin-left: 0;
+      .home-email,
+      .home-password {
+        display: flex;
+      }
+    }
+    .home-row {
+      display: block;
+    }
     .col-6 {
       max-width: 95%;
     }
     .home-main-container {
-      height: 80vh;
+      //height: 80vh;
+      display: grid;
+      align-items: center;
+    }
+    .card {
+      word-wrap: normal;
     }
   }
 }
 
 @media screen and (max-width: 375px) {
   .home-page {
+    .text-center {
+      margin-left: 0;
+      .home-email,
+      .home-password {
+        display: flex;
+      }
+    }
+
+    .col-8 {
+      flex: 1;
+      max-width: 100%;
+    }
+
     .home-form-title {
       font-size: 1.35em;
     }
@@ -342,8 +404,7 @@
       font-size: $fs-h4;
     }
     .visit-link {
-      justify-content: center;
-      position: static;
+      justify-content: flex-end;
       margin-top: 15px;
     }
 
@@ -358,15 +419,26 @@
       z-index: 5;
       font-size: 1em;
     }
+    .home-attestation {
+      font-size: 0.8em;
+    }
+  }
+}
+
+@media screen and (max-height: 767px) and (orientation: landscape) {
+  .home-page {
+    margin: 0;
+    padding: 0;
+    zoom: 50%;
+  }
+  .visit-link {
+    bottom: 10em;
+    right: 2em;
   }
 }
 
 @media screen and (max-height: 375px) {
   .home-page {
-    margin: 0;
-    padding: 0;
-    zoom: 80%;
-
     .col-6 {
       flex: auto;
       max-width: 90%;
@@ -380,6 +452,7 @@
     .home-btn-second {
       padding: 8px 10px;
       margin: 10px 30px;
+      max-width: 100%;
     }
   }
 }
@@ -394,5 +467,11 @@
       font-size: 1.5rem;
       padding-bottom: 0.1em;
     }
+  }
+}
+
+@media screen and (min-height:768px) and (orientation: landscape) {
+  .home-main-container {
+    height: 80vh;
   }
 }
