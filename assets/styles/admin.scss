@@ -76,6 +76,9 @@
 
   .admin-create {
     display: flex;
+    input {
+      border-color: $main-black;
+    }
   }
 
   .user-link {
@@ -105,3 +108,58 @@
   }
 }
 
+@media screen and (max-width: 972px) {
+  .admin-page {
+    .admin-count-block {
+      margin-top: 2em;
+    }
+    .admin-create {
+      display: grid;
+      .col-3 {
+        justify-content: center;
+        max-width: 80%;
+        margin: 0 auto;
+      }
+      .col-4 {
+        max-width: 50%;
+        flex: 0 0 50%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 769px){
+  .admin-page {
+    .admin-create {
+      .col-4 {
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+    .page-title {
+      font-size: $fs-h3;
+    }
+    .admin-count-block {
+      flex: none;
+      justify-content: center;
+      margin-top: 2em;
+      .col-3 {
+        flex: none;
+        max-width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 350px) {
+  .admin-page {
+    .admin-create {
+      .col-3 {
+        margin: 0;
+        max-width: 75%;
+      }
+    }
+  }
+}

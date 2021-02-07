@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-center">
             <h2 class="page-title">• Ma page Admin •</h2>
         </div>
-        <div class="container">
+        <div class="container admin-count-block">
             <div class="row col-3">
                 <div class="flex-column">
                     <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
@@ -156,7 +156,7 @@
             <div class="d-flex justify-content-center">
                 <div class="row text-center users-list col-9">
                 {% for service in service_for_validation %}
-                    <div class="col-md-4">
+                    <div class="col-4">
                         <div class="d-flex pb-1">
                             <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }} </a>
                             <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>

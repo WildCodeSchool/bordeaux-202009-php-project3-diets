@@ -1,10 +1,12 @@
-.firstdiv{
+.firstdiv {
   background-color: $main-grey;
   padding-top: 15vh;
 }
-.home-full-screen{
+.home-full-screen {
+  display: flex;
+  overflow-y : hidden;
   background: url('/build/images/image-première-page-5.90d64914.jpg') no-repeat center center fixed;
-  background-size: cover;
+  background-size: 100% 100%;
 }
 
 .home-main-container{
