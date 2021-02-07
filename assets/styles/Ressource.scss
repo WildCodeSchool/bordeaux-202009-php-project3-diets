@@ -19,7 +19,6 @@
       font-weight: bold;
       border-radius: 20px;
       margin-top: 2.5em;
-
     }
     .plateform{
       font-family: $police-text;
@@ -28,6 +27,11 @@
     }
     .fas{
       color: $main-orange;
+      outline:none;
+    }
+    button:focus {
+      border: none;
+      outline:none;
     }
   }
   .card-container{
