@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block body %}
+<div class="knowledge">
     <div class="knowledge-full-screen">
         <div class="knowledge-image">
             <div class="knowledge-page">
@@ -26,7 +27,7 @@
                             </div>
 
                         </div>
-                        <div class=" d-flex row justify-content-around mt-4">
+                        <div class=" d-flex row justify-content-around mt-4 option-search">
                             {{ form_widget(formSearch.format) }}
                             {{ form_widget(formSearch.pathology) }}
                         </div>
@@ -175,5 +176,6 @@
         {% endfor %}
     </div>
     {% endif %}
+        </div>
     </div>
 {% endblock %}

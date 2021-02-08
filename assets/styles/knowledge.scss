@@ -1,219 +1,318 @@
-.knowledge-image {
-  height: 40em;
-  background-image: url('/build/images/image-ressource.19d4737e.jpg');
-  background-size: 110em;
-  display: flex;
-  justify-content: center;
-  overflow-y : hidden;
-  .knowledge-page {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    font-family: $police-text;
-    width: 45%;
-    border-style: double;
-    border-color: $main-orange;
-    height: 45%;
-    padding-top: 0.5em;
-    color: $main-green;
-    font-weight: bold;
-    border-radius: 20px;
-    margin-top: 13em;
-  }
-}
-.knowledge-full-screen {
-
-  .page-title {
-    margin-top: 0;
-    margin-bottom: 1em;
-    font-weight: bold;
-  }
-  .search {
-    margin-bottom: 6em;
+.knowledge {
+  .knowledge-image {
+    height: 40em;
+    background-image: url('/build/images/image-ressource.19d4737e.jpg');
+    background-size: 110em;
     display: flex;
     justify-content: center;
-    .input-group-prepend {
-      display: flex;
+    overflow-y : hidden;
+    .knowledge-page {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.8);
+      font-family: $police-text;
+      width: auto;
+      border-style: double;
+      border-color: $main-orange;
+      height: 40%;
+      padding-top: 0.5em;
+      color: $main-green;
+      font-weight: bold;
+      border-radius: 20px;
+      margin-top: 13em;
     }
-    form {
+  }
+  .knowledge-full-screen {
+
+    .page-title {
+      margin-top: 0;
+      margin-bottom: 1em;
+      font-weight: bold;
+    }
+    .search {
+      margin-bottom: 6em;
       display: flex;
       justify-content: center;
-      margin-left: 2.5em;
-      .search-loop {
+      .input-group-prepend {
+        display: flex;
+      }
+      form {
+        display: flex;
+        justify-content: center;
+        margin-left: 2.5em;
+        margin-right: 2.5em;
+        .search-loop {
+          display: none;
+        }
+
+        .search-button{
+          padding: 7px 7px;
+          margin-left: 10px;
+          margin-right: 0;
+          border-radius: 20px;
+          margin-top: 0;
+          font-weight: bold;
+          text-transform: none;
+          color: white;
+          background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+        }
+        input {
+          width: 500px;
+          border-radius: 20px;
+          height: 40px;
+          font-size: 20pt;
+          outline-width: 0;
+        }
+        }
+        select{
+          border-color: transparent;
+          //background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+          background-color: white;
+          border-color: $main-orange;
+          padding: 7px 7px;
+          margin-left: 10px;
+          border-radius: 20px;
+          color: $main-black;
+          outline-width: 0;
+        }
+
+      }
+
+    .knowledge-title {
+      border-bottom: solid;
+      border-bottom-color: $main-orange;
+    }
+    .knowledge-img {
+      max-width: 500px;
+      height: auto;
+    }
+    .two-btn {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .knowledge-see {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      font-size: 26px;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #e5bc70;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+
+    .knowledge-link,
+    .knowledge-icon,
+    .knowledge-icon a
+    {
+      text-decoration: none;
+      color: $main-black;
+    }
+
+    .knowledge-link:hover,
+    .knowledge-icon a:hover
+    {
+      text-decoration: none;
+      color: $main-green;
+    }
+
+    .knowledge-button {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #e5bc70;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+
+    .form-modal {
+      button {
+        background-repeat:no-repeat;
+        border: none;
+        cursor:pointer;
+        overflow: hidden;
+        outline:none;
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+      h3 {
+        margin-top: 20px;
+      }
+      .close {
+        color: $main-red;
+      }
+      .form-check-input{
+        margin-top: 0.7rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    .knowledge-page {
+      .col-5 {
+        flex: none;
+        max-width: none;
+      }
+
+      .knowledge-img {
+        justify-content: center;
+      }
+    }
+    .knowledge-image {
+      background-size: 80em;
+    }
+    .search {
+      input {
+        width: 90%;
+      }
+    }
+  }
+  @media screen and (max-width: 850px) {
+
+    .search {
+      .input-group-prepend {
+        margin-left: 0;
+        form .search-loop {
+          display: flex;
+          width: 40px;
+          height: 40px;
+          font-size: 18pt;
+          margin-bottom: 0;
+        }
+
+        input {
+          width: 90%;
+        }
+      }
+      .search-text {
         display: none;
       }
 
-      .search-button{
-        padding: 7px 7px;
-        margin-left: 10px;
-        border-radius: 20px;
-        margin-top: 0;
-        font-weight: bold;
-        text-transform: none;
-        color: white;
-        background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+    }
+
+  }
+  @media screen and (max-width: 768px) {
+
+    .knowledge-page {
+      .col-5 {
+        flex: none;
+        max-width: none;
       }
-      input {
-        width: 500px;
-        border-radius: 20px;
-        height: 40px;
-        outline-width: 0;
+    }
+    form {
+      .search-loop {
+        display: flex !important;
       }
+
+      .knowledge-img {
+        max-width: 100%;
+        height: auto;
       }
-      select{
+
+      .search-button {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .knowledge-image {
+      .knowledge-page {
+        background-color: transparent;
+        font-size: 2em;
+        width: auto;
         border-color: transparent;
-        //background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
-        background-color: white;
-        border-color: $main-orange;
-        padding: 7px 7px;
-        margin-left: 10px;
-        border-radius: 20px;
-        color: $main-black;
-        outline-width: 0;
+        height: 40%;
+        padding-top: 0.5em;
+        font-weight: bold;
+        margin-top: 5em;
       }
-
     }
-
-  .knowledge-title {
-    border-bottom: solid;
-    border-bottom-color: $main-orange;
-  }
-  .knowledge-img {
-    max-width: 500px;
-    height: auto;
-  }
-  .two-btn {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  .knowledge-see {
-    display: table-cell;
-    background-color: $main-orange;
-    color: white;
-    font-size: 26px;
-    border-radius: 500px;
-    margin: 1rem;
-    padding: 5px 16px;
-    transition: 0.5s;
-
-    &:hover {
-      font-weight: bold;
-      background-color: #e5bc70;
-    }
-
-    a {
-      text-decoration: none;
-      color: $main-white;
-      font-size: 26px;
+    .option-search {
+      flex-wrap: nowrap;
+      select {
+        width: 25%;
+        font-size: 12pt;
+      }
     }
   }
-
-  .knowledge-link,
-  .knowledge-icon,
-  .knowledge-icon a
-  {
-    text-decoration: none;
-    color: $main-black;
-  }
-
-  .knowledge-link:hover,
-  .knowledge-icon a:hover
-  {
-    text-decoration: none;
-    color: $main-green;
-  }
-
-  .knowledge-button {
-    display: table-cell;
-    background-color: $main-orange;
-    color: white;
-    border-radius: 500px;
-    margin: 1rem;
-    padding: 5px 16px;
-    transition: 0.5s;
-
-    &:hover {
-      font-weight: bold;
-      background-color: #e5bc70;
-    }
-
-    a {
-      text-decoration: none;
-      color: $main-white;
-      font-size: 26px;
-    }
-  }
-
-  .form-modal {
-    button {
-      background-repeat:no-repeat;
-      border: none;
-      cursor:pointer;
-      overflow: hidden;
-      outline:none;
-      text-decoration: none;
-      color: $main-white;
-      font-size: 26px;
-    }
-    h3 {
-      margin-top: 20px;
-    }
-    .close {
-      color: $main-red;
-    }
-    .form-check-input{
-      margin-top: 0.7rem;
-    }
-  }
-}
-
-@media screen and (max-width: 1200px) {
-  .knowledge-page {
-    .col-5 {
-      flex: none;
-      max-width: none;
-    }
-
-    .knowledge-img {
-      justify-content: center;
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .knowledge-page {
-    .col-5 {
-      flex: none;
-      max-width: none;
-    }
-
-    .knowledge-img {
-      max-width: 100%;
+  @media screen and (max-width: 600px) {
+    .knowledge-image {
+      background-size: 62em;
       height: auto;
     }
+    .search {
+      .form {
+        .input-group-prepend {
+          input {
+            width: 100%;
+          }
+        }
+      }
+    }
   }
-}
+  @media screen and (max-width: 450px) {
+    .search {
+      .form {
+        .input-group-prepend {
+          form {
+            margin-left: 0.5em;
+            margin-right: 0.5em;
+          }
+        }
+      }
 
-@media screen and (max-width: 450px) {
-  .knowledge-page {
-    h2 {
-      font-size: $fs-h3;
-    }
+      }
 
-    h3 {
-      font-size: $fs-h4;
+    .option-search {
+      select {
+        font-size: 10pt;
+        width: 30%;
+      }
     }
+    .knowledge-page {
+      h2 {
+        font-size: $fs-h3;
+      }
 
-    .knowledge-button,
-    .knowledge-button a {
-      font-size: $fs-h4;
-      justify-content: space-evenly;
-      align-items: center;
-      text-align: center;
-    }
-    .form-modal {
-      button {
+      h3 {
         font-size: $fs-h4;
+      }
+
+      .knowledge-button,
+      .knowledge-button a {
+        font-size: $fs-h4;
+        justify-content: space-evenly;
+        align-items: center;
+        text-align: center;
+      }
+      .form-modal {
+        button {
+          font-size: $fs-h4;
+        }
       }
     }
   }
