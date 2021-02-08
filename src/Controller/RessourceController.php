@@ -78,10 +78,6 @@ class RessourceController extends AbstractController
                     ->findAll();
         }
 
-
-        /*$events = $this->getDoctrine()
-            ->getRepository(Event::class)
-            ->findBy(array(), array('dateStart' => 'desc'), 4);*/
         $events = $eventRepository->nextEventByFour();
 
 
@@ -103,15 +99,15 @@ class RessourceController extends AbstractController
             ],
             self::NBRESOURCE
         );
-        
+
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
             'events' => $events,
-            'resourcesLastUpdate' => $resourcesLastUpdate,
-            'servicesLastUpdate' => $servicesLastUpdate,
-            'resourcesSearch' => $resourcesSearch,
+            'resources_last_update' => $resourcesLastUpdate,
+            'services_last_update' => $servicesLastUpdate,
+            'resources_search' => $resourcesSearch,
             'last' => ['last'],
-            'formSearch' => $formSearch->createView(),
+            'form_search' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
         ]);
     }
