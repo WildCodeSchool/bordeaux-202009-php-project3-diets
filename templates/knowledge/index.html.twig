@@ -71,7 +71,7 @@
         {% for resource in resourcesSearch %}
         <div class="container-fluid">
             <div class="row d-flex justify-content-center pb-3 pt-3">
-                <div class="col-5 pb-4">
+                <div class="col-8 col-lg-5 pb-4">
 
                     <div class="d-flex container">
                         <div class="pb-2 col-11">
@@ -95,7 +95,7 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div class="row d-flex justify-content-center pt-3 pb-3">
+                    <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
                         <div class="pl-3">Description :</div>
                         <p class="col">
                             {{ resource.description }}
@@ -125,7 +125,7 @@
         {%  for resource in resourcesLastUpdate  %}
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center pb-3 pt-3">
-                    <div class="col-5 pb-4">
+                    <div class="col-8 col-lg-5 pb-4">
 
                         <div class="d-flex container">
                             <div class="pb-2 col-11">
@@ -149,7 +149,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="row d-flex justify-content-center pt-3 pb-3">
+                        <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
                             <div class="pl-3">Description :</div>
                             <p class="col">
                                 {{ resource.description }}
