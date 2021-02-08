@@ -159,6 +159,9 @@
           list-style-type: none;
         }
       }
+      #service_picture_pictureFile_file{
+        overflow: hidden;
+      }
 
   @media screen and (max-width: 980px) {
       .resultEmpty{
