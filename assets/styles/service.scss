@@ -57,7 +57,7 @@
   .search-loop {
     display: none;
   }
-  .search {
+  .searchService {
     margin-bottom: 6em;
     form{
       display: flex;
@@ -67,11 +67,9 @@
     }
     .search-button{
       padding: 7px 7px;
-      //margin-left: 10px;
       margin: 14px;
       border-radius: 20px;
       color: white;
-      //margin-top: 0;
       background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
     }
 
@@ -164,27 +162,26 @@
       .resultEmpty{
         text-align: center;
       }
-    .search {
+    .searchService {
       #search_resource {
         margin-left: 0;
         input {
           width: 100%;
         }
       }
-      .search-text {
-        display: none;
-      }
-      .search-loop {
-        display: flex;
-        width: 40px;
-        height: 40px;
-        font-size: 18pt;
-        margin-bottom: 0;
-      }
     }
     .service-img {
       .cadre-service {
-        width: 70%;
+        background-color: transparent;
+        font-size: 2em;
+        width: auto;
+        border-color: transparent;
+        height: 40%;
+        padding-top: 0.5em;
+        color: $main-green;
+        font-weight: bold;
+        border-radius: 20px;
+        margin-top: 5em;
       }
     }
     .container-service{
@@ -195,8 +192,18 @@
     }
   }
 
+  @media screen and (max-width: 639px) {
+    .searchService {
+      form{
+        flex-wrap: wrap;
+      }
+      #search_resource {
+        margin-left: 0;
+        margin-right: 40px;
+      }
+    }
 
-
+  }
 }
 
 
