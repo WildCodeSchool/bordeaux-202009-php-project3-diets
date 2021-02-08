@@ -53,10 +53,10 @@ class ServiceController extends AbstractController
             ->findBy(array(), array('id' => 'desc'));
 
         return $this->render('service/index.html.twig', [
-            'formService' => $formService->createView(),
+            'form_service' => $formService->createView(),
             'services' => $service,
-            'formSearch' => $formSearch->createView(),
-            'servicesSearch' => $services,
+            'form_search' => $formSearch->createView(),
+            'services_search' => $services,
             'pictures' => $pictureRepository->findAll(),
             'path' => 'service_index',
         ]);

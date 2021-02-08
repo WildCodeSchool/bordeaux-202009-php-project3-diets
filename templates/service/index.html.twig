@@ -9,11 +9,11 @@
                     <h2 class="page-title">Service</h2>
                 </div>
                 <div class="search">
-                    {{ form_start(formSearch) }}
-                    {{ form_widget(formSearch) }}
+                    {{ form_start(form_search) }}
+                    {{ form_widget(form_search) }}
                     <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
                     <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
-                    {{ form_end(formSearch) }}
+                    {{ form_end(form_search) }}
                 </div>
             </div>
         </div>
@@ -38,12 +38,12 @@
         </div>
         {% endif %}
         <div>
-            {% if servicesSearch %}
+            {% if services_search %}
             <div>
                 <h3 class="part-title mt-4">Services Proposés :</h3>
             </div>
             <div class="row justify-content-start">
-                {% for service in servicesSearch %}
+                {% for service in services_search %}
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">

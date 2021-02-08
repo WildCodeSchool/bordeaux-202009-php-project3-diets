@@ -60,43 +60,15 @@ class EventController extends AbstractController
             }
         }
 
-        /*$eventsAndOrganizers = $this->getDoctrine()
-            ->getRepository(RegisteredEvent::class)
-            ->findBy(['isOrganizer' => true]);
-        $eventsAndOrganizersArray = [];
-        foreach ($eventsAndOrganizers as $eventAndOrganizer) {
-            $eventsAndOrganizersArray[$eventAndOrganizer->getEvent()->getId()] = $eventAndOrganizer->getUser();
-        }
-
-        $eventsAndParticipants = $this->getDoctrine()
-            ->getRepository(RegisteredEvent::class)
-            ->findBy(['isOrganizer' => false]);
-        $eventsAndParticipantsArray = [];
-        foreach ($eventsAndParticipants as $eventAndParticipant) {
-                $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
-                $eventAndParticipant->getUser();
-        }
-
-        if (isset($_POST['eventIdRegister'])) {
-            $eventId = $_POST['eventIdRegister'];
-            return $this->redirectToRoute('register_event', array('id' => $eventId));
-        }
-
-        if ($this->isCsrfTokenValid('delete-registeredEvent', $request->request->get('_token'))) {
-            $eventId = $_POST['eventIdUnregister'];
-            return $this->redirectToRoute('unregister_event', array('id' => $eventId));
-        }*/
 
         $events = $eventRepository->nextEvent();
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
-            'eventsSearch' => $eventSearch,
+            'events_search' => $eventSearch,
             'events' => $events,
-            'formEvent' => $formEvent->createView(),
-            /*'events_and_organizers'   => $eventsAndOrganizersArray,
-            'events_and_participants' => $eventsAndParticipantsArray,*/
-                'pictures'            => $pictureRepository->findAll(),
+            'form_event' => $formEvent->createView(),
+            'pictures' => $pictureRepository->findAll(),
             'path' => 'event_index',
             ]);
     }

@@ -8,18 +8,18 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-7 profile-main-forms">
             <div class="form-resource">
-                {% form_theme formResource 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(formResource) }}
-                {{ form_row(formResource.name) }}
-                {{ form_row(formResource.link) }}
-                {{ form_row(formResource.resourceFormat) }}
-                {{ form_row(formResource.pathology) }}
-                {{ form_row(formResource.description) }}
-                {{ form_row(formResource.resourceFile) }}
+                {% form_theme form_resource 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_resource) }}
+                {{ form_row(form_resource.name) }}
+                {{ form_row(form_resource.link) }}
+                {{ form_row(form_resource.resourceFormat) }}
+                {{ form_row(form_resource.pathology) }}
+                {{ form_row(form_resource.description) }}
+                {{ form_row(form_resource.resourceFile) }}
                 <div class="d-flex flex-row-reverse">
                     <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
                 </div>
-                {{ form_end(formResource) }}
+                {{ form_end(form_resource) }}
             </div>
         </div>
     </div>

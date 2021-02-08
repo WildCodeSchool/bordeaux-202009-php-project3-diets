@@ -96,11 +96,11 @@ class KnowledgeController extends AbstractController
         );
 
         return $this->render('knowledge/index.html.twig', [
-            'resourcesLastUpdate' => $resourcesLastUpdate,
-            'resourcesSearch' => $resourcesSearch,
+            'resources_last_update' => $resourcesLastUpdate,
+            'resources_search' => $resourcesSearch,
             'last' => ['last'],
-            'formResource' => $formResource->createView(),
-            'formSearch' => $formSearch->createView(),
+            'form_resource' => $formResource->createView(),
+            'form_search' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
             'path' => 'knowledge_index',
         ]);
