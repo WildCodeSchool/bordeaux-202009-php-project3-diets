@@ -1,7 +1,7 @@
 .container-fluid-resource{
   .firstdiv{
     height: 50em;
-    background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.4dddb6b6.jpg');
+    background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.81375286.jpg');
     background-size: 115em;
     display: flex;
     justify-content: center;
@@ -19,7 +19,6 @@
       font-weight: bold;
       border-radius: 20px;
       margin-top: 2.5em;
-
     }
     .plateform{
       font-family: $police-text;
@@ -28,6 +27,11 @@
     }
     .fas{
       color: $main-orange;
+      outline:none;
+    }
+    button:focus {
+      border: none;
+      outline:none;
     }
   }
   .card-container{
