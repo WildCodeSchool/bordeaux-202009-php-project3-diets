@@ -104,8 +104,8 @@ class ProfileController extends AbstractController
             $registerEvent = new RegisteredEvent();
             $registerEvent->setUser($this->getUser());
             $registerEvent->setEvent($event);
-            $registerEvent->setIsOrganizer('1');
-            $event->setEventIsValidated('0');
+            $registerEvent->setIsOrganizer(true);
+            $event->setEventIsValidated(false);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
@@ -119,10 +119,10 @@ class ProfileController extends AbstractController
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
             'events_and_participants' => $eventsAndParticipantsArray,
-            'formService' => $formService->createView(),
-            'formEvent' => $formEvent->createView(),
+            'form_service' => $formService->createView(),
+            'form_event' => $formEvent->createView(),
             'resources' => $resources,
-            'formResource' => $formResource->createView(),
+            'form_resource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
             'path' => 'profile_edit',
         ]);
@@ -155,7 +155,7 @@ class ProfileController extends AbstractController
         }
 
         return $this->render('component/_profil_edit.html.twig', [
-            'formEditUser' => $formEditUser->createView(),
+            'form_edit_user' => $formEditUser->createView(),
             'user' => $user,
         ]);
 
