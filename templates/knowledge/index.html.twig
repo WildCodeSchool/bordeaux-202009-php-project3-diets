@@ -17,10 +17,8 @@
                     <div class="form">
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                {#  {{ form_row(formSearch.format) }}
-                                {{ form_row(formSearch.pathology) }}#}
-                                {{ form_start(formSearch) }}
-                            {{ form_widget(formSearch.search) }}
+                                {{ form_start(form_search) }}
+                            {{ form_widget(form_search.search) }}
                             <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
                             <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
 
@@ -28,10 +26,10 @@
 
                         </div>
                         <div class=" d-flex row justify-content-around mt-4 option-search">
-                            {{ form_widget(formSearch.format) }}
-                            {{ form_widget(formSearch.pathology) }}
+                            {{ form_widget(form_search.format) }}
+                            {{ form_widget(form_search.pathology) }}
                         </div>
-                        {{ form_end(formSearch) }}
+                        {{ form_end(form_search) }}
                     </div>
                 </div>
             </div>
@@ -65,14 +63,14 @@
         {% endif %}
     </div>
     </div>
-    {% if resourcesSearch is empty %}
+    {% if resources_search is empty %}
     <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
-    {% elseif resourcesSearch != last %}
+    {% elseif resources_search != last %}
     <div class="d-flex flex-wrap justify-content-center">
-        {% for resource in resourcesSearch %}
+        {% for resource in resources_search %}
         <div class="container-fluid">
             <div class="row d-flex justify-content-center pb-3 pt-3">
-                <div class="col-5 pb-4">
+                <div class="col-8 col-lg-5 pb-4">
 
                     <div class="d-flex container">
                         <div class="pb-2 col-11">
@@ -96,7 +94,7 @@
                         </div>
                         {% endif %}
                     </div>
-                    <div class="row d-flex justify-content-center pt-3 pb-3">
+                    <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
                         <div class="pl-3">Description :</div>
                         <p class="col">
                             {{ resource.description }}
@@ -123,10 +121,10 @@
     </div>
     {% else %}
     <div class="d-flex flex-wrap justify-content-center">
-        {%  for resource in resourcesLastUpdate  %}
+        {%  for resource in resources_last_update  %}
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center pb-3 pt-3">
-                    <div class="col-5 pb-4">
+                    <div class="col-8 col-lg-5 pb-4">
 
                         <div class="d-flex container">
                             <div class="pb-2 col-11">
@@ -150,7 +148,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="row d-flex justify-content-center pt-3 pb-3">
+                        <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
                             <div class="pl-3">Description :</div>
                             <p class="col">
                                 {{ resource.description }}

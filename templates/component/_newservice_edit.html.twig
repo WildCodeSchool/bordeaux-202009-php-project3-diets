@@ -8,17 +8,17 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-7 profile-main-forms">
             <div class="form-service">
-                {% form_theme formService 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(formService) }}
-                    {{ form_row(formService.name) }}
-                    {{ form_row(formService.link) }}
-                    {{ form_row(formService.price) }}
-                    {{ form_row(formService.description) }}
-                    {{ form_row(formService.picture) }}
+                {% form_theme form_service 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_service) }}
+                    {{ form_row(form_service.name) }}
+                    {{ form_row(form_service.link) }}
+                    {{ form_row(form_service.price) }}
+                    {{ form_row(form_service.description) }}
+                    {{ form_row(form_service.picture) }}
                     <div class="d-flex flex-row-reverse">
                         <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
                     </div>
-                {{ form_end(formService) }}
+                {{ form_end(form_service) }}
             </div>
         </div>
     </div>

@@ -1,9 +1,9 @@
 .custom-file-input {
-  opacity: 100%;
+  opacity: 100% !important;
 }
 .event-img {
   height: 40em;
-  background-image: url('/build/images/louis-hansel-shotsoflouis-6Zor4BJCujY-unsplash.ea31d0fb.jpg');
+  background-image: url('../images/louis-hansel-shotsoflouis-6Zor4BJCujY-unsplash.jpg');
   background-size: 120em;
   display: flex;
   justify-content: center;
@@ -147,6 +147,10 @@
       color: $main-red;
     }
   }
+}
+
+#event_picture_pictureFile_file{
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1200px){

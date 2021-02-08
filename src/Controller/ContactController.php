@@ -22,24 +22,23 @@ class ContactController extends AbstractController
         $contact = new Contact();
         $formContact = $this->createForm(ContactType::class, $contact);
         $formContact->handleRequest($request);
-        if ($formContact->isSubmitted() && $formContact->isValid()) {
+       if ($formContact->isSubmitted() && $formContact->isValid()) {
             $entityManager->persist($contact);
             $entityManager->flush();
             $email = (new Email())
                 ->from($this->getParameter('mailer_from'))
-                ->to('b7d5639be8-7bc9fc@inbox.mailtrap.io')
+                ->to($this->getParameter('mailer_to'))
                 ->subject('Nous les Diets - Nouveau message de contact')
                 ->html($this->renderView(
                     'contact/newContactEmail.html.twig',
                     ['contact' => $contact]
                 ));
-            $mailer->send($email);
+            //$mailer->send($email);
             $this->addFlash('success', 'Vous avez bien envoyé un message');
-            return $this->redirectToRoute('contact');
         }
         return $this->render('contact/index.html.twig', [
             'controller_name' => 'ContactController',
-            'formContact' => $formContact->createView(),
+            'form_contact' => $formContact->createView(),
         ]);
     }
 }

@@ -28,17 +28,17 @@
             </section>
                 <div class="col-7 profile-main-forms">
                     <div class="form-service">
-                        {% form_theme formContact 'bootstrap_4_layout.html.twig' %}
-                        {{ form_start(formContact) }}
-                        {{ form_row(formContact.lastname) }}
-                        {{ form_row(formContact.firstname) }}
-                        {{ form_row(formContact.email) }}
-                        {{ form_row(formContact.phone) }}
-                        {{ form_row(formContact.message) }}
+                        {% form_theme form_contact 'bootstrap_4_layout.html.twig' %}
+                        {{ form_start(form_contact) }}
+                        {{ form_row(form_contact.lastname) }}
+                        {{ form_row(form_contact.firstname) }}
+                        {{ form_row(form_contact.email) }}
+                        {{ form_row(form_contact.phone) }}
+                        {{ form_row(form_contact.message) }}
                         <div class="d-flex flex-row-reverse">
                             <button class="btn mt-5">{{ button_label|default('Envoyer le mail') }}</button>
                         </div>
-                        {{ form_end(formContact) }}
+                        {{ form_end(form_contact) }}
                     </div>
                 </div>
             </div>

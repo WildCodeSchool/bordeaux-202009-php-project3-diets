@@ -22,7 +22,7 @@
                     {% form_theme form 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form) }}
                         {{ form_widget(form) }}
-                    <button type="submit" class="home-btn-main">Créer une catégorie</button>
+                    <button type="submit" class="home-btn-second">Créer une catégorie</button>
                     {{ form_end(form) }}
                 </div>
                 <div class="block-list mt-5">
@@ -46,7 +46,7 @@
                     {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form_expertise) }}
                     {{ form_widget(form_expertise) }}
-                    <button type="submit" class="home-btn-main">Créer une expertise</button>
+                    <button type="submit" class="home-btn-second">Créer une expertise</button>
                     {{ form_end(form_expertise) }}
                 </div>
                 <div class="block-list mt-5">
@@ -69,7 +69,7 @@
                     {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form_resource_format) }}
                     {{ form_widget(form_resource_format) }}
-                    <button type="submit" class="home-btn-main">Créer un format de ressources</button>
+                    <button type="submit" class="home-btn-second">Créer un format de ressources</button>
                     {{ form_end(form_resource_format) }}
                 </div>
                 <div class="block-list mt-5">
@@ -92,7 +92,7 @@
                     {% form_theme form_event_format 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form_event_format) }}
                     {{ form_widget(form_event_format) }}
-                    <button type="submit" class="home-btn-main">Créer un format pour les évènements</button>
+                    <button type="submit" class="home-btn-second">Créer un format pour les évènements</button>
                     {{ form_end(form_event_format) }}
                 </div>
                 <div class="block-list mt-5">
@@ -140,7 +140,7 @@
                 {% for event in event_for_validation %}
                     <div class="col-4">
                         <div class="d-flex pb-1">
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} </a>
+                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} </a>
                             <form method="post" action="{{ path('valid_event') }}"><input type="hidden" value="{{ event.id }}" name="event"><button>Ok</button></form>
                             <br>
                         </div>
@@ -158,7 +158,7 @@
                 {% for service in service_for_validation %}
                     <div class="col-4">
                         <div class="d-flex pb-1">
-                            <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }} </a>
+                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }} </a>
                             <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>
                             <br>
                         </div>

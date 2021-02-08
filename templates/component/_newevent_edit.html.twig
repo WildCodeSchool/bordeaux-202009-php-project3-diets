@@ -8,21 +8,21 @@
     <div class="row align-items-center justify-content-center">
         <div class="col-7 profile-main-forms">
             <div class="form-event">
-                {% form_theme formEvent 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(formEvent) }}
-                    {{ form_row(formEvent.name) }}
-                    {{ form_row(formEvent.eventFormat) }}
-                    {{ form_row(formEvent.dateStart) }}
-                    {{ form_row(formEvent.dateEnd) }}
-                    {{ form_row(formEvent.price) }}
-                    {{ form_row(formEvent.link) }}
-                    {{ form_row(formEvent.description) }}
-                    {{ form_row(formEvent.picture) }}
+                {% form_theme form_event 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_event) }}
+                    {{ form_row(form_event.name) }}
+                    {{ form_row(form_event.eventFormat) }}
+                    {{ form_row(form_event.dateStart) }}
+                    {{ form_row(form_event.dateEnd) }}
+                    {{ form_row(form_event.price) }}
+                    {{ form_row(form_event.link) }}
+                    {{ form_row(form_event.description) }}
+                    {{ form_row(form_event.picture) }}
             </div>
             <div class="d-flex flex-row-reverse">
                 <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
             </div>
-            {{ form_end(formEvent) }}
+            {{ form_end(form_event) }}
             </div>
         </div>
     </div>

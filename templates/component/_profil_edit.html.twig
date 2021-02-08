@@ -10,26 +10,22 @@
                 <div>
                     <div class="overflow-hidden">
                         <img class="profile-picture"
-                             src=
-                             {% if (user.picture) == false %}
-                                    {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
-                                {% else %}
-                             /uploads/pictures/{{ user.picture.name }}
-                                {% endif %}
+                             src="
+                                     {{ user.picture  ? '/uploads/pictures/'~user.picture.name  : asset('build/images/profile-initial-picture.be6b2f1a.png') }}"
                              alt="photo_de_profil">
                     </div>
                 </div>
             </div>
             <div class="col-7 profile-main-forms ">
                 <div class="form-user">
-                    {% form_theme formEditUser 'bootstrap_4_layout.html.twig' %}
-                    {{ form_start(formEditUser) }}
-                    <div> {{ form_row(formEditUser.email) }} </div>
-                    <div> {{ form_row(formEditUser.lastname) }} </div>
-                    <div> {{ form_row(formEditUser.firstname) }} </div>
-                    <div> {{ form_row(formEditUser.birthday) }} </div>
-                    <div> {{ form_row(formEditUser.country) }} </div>
-                    <div> {{ form_row(formEditUser.adeli) }} </div>
+                    {% form_theme form_edit_user 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_edit_user) }}
+                    <div> {{ form_row(form_edit_user.email) }} </div>
+                    <div> {{ form_row(form_edit_user.lastname) }} </div>
+                    <div> {{ form_row(form_edit_user.firstname) }} </div>
+                    <div> {{ form_row(form_edit_user.birthday) }} </div>
+                    <div> {{ form_row(form_edit_user.country) }} </div>
+                    <div> {{ form_row(form_edit_user.adeli) }} </div>
                     <div class="form-modal-event">
                         <button type="button" class="no-adeli mb-2" data-toggle="modal" data-target="#modalEvent">
                             je n'ai pas de numéro ADELI
@@ -45,12 +41,12 @@
                             </div>
                         </div>
                     </div>
-                    <div> {{ form_row(formEditUser.address) }} </div>
-                    <div> {{ form_row(formEditUser.phone) }} </div>
-                    <div> {{ form_row(formEditUser.website) }} </div>
-                    <div> {{ form_row(formEditUser.picture) }} </div>
+                    <div> {{ form_row(form_edit_user.address) }} </div>
+                    <div> {{ form_row(form_edit_user.phone) }} </div>
+                    <div> {{ form_row(form_edit_user.website) }} </div>
+                    <div> {{ form_row(form_edit_user.picture) }} </div>
                     <button type="submit" class="btn mt-5">Editer mon profil</button>
-                    {{ form_end(formEditUser) }}
+                    {{ form_end(form_edit_user) }}
                 </div>
             </div>
         </div>
