@@ -7,6 +7,7 @@ parameters:
     uploadpicture_directory: '%kernel.project_dir%/public/uploads/pictures/'
     uploadresource_directory: '%kernel.project_dir%/public/uploads/resources/'
     mailer_from: '%env(resolve:MAILER_FROM_ADDRESS)%'
+    mailer_to: '%env(resolve:MAILER_DSN)%'
 
 services:
     # default configuration for services in *this* file

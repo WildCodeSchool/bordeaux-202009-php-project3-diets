@@ -95,15 +95,19 @@
                     </div>
                     <div class="col-lg-6 text-container">
 
-                        <div class="d-flex container service-block-title pl-0">
-                            <div class="pb-2 col-11 pl-0">
-                                <h3 class="pb-1 event-title">{{ event.name }}</h3>
+                        <div class="d-flex flex-column flex-lg-row container service-block-title pl-0">
+                            <div class="row mt-4">
+                                <div class="p-2 col-11">
+                                    <h3 class="pb-1 event-title">{{ event.name }}</h3>
+                                </div>
                             </div>
-                            <div class="row col-2">
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
-                                    {% include '/event/_delete_event.html.twig' %}
-                                {% endif %}
+                            <div class="row m-lg-2">
+                                <div class="col-2 d-flex ">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                        {% include '/event/_delete_event.html.twig' %}
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
 
@@ -143,18 +147,22 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div class="responsive col-5 pb-4">
+                            <div class="responsive col-lg-5 col-8 pb-4">
 
-                               <div class="d-flex container service-block-title pl-0">
-                                    <div class="pb-2 col-11 pl-0">
-                                        <h3 class="pb-1 event-title">{{ event.name }}</h3>
-                                    </div>
-                                    <div class="row col-2">
+                               <div class="d-flex container flex-column flex-lg-row service-block-title pl-0">
+                                       <div class="row mt-4">
+                                        <div class="col-11">
+                                            <h3 class="event-title">{{ event.name }}</h3>
+                                        </div>
+                                   </div>
+                                   <div class="row m-lg-2">
+                                       <div class="col-2 d-flex">
                                         {% if is_granted('ROLE_ADMIN') %}
                                             <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
                                             {% include '/event/_delete_event.html.twig' %}
                                         {% endif %}
-                                    </div>
+                                        </div>
+                                   </div>
                                 </div>
 
                                 <div class="">
@@ -167,7 +175,7 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="row d-flex justify-content-center pt-3 pb-3">
+                                <div class="row d-flex justify-content-center flex-column pt-3 pb-3">
                                     <div class="descript pl-3">Description :</div>
                                     <p class="col">
                                         {{ event.description }}
