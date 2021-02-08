@@ -35,7 +35,7 @@ class EventType extends AbstractType
                 'label' => 'Format',
             ])
             ->add('picture', PictureType::class, [
-                'label' => 'Charger un image'
+                'label' => 'Charger une image'
             ]);
     }
 

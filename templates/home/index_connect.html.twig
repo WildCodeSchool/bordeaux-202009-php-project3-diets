@@ -7,7 +7,7 @@
 {% block body_home %}
     <div class="vh-100 vw-100 home-full-screen">
         <div class="home-page container-fluid container-table">
-            <div class="row vertical-center-row">
+            <div class="vertical-center-row">
                 <div class="card col-6 m-auto card-radius">
                     <div>
                         <div class="position-absolute close mt-2">
@@ -27,7 +27,7 @@
                         <div class="justify-content-center">
                             {% if app.user %}
                             <div class="d-flex justify-content-center mb-3">
-                                You are logged in as {{ app.user.username }}  <a href="{{ path('app_logout') }}" class="underline">.   Logout ?</a>
+                                Vous êtes connecté•ée en tant que {{ app.user.username }}  <a href="{{ path('app_logout') }}" class="underline">.   Se déconnecter ?</a>
                             </div>
                             {% endif %}
                             <div class="justify-content-center align-items-center container home-email">

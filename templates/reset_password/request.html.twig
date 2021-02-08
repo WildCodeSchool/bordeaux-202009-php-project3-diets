@@ -5,16 +5,12 @@
 {% block body_home %}
     <div class="vh-100 vw-100 home-full-screen">
         <div class="home-page container-fluid container-table">
-            <div class="row vertical-center-row">
+            <div class="vertical-center-row">
                 <div class="card col-6 m-auto card-radius">
                     <div>
-                        <div class="-align-right mt-2">
-                            <div class="close">
-                                <a href="{{ path('home') }}"><i class="fas fa-times-circle fa-2x"></i></a>
-                            </div>
-
+                        <div class="position-absolute close mt-2">
+                            <a href="{{ path('home') }}"><i class="fas fa-times-circle close"></i></a>
                         </div>
-
                         <div class="row justify-content-center">
                             <div class="text-center p-1 card-title home-form-title">Modifier votre mot de passe</div>
                         </div>
@@ -25,19 +21,19 @@
 
                     {{ form_start(requestForm) }}
 
-                    <div class="row">
-                        <div class="text-center px-4 home-form">Adresse e-mail :</div>
-                        <div class="subscribe">{{ form_row(requestForm.email) }}</div>
+                    <div class="justify-content-center align-items-center container home-email pt-3">
+                        <div class="col-3 align-items-center home-form">Adresse e-mail :</div>
+                        <div class="col-5">{{ form_row(requestForm.email, {'attr': {'class': 'form-control'}}) }}</div>
                     </div>
 
-                    <div>
-                        <small>
+                    <div class="justify-content-center align-items-center container home-email pt-3">
+                        <small class="d-flex justify-content-center">
                             Entrez votre adresse email et nous vous enverrons un nouveau mot de passe
                         </small>
                     </div>
-                    <div class="row pt-3">
-                        <div class="col-4 text-center p-1 home-form-lg">
-                    <button class="home-btn-second non_underline">Changer mon mot de passe </button>
+                    <div class="d-flex justify-content-center align-items-center container home-email">
+                        <div class="home-form-lg">
+                            <button type="submit" class="home-btn-second non_underline text-center">Changer mon mot de passe </button>
                     {{ form_end(requestForm) }}
                         </div>
                     </div>

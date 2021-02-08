@@ -52,6 +52,11 @@ class ProfileController extends AbstractController
             }
             $expertises = substr($expertises, 0, -2);
         }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'It is not the profile page of the user ' . $this->getUser()->getId() . '.'
+            );
+        }
 
         $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy([
             'user' => $user->getId()],

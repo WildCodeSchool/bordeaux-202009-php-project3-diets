@@ -56,7 +56,17 @@
                         </div>
                     </div>
                     <div class="col-lg-5 text-container">
-                        <h3 class="service-title">Titre: {{ service.name }}</h3>
+                        <div class="d-flex container service-block-title pl-0">
+                            <div class="pb-2 col-11 pl-0">
+                                <h3 class="pb-1 service-title">{{ service.name }}</h3>
+                            </div>
+                            <div class="row col-2">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                    {% include '/service/_delete_service.html.twig' %}
+                                {% endif %}
+                            </div>
+                        </div>
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Lien: <a href="{{ service.link }}" target="_blank">{{ service.link }}</a></p>{% endif %}
                         {% if is_granted("ROLE_CONTRIBUTOR") %}<p>Inscription</p>{% endif %}
                         <p>Description:{{ service.description }}</p>
@@ -80,15 +90,19 @@
                                         </div>
                                     </div>
                                     <div class="col-10 col-md-8 col-lg-5 pb-4">
-                                        <div class="pb-2">
+
+                                        <div class="d-flex container service-block-title pl-0">
+                                            <div class="pb-2 col-11 pl-0">
                                             <h3 class="pb-1 service-title">{{ service.name }}</h3>
+                                            </div>
+                                            <div class="row col-2">
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                                    {% include '/service/_delete_service.html.twig' %}
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                        <div class="row">
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                                <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
-                                                {% include '/service/_delete_service.html.twig' %}
-                                            {% endif %}
-                                        </div>
+
                                         <div>
                                             {% if is_granted('ROLE_CONTRIBUTOR') %}
                                                 <div class="mt-4">

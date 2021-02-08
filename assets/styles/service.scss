@@ -23,7 +23,7 @@
   }
   .service-img {
     height: 40em;
-    background-image: url('/build/images/jwlez-9zy3GaH8NKM-unsplash.00855640.jpg');
+    background-image: url('../images/jwlez-9zy3GaH8NKM-unsplash.jpg');
     background-size: 120em;
     display: flex;
     justify-content: center;
@@ -94,6 +94,13 @@
         outline-width: 0;
       }
     }
+
+    .service-block-title {
+      padding-left: 0;
+        .col-11 {
+          padding-left: 0;
+        }
+      }
 
   }
       .picture-service {
