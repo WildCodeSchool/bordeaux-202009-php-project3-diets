@@ -43,7 +43,7 @@
             {{ form_end(form_search_all) }}
         </div>
 
-    {% if app.user %}
+        {% if is_granted('ROLE_CONTRIBUTOR') %}
         <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
