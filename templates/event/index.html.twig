@@ -76,12 +76,14 @@
         </div>
     </div>
         <div>
-        {% if events_search %}
-            <div>
+            {% if events_search %}
+            {#{% if events %}  #}
+                <div>
                 <h3 class="part-title mt-4">Evènements trouvés :</h3>
             </div>
             <div class="container-fluid-event row justify-content-start">
-                {% for event in events_search %}
+               {% for event in events_search %}
+                {# {% for event in events %}#}
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
