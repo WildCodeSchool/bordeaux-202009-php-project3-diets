@@ -3,6 +3,7 @@
         <h2 class="page-title">Bonjour {{ infos.firstname}} ! Heureux de vous revoir.</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
+        {% if is_granted('ROLE_CONTRIBUTOR') %}
         <div>Je propose :</div>
         <div class="profile-button-container d-flex flex-wrap justify-content-center">
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
@@ -54,6 +55,7 @@
                 </div>
             </div>
         </div>
+        {% endif %}
     </div>
     <div class="container-fluid profile-main">
         <div class="row align-items-center justify-content-center">
