@@ -144,7 +144,7 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if ($user->getRoles() != ['ROLE_ADMIN']) {
+            if ($user->getRoles() === ['ROLE_USER']) {
                 $user->setRoles(['ROLE_CONTRIBUTOR']);
                 $user->isVerified(true);
                 $entityManager->persist($user);
