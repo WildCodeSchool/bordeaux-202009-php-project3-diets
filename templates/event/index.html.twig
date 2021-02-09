@@ -120,9 +120,6 @@
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
-                        {% endif %}
                     </div>
                     <div class="container-fluid">
                         <div class="row d-flex justify-content-center">
@@ -183,9 +180,6 @@
                                         {{ event.description }}
                                     </p>
                                 </div>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('profile_event_edit', {'id': event.id}) }}">Editer</a>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
