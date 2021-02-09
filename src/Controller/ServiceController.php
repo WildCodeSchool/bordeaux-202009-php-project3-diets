@@ -45,6 +45,7 @@ class ServiceController extends AbstractController
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
+            $service->setServiceIsValidated(false);
             $entityManager->persist($service);
             $entityManager->flush();
             $this->redirectToRoute('service_index');
