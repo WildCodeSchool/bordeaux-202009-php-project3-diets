@@ -181,9 +181,6 @@
                                         {{ event.description }}
                                     </p>
                                 </div>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('profile_event_edit', {'id': event.id}) }}">Editer</a>
-                                {% endif %}
                             </div>
                         </div>
                     </div>
