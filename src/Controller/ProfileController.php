@@ -19,6 +19,7 @@ use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -138,8 +139,23 @@ class ProfileController extends AbstractController
     public function editProfil(Request $request,
                                int $id,
                                UserRepository $userRepository,
-                               EntityManagerInterface $entityManager): Response
+                               EntityManagerInterface $entityManager,
+                               User $user): Response
     {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
         $user = $userRepository->findOneBy(['id' => $id]);
 
         $formEditUser = $this->createForm(UserEditType::class, $user);
@@ -164,6 +180,7 @@ class ProfileController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
      * @return Response
      */
@@ -171,8 +188,10 @@ class ProfileController extends AbstractController
     public function editResource(Resource $resource,
                                  Request $request,
                                  int $id,
-                                 ResourceRepository $resourceRepository): Response
+                                 ResourceRepository $resourceRepository,
+                                 User $user): Response
     {
+
         $resource = $resourceRepository->findOneBy(['id' => $id]);
 
         $formEditResource = $this->createForm(ResourceType::class, $resource);
@@ -190,6 +209,7 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/service/edit/{id}", methods={"GET", "POST"}, name="service_edit")
      * @return Response
      */
@@ -215,6 +235,7 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/event/edit/{id}", methods={"GET", "POST"}, name="event_edit")
      * @return Response
      */
@@ -224,6 +245,7 @@ class ProfileController extends AbstractController
                               Request $request,
                               EventRepository $eventRepository): Response
     {
+
         $event = $eventRepository->findOneBy(['id' => $id]);
 
         $formEditEvent = $this->createForm(EventType::class, $event);
