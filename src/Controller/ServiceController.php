@@ -24,7 +24,8 @@ class ServiceController extends AbstractController
     public function index(EntityManagerInterface $entityManager,
                           Request $request,
                           ServiceRepository $serviceRepository,
-                          PictureRepository $pictureRepository): Response {
+                          PictureRepository $pictureRepository): Response
+    {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
@@ -44,13 +45,14 @@ class ServiceController extends AbstractController
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
+            $service->setServiceIsValidated(false);
             $entityManager->persist($service);
             $entityManager->flush();
             $this->redirectToRoute('service_index');
         }
         $service = $this->getDoctrine()
             ->getRepository(Service::class)
-            ->findBy(array(), array('id' => 'desc'));
+            ->findBy(['serviceIsValidated' => true], ['id' => 'desc']);
 
         return $this->render('service/index.html.twig', [
             'form_service' => $formService->createView(),

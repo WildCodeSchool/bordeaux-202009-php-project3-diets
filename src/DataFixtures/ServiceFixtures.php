@@ -10,33 +10,35 @@ use Faker;
 
 class ServiceFixtures extends Fixture implements DependentFixtureInterface
 {
+    const SERVICES = [
+        [
+            'name' => 'Elaboration d’un régime alimentaire',
+            'description' => 'Voyez comment un diététiste collaborera avec vous pour établir un régime alimentaire répondant aux besoins de votre enfant et de votre famille.',
+            'link' => 'https://www.aboutkidshealth.ca/fr/article?contentid=1742&language=french',
+            'price' => '50',
+        ],
+        [
+            'name' => 'Bilan diététique du sportif',
+            'description' => 'Faire le point sur les habitudes alimentaires du sportif, cela veut dire : dépister des troubles du comportement alimentaire et évaluer les apports (énergie, macro, micronutriments). Ce bilan alimentaire peut être chiffré à partir d’un semainier* rempli par le sportif ou d’un rappel des 24 heures réalisé par le médecin ou le diététicien.',
+            'link' => 'https://www.caducee.net/DossierSpecialises/nutrition/aprifel/bilan-dietetique-sportif.asp',
+            'price' => '30',
+        ],
+    ];
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create('fr_Fr');
-        for ($i = 0; $i < 50; $i++) {
+        $i = 0;
+        foreach (self::SERVICES as $serviceData) {
             $service = new Service();
-            $service->setName($faker->word);
-            $service->setLink($faker->url);
-            $service->setPrice($faker->numberBetween(0, 1000));
-            $service->setDescription($faker->text(200));
-            $service->setUser($this->getReference('user_' . rand(0, 49)));
+            $service->setName($serviceData['name']);
+            $service->setLink($serviceData['link']);
+            $service->setPrice($serviceData['price']);
+            $service->setDescription($serviceData['description']);
+            $service->setUser($this->getReference('user_' . rand(0, 2)));
             $service->setServiceIsValidated(rand(0, 1));
-            $service->setPicture($this->getReference('picture_' . ($i + 50)));
+            $service->setPicture($this->getReference('picture_' . rand(0, 50)));
             $manager->persist($service);
             $this->addReference('service_' . $i, $service);
-        }
-
-        for ($i = 0; $i < 4; $i++) {
-            $service = new Service();
-            $service->setName($faker->word);
-            $service->setLink($faker->url);
-            $service->setPrice($faker->numberBetween(0, 1000));
-            $service->setDescription($faker->text(200));
-            $service->setUser($this->getReference('user_' . 50));
-            $service->setServiceIsValidated(rand(0, 1));
-            $service->setPicture($this->getReference('picture_' . ($i + 100)));
-            $manager->persist($service);
-            $this->addReference('service_' . ($i + 51), $service);
+            $i++;
         }
 
         $manager->flush();

@@ -69,14 +69,14 @@ class ProfileController extends AbstractController
 
 
 
-        $eventsAndParticipants = $this->getDoctrine()
+        /*$eventsAndParticipants = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
             ->findBy(['isOrganizer' => false]);
         $eventsAndParticipantsArray = [];
         foreach ($eventsAndParticipants as $eventAndParticipant) {
             $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
                 $eventAndParticipant->getUser();
-        }
+        }*/
 
 
         $newResource = new Resource();
@@ -93,6 +93,7 @@ class ProfileController extends AbstractController
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
+            $service->setServiceIsValidated(false);
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -118,7 +119,7 @@ class ProfileController extends AbstractController
             'services' => $service,
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
-            'events_and_participants' => $eventsAndParticipantsArray,
+            /*'events_and_participants' => $eventsAndParticipantsArray,*/
             'form_service' => $formService->createView(),
             'form_event' => $formEvent->createView(),
             'resources' => $resources,
@@ -144,7 +145,7 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if ($user->getRoles() != ['ROLE_ADMIN']) {
+            if ($user->getRoles() === ['ROLE_USER']) {
                 $user->setRoles(['ROLE_CONTRIBUTOR']);
                 $user->isVerified(true);
                 $entityManager->persist($user);

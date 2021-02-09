@@ -41,12 +41,13 @@ class EventController extends AbstractController
             $registerEvent = new RegisteredEvent();
             $registerEvent->setUser($this->getUser());
             $registerEvent->setEvent($event);
-            $registerEvent->setIsOrganizer( true);
+            $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
         }
+        $events = $eventRepository->nextEvent();
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
@@ -54,14 +55,24 @@ class EventController extends AbstractController
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
             if (!$search) {
-                $eventSearch = $eventRepository->findAll();
+                $events = $eventRepository->nextEvent();
             } else {
                 $eventSearch = $eventRepository->findLikeName($search);
             }
         }
 
 
-        $events = $eventRepository->nextEvent();
+        /*if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            if (!$search) {
+                $events = $eventRepository->nextEvent();
+            } else {
+                $events = $eventRepository->findLikeName($search);
+            }dump($events);
+        }*/
+
+
+
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),

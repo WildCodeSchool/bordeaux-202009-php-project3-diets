@@ -21,7 +21,7 @@ class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        \Locale::setDefault('fr');
+        \Locale::setDefault('en');
         $countries = array_flip(Countries::getNames());
         $builder
             ->add('email', EmailType::class, [
