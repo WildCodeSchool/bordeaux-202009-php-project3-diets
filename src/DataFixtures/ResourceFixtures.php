@@ -26,7 +26,6 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($resource);
             $this->addReference('resource_' . ($i), $resource);
         }
-
         $manager->flush();
     }
 
