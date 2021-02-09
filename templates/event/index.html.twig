@@ -53,7 +53,7 @@
         </div>
 
         <div class="event-modal">
-        {% if app.user %}
+            {% if is_granted('ROLE_CONTRIBUTOR') %}
             <div class="mb-4">
                 <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                     <div class="form-modal">
@@ -76,12 +76,14 @@
         </div>
     </div>
         <div>
-        {% if events_search %}
-            <div>
+            {% if events_search %}
+            {#{% if events %}  #}
+                <div>
                 <h3 class="part-title mt-4">Evènements trouvés :</h3>
             </div>
             <div class="container-fluid-event row justify-content-start">
-                {% for event in events_search %}
+               {% for event in events_search %}
+                {# {% for event in events %}#}
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
@@ -118,9 +120,6 @@
                         <p>Date de début:{{ event.dateStart|date("d/m/Y H:i") }}</p>
                         <p>Date de fin : {{ event.dateEnd|date("d/m/Y H:i") }}</p>
                         <p>Description:{{ event.description }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="">Editer</a>
-                        {% endif %}
                     </div>
                     <div class="container-fluid">
                         <div class="row d-flex justify-content-center">
@@ -181,9 +180,6 @@
                                         {{ event.description }}
                                     </p>
                                 </div>
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <a href="{{ path('profile_event_edit', {'id': event.id}) }}">Editer</a>
-                                {% endif %}
                             </div>
                         </div>
                     </div>

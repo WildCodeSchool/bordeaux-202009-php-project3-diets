@@ -9,7 +9,6 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method Service|null find($id, $lockMode = null, $lockVersion = null)
  * @method Service|null findOneBy(array $criteria, array $orderBy = null)
- * @method Service[]    findAll()
  * @method Service[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class ServiceRepository extends ServiceEntityRepository
@@ -19,11 +18,17 @@ class ServiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Service::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(['serviceIsValidated' => 1]);
+    }
+
     public function findLikeName(string $name)
     {
         $queryBuilder = $this->createQueryBuilder('s')
             ->where('s.name LIKE :name')
             ->orWhere('s.description LIKE :name')
+            ->andWhere('s.serviceIsValidated = 1')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('s.name', 'ASC')
             ->getQuery();
