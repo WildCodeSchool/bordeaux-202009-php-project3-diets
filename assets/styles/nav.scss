@@ -13,19 +13,19 @@
 
 .logo-design {
   zoom: normal;
-  max-width: 17vh;
+  max-height: 10vh;
 }
 
 .logo-title{
   height:55px;
   text-align: center;
-  padding-top: 1vh;
 }
 
 .contain-logo{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 }
 
 .logo-title .navbar-title{
@@ -34,6 +34,7 @@
   font-size: 2.5rem;
   font-weight: bold;
   text-shadow: 1px 1px 2px $main-black;
+  margin-left: 1.2em;
 
 }
 
@@ -90,11 +91,7 @@ button .navbar-toggler-icon {
 
 /*--------------------------------------------------------------------------*/
 
-@media screen and (max-height: 660px) {
-  .nav-link {
-    padding: 0.2rem 1rem;
-  }
-}
+
 
 @media screen and (min-width: 768px){
   .link-footer{
@@ -169,7 +166,6 @@ button .navbar-toggler-icon {
     margin-right: 0;
     font-weight: bold;
     text-shadow: 1px 1px 2px $main-black;
-    margin-left: 10px;
   }
   .navbar-title:hover{
     text-decoration: none;
@@ -203,6 +199,15 @@ button .navbar-toggler-icon {
   }
   .contain-logo{
     display: none;
+  }
+}
+
+@media screen and (max-height: 660px) {
+  .nav-link {
+    padding: 0.2rem 1rem;
+  }
+  .logo-design {
+    max-height: 8vh;
   }
 }
 
