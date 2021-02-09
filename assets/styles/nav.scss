@@ -1,7 +1,7 @@
 .navbar{
   background-color: $main-white;
   position: fixed;
-  height: 10vh;
+  height: 17vh;
   width: 100%;
   z-index: 99;
 }
@@ -12,8 +12,8 @@
 }
 
 .logo-design {
-  width: 15%;
   zoom: normal;
+  max-width: 17vh;
 }
 
 .logo-title{
@@ -91,9 +91,6 @@ button .navbar-toggler-icon {
 /*--------------------------------------------------------------------------*/
 
 @media screen and (max-height: 660px) {
-  .navbar {
-    height: 17vh;
-  }
   .nav-link {
     padding: 0.2rem 1rem;
   }
@@ -172,6 +169,7 @@ button .navbar-toggler-icon {
     margin-right: 0;
     font-weight: bold;
     text-shadow: 1px 1px 2px $main-black;
+    margin-left: 10px;
   }
   .navbar-title:hover{
     text-decoration: none;
@@ -190,9 +188,7 @@ button .navbar-toggler-icon {
     width: 15%;
     padding-bottom: 0.5em;
   }
-  .logo-design {
-    width: 100%;
-  }
+
   .nav-item{
     list-style: none;
   }
@@ -210,24 +206,32 @@ button .navbar-toggler-icon {
   }
 }
 
+@media screen and (max-width: 366px) {
+  .logo-mobile .navbar-title {
+    font-size: 1em;
+  }
+}
+
 @media screen and (max-width: 360px){
 
   .navbar-toggler{
     padding: 0.25rem 0;
   }
 
-  .logo-mobile{
-    width: 71%;
-  }
   .logo-mobile-image{
     padding-bottom: 0.4em;
   }
   .logo-design {
-    width: 100%;
+    display: none;
+
   }
   .fa-user-alt-slash{
     font-size: 1.2rem;
   }
+  .logo-mobile {
+    width: 50%;
+  }
+
 }
 
 @media screen and (max-width:320px) {
@@ -242,14 +246,10 @@ button .navbar-toggler-icon {
   }
   .logo-mobile .navbar-title{
     margin-left: -15px;
-    font-size: 1.7rem;
   }
   .fa-user{
     padding-right: 5px;
     margin-left: 5px;
-  }
-  .logo-mobile{
-    width: 67%;
   }
   .navbar-nav{
     padding-left:0;
@@ -274,15 +274,9 @@ button .navbar-toggler-icon {
     margin-left: 0;
   }
   .logo-mobile .navbar-title{
-    font-size: 1.5rem;
+    font-size: 1em;
   }
   .navbar-title:hover{
     text-decoration: none;
-  }
-
-  @media screen and (max-height: 660px) {
-    .navbar{
-      height: 17vh;
-    }
   }
 }
