@@ -5,18 +5,30 @@ namespace App\DataFixtures;
 use App\Entity\Expertise;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker;
 
 class ExpertiseFixtures extends Fixture
 {
+    const EXPERTISES = [
+        'Alimentation de l’enfant',
+        'Rééquilibrage alimentaire',
+        'Perte de poids',
+        'Prise de poids',
+        'Bien-être (retrouver un confort intestinal par exemple)',
+        'Sportifs',
+        'Régimes spécifiques (travail de nuit, végétarisme, sans gluten, ect…)',
+        'Enfants et adolescents',
+        'Femmes enceintes',
+    ];
+
     public function load(ObjectManager $manager)
     {
-        $faker  =  Faker\Factory::create('fr_FR');
-        for ($i = 0; $i < 50; $i++) {
+        $i = 0;
+        foreach (self::EXPERTISES as $expertiseData) {
             $expertise = new Expertise();
-            $expertise->setName($faker->domainWord);
+            $expertise->setName($expertiseData);
             $manager->persist($expertise);
             $this->addReference('expertise_' . $i, $expertise) ;
+            $i++;
         }
         $manager->flush();
     }
