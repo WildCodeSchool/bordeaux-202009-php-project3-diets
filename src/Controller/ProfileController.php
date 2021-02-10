@@ -188,8 +188,7 @@ class ProfileController extends AbstractController
     public function editResource(Resource $resource,
                                  Request $request,
                                  int $id,
-                                 ResourceRepository $resourceRepository,
-                                 User $user): Response
+                                 ResourceRepository $resourceRepository): Response
     {
 
         $resource = $resourceRepository->findOneBy(['id' => $id]);
@@ -198,7 +197,7 @@ class ProfileController extends AbstractController
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('knowledge', [
+            return $this->redirectToRoute('knowledge_index', [
             ]);
         }
 
