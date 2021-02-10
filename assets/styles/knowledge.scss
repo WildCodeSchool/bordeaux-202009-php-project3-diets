@@ -11,15 +11,16 @@
       text-align: center;
       background-color: rgba(255, 255, 255, 0.8);
       font-family: $police-text;
-      width: 60%;
+      width: auto;
       border-style: double;
       border-color: $main-orange;
       height: 40%;
-      padding-top: 0.5em;
+
       color: $main-green;
       font-weight: bold;
       border-radius: 20px;
       margin-top: 13em;
+      padding: 10px;
     }
   }
 
@@ -186,10 +187,6 @@
 
   @media screen and (max-width: 1200px) {
     .knowledge-image {
-      .knowledge-page {
-        width: 70%;
-      }
-
       .knowledge-img {
         justify-content: center;
       }
@@ -205,9 +202,6 @@
   }
   @media screen and (max-width: 900px) {
     .knowledge-image {
-      .knowledge-page {
-        width: 80%;
-      }
     }
     .search {
       .input-group-prepend {
