@@ -197,7 +197,7 @@ class ProfileController extends AbstractController
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('knowledge', [
+            return $this->redirectToRoute('knowledge_index', [
             ]);
         }
 
