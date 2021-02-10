@@ -188,8 +188,7 @@ class ProfileController extends AbstractController
     public function editResource(Resource $resource,
                                  Request $request,
                                  int $id,
-                                 ResourceRepository $resourceRepository,
-                                 User $user): Response
+                                 ResourceRepository $resourceRepository): Response
     {
 
         $resource = $resourceRepository->findOneBy(['id' => $id]);
