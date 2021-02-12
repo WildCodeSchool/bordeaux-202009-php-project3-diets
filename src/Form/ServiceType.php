@@ -18,7 +18,10 @@ class ServiceType extends AbstractType
         $builder
             ->add('name', TextType::class, ['label' => 'Titre'])
             ->add('link', TextType::class, ['label' => 'Lien'])
-            ->add('price', TextType::class, ['label' => 'Prix'])
+            ->add('price', TextType::class, [
+                'label' => 'Prix',
+                'required' => false,
+            ])
             ->add('description', TextareaType::class, ['label' => 'Description'])
             ->add('picture', PictureType::class, [
                 'label' => 'Charger une image'

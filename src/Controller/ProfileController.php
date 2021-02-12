@@ -19,6 +19,7 @@ use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -52,6 +53,11 @@ class ProfileController extends AbstractController
             }
             $expertises = substr($expertises, 0, -2);
         }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'It is not the profile page of the user ' . $this->getUser()->getId() . '.'
+            );
+        }
 
         $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy([
             'user' => $user->getId()],
@@ -64,14 +70,14 @@ class ProfileController extends AbstractController
 
 
 
-        $eventsAndParticipants = $this->getDoctrine()
+        /*$eventsAndParticipants = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
             ->findBy(['isOrganizer' => false]);
         $eventsAndParticipantsArray = [];
         foreach ($eventsAndParticipants as $eventAndParticipant) {
             $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
                 $eventAndParticipant->getUser();
-        }
+        }*/
 
 
         $newResource = new Resource();
@@ -88,6 +94,7 @@ class ProfileController extends AbstractController
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
+            $service->setServiceIsValidated(false);
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -99,8 +106,8 @@ class ProfileController extends AbstractController
             $registerEvent = new RegisteredEvent();
             $registerEvent->setUser($this->getUser());
             $registerEvent->setEvent($event);
-            $registerEvent->setIsOrganizer('1');
-            $event->setEventIsValidated('0');
+            $registerEvent->setIsOrganizer(true);
+            $event->setEventIsValidated(false);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
@@ -113,11 +120,11 @@ class ProfileController extends AbstractController
             'services' => $service,
             'user_infos' => $userInfos[0],
             'expertises' => $expertises,
-            'events_and_participants' => $eventsAndParticipantsArray,
-            'formService' => $formService->createView(),
-            'formEvent' => $formEvent->createView(),
+            /*'events_and_participants' => $eventsAndParticipantsArray,*/
+            'form_service' => $formService->createView(),
+            'form_event' => $formEvent->createView(),
             'resources' => $resources,
-            'formResource' => $formResource->createView(),
+            'form_resource' => $formResource->createView(),
             'pictures' => $pictureRepository->findAll(),
             'path' => 'profile_edit',
         ]);
@@ -132,27 +139,40 @@ class ProfileController extends AbstractController
     public function editProfil(Request $request,
                                int $id,
                                UserRepository $userRepository,
-                               EntityManagerInterface $entityManager): Response
+                               EntityManagerInterface $entityManager,
+                               User $user): Response
     {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
         $user = $userRepository->findOneBy(['id' => $id]);
 
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            /*if ($user->getRoles() != ['ROLE_ADMIN']) {
+            if ($user->getRoles() === ['ROLE_USER']) {
                 $user->setRoles(['ROLE_CONTRIBUTOR']);
                 $user->isVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
-            }*/
+            }
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('profile_edit', [
-                'id' => $id,
-            ]);
+            return $this->redirectToRoute('ressource_index');
         }
 
         return $this->render('component/_profil_edit.html.twig', [
-            'formEditUser' => $formEditUser->createView(),
+            'form_edit_user' => $formEditUser->createView(),
             'user' => $user,
         ]);
 
@@ -160,6 +180,7 @@ class ProfileController extends AbstractController
 
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
      * @return Response
      */
@@ -169,13 +190,14 @@ class ProfileController extends AbstractController
                                  int $id,
                                  ResourceRepository $resourceRepository): Response
     {
+
         $resource = $resourceRepository->findOneBy(['id' => $id]);
 
         $formEditResource = $this->createForm(ResourceType::class, $resource);
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('knowledge', [
+            return $this->redirectToRoute('knowledge_index', [
             ]);
         }
 
@@ -186,6 +208,7 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/service/edit/{id}", methods={"GET", "POST"}, name="service_edit")
      * @return Response
      */
@@ -211,6 +234,7 @@ class ProfileController extends AbstractController
     }
 
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/event/edit/{id}", methods={"GET", "POST"}, name="event_edit")
      * @return Response
      */
@@ -220,6 +244,7 @@ class ProfileController extends AbstractController
                               Request $request,
                               EventRepository $eventRepository): Response
     {
+
         $event = $eventRepository->findOneBy(['id' => $id]);
 
         $formEditEvent = $this->createForm(EventType::class, $event);

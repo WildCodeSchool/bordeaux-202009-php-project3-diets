@@ -93,7 +93,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ event_organized.event.name }}</h5>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('profile_service_edit', {'id': event_organized.event.id}) }}">Editer</a>
+                        <a href="{{ path('profile_event_edit', {'id': event_organized.event.id}) }}">Editer</a>
                     {% endif %}
 
                     <p class="card-text">

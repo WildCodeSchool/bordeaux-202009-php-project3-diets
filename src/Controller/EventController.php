@@ -33,9 +33,7 @@ class EventController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
-        PictureRepository $pictureRepository
-    ): Response
-    {
+        PictureRepository $pictureRepository): Response {
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
@@ -43,58 +41,45 @@ class EventController extends AbstractController
             $registerEvent = new RegisteredEvent();
             $registerEvent->setUser($this->getUser());
             $registerEvent->setEvent($event);
-            $registerEvent->setIsOrganizer( true);
+            $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
         }
+        $events = $eventRepository->nextEvent();
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         $eventSearch = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $eventSearch = $eventRepository->findLikeName($search);
+            if (!$search) {
+                $events = $eventRepository->nextEvent();
+            } else {
+                $eventSearch = $eventRepository->findLikeName($search);
+            }
         }
 
-        /*$eventsAndOrganizers = $this->getDoctrine()
-            ->getRepository(RegisteredEvent::class)
-            ->findBy(['isOrganizer' => true]);
-        $eventsAndOrganizersArray = [];
-        foreach ($eventsAndOrganizers as $eventAndOrganizer) {
-            $eventsAndOrganizersArray[$eventAndOrganizer->getEvent()->getId()] = $eventAndOrganizer->getUser();
-        }
 
-        $eventsAndParticipants = $this->getDoctrine()
-            ->getRepository(RegisteredEvent::class)
-            ->findBy(['isOrganizer' => false]);
-        $eventsAndParticipantsArray = [];
-        foreach ($eventsAndParticipants as $eventAndParticipant) {
-                $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
-                $eventAndParticipant->getUser();
-        }
-
-        if (isset($_POST['eventIdRegister'])) {
-            $eventId = $_POST['eventIdRegister'];
-            return $this->redirectToRoute('register_event', array('id' => $eventId));
-        }
-
-        if ($this->isCsrfTokenValid('delete-registeredEvent', $request->request->get('_token'))) {
-            $eventId = $_POST['eventIdUnregister'];
-            return $this->redirectToRoute('unregister_event', array('id' => $eventId));
+        /*if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            if (!$search) {
+                $events = $eventRepository->nextEvent();
+            } else {
+                $events = $eventRepository->findLikeName($search);
+            }dump($events);
         }*/
 
-        $events = $eventRepository->nextEvent();
+
+
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
-            'eventsSearch' => $eventSearch,
+            'events_search' => $eventSearch,
             'events' => $events,
-            'formEvent' => $formEvent->createView(),
-            /*'events_and_organizers'   => $eventsAndOrganizersArray,
-            'events_and_participants' => $eventsAndParticipantsArray,*/
-                'pictures'            => $pictureRepository->findAll(),
+            'form_event' => $formEvent->createView(),
+            'pictures' => $pictureRepository->findAll(),
             'path' => 'event_index',
             ]);
     }
@@ -106,9 +91,7 @@ class EventController extends AbstractController
     public function deleteEvent(
         Request $request,
         Event $event,
-        RegisteredEventRepository $registeredEventRepository
-    ): Response
-    {
+        RegisteredEventRepository $registeredEventRepository): Response {
         if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $registeredEvents = $registeredEventRepository->findBy(['event' => $event]);

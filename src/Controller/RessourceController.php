@@ -32,56 +32,7 @@ class RessourceController extends AbstractController
                           ServiceRepository $serviceRepository,
                           EventRepository $eventRepository): Response
     {
-        $formSearch = $this->createForm(SearchResourceType::class);
-        $formSearch->handleRequest($request);
 
-        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $formSearch->getData()['search'] !== NULL ?
-                $search = $formSearch->getData()['search'] : $search = '';
-            $formSearch->getData()['pathology'] !== NULL ?
-                $pathology = $formSearch->getData()['pathology']->getIdentifier() : $pathology = '';
-            $formSearch->getData()['format'] !== NULL ?
-                $format = $formSearch->getData()['format']->getIdentifier() : $format = '';
-            if (!$search && !$pathology && !$format) {
-                $resourcesSearch = ['last'];
-            } elseif (!$search && !$pathology && $format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchByFormat($format);
-            } elseif (!$search && $pathology && !$format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchByPathology($pathology);
-            } elseif ($search && !$pathology && !$format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchLikeName($search);
-            } elseif ($search && $pathology && !$format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchByPathologyAndLikeName($pathology, $search);
-            } elseif ($search && !$pathology && $format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchByFormatAndLikeName($format, $search);
-            } elseif (!$search && $pathology && $format) {
-                $resourcesSearch = $resourceRepository
-                    ->searchByPathologyAndFormat($pathology, $format);
-            } else {
-                $resourcesSearch = $resourceRepository
-                    ->searchByPathologyFormatAndLikeName($pathology, $format, $search);
-            }
-        } else {
-            $resourcesSearch = ['last'];
-        }
-
-        $formSearchAll = $this->createForm(ResourcesAllType::class);
-        $formSearchAll->handleRequest($request);
-
-        if ($formSearchAll->isSubmitted() && $formSearchAll->isValid()) {
-                $resourcesSearch = $resourceRepository
-                    ->findAll();
-        }
-
-
-        /*$events = $this->getDoctrine()
-            ->getRepository(Event::class)
-            ->findBy(array(), array('dateStart' => 'desc'), 4);*/
         $events = $eventRepository->nextEventByFour();
 
 
@@ -97,22 +48,19 @@ class RessourceController extends AbstractController
 
         $servicesLastUpdate = $serviceRepository->findBy(
             [
+                'serviceIsValidated' => true
             ],
             [
                 'id' => 'DESC'
             ],
             self::NBRESOURCE
         );
-        
+
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
             'events' => $events,
-            'resourcesLastUpdate' => $resourcesLastUpdate,
-            'servicesLastUpdate' => $servicesLastUpdate,
-            'resourcesSearch' => $resourcesSearch,
-            'last' => ['last'],
-            'formSearch' => $formSearch->createView(),
-            'form_search_all' => $formSearchAll->createView(),
+            'resources_last_update' => $resourcesLastUpdate,
+            'services_last_update' => $servicesLastUpdate,
         ]);
     }
 

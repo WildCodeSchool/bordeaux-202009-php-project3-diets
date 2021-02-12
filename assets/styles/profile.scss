@@ -94,6 +94,10 @@
       }
     }
 
+    .form-check-input{
+      margin-top: 0.7rem;
+    }
+
     button {
       background-repeat: no-repeat;
       border: none;
@@ -271,6 +275,7 @@
   .profile-informations {
     border-left: initial;
     margin-top: 2em;
+    padding: 0;
   }
   .profile-date-hour{
     justify-content: center;
@@ -285,9 +290,8 @@
 }
 
 @media screen and (max-width: 992px) {
-  .text-center{
+  .profile-text-center{
     max-width: 80%;
-    margin-left: 5em;
     .profile-main-forms {
       margin: 3px;
       flex: 0 0 80%;
@@ -307,13 +311,16 @@
   .show-items .part-title {
     margin-top: 2em;
   }
-  .text-center{
-    max-width: 80%;
-    margin-left: 5em;
-  }
+
   .profile-picture{
     width: 300px;
     height: auto;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .profile-text-center{
+    text-align: center;
   }
 }
 
@@ -334,4 +341,3 @@
     }
   }
 }
-

@@ -24,7 +24,10 @@ class EventType extends AbstractType
             ->add('link', TextType::class, ['label' => 'Lien'])
             ->add('dateStart', DateTimeType::class, ['label' => 'Début'])
             ->add('dateEnd', DateTimeType::class, ['label' => 'Fin'])
-            ->add('price', TextType::class, ['label' => 'Prix'])
+            ->add('price', TextType::class, [
+                'label' => 'Prix',
+                'required' => false,
+            ])
             //->add('eventIsValidated')
             ->add('eventFormat', EntityType::class, [
                 'class' => EventFormat::class,
@@ -32,7 +35,7 @@ class EventType extends AbstractType
                 'label' => 'Format',
             ])
             ->add('picture', PictureType::class, [
-                'label' => 'Charger un image'
+                'label' => 'Charger une image'
             ]);
     }
 

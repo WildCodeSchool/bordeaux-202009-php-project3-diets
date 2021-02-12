@@ -38,7 +38,7 @@ class UserEditType extends AbstractType
             ])
             ->add('birthday', DateType::class, [
                 'label' => 'Date d\'anniversaire *',
-                'years' => range(1920, 2020,1),
+                'years' => range(1920, 2020, 1),
                 'format' => 'dd-MM-yyyy',
                 'required' => true,
             ])

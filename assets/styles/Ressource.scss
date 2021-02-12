@@ -1,11 +1,17 @@
 .container-fluid-resource{
   .firstdiv{
     height: 50em;
-    background-image: url('/build/images/brooke-lark-t7wg7BJU2-s-unsplash.4dddb6b6.jpg');
+    background-image: url('../images/brooke-lark-t7wg7BJU2-s-unsplash.jpg');
     background-size: 115em;
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    padding-top: 10vh;
     .cadre-title{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
       background-color: #ffffffe0;
       font-size: 3em;
@@ -14,20 +20,24 @@
       border-style: double;
       border-color: $main-orange;
       height: 50%;
-      padding-top: 1em;
       color: $main-green;
       font-weight: bold;
       border-radius: 20px;
-      margin-top: 2.5em;
-
     }
     .plateform{
       font-family: $police-text;
       font-size: 0.8em;
+      margin: 0;
       color: #929eaa;
     }
     .fas{
       color: $main-orange;
+      outline:none;
+    }
+    button {
+      border: none;
+      outline:none;
+      background: none;
     }
   }
   .card-container{
@@ -122,6 +132,13 @@
     .fas{
       margin-top: 0.75em;
     }
+
+    .form-resource{
+      .form-check-input{
+        margin-top: 0.7rem;
+      }
+    }
+
   }
 
   @media screen and (min-width: 1381px){
@@ -141,14 +158,15 @@
     }
   }
   @media (max-width: 1200px) and (min-width: 771px){
-  .firstdiv {
-    height: 42em;
-    background-size: 80em;
-    .cadre-title {
-      width: 60%;
-      font-size: 25pt;
+    .firstdiv {
+      height: 42em;
+      background-size: 80em;
+      .cadre-title {
+        width: 60%;
+        height: 55%;
+        font-size: 25pt;
+      }
     }
-  }
   }
   @media screen and (max-width: 770px){
     .firstdiv {
@@ -172,6 +190,7 @@
       background-size: 45em;
       .cadre-title {
         width: 65%;
+        height: 60%;
         font-size: 15pt;
       }
     }
@@ -180,6 +199,8 @@
     .firstdiv {
       height: 20em;
       .cadre-title {
+        width: 80%;
+        height: 65%;
         font-size: 12pt;
       }
     }
@@ -188,7 +209,6 @@
         font-size: 15pt;
       }
     }
-
   }
 
   @media screen and (max-width: 380px) {
@@ -196,8 +216,45 @@
       height: 18em;
 
       .cadre-title {
-        font-size: 10pt;
+        width: 80%;
+        height: 72%;
+        font-size: 12pt;
       }
+    }
+  }
+
+  @media screen and (max-width: 250px) {
+    .firstdiv {
+      height: 18em;
+
+      .cadre-title {
+        width: 80%;
+        height: 72%;
+        font-size: 12pt;
+      }
+    }
+    .card-container{
+      width: 200px;
+      .test-card{
+        width: 200px;
+        .box{
+          width: 200px;
+          .box-front{
+            width: 200px;
+            .card-img{
+              width: 200px;
+            }
+          }
+          .box-back{
+            .card-body{
+              width: 200px;
+            }
+          }
+        }
+      }
+    }
+    .card-img{
+      width: 200px;
     }
   }
 }

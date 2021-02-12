@@ -8,8 +8,9 @@
     <div class="container-fluid-resource">
         <div class="firstdiv">
             <div class="cadre-title">
-                Bienvenue sur Nous les Diets !!! </br><p class="plateform"> Plateforme de partage de connaissances  </br> entre diététiciens.</p>
-                <button id="welcome-arrow" class="btn-cadre">
+                Bienvenue sur Nous les Diets !!!
+                <p class="plateform"> Plateforme de partage de connaissances  </br> entre diététiciens.</p>
+                <button id="welcome-arrow" class="btn-cadre d-none d-lg-block">
                     <i class="fas fa-1x fa-arrow-circle-down"></i>
                 </button>
             </div>
@@ -37,7 +38,7 @@
                 <i class="fas fa-2x fa-brain"></i><a href="{{ path('knowledge_index')}}"><i class="fas fa-2x fa-arrow-circle-right"></i></a>
             </div>
             <div class="d-flex flex-wrap justify-content-center">
-            {%  for resource in resourcesLastUpdate  %}
+            {%  for resource in resources_last_update  %}
                 {% include 'component/ressource/_ressource_informations.html.twig' %}
                 <div class="card-container justify-content-center">
                     <div class="test-card">
@@ -59,11 +60,11 @@
                 <i class="fas fa-2x fa-handshake"></i><a href="{{ path('service_index')}}"><i class="fas fa-2x fa-arrow-circle-right"></i></a>
             </div>
             <div class="d-flex flex-wrap justify-content-center">
-                {%  for service in servicesLastUpdate %}
+                {%  for service in services_last_update %}
                     {% include 'component/service/_service_informations.html.twig' %}
                     <div class="card-container justify-content-center">
                         <div class="test-card">
-                         {% include '/component/_card.html.twig' %}
+                            {% include '/component/_card.html.twig' %}
                         </div>
                     </div>
                 {% endfor %}
@@ -71,3 +72,4 @@
         </div>
     </div>
 {% endblock %}
+

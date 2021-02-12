@@ -23,7 +23,8 @@ class ServiceController extends AbstractController
      */
     public function index(EntityManagerInterface $entityManager,
                           Request $request,
-                          ServiceRepository $serviceRepository, PictureRepository $pictureRepository): Response
+                          ServiceRepository $serviceRepository,
+                          PictureRepository $pictureRepository): Response
     {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -31,27 +32,33 @@ class ServiceController extends AbstractController
         $services = [];
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $search = $formSearch->getData()['search'];
-            $services = $serviceRepository->findLikeName($search);
+            if (!$search) {
+                $services = $serviceRepository->findAll();
+            } else {
+                $services = $serviceRepository->findLikeName($search);
+            }
         }
+
 
         $service = new Service();
         $formService = $this->createForm(ServiceType::class, $service);
         $formService->handleRequest($request);
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
+            $service->setServiceIsValidated(false);
             $entityManager->persist($service);
             $entityManager->flush();
             $this->redirectToRoute('service_index');
         }
         $service = $this->getDoctrine()
             ->getRepository(Service::class)
-            ->findBy(array(), array('id' => 'desc'));
+            ->findBy(['serviceIsValidated' => true], ['id' => 'desc']);
 
         return $this->render('service/index.html.twig', [
-            'formService' => $formService->createView(),
+            'form_service' => $formService->createView(),
             'services' => $service,
-            'formSearch' => $formSearch->createView(),
-            'servicesSearch' => $services,
+            'form_search' => $formSearch->createView(),
+            'services_search' => $services,
             'pictures' => $pictureRepository->findAll(),
             'path' => 'service_index',
         ]);
