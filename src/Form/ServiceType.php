@@ -19,7 +19,7 @@ class ServiceType extends AbstractType
             ->add('name', TextType::class, ['label' => 'Titre'])
             ->add('link', TextType::class, ['label' => 'Lien'])
             ->add('price', TextType::class, [
-                'label' => 'Prix',
+                'label' => 'Prix (facultatif)',
                 'required' => false,
             ])
             ->add('description', TextareaType::class, ['label' => 'Description'])

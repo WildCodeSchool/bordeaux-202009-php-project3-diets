@@ -25,7 +25,7 @@ class EventType extends AbstractType
             ->add('dateStart', DateTimeType::class, ['label' => 'Début'])
             ->add('dateEnd', DateTimeType::class, ['label' => 'Fin'])
             ->add('price', TextType::class, [
-                'label' => 'Prix',
+                'label' => 'Prix (facultatif)',
                 'required' => false,
             ])
             //->add('eventIsValidated')

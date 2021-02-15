@@ -11,11 +11,11 @@
                 {% form_theme form_resource 'bootstrap_4_layout.html.twig' %}
                 {{ form_start(form_resource) }}
                 {{ form_row(form_resource.name) }}
-                {{ form_row(form_resource.link) }}
                 {{ form_row(form_resource.resourceFormat) }}
                 {{ form_row(form_resource.pathology) }}
                 {{ form_row(form_resource.description) }}
                 {{ form_row(form_resource.resourceFile) }}
+                {{ form_row(form_resource.link) }}
                 <div class="d-flex flex-row-reverse">
                     <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
                 </div>
