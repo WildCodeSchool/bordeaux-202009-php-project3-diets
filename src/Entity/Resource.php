@@ -80,6 +80,11 @@ class Resource implements \Serializable
      */
     private $fileName;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $Price;
+
     public function __construct()
     {
         $this->pathology = new ArrayCollection();
@@ -255,5 +260,17 @@ class Resource implements \Serializable
     public function unserialize($serialized)
     {
         return $this->link;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->Price;
+    }
+
+    public function setPrice(?float $Price): self
+    {
+        $this->Price = $Price;
+
+        return $this;
     }
 }
