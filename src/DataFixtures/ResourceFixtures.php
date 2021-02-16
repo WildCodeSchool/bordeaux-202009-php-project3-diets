@@ -18,6 +18,7 @@ class ResourceFixtures extends Fixture implements DependentFixtureInterface
             $resource = new Resource();
             $resource->setUpdatedAt($faker->dateTimeAD);
             $resource->setLink($faker->url);
+            $resource->setPrice(rand(0,50));
             $resource->setCreatedAt($faker->dateTimeAD);
             $resource->setDescription($faker->text);
             $resource->setName($faker->word);

@@ -100,6 +100,12 @@
                             {{ resource.description }}
                         </p>
                     </div>
+                    <div>
+                        <p class="col">
+                            Prix :{{ resource.price }}€
+                        </p>
+                        <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary">Ajouter au panier</button></a>
+                    </div>
 
                 </div>
                 {% if resource.fileName is empty %}
@@ -151,6 +157,12 @@
                             <p class="col">
                                 {{ resource.description }}
                             </p>
+                        </div>
+                        <div>
+                            <p class="col">
+                                Prix : {{ resource.price }}€
+                            </p>
+                            <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-dark">Ajouter au panier</button></a>
                         </div>
 
                     </div>

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier {% endblock %}
+
+{% block body %}
+    <div class="basket pt-5">
+         <h2 class="pt-5 pb-4 text-center">Votre panier</h2>
+    {% if products | length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Total</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                    <tr>
+                        <td>{{ product.resource.name }}</td>
+                        <td>{{ product.resource.price }}€</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>{{ product.resource.price * product.quantity }}€</td>
+                        <td>
+                            <a href="{{path('basket_delete', {'id': product.resource.id}) }}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-right">Total: </td>
+                    <td>{{ total }}€</td>
+                    <td></td>
+                </tr>
+
+            </tfoot>
+        </table>
+        {% else %}
+            <p>Votre panier est actuellement vide</p>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
