@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 
-use App\Entity\Resource;
-use App\Repository\ResourceRepository;
+use App\Service\Basket\BasketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -19,26 +17,11 @@ class BasketController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(SessionInterface $session, ResourceRepository $resourceRepository): Response
+    public function index(BasketService $basketService): Response
     {
-      $basket = $session->get('basket', []);
+        $basketData = $basketService->getAllBasket();
 
-
-        $basketData = [];
-
-        foreach($basket as $id => $quantity) {
-            $basketData[] = [
-                'resource' => $resourceRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
-      $total = 0;
-
-        foreach ($basketData as $product) {
-           $totalProduct = $product['resource']->getPrice() * $product['quantity'];
-           $total += $totalProduct;
-        }
+        $total = $basketService->getTotal();
 
         return $this->render('basket/index.html.twig', [
             'products' => $basketData,
@@ -49,19 +32,21 @@ class BasketController extends AbstractController
     /**
      * @Route("/add/{id}", name="add")
      */
-    public function add(SessionInterface $session, $id)
+    public function add(BasketService $basketService, int $id)
     {
-        $basket = $session->get('basket', []);
+        $basketService->add($id);
 
-        if(!empty($basket[$id])) {
-            $basket[$id]++;
-        } else {
-            $basket[$id] = 1;
-        }
+        return $this->redirectToRoute('knowledge_index');
+    }
 
-        $session->set('basket', $basket);
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete($id, BasketService $basketService)
+    {
+        $basketService->delete($id);
 
-        dd($basket);
+        return $this->redirectToRoute('basket_index');
 
     }
 }
