@@ -49,7 +49,7 @@
                         <div class="img-container">
                             {% for picture in pictures %}
                                 {% if service.picture.id is same as (picture.id) %}
-                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture service'>
+                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -83,7 +83,7 @@
                                         <div class="img-container">
                                             {% for picture in pictures %}
                                                 {% if service.picture.id is same as (picture.id) %}
-                                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>

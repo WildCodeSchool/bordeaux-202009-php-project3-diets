@@ -203,6 +203,7 @@ class ProfileController extends AbstractController
 
         return $this->render('component/_resource_edit.html.twig', [
             'form' => $formEditResource->createView(),
+            'resource' => $resource
         ]);
 
     }
@@ -216,7 +217,8 @@ class ProfileController extends AbstractController
     public function editService(Service $service,
                                 int $id,
                                 Request $request,
-                                ServiceRepository $serviceRepository): Response
+                                ServiceRepository $serviceRepository,
+                                PictureRepository $pictureRepository): Response
     {
         $service = $serviceRepository->findOneBy(['id' => $id]);
 
@@ -227,8 +229,11 @@ class ProfileController extends AbstractController
             return $this->redirectToRoute('service_index');
         }
 
-        return $this->render('component/_admin_service_edit.html.twig', [
+        return $this->render('component/_edit_service.html.twig', [
             'form' => $formEditService->createView(),
+            'service' => $service,
+            'pictures' => $pictureRepository->findAll(),
+
         ]);
 
     }
@@ -242,7 +247,8 @@ class ProfileController extends AbstractController
     public function editEvent(Event $event,
                               int $id,
                               Request $request,
-                              EventRepository $eventRepository): Response
+                              EventRepository $eventRepository,
+                              PictureRepository $pictureRepository): Response
     {
 
         $event = $eventRepository->findOneBy(['id' => $id]);
@@ -256,6 +262,8 @@ class ProfileController extends AbstractController
 
         return $this->render('component/_event_edit.html.twig', [
             'form' => $formEditEvent->createView(),
+            'event' => $event,
+            'pictures' => $pictureRepository->findAll(),
         ]);
 
     }
