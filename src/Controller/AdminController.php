@@ -122,7 +122,7 @@ class AdminController extends AbstractController
             'form_resource_format' => $formResourceFormat->createView(),
             'formats' => $resourceFormats,
             'form_event_format'=> $formEventFormat->createView(),
-            'event_formats' => $eventFormats
+            'event_formats' => $eventFormats,
         ]);
     }
 

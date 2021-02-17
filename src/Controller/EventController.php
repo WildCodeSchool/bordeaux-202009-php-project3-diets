@@ -33,7 +33,9 @@ class EventController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
-        PictureRepository $pictureRepository): Response {
+        PictureRepository $pictureRepository): Response
+    {
+
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
         $formEvent->handleRequest($request);
@@ -60,19 +62,6 @@ class EventController extends AbstractController
                 $eventSearch = $eventRepository->findLikeName($search);
             }
         }
-
-
-        /*if ($formSearch->isSubmitted() && $formSearch->isValid()) {
-            $search = $formSearch->getData()['search'];
-            if (!$search) {
-                $events = $eventRepository->nextEvent();
-            } else {
-                $events = $eventRepository->findLikeName($search);
-            }dump($events);
-        }*/
-
-
-
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),

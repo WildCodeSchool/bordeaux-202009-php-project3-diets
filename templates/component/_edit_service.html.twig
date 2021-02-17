@@ -8,9 +8,13 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-5 d-flex justify-content-center">
                 <div>
-                    <div class="overflow-hidden">
-                        <img class="item-picture" src="https://images.unsplash.com/photo-1511688878353-3a2f5be94cd7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Ma nouvelle fiche">
-                    </div>
+                    {% for picture in pictures %}
+                        {% if service.picture.id is same as (picture.id) %}
+                            <div class="overflow-hidden">
+                                <img class="item-picture" src="/uploads/pictures/{{ picture.name }}" alt="{{ picture.name }}">
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-7 profile-main-forms ">

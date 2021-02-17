@@ -77,20 +77,18 @@
     </div>
         <div>
             {% if events_search %}
-            {#{% if events %}  #}
                 <div>
                 <h3 class="part-title mt-4">Evènements trouvés :</h3>
             </div>
             <div class="container-fluid-event row justify-content-start">
                {% for event in events_search %}
-                {# {% for event in events %}#}
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in pictures %}
                                 {% if event.picture.id is same as (picture.id) %}
-                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                 {% endif %}
                             {% endfor %}
                         </div>
@@ -141,7 +139,7 @@
                                 <div class="img-container">
                                     {% for picture in pictures %}
                                         {% if event.picture.id is same as (picture.id) %}
-                                            <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='Picture event'>
+                                            <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                         {% endif %}
                                     {% endfor %}
                                 </div>
