@@ -40,7 +40,8 @@ class AdminController extends AbstractController
         PathologyRepository $pathologyRepository,
         ExpertiseRepository $expertiseRepository,
         ResourceFormatRepository $resourceFormatRepository,
-        EventFormatRepository $eventFormatRepository
+        EventFormatRepository $eventFormatRepository,
+        RegisteredEventRepository $registeredEventRepository
     ): Response
     {
         $registeredUser = $userRepository->findBy(
@@ -123,6 +124,7 @@ class AdminController extends AbstractController
             'formats' => $resourceFormats,
             'form_event_format'=> $formEventFormat->createView(),
             'event_formats' => $eventFormats,
+            'registered_events' => $registeredEventRepository->findAll(),
         ]);
     }
 
@@ -172,7 +174,8 @@ class AdminController extends AbstractController
         User $user,
         RegisteredEventRepository $registeredEventRepository,
         ResourceRepository $resourceRepository
-    ): Response {
+    ): Response
+    {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $registeredEvents = $registeredEventRepository->findBy(['user' => $user]);

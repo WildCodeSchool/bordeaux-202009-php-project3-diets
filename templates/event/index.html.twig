@@ -173,10 +173,23 @@
                                     {% endif %}
                                 </div>
                                 <div class="row d-flex justify-content-center flex-column pt-3 pb-3">
+                                    <div class="descript pl-3">Date de début:</div>
+                                    <p class="col">{{ event.dateStart|date("d/m/Y H:i") }}</p>
+                                    <div class="descript pl-3">Date de fin:</div>
+                                    <p class="col">{{ event.dateEnd|date("d/m/Y H:i") }}</p>
                                     <div class="descript pl-3">Description :</div>
                                     <p class="col">
                                         {{ event.description }}
                                     </p>
+                                    <div class="descript pl-3">Organisé par:</div>
+                                    <p class="col">{% for registered in registered_events %}
+                                        {% if registered.event.id == event.id %}
+                                            {% if registered.isOrganizer == true %}
+                                   {{ registered.user.firstname }}  {{ registered.user.lastname }} -
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <p>
                                 </div>
                             </div>
                         </div>

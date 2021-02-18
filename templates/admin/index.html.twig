@@ -140,7 +140,16 @@
                 {% for event in event_for_validation %}
                     <div class="col-4">
                         <div class="d-flex pb-1">
-                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }} Posté par: </a>
+                            <a href="{{ path('profile_event_edit', {'id': event.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ event.name }}
+                                <br> Posté par :
+                            {% for registered in registered_events %}
+                                {% if registered.event.id == event.id %}
+                                    {% if registered.isOrganizer == true %}
+                                        {{ registered.user.firstname }}  {{ registered.user.lastname }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                            </a>
                             <form method="post" action="{{ path('valid_event') }}"><input type="hidden" value="{{ event.id }}" name="event"><button>Ok</button></form>
                             <br>
                         </div>
@@ -158,7 +167,8 @@
                 {% for service in service_for_validation %}
                     <div class="col-4">
                         <div class="d-flex pb-1">
-                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }} Posté par: {{ service.user.firstname }} {{ service.user.lastname }}</a>
+                            <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link">{{ loop.index}}. {{ service.name }}
+                                <br> Posté par: {{ service.user.firstname }} {{ service.user.lastname }}</a>
                             <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>
                             <br>
                         </div>
