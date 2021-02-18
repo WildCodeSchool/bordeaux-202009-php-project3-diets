@@ -1,3 +1,11 @@
 .error-full-screen {
-  background-color: $main-green;
+  display: flex;
+  overflow-y : hidden;
+  background: url('../images/image-première-page-5.jpg') no-repeat center center fixed;
+  background-size: 100% 100%;
+  .home-logo{
+    font-size: 5.1em;
+
+  }
+
 }

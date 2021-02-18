@@ -33,7 +33,8 @@ class EventController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
-        PictureRepository $pictureRepository): Response
+        PictureRepository $pictureRepository,
+        RegisteredEventRepository $registeredEventRepository): Response
     {
 
         $event = new Event();
@@ -63,6 +64,7 @@ class EventController extends AbstractController
             }
         }
 
+
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'events_search' => $eventSearch,
@@ -70,6 +72,7 @@ class EventController extends AbstractController
             'form_event' => $formEvent->createView(),
             'pictures' => $pictureRepository->findAll(),
             'path' => 'event_index',
+            'registered_events' => $registeredEventRepository->findAll(),
             ]);
     }
 
