@@ -32,6 +32,8 @@
       font-weight: bold;
     }
 
+
+
     .search {
       margin-bottom: 6em;
       display: flex;
@@ -44,6 +46,7 @@
       form {
         display: flex;
         justify-content: center;
+        margin-left: 1em;
 
         .search-loop {
           display: none;
@@ -51,8 +54,7 @@
 
         .search-button {
           padding: 7px 7px;
-          margin-left: 10px;
-          margin-right: 0;
+          margin: 14px;
           border-radius: 20px;
           margin-top: 0;
           font-weight: bold;
@@ -67,8 +69,6 @@
           height: 40px;
           font-size: 20pt;
           outline-width: 0;
-          border-width: 1px;
-          border-color: $main-black;
         }
       }
 

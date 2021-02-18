@@ -35,103 +35,43 @@
             </div>
         </div>
 
-    <div class="two-btn">
-        <div class="search-all-form-container">
-            {{ form_start(form_search_all) }}
-            {{ form_widget(form_search_all) }}
-            <button type="submit" class="knowledge-see">Voir toutes les connaissances</button>
-            {{ form_end(form_search_all) }}
-        </div>
+        <div class="two-btn">
+            <div class="search-all-form-container">
+                {{ form_start(form_search_all) }}
+                {{ form_widget(form_search_all) }}
+                <button type="submit" class="knowledge-see">Voir toutes les connaissances</button>
+                {{ form_end(form_search_all) }}
+            </div>
 
-        {% if is_granted('ROLE_CONTRIBUTOR') %}
-        <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
-                <div class="form-modal">
-                    <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
-                        Créer une connaissance
-                    </button>
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    {% include '/component/_newfiche_edit.html.twig' %}
+            {% if is_granted('ROLE_CONTRIBUTOR') %}
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="form-modal">
+                        <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenter">
+                            Créer une connaissance
+                        </button>
+                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        {% include '/component/_newfiche_edit.html.twig' %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        {% endif %}
-    </div>
-    </div>
-    {% if resources_search is empty %}
-    <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
-    {% elseif resources_search != last %}
-    <div class="d-flex flex-wrap justify-content-center">
-        {% for resource in resources_search %}
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center pb-3 pt-3">
-                <div class="col-8 col-lg-5 pb-4">
-
-                    <div class="d-flex container">
-                        <div class="pb-2 col-11">
-                            <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
-                        </div>
-                        <div class="row col-2">
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
-                                {% include '/knowledge/_delete_knowledge.html.twig' %}
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="pb-1">
-                            dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
-                        </div>
-                        {% if is_granted('ROLE_CONTRIBUTOR') %}
-                        <div class="mt-4">
-                            Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
-                        </div>
-                        {% endif %}
-                    </div>
-                    <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
-                        <div class="pl-3">Description :</div>
-                        <p class="col">
-                            {{ resource.description }}
-                        </p>
-                    </div>
-                    <div>
-                        <p class="col">
-                            Prix :{{ resource.price }}€
-                        </p>
-                        <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary">Ajouter au panier</button></a>
-                    </div>
-
-                </div>
-                {% if resource.fileName is empty %}
-                    <div></div>
-                {% else %}
-                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
-                {% endif %}
-            </div>
+            {% endif %}
         </div>
-        <div class="container-fluid">
-            <div class="row d-flex justify-content-center">
-                <div class="border-bottom col-md-8">
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <div class="d-flex flex-wrap justify-content-center">
-        {%  for resource in resources_last_update  %}
+        {% if resources_search is empty %}
+        <h3 class="text-center"> Aucun résultat ne correspond malheureusement à votre recherche...</h3>
+        {% elseif resources_search != last %}
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for resource in resources_search %}
             <div class="container-fluid">
                 <div class="row d-flex justify-content-center pb-3 pt-3">
                     <div class="col-8 col-lg-5 pb-4">
-
-                        <div class="d-flex container">
-                            <div class="pb-2 col-11">
+                        <div class="d-flex container pl-0">
+                            <div class="pl-0 pb-2 col-11">
                                 <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
                             </div>
                             <div class="row col-2">
@@ -147,12 +87,12 @@
                                 dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                             </div>
                             {% if is_granted('ROLE_CONTRIBUTOR') %}
-                                <div class="mt-4">
-                                    Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
-                                </div>
+                            <div class="mt-4">
+                                Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
+                            </div>
                             {% endif %}
                         </div>
-                        <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
+                        <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
                             <div class="pl-3">Description :</div>
                             <p class="col">
                                 {{ resource.description }}
@@ -160,17 +100,17 @@
                         </div>
                         <div>
                             <p class="col">
-                                Prix : {{ resource.price }}€
+                                Prix :{{ resource.price }}€
                             </p>
-                            <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-dark">Ajouter au panier</button></a>
+                            <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary">Ajouter au panier</button></a>
                         </div>
 
                     </div>
-            {% if resource.fileName is empty %}
-                    <div></div>
-            {% else %}
-                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
-            {% endif %}
+                    {% if resource.fileName is empty %}
+                        <div></div>
+                    {% else %}
+                        <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                    {% endif %}
                 </div>
             </div>
             <div class="container-fluid">
@@ -179,9 +119,67 @@
                     </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-    {% endif %}
+            {% endfor %}
         </div>
+        {% else %}
+        <div class="d-flex flex-wrap justify-content-center">
+            {%  for resource in resources_last_update  %}
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center pb-3 pt-3">
+                        <div class="col-8 col-lg-5 pb-4">
+
+                            <div class="d-flex container pl-0">
+                                <div class="pb-2 col-11 pl-0">
+                                    <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                                </div>
+                                <div class="row col-2">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
+                                        {% include '/knowledge/_delete_knowledge.html.twig' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="pb-1">
+                                    dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
+                                </div>
+                                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                                    <div class="mt-4">
+                                        Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
+                                <div class="pl-3">Description :</div>
+                                <p class="col">
+                                    {{ resource.description }}
+                                </p>
+                            </div>
+                            <div>
+                                <p class="col">
+                                    Prix : {{ resource.price }}€
+                                </p>
+                                <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-dark">Ajouter au panier</button></a>
+                            </div>
+
+                        </div>
+                {% if resource.fileName is empty %}
+                        <div></div>
+                {% else %}
+                        <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                {% endif %}
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row d-flex justify-content-center">
+                        <div class="border-bottom col-md-8">
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
+</div>
 {% endblock %}
