@@ -21,6 +21,7 @@ class ResourceRepository extends ServiceEntityRepository
     public function searchLikeName(string $name) {
         $queryBuilder = $this->createQueryBuilder('r')
             ->where('r.name LIKE :name')
+            ->orWhere('r.description LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->getQuery();
 
@@ -33,6 +34,7 @@ class ResourceRepository extends ServiceEntityRepository
             ->leftJoin('r.pathology', 'p')
             ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
+            ->orWhere('r.description LIKE :name')
             ->andWhere('p.identifier = :pathology')
             ->andWhere('f.identifier = :format')
             ->setParameter('name', '%' . $name . '%')
@@ -80,6 +82,7 @@ class ResourceRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.pathology', 'p')
             ->where('r.name LIKE :name')
+            ->orWhere('r.description LIKE :name')
             ->andWhere('p.identifier = :pathology')
             ->setParameter('name', '%' . $name . '%')
             ->setParameter('pathology', $pathology)
@@ -92,6 +95,7 @@ class ResourceRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
+            ->orWhere('r.description LIKE :name')
             ->andWhere('f.identifier = :format')
             ->setParameter('name', '%' . $name . '%')
             ->setParameter('format', $format)
