@@ -22,7 +22,7 @@ class SearchResourceType extends AbstractType
             ->add('pathology', EntityType::class, [
                 'class' => Pathology::class,
                 'choice_label' => 'identifier',
-                'multiple' => true,
+                'multiple' => false,
                 'expanded' => false,
                 'required'   => false,
                 'label'    => ' ',
