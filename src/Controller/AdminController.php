@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\EventFormat;
 use App\Entity\Expertise;
 use App\Entity\Pathology;
@@ -125,6 +126,8 @@ class AdminController extends AbstractController
             'form_event_format'=> $formEventFormat->createView(),
             'event_formats' => $eventFormats,
             'registered_events' => $registeredEventRepository->findAll(),
+            'events' => $eventRepository->findAll(),
+            'services' => $serviceRepository->findAll()
         ]);
     }
 
@@ -134,8 +137,7 @@ class AdminController extends AbstractController
     public function validAnEvent(
         Request $request,
         EntityManagerInterface $entityManager,
-        EventRepository $eventRepository
-    ): Response
+        EventRepository $eventRepository): Response
     {
         $event = $eventRepository->find($request->get('event'));
         $event->setEventIsValidated(true);
@@ -153,8 +155,7 @@ class AdminController extends AbstractController
     public function validService(
         Request $request,
         EntityManagerInterface $entityManager,
-        ServiceRepository $serviceRepository
-    ): Response
+        ServiceRepository $serviceRepository): Response
     {
         $service = $serviceRepository->find($request->get('service'));
         $service->setServiceIsValidated(true);
@@ -173,8 +174,7 @@ class AdminController extends AbstractController
         Request $request,
         User $user,
         RegisteredEventRepository $registeredEventRepository,
-        ResourceRepository $resourceRepository
-    ): Response
+        ResourceRepository $resourceRepository): Response
     {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
