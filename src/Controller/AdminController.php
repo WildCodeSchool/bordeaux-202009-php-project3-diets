@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Contact;
 use App\Entity\EventFormat;
 use App\Entity\Expertise;
 use App\Entity\Pathology;
@@ -22,6 +23,7 @@ use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -190,5 +192,39 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/admin/message", name="admin_message")
+     */
+
+    public function messagePaginator(Request $request, PaginatorInterface $paginator)
+    {
+        $data = $this->getDoctrine()->getRepository(Contact::class)->findBy([],['createdAt' => 'desc']);
+
+        $messages = $paginator->paginate(
+            $data, $request->query->getInt('page', 1), 10
+        );
+
+        return $this->render('admin/message.html.twig', [
+            'messages' => $messages,
+        ]);
+
+    }
+
+    /**
+     * @Route("/admin/message/{id}", name="admin_message_delete", methods={"DELETE"})
+     */
+
+
+    public function deleteMessage(Request $request, Contact $contact): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $contact->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($contact);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin_message');
+
     }
 }
