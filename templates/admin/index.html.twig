@@ -4,17 +4,20 @@
 {% block body %}
     <div class="admin-page">
         <div class="input-group admin-title">
-        <div class="d-flex justify-content-center">
-            <h2 class="page-title">• Ma page Admin •</h2>
-        </div>
-        <div class="container admin-count-block">
-            <div class="row col-3">
-                <div class="flex-column">
-                    <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
-                    <div class="justify-content-center admin-count-title">Nombre d'inscrits</div>
+            <div class="d-flex justify-content-center">
+                <h2 class="page-title">• Ma page Admin •</h2>
+            </div>
+            <div class="container admin-count-block">
+                <div class="row col-3">
+                    <div class="flex-column">
+                        <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
+                        <div class="justify-content-center admin-count-title">Nombre d'inscrits</div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center mt-4">
+            <button class="home-btn-second "><a href="{{ path('admin_message') }}" class="text-white">Voir les messages</a></button>
         </div>
         <div class="container-fluid admin-create mt-5">
             <div class="col-3 border">

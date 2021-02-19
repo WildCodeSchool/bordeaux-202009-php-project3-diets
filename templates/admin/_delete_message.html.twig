@@ -1,0 +1,5 @@
+<form method="post" action="{{ path('admin_message_delete', {'id': message.id}) }}" onsubmit="return confirm('Es-tu sûre de vouloir supprimer cet message ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ message.id) }}">
+    <button class="delete-btn"> <i class="fas fa-trash"></i></button>
+</form>

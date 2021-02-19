@@ -112,6 +112,7 @@ class User implements UserInterface
      */
     private $country;
 
+
     public function __construct()
     {
         $this->expertise = new ArrayCollection();
@@ -125,18 +126,25 @@ class User implements UserInterface
         return $this->id;
     }
 
-
-    public function getEmail(): ?string
+    /**
+     * @return mixed
+     */
+    public function getEmail()
     {
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    /**
+     * @param mixed $email
+     * @return User
+     */
+    public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
+
+
 
     /**
      * A visual identifier that represents this user.
@@ -434,4 +442,6 @@ class User implements UserInterface
 
         return $this;
     }
+
+
 }

@@ -12,12 +12,15 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/contact", name="contact_")
+ */
 class ContactController extends AbstractController
 {
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/", name="index")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $contact = new Contact();
         $formContact = $this->createForm(ContactType::class, $contact);
@@ -25,7 +28,7 @@ class ContactController extends AbstractController
        if ($formContact->isSubmitted() && $formContact->isValid()) {
             $entityManager->persist($contact);
             $entityManager->flush();
-            $email = (new Email())
+            /*$email = (new Email())
                 ->from($this->getParameter('mailer_from'))
                 ->to($this->getParameter('mailer_to'))
                 ->subject('Nous les Diets - Nouveau message de contact')
@@ -33,12 +36,13 @@ class ContactController extends AbstractController
                     'contact/newContactEmail.html.twig',
                     ['contact' => $contact]
                 ));
-            //$mailer->send($email);
+            //$mailer->send($email);*/
             $this->addFlash('success', 'Vous avez bien envoyé un message');
         }
         return $this->render('contact/index.html.twig', [
-            'controller_name' => 'ContactController',
             'form_contact' => $formContact->createView(),
         ]);
     }
+
+
 }
