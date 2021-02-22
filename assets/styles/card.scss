@@ -31,21 +31,28 @@
     background-color: #4950577d;
     border-radius: 20px;
     width: auto;
+    font-weight: bold;
+    font-size: 1.25em;
     color:white;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
   }
 }
 .box-back {
   background-color: $bg-body;
   color: #eeeeee;
   transform: rotateY(180deg);
-}
 
-.card-title{
-  text-align: center;
-  color:$main-orange;
-  font-weight: bold;
-  font-size: x-large;
 
+  .card-title{
+    text-align: center;
+    color:$main-orange;
+    font-weight: bold;
+    font-size: x-large;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .card-img{
