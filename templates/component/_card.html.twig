@@ -47,7 +47,7 @@
                 {{ include('profile/_delete_resource.html.twig') }}
             {% endif %}
             <div class="card-body">
-                <h5 class="card-title">{{ resource.name }}</h5>
+                <h5 class="card-title">{{ resource.name[:50] }}</h5>
         {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}">Editer</a>
         {% endif %}
@@ -69,7 +69,7 @@
                 {{ include('service/_delete_service.html.twig') }}
             {% endif %}
             <div class="card-body">
-                <h5 class="card-title">{{ service.name }}</h5>
+                <h5 class="card-title">{{ service.name[:50] }}</h5>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('profile_service_edit', {'id': service.id}) }}">Editer</a>
                 {% endif %}
@@ -78,7 +78,7 @@
                     {{ service.description[:100] ~ '...' }}
                 </p>
                 {% if is_granted('ROLE_CONTRIBUTOR') %}
-                    <button type="button" class="btn" data-toggle="modal" data-target="#id{{ service.id }}">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#idservice{{ service.id }}">
                         Voir
                     </button>
                 {% endif %}
