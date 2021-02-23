@@ -15,7 +15,7 @@
             </div>
         </div>
         <div>
-            <a class="user-mobile" href=""><i class="fas fa-shopping-cart"></i></a>
+           {# <a class="user-mobile" href=""><i class="fas fa-shopping-cart"></i></a>#}
             {% if app.user %}
                 <a class="user-mobile" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
             {% else %}
@@ -72,7 +72,7 @@
                 </li>
             </ul>
             <div>
-                <a class="nav-user mr-3" href="{{ path('basket_index') }}"><i class="fas fa-shopping-cart"></i></a>
+               {#  <a class="nav-user mr-3" href="{{ path('basket_index') }}"><i class="fas fa-shopping-cart"></i></a>#}
                 {% if app.user %}
                     <a class="nav-user" href="/logout"><i class=" fas fa-user-alt-slash"></i></a>
                 {% else %}
