@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Dietetician;
 use App\Entity\Event;
 use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
@@ -10,6 +11,7 @@ use App\Entity\Resource;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\CompanyType;
+use App\Form\DieteticianType;
 use App\Form\EventType;
 use App\Form\PictureType;
 use App\Form\ResourceType;
@@ -370,9 +372,56 @@ class ProfileController extends AbstractController
             'form_company' => $form->createView(),
 
         ]);
+    }
+
+    /**
+     * @Route ("/register/dietetician/{id}", name="register_dietetician")
+     */
+    public function dieteticianRegister(Request $request,
+                                        EntityManagerInterface $entityManager,
+                                        UserRepository $userRepository,
+                                        $id,
+                                        User $user): Response
+    {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
+
+        $user = $userRepository->findOneBy(['id' => $id]);
 
 
+        $dietetician= new Dietetician();
+        $form = $this->createForm(DieteticianType::class, $dietetician);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRoles() === ['ROLE_USER']) {
+                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->setIsVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            $dietetician->setUser($user);
+            $entityManager->persist($dietetician);
+            $entityManager->flush();
+            return $this->redirectToRoute('ressource_index');
+        }
+
+        return $this->render('component/_register_dietetician.html.twig', [
+            'form_dietetician' => $form->createView(),
+
+        ]);
 
 
     }

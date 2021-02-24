@@ -36,12 +36,7 @@ class UserEditType extends AbstractType
                 'label' => 'Prénom *',
                 'required' => true,
             ])
-            ->add('birthday', DateType::class, [
-                'label' => 'Date d\'anniversaire *',
-                'years' => range(1920, 2020, 1),
-                'format' => 'dd-MM-yyyy',
-                'required' => true,
-            ])*/
+            */
             ->add('country', ChoiceType::class, [
                 'label' => 'Pays *',
                 'choices' => $countries,
