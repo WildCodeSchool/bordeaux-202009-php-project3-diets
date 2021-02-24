@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,10 +51,14 @@ class Service
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="service", cascade={"persist", "remove"})
      */
-    private $picture;
+    private $pictures;
+
+    public function __construct()
+    {
+        $this->pictures = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -131,15 +137,34 @@ class Service
         return $this;
     }
 
-    public function getPicture(): ?Picture
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
-    public function setPicture(Picture $picture): self
+    public function addPicture(Picture $picture): self
     {
-        $this->picture = $picture;
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setService($this);
+        }
 
         return $this;
     }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getService() === $this) {
+                $picture->setService(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

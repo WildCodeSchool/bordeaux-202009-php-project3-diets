@@ -46,7 +46,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setDateEnd(new DateTime($eventData['date_end']));
             $event->setDateStart(new DateTime($eventData['date_start']));
             $event->setLink($eventData['link']);
-            $event->setPicture($this->getReference('picture_' . rand(0,200)));
+            $event->setPicture($this->getReference('picture_' . rand(0,10)));
             $event->setEventIsValidated( true);
             $event->setPrice($eventData['price']);
             $event->setUpdatedAt(new DateTime($eventData['updated_at']));

@@ -9,11 +9,7 @@
                 />
             {% endif %}
             {% if service is defined %}
-                <img
-                        src="/uploads/pictures/{{ service.picture.name }}"
-                        class="card-img "
-                        alt="..."
-                />
+                        <img class="card-img" src="/uploads/pictures/{{ service.pictures[0].name }}" alt='{{ service.pictures[0].name }}'>
             {% endif %}
             {% if event_organized is defined %}
                 <img

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Picture;
 use App\Entity\Service;
 use App\Form\SearchResourceType;
 use App\Form\ServiceType;
@@ -12,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 /**
  * @Route("/service", name="service_")
@@ -54,12 +56,16 @@ class ServiceController extends AbstractController
             ->getRepository(Service::class)
             ->findBy(['serviceIsValidated' => true], ['id' => 'desc']);
 
+        $pictures = $this->getDoctrine()
+            ->getRepository(Picture::class)
+            ->findBy(['link' => null]);
+
         return $this->render('service/index.html.twig', [
             'form_service' => $formService->createView(),
             'services' => $service,
             'form_search' => $formSearch->createView(),
             'services_search' => $services,
-            'pictures' => $pictureRepository->findAll(),
+            'pictures' => $pictures,
             'path' => 'service_index',
         ]);
     }

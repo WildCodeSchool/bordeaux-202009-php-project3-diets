@@ -95,6 +95,18 @@ class ProfileController extends AbstractController
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
             $service->setServiceIsValidated(false);
+            $pictures = $formService->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $service->addPicture($newPicture);
+            }
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -113,7 +125,9 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
 
-        /*dd($eventsOrganized);*/
+        $pictures = $this->getDoctrine()
+            ->getRepository(Picture::class)
+            ->findBy(['link' => null]);
 
         return $this->render('profile/edit.html.twig', [
             'events_organized' => $eventsOrganized,
@@ -125,7 +139,7 @@ class ProfileController extends AbstractController
             'form_event' => $formEvent->createView(),
             'resources' => $resources,
             'form_resource' => $formResource->createView(),
-            'pictures' => $pictureRepository->findAll(),
+            'pictures' => $pictures,
             'path' => 'profile_edit',
         ]);
     }

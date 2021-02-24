@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Picture;
 use App\Entity\Service;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -23,8 +24,11 @@ class ServiceType extends AbstractType
                 'required' => false,
             ])
             ->add('description', TextareaType::class, ['label' => 'Description'])
-            ->add('picture', PictureType::class, [
-                'label' => 'Charger une image'
+            ->add('pictures', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
             ])
         ;
     }

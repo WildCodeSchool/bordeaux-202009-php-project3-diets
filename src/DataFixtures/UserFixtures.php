@@ -39,7 +39,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'user'
         ));
-        $user->setPicture($this->getReference('picture_49'));
+        $user->setPicture($this->getReference('picture_8'));
         $this->addReference('user_0', $user);
         $manager->persist($user);
 
@@ -59,7 +59,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'contributor'
         ));
-        $user->setPicture($this->getReference('picture_50'));
+        $user->setPicture($this->getReference('picture_9'));
         $this->addReference('user_1', $user);
         $manager->persist($user);
 
@@ -79,7 +79,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'admin'
         ));
-        $user->setPicture($this->getReference('picture_51'));
+        $user->setPicture($this->getReference('picture_10'));
         $this->addReference('user_2', $user);
         $manager->persist($user);
 
