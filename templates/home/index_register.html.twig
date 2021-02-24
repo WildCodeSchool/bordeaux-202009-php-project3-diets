@@ -22,7 +22,7 @@
                         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
                     {% endfor %}
                     {{ form_start(registration_form) }}
-                    <div class="justify-content-center align-items-center container home-email">
+                   {#  <div class="justify-content-center align-items-center container home-email">
                         <div class="col-3 align-items-center home-form">Prénom :</div>
                         <div class="col-5">
                             {{ form_row(registration_form.firstname, {'attr': {'class': 'form-control'}}) }}
@@ -33,7 +33,7 @@
                         <div class="col-5">
                             {{ form_row(registration_form.lastname, {'attr': {'class': 'form-control'}}) }}
                         </div>
-                    </div>
+                    </div>#}
                     <div class="justify-content-center align-items-center container home-email">
                         <div class="col-3 align-items-center home-form">Adresse e-mail :</div>
                         <div class="col-5">
@@ -56,8 +56,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center align-items-center container home-email">
-                        <div class="home-form-lg">
-                            <button type="submit" class="home-btn-second non_underline text-center">S'inscrire</button>
+                       <div class="home-form-lg">
+                           <button type="submit" class="home-btn-second non_underline text-center">S'inscrire</button>
                         </div>
                     </div>
                         {{ form_end(registration_form) }}

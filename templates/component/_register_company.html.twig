@@ -1,0 +1,11 @@
+<div class="col-7 profile-main-forms ">
+    <div class="form-user">
+        {% form_theme form_company 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form_company) }}
+            {{ form_row(form_company.name) }}
+            {{ form_row(form_company.siret) }}
+            {{ form_row(form_company.description) }}
+        <button type="submit" class="btn mt-5">Editer mon profil</button>
+        {{ form_end(form_company) }}
+    </div>
+</div>

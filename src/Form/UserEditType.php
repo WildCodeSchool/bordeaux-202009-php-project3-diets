@@ -28,7 +28,7 @@ class UserEditType extends AbstractType
                 'label' => 'Email *',
                 'required' => true,
             ])
-            ->add('lastname', TextType::class, [
+           /* ->add('lastname', TextType::class, [
                 'label' => 'Nom *',
                 'required' => true,
             ])
@@ -41,16 +41,16 @@ class UserEditType extends AbstractType
                 'years' => range(1920, 2020, 1),
                 'format' => 'dd-MM-yyyy',
                 'required' => true,
-            ])
+            ])*/
             ->add('country', ChoiceType::class, [
                 'label' => 'Pays *',
                 'choices' => $countries,
                 'placeholder' => 'Faites votre choix',
             ])
-            ->add('adeli', TextType::class, [
+          /*  ->add('adeli', TextType::class, [
                 'label' => 'Numéro ADELI *',
                 'required' => false,
-            ])
+            ])*/
             ->add('address', TextType::class, [
                 'label' => 'Adresse de votre cabinet',
                 'required' => false,
