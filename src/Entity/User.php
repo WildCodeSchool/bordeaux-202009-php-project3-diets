@@ -42,26 +42,6 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $firstname;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $birthday;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $adeli;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $address;
 
     /**
@@ -111,6 +91,22 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Dietetician::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $dietetician;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Company::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $company;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Freelancer::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $freelancer;
+
 
 
     public function __construct()
@@ -207,56 +203,6 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getLastname(): ?string
-    {
-        return $this->lastname;
-    }
-
-    public function setLastname(?string $lastname): self
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    public function getFirstname(): ?string
-    {
-        return $this->firstname;
-    }
-
-    public function setFirstname(?string $firstname): self
-    {
-        $this->firstname = $firstname;
-
-        return $this;
-    }
-
-
-    public function getBirthday(): ?\DateTimeInterface
-    {
-        return $this->birthday;
-    }
-
-    public function setBirthday(?\DateTimeInterface $birthday): self
-    {
-        $this->birthday = $birthday;
-
-        return $this;
-    }
-
-
-    public function getAdeli(): ?string
-    {
-        return $this->adeli;
-    }
-
-    public function setAdeli(string $adeli): self
-    {
-        $this->adeli = $adeli;
-
-        return $this;
     }
 
     public function getAddress(): ?string
@@ -439,6 +385,57 @@ class User implements UserInterface
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getDietetician(): ?Dietetician
+    {
+        return $this->dietetician;
+    }
+
+    public function setDietetician(Dietetician $dietetician): self
+    {
+        $this->dietetician = $dietetician;
+
+        // set the owning side of the relation if necessary
+        if ($dietetician->getUser() !== $this) {
+            $dietetician->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getCompany(): ?Company
+    {
+        return $this->company;
+    }
+
+    public function setCompany(Company $company): self
+    {
+        $this->company = $company;
+
+        // set the owning side of the relation if necessary
+        if ($company->getUser() !== $this) {
+            $company->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getFreelancer(): ?Freelancer
+    {
+        return $this->freelancer;
+    }
+
+    public function setFreelancer(Freelancer $freelancer): self
+    {
+        $this->freelancer = $freelancer;
+
+        // set the owning side of the relation if necessary
+        if ($freelancer->getUser() !== $this) {
+            $freelancer->setUser($this);
+        }
 
         return $this;
     }

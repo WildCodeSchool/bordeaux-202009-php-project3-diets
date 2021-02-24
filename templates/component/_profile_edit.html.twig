@@ -1,6 +1,6 @@
 <div class="profile-edit">
     <div class="d-flex justify-content-center">
-        <h2 class="page-title">Bonjour {{ infos.firstname}} ! Heureux de vous revoir.</h2>
+        <h2 class="page-title">Bonjour {# {{ infos.firstname}} #} ! Heureux de vous revoir.</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
         {% if is_granted('ROLE_CONTRIBUTOR') %}
@@ -75,9 +75,9 @@
             </div>
             <div class="col-xl-6 col-12 d-sm-flex  profile-text-center text-sm-left justify-content-xl-start justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
-                    <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
+                    {# <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
                     <p> {{ infos.birthday|date("d/m/Y") }}</p>
-                    <p> {{ infos.adeli }}</p>
+                    <p> {{ infos.adeli }}</p> #}
                     <p> {{ infos.address }} </p>
                     <p> {{ infos.country }}</p>
                     <p> {{ infos.email }} </p>
@@ -85,7 +85,7 @@
                     {% if infos.website %}
                         <p>Site internet : {{ infos.website }} </p>
                     {% endif %}
-                    <a href="{{ path('profile_profil_edit', {'id': infos.id}) }}">Modifier mon profil</a>
+                    <a href="{{ path('profile_profil_edit', {'id': infos.id}) }}">Modifier mon profil </a>
                 </div>
             </div>
         </div>
