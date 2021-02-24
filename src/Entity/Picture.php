@@ -5,11 +5,13 @@ namespace App\Entity;
 use App\Repository\PictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=PictureRepository::class)
+ * @Vich\Uploadable
  */
-class Picture
+class Picture implements \Serializable
 {
     /**
      * @ORM\Id
@@ -33,6 +35,17 @@ class Picture
      * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="pictures")
      */
     private $service;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="pictures")
+     */
+    private $event;
+
+    /**
+     * @Vich\UploadableField(mapping="picture_file", fileNameProperty="name")
+     * @var File
+     */
+    private $pictureFile;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -80,6 +93,38 @@ class Picture
         return $this;
     }
 
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(Event $event): self
+    {
+        $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return File
+     */
+    public function getPictureFile(): ?File
+    {
+        return $this->pictureFile;
+    }
+
+    /**
+     * @param File $pictureFile
+     */
+    public function setPictureFile(File $image = null): Picture
+    {
+        $this->pictureFile = $image;
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
@@ -90,5 +135,15 @@ class Picture
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return $this->name;
+    }
+
+    public function unserialize($serialized)
+    {
+        return $this->name;
     }
 }

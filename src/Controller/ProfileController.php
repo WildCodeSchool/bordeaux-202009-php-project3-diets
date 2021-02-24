@@ -120,6 +120,18 @@ class ProfileController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
+            $pictures = $formEvent->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $event->addPicture($newPicture);
+            }
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();

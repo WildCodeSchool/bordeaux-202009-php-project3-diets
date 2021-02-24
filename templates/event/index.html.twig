@@ -86,7 +86,7 @@
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in pictures %}
-                                {% if event.picture.id is same as (picture.id) %}
+                                {% if event.id is same as (picture.event.id) %}
                                     <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                 {% endif %}
                             {% endfor %}
@@ -137,7 +137,7 @@
                             <div class="div-container col-lg-4 d-flex justify-content-center align-items-center">
                                 <div class="img-container">
                                     {% for picture in pictures %}
-                                        {% if event.picture.id is same as (picture.id) %}
+                                        {% if event.id is same as (picture.event.id) %}
                                             <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
                                         {% endif %}
                                     {% endfor %}

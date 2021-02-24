@@ -48,6 +48,18 @@ class ServiceController extends AbstractController
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
             $service->setServiceIsValidated(false);
+            $pictures = $formService->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $service->addPicture($newPicture);
+            }
             $entityManager->persist($service);
             $entityManager->flush();
             $this->redirectToRoute('service_index');
@@ -58,7 +70,7 @@ class ServiceController extends AbstractController
 
         $pictures = $this->getDoctrine()
             ->getRepository(Picture::class)
-            ->findBy(['link' => null]);
+            ->findBy(['link' => null, 'event' => null]);
 
         return $this->render('service/index.html.twig', [
             'form_service' => $formService->createView(),
