@@ -47,10 +47,8 @@
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
-                            {% for picture in pictures %}
-                                {% if service.id is same as (picture.service.id) %}
+                            {% for picture in service.pictures %}
                                     <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
-                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -81,10 +79,8 @@
                                 <div class="row d-flex justify-content-center pb-3 pt-3">
                                     <div class="col-lg-4 d-flex justify-content-center align-items-center">
                                         <div class="img-container">
-                                            {% for picture in pictures %}
-                                                {% if service.id is same as (picture.service.id) %}
+                                            {% for picture in service.pictures %}
                                                     <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
-                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>

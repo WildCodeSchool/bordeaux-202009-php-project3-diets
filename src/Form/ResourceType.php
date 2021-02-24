@@ -44,11 +44,11 @@ class ResourceType extends AbstractType
             ->add('price', NumberType::class, [
                 'label' => 'Prix (facultatif)',
             ])
-            ->add('resourceFile', VichFileType::class, [
-                'required'      => false,
-                'allow_delete'  => true,
-                'download_uri' => true,
-                'label' => 'Charger un document'
+            ->add('resourceFiles', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
             ]);
     }
 

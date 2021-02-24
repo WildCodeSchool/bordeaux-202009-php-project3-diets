@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
+use App\Entity\ResourceFile;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\EventType;
@@ -85,6 +86,18 @@ class ProfileController extends AbstractController
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
             $newResource->setUser($this->getUser());
+            $files = $formResource->get('resourceFiles')->getData();
+            foreach ($files as $file) {
+                $file->move(
+                    $this->getParameter('uploadresource_directory'),
+                    $file
+                );
+                $newResourceFile = new ResourceFile();
+                $newResourceFile->setUpdatedAt(new \DateTime('now'));
+                $resourceName = substr($file, -9);
+                $newResourceFile->setName($resourceName);
+                $newResource->addResourceFile($newResourceFile);
+            }
             $entityManager->persist($newResource);
             $entityManager->flush();
         }
