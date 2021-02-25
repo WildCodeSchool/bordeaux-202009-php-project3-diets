@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Company;
 use App\Entity\Dietetician;
 use App\Entity\Event;
+use App\Entity\Freelancer;
 use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
@@ -14,6 +15,7 @@ use App\Entity\Service;
 use App\Form\CompanyType;
 use App\Form\DieteticianType;
 use App\Form\EventType;
+use App\Form\FreelancerType;
 use App\Form\PictureType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
@@ -199,7 +201,7 @@ class ProfileController extends AbstractController
             if ($user->getRoles() === ['ROLE_USER']) {
                 return $this->redirectToRoute('profile_choice_role', ['id' => $id]);
             } else {
-                return $this->redirectToRoute('ressource_index');
+                return $this->redirectToRoute('profile_edit', ['id' => $id ]);
             }
         }
 
@@ -459,6 +461,58 @@ class ProfileController extends AbstractController
 
         return $this->render('component/_register_dietetician.html.twig', [
             'form_dietetician' => $form->createView(),
+
+        ]);
+
+
+    }
+
+    /**
+     * @Route ("/register/freelancer/{id}", name="register_freelancer")
+     */
+    public function freelancerRegister(Request $request,
+                                        EntityManagerInterface $entityManager,
+                                        UserRepository $userRepository,
+                                        $id,
+                                        User $user): Response
+    {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
+
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+
+        $freelancer= new Freelancer();
+        $form = $this->createForm(FreelancerType::class, $freelancer);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRoles() === ['ROLE_USER']) {
+                $user->setRoles(['ROLE_FREELANCER']);
+                $user->setIsVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            $freelancer->setUser($user);
+            $entityManager->persist($freelancer);
+            $entityManager->flush();
+            return $this->redirectToRoute('ressource_index');
+        }
+
+        return $this->render('component/_register_freelancer.html.twig', [
+            'form_freelancer' => $form->createView(),
 
         ]);
 
