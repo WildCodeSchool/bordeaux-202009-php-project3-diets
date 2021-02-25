@@ -10,7 +10,7 @@
             <div class="container admin-count-block">
                 <div class="row col-3">
                     <div class="flex-column">
-                        {# <div class="justify-content-center admin-count">{{ registered_user_count }}</div> #}
+                        <div class="justify-content-center admin-count">{{ registered_user_count }}</div>
                         <div class="justify-content-center admin-count-title">Nombre d'inscrits</div>
                     </div>
                 </div>
@@ -120,17 +120,19 @@
             </div>
             <div class="d-flex justify-content-center">
             <div class="row text-center users-list col-9">
-               {#  {% for listed_user in registered_user %}
+                {% for listed_user in registered_user %}
                     {% if app.user.id != listed_user.id %}
                         <div class="col-4">
                             <div class="d-flex pb-1">
                                 {{ include('admin/_delete_user.html.twig') }}
-                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {{ listed_user.firstname }} {{ listed_user.lastname }} </a>
+                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {% if listed_user.company %} {{ listed_user.company.name }} {% endif %}
+                                    {% if listed_user.freelancer%} {{ listed_user.freelancer.name }} {% endif %}
+                                    {% if listed_user.dietetician %} {{ listed_user.dietetician.lastname }} {{ listed_user.dietetician.firstname }}{% endif %}</a>
                                 <br>
                             </div>
                         </div>
                     {% endif %}
-                {% endfor %} #}
+                {% endfor %}
             </div>
             </div>
         </div>
@@ -148,7 +150,9 @@
                             {% for registered in registered_events %}
                                 {% if registered.event.id == event.id %}
                                     {% if registered.isOrganizer == true %}
-                                {# {{ registered.user.firstname }}  {{ registered.user.lastname }} #}
+                                        {% if registered.user.company %} {{ registered.user.company.name }} {% endif %}
+                                        {% if registered.user.freelancer %} {{ registered.user.freelancer.name }} {% endif %}
+                                        {% if registered.user.dietetician%} {{ registered.user.dietetician.firstname }}  {{ registered.user.dietetician.lastname }} {% endif %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -177,7 +181,9 @@
                                     {% for registered in registered_events %}
                                         {% if registered.event.id == event.id %}
                                             {% if registered.isOrganizer == true %}
-                                               {#  {{ registered.user.firstname }}  {{ registered.user.lastname }} #}
+                                                {% if registered.user.company %} {{ registered.user.company.name }} {% endif %}
+                                                {% if registered.user.freelancer %} {{ registered.user.freelancer.name }} {% endif %}
+                                                {% if registered.user.dietetician%} {{ registered.user.dietetician.firstname }}  {{ registered.user.dietetician.lastname }} {% endif %}
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -200,7 +206,10 @@
                     <div class="col-4">
                         <div class="d-flex pb-1">
                             <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ service.name }}</p>
-                               {#  <br> Posté par: {{ service.user.firstname }} {{ service.user.lastname }}</a> #}
+                               <br> Posté par:
+                                {% if service.user.company %} {{ service.user.company.name }} {% endif %}
+                                {% if service.user.freelancer %} {{ service.user.freelancer.name }} {% endif %}
+                                {% if service.user.dietetician%} {{ service.user.dietetician.firstname }}  {{ service.user.dietetician.lastname }} {% endif %} </a>
                             <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>
                             <br>
                         </div>
@@ -221,7 +230,9 @@
                                     {% include '/service/_delete_service.html.twig' %}
                                     <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ service.name }}</p>
                                         <br> Posté par :
-                                        {# {{ service.user.firstname }} {{ service.user.lastname }}  #}
+                                        {% if service.user.company %} {{ service.user.company.name }} {% endif %}
+                                        {% if service.user.freelancer %} {{ service.user.freelancer.name }} {% endif %}
+                                        {% if service.user.dietetician %} {{ service.user.dietetician.firstname }}  {{ service.user.dietetician.lastname }} {% endif %}
                                     </a>
                                     <br>
                                 </div>

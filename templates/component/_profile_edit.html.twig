@@ -1,6 +1,8 @@
 <div class="profile-edit">
     <div class="d-flex justify-content-center">
-        <h2 class="page-title">Bonjour {# {{ infos.firstname}} #} ! Heureux de vous revoir.</h2>
+        <h2 class="page-title">Bonjour  {% if infos.company %} {{ infos.company.name }} {% endif %}
+            {% if infos.freelancer %} {{ infos.freelancer.name }} {% endif %}
+            {% if infos.dietetician%} {{ infos.dietetician.firstname }}  {{ infos.dietetician.lastname }} {% endif %} ! Heureux de vous revoir.</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
         {% if is_granted('ROLE_CONTRIBUTOR') %}
@@ -75,9 +77,22 @@
             </div>
             <div class="col-xl-6 col-12 d-sm-flex  profile-text-center text-sm-left justify-content-xl-start justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
-                    {# <h3> {{ infos.firstname }} {{ infos.lastname }} </h3>
-                    <p> {{ infos.birthday|date("d/m/Y") }}</p>
-                    <p> {{ infos.adeli }}</p> #}
+                    <h3>{% if infos.company %} {{ infos.company.name }} {% endif %}
+                    {% if infos.freelancer %} {{ infos.freelancer.name }} {% endif %}
+                    {% if infos.dietetician %} {{ infos.dietetician.firstname }}  {{ infos.dietetician.lastname }} {% endif %}
+                    </h3>
+                    <p>
+                        {% if infos.dietetician %}  {{ infos.dietetician.birthday|date("d/m/Y") }} {% endif %}
+                    </p>
+                    <p>
+                        {% if infos.company %} {{ infos.company.siret }} {% endif %}
+                        {% if infos.freelancer %} {{ infos.freelancer.siret }} {% endif %}
+                        {% if infos.dietetician %} {{ infos.dietetician.adeli }} {% endif %}
+                    </p>
+                    <p>
+                        {% if infos.company %} {{ infos.company.description }} {% endif %}
+                        {% if infos.freelancer %} {{ infos.freelancer.descirption }} {% endif %}
+                    </p>
                     <p> {{ infos.address }} </p>
                     <p> {{ infos.country }}</p>
                     <p> {{ infos.email }} </p>

@@ -25,6 +25,15 @@ class DieteticianFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($dietetician);
         $manager->flush();
 
+        $alex = new Dietetician();
+        $alex->setFirstname('Alexandra');
+        $alex->setLastname('Jacob');
+        $alex->setBirthday($faker->dateTime);
+        $alex->setAdeli(351511535);
+        $alex->setUser($this->getReference('user_2'));
+        $manager->persist($alex);
+        $manager->flush();
+
 
 
     }
