@@ -24,10 +24,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('user@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
@@ -39,15 +35,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'user'
         ));
-        $user->setPicture($this->getReference('picture_49'));
+        $user->setPicture($this->getReference('picture_8'));
         $this->addReference('user_0', $user);
         $manager->persist($user);
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('contributor@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
@@ -59,15 +51,11 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'contributor'
         ));
-        $user->setPicture($this->getReference('picture_50'));
+        $user->setPicture($this->getReference('picture_9'));
         $this->addReference('user_1', $user);
         $manager->persist($user);
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('admin@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
@@ -79,7 +67,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user,
             'admin'
         ));
-        $user->setPicture($this->getReference('picture_51'));
+        $user->setPicture($this->getReference('picture_10'));
         $this->addReference('user_2', $user);
         $manager->persist($user);
 

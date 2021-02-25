@@ -71,9 +71,9 @@ class Event
     private $eventIsValidated;
 
     /**
-     * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Picture::class, mappedBy="event", cascade={"persist", "remove"})
      */
-    private $picture;
+    private $pictures;
 
     /**
      * @ORM\OneToMany(targetEntity=RegisteredEvent::class, mappedBy="event", cascade={"persist", "remove"})
@@ -84,6 +84,7 @@ class Event
     public function __construct()
     {
         $this->registeredEvents = new ArrayCollection();
+        $this->pictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -211,14 +212,32 @@ class Event
         return $this;
     }
 
-    public function getPicture(): ?Picture
+    /**
+     * @return Collection|Picture[]
+     */
+    public function getPictures(): Collection
     {
-        return $this->picture;
+        return $this->pictures;
     }
 
-    public function setPicture(?Picture $picture): self
+    public function addPicture(Picture $picture): self
     {
-        $this->picture = $picture;
+        if (!$this->pictures->contains($picture)) {
+            $this->pictures[] = $picture;
+            $picture->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removePicture(Picture $picture): self
+    {
+        if ($this->pictures->removeElement($picture)) {
+            // set the owning side to null (unless already changed)
+            if ($picture->getEvent() === $this) {
+                $picture->setEvent(null);
+            }
+        }
 
         return $this;
     }

@@ -46,6 +46,18 @@ class EventController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
+            $pictures = $formEvent->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $event->addPicture($newPicture);
+            }
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
@@ -64,13 +76,16 @@ class EventController extends AbstractController
             }
         }
 
+        $pictures = $this->getDoctrine()
+            ->getRepository(Picture::class)
+            ->findBy(['link' => null, 'service' => null]);
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'events_search' => $eventSearch,
             'events' => $events,
             'form_event' => $formEvent->createView(),
-            'pictures' => $pictureRepository->findAll(),
+            'pictures' => $pictures,
             'path' => 'event_index',
             'registered_events' => $registeredEventRepository->findAll(),
             ]);

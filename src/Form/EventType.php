@@ -7,6 +7,7 @@ use App\Entity\EventFormat;
 use App\Entity\Picture;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -33,9 +34,13 @@ class EventType extends AbstractType
                 'choice_label' => 'format',
                 'label' => 'Format',
             ])
-            ->add('picture', PictureType::class, [
-                'label' => 'Charger une image'
-            ]);
+            ->add('pictures', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false,
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

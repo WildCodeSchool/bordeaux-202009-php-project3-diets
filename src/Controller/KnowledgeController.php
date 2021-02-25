@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Resource;
+use App\Entity\ResourceFile;
 use App\Entity\User;
 use App\Form\ResourcesAllType;
 use App\Form\ResourceType;
@@ -82,6 +83,18 @@ class KnowledgeController extends AbstractController
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
             $newResource->setUser($this->getUser());
+            $files = $formResource->get('resourceFiles')->getData();
+            foreach ($files as $file) {
+                $file->move(
+                    $this->getParameter('uploadresource_directory'),
+                    $file
+                );
+                $newResourceFile = new ResourceFile();
+                $newResourceFile->setUpdatedAt(new \DateTime('now'));
+                $fileName = substr($file, -9);
+                $newResourceFile->setName($fileName);
+                $newResource->addResourceFile($newResourceFile);
+            }
             $entityManager->persist($newResource);
             $entityManager->flush();
         }

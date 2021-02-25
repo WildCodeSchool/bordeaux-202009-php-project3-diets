@@ -35,7 +35,6 @@ class ServiceFixtures extends Fixture implements DependentFixtureInterface
             $service->setDescription($serviceData['description']);
             $service->setUser($this->getReference('user_' . rand(0, 2)));
             $service->setServiceIsValidated(rand(0, 1));
-            $service->setPicture($this->getReference('picture_' . rand(0, 50)));
             $manager->persist($service);
             $this->addReference('service_' . $i, $service);
             $i++;

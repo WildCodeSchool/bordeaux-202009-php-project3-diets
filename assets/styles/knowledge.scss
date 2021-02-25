@@ -1,4 +1,9 @@
 .knowledge {
+  .file-resource {
+    width: 400px;
+    height: 200px;
+    object-fit: contain;
+  }
   .knowledge-image {
     height: 40em;
     background-image: url('../images/image-ressource.jpg');

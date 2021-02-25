@@ -8,6 +8,7 @@ use App\Entity\Event;
 use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
+use App\Entity\ResourceFile;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\CompanyType;
@@ -80,6 +81,18 @@ class ProfileController extends AbstractController
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
             $newResource->setUser($this->getUser());
+            $files = $formResource->get('resourceFiles')->getData();
+            foreach ($files as $file) {
+                $file->move(
+                    $this->getParameter('uploadresource_directory'),
+                    $file
+                );
+                $newResourceFile = new ResourceFile();
+                $newResourceFile->setUpdatedAt(new \DateTime('now'));
+                $resourceName = substr($file, -9);
+                $newResourceFile->setName($resourceName);
+                $newResource->addResourceFile($newResourceFile);
+            }
             $entityManager->persist($newResource);
             $entityManager->flush();
         }
@@ -90,6 +103,18 @@ class ProfileController extends AbstractController
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
             $service->setServiceIsValidated(false);
+            $pictures = $formService->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $service->addPicture($newPicture);
+            }
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -103,12 +128,26 @@ class ProfileController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
+            $pictures = $formEvent->get('pictures')->getData();
+            foreach ($pictures as $picture) {
+                $picture->move(
+                    $this->getParameter('uploadpicture_directory'),
+                    $picture
+                );
+                $newPicture = new Picture();
+                $newPicture->setUpdatedAt(new \DateTime('now'));
+                $pictureName = substr($picture, -9);
+                $newPicture->setName($pictureName);
+                $event->addPicture($newPicture);
+            }
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();
         }
 
-        /*dd($eventsOrganized);*/
+        $pictures = $this->getDoctrine()
+            ->getRepository(Picture::class)
+            ->findBy(['link' => null]);
 
         return $this->render('profile/edit.html.twig', [
             'events_organized' => $eventsOrganized,
@@ -120,7 +159,7 @@ class ProfileController extends AbstractController
             'form_event' => $formEvent->createView(),
             'resources' => $resources,
             'form_resource' => $formResource->createView(),
-            'pictures' => $pictureRepository->findAll(),
+            'pictures' => $pictures,
             'path' => 'profile_edit',
         ]);
     }

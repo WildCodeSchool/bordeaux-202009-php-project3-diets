@@ -7,7 +7,7 @@
             </div>
             <div class="modal-body">
                 <p>{{ resource.description }}</p>
-                <p class="font-weight-bold text-right">{{ resource.user.firstname }} {{ resource.user.lastname }}</p>
+                {# <p class="font-weight-bold text-right">{{ resource.user.firstname }} {{ resource.user.lastname }}</p> #}
                 <p class="font-italic text-right"> Mis à jour le {{ resource.updatedAt|date("d/m/Y") }}</p>
                 <div class="d-flex justify-content-center">
                     <div class="ressource-link mt-3 mb-3">
@@ -25,10 +25,12 @@
                             <button class="btn-outline-info ressource-link-button">Voir le lien</button>
                         </a>
                     {% else %}
+                        {% for resourceFile in resource.resourceFiles %}
                         <form action="{{ path('ressource_download') }}" method="post" >
-                            <input id="path" name="path" type="hidden" value="{{ resource.fileName }}">
+                            <input id="path" name="path" type="hidden" value="{{ resourceFile.name }}">
                             <button class="btn-outline-info ressource-link-button">Télécharger</button>
                         </form>
+                        {% endfor %}
                     {% endif %}
                 </div>
                 <div class="modal-footer ressource-modal-bottom">

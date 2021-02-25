@@ -8,19 +8,11 @@
                         alt="..."
                 />
             {% endif %}
-            {% if service is defined %}
-                <img
-                        src="/uploads/pictures/{{ service.picture.name }}"
-                        class="card-img "
-                        alt="..."
-                />
+            {% if (service is defined) and (service.pictures[0] is defined) %}
+                        <img class="card-img" src="/uploads/pictures/{{ service.pictures[0].name }}" alt='{{ service.pictures[0].name }}'/>
             {% endif %}
-            {% if event_organized is defined %}
-                <img
-                        src="/uploads/pictures/{{ event_organized.event.picture.name }}"
-                        class="card-img "
-                        alt="..."
-                />
+            {% if (event_organized is defined) and (event_organized.event.pictures[0] is defined)%}
+                <img class="card-img" src="/uploads/pictures/{{ event_organized.event.pictures[0].name }}" alt='{{ event_organized.event.pictures[0].name }}'/>
             {% endif %}
 
             {% if resource is defined %}

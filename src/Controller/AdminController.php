@@ -47,12 +47,12 @@ class AdminController extends AbstractController
         RegisteredEventRepository $registeredEventRepository
     ): Response
     {
-        $registeredUser = $userRepository->findBy(
+        /*$registeredUser = $userRepository->findBy(
             [
             ],
             [ 'lastname' => 'ASC'
             ]
-        );
+        );*/
 
         $approveEvent = $eventRepository->findBy(
             ['eventIsValidated' => 0]
@@ -115,8 +115,8 @@ class AdminController extends AbstractController
 
 
         return $this->render('admin/index.html.twig', [
-            'registered_user_count' => count($registeredUser),
-            'registered_user' => $registeredUser,
+            /*'registered_user_count' => count($registeredUser),
+            'registered_user' => $registeredUser,*/
             'event_for_validation' => $approveEvent,
             'service_for_validation' => $approveService,
             'form' => $form->createView(),

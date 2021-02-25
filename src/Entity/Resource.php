@@ -9,15 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ResourceRepository::class)
  * @ORM\HasLifecycleCallbacks()
- * @UniqueEntity(fields={"fileName"}, message="Il existe dejà un fichier avec ce nom")
- * @Vich\Uploadable()
  */
-class Resource implements \Serializable
+class Resource
 {
     /**
      * @ORM\Id
@@ -69,25 +66,19 @@ class Resource implements \Serializable
     private $resourceFormat;
 
     /**
-     * @Vich\UploadableField(mapping="resource_file", fileNameProperty="fileName")
-     * @var File | Null
-     */
-    private $resourceFile;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string | Null
-     */
-    private $fileName;
-
-    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $Price;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ResourceFile::class, mappedBy="resource", cascade={"persist", "remove"})
+     */
+    private $resourceFiles;
+
     public function __construct()
     {
         $this->pathology = new ArrayCollection();
+        $this->resourceFiles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,48 +211,6 @@ class Resource implements \Serializable
         $this->updatedAt = new \DateTime();
     }
 
-    public function getFileName(): ?string
-    {
-        return $this->fileName;
-    }
-
-    public function setFileName(?string $fileName): self
-    {
-        $this->fileName = $fileName;
-
-        return $this;
-    }
-
-    /**
-     * @return File
-     */
-    public function getResourceFile(): ?File
-    {
-        return $this->resourceFile;
-    }
-
-    /**
-     * @param File $resourceFile
-     */
-    public function setResourceFile(File $image = null): Resource
-    {
-        $this->resourceFile = $image;
-        if ($image) {
-            $this->updatedAt = new \DateTime('now');
-        }
-        return $this;
-    }
-
-    public function serialize()
-    {
-        return $this->link;
-    }
-
-    public function unserialize($serialized)
-    {
-        return $this->link;
-    }
-
     public function getPrice(): ?float
     {
         return $this->Price;
@@ -270,6 +219,36 @@ class Resource implements \Serializable
     public function setPrice(?float $Price): self
     {
         $this->Price = $Price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ResourceFile[]
+     */
+    public function getResourceFiles(): Collection
+    {
+        return $this->resourceFiles;
+    }
+
+    public function addResourceFile(ResourceFile $resourceFile): self
+    {
+        if (!$this->resourceFiles->contains($resourceFile)) {
+            $this->resourceFiles[] = $resourceFile;
+            $resourceFile->setResource($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResourceFile(ResourceFile $resourceFile): self
+    {
+        if ($this->resourceFiles->removeElement($resourceFile)) {
+            // set the owning side to null (unless already changed)
+            if ($resourceFile->getResource() === $this) {
+                $resourceFile->setResource(null);
+            }
+        }
 
         return $this;
     }

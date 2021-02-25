@@ -32,9 +32,14 @@ class Picture implements \Serializable
     private $link;
 
     /**
-     * @ORM\OneToOne(targetEntity=Service::class, mappedBy="picture", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Service::class, inversedBy="pictures")
      */
     private $service;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Event::class, inversedBy="pictures")
+     */
+    private $event;
 
     /**
      * @Vich\UploadableField(mapping="picture_file", fileNameProperty="name")
@@ -85,10 +90,17 @@ class Picture implements \Serializable
     {
         $this->service = $service;
 
-        // set the owning side of the relation if necessary
-        if ($service->getPicture() !== $this) {
-            $service->setPicture($this);
-        }
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(Event $event): self
+    {
+        $this->event = $event;
 
         return $this;
     }
