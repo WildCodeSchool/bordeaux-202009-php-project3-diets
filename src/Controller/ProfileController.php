@@ -448,7 +448,7 @@ class ProfileController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             if ($user->getRoles() === ['ROLE_USER']) {
-                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->setRoles(['ROLE_DIETETICIAN']);
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();

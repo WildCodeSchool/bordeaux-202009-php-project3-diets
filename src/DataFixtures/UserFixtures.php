@@ -24,32 +24,35 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
 
         $user = new User();
-        $user->setEmail('user@gmail.com');
+        $user->setEmail('company@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
         $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 8)));
-        $user->setRoles(['ROLE_USER']);
+        $user->setRoles(['ROLE_COMPANY']);
+        $user->setIsVerified(true);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'user'
+            'company'
         ));
-        $user->setPicture($this->getReference('picture_8'));
+        $user->setPicture($this->getReference('picture_7'));
         $this->addReference('user_0', $user);
         $manager->persist($user);
 
+
         $user = new User();
-        $user->setEmail('contributor@gmail.com');
+        $user->setEmail('dietetician@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
         $user->setWebsite($faker->domainName);
         $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 8)));
-        $user->setRoles(['ROLE_CONTRIBUTOR']);
+        $user->setRoles(['ROLE_DIETETICIAN']);
+        $user->setIsVerified(true);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
-            'contributor'
+            'dietetician'
         ));
         $user->setPicture($this->getReference('picture_9'));
         $this->addReference('user_1', $user);
@@ -63,12 +66,30 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setCountry($faker->country);
         $user->addExpertise($this->getReference('expertise_' . rand(0, 8)));
         $user->setRoles(['ROLE_ADMIN']);
+        $user->setIsVerified(true);
         $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             'admin'
         ));
         $user->setPicture($this->getReference('picture_10'));
         $this->addReference('user_2', $user);
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setEmail('freelancer@gmail.com');
+        $user->setAddress($faker->address);
+        $user->setPhone($faker->numberBetween(100000, 500000));
+        $user->setWebsite($faker->domainName);
+        $user->setCountry($faker->country);
+        $user->addExpertise($this->getReference('expertise_' . rand(0, 8)));
+        $user->setRoles(['ROLE_FREELANCER']);
+        $user->setIsVerified(true);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'freelancer'
+        ));
+        $user->setPicture($this->getReference('picture_8'));
+        $this->addReference('user_3', $user);
         $manager->persist($user);
 
         $manager->flush();
