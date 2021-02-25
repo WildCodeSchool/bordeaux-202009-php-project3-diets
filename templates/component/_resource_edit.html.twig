@@ -9,10 +9,12 @@
         <div class="col-5 d-flex justify-content-center">
             <div>
                 <div class="overflow-hidden">
-                    {% if resource.fileName is empty %}
+                    {% if resource.resourceFiles is empty %}
                         <div></div>
                     {% else %}
-                        <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                        {% for resource in resource.resourceFiles %}
+                        <a href="/uploads/resources/{{ resource.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>

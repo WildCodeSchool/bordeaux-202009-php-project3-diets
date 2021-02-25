@@ -180,7 +180,7 @@
                                     <p class="col">{% for registered in registered_events %}
                                         {% if registered.event.id == event.id %}
                                             {% if registered.isOrganizer == true %}
-                                   {{ registered.user.firstname }}  {{ registered.user.lastname }} -
+                                                {# {{ registered.user.firstname }}  {{ registered.user.lastname }} - #}
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}

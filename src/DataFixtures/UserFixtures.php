@@ -24,10 +24,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('user@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
@@ -44,10 +40,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($user);
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('contributor@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
@@ -64,10 +56,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($user);
 
         $user = new User();
-        $user->setLastname($faker->lastName);
-        $user->setFirstname($faker->firstName);
-        $user->setBirthday($faker->dateTime);
-        $user->setAdeli($faker->swiftBicNumber);
         $user->setEmail('admin@gmail.com');
         $user->setAddress($faker->address);
         $user->setPhone($faker->numberBetween(100000, 500000));
