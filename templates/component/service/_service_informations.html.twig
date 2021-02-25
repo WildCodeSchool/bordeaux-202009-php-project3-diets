@@ -8,7 +8,11 @@
             </div>
             <div class="modal-body">
                 <p>{{ service.description }}</p>
-               {#  <p class="font-weight-bold text-right">{{ service.user.firstname }} {{ service.user.lastname }}</p>#}
+               <p class="font-weight-bold text-right">
+                   {% if service.user.company %} {{ service.user.company.name }} {% endif %}
+                   {% if service.user.freelancer %} {{ service.user.freelancer.name }} {% endif %}
+                   {% if service.user.dietetician%} {{ service.user.dietetician.firstname }}  {{ service.user.dietetician.lastname }} {% endif %}
+               </p>
                 <div class="d-flex justify-content-center">
                     <div class="ressource-link mt-3 mb-3">
                         <p class="ressource-modal-title">Service</p>
