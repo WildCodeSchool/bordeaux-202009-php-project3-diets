@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Company;
+use App\Entity\Dietetician;
 use App\Entity\Event;
 use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
@@ -9,6 +11,8 @@ use App\Entity\Resource;
 use App\Entity\ResourceFile;
 use App\Entity\User;
 use App\Entity\Service;
+use App\Form\CompanyType;
+use App\Form\DieteticianType;
 use App\Form\EventType;
 use App\Form\PictureType;
 use App\Form\ResourceType;
@@ -70,15 +74,6 @@ class ProfileController extends AbstractController
             ->registeredEventOrganized($user);
 
 
-
-        /*$eventsAndParticipants = $this->getDoctrine()
-            ->getRepository(RegisteredEvent::class)
-            ->findBy(['isOrganizer' => false]);
-        $eventsAndParticipantsArray = [];
-        foreach ($eventsAndParticipants as $eventAndParticipant) {
-            $eventsAndParticipantsArray[$eventAndParticipant->getEvent()->getId()][] =
-                $eventAndParticipant->getUser();
-        }*/
 
 
         $newResource = new Resource();
@@ -200,14 +195,12 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            if ($user->getRoles() === ['ROLE_USER']) {
-                $user->setRoles(['ROLE_CONTRIBUTOR']);
-                $user->isVerified(true);
-                $entityManager->persist($user);
-                $entityManager->flush();
-            }
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('ressource_index');
+            if ($user->getRoles() === ['ROLE_USER']) {
+                return $this->redirectToRoute('profile_choice_role', ['id' => $id]);
+            } else {
+                return $this->redirectToRoute('ressource_index');
+            }
         }
 
         return $this->render('component/_profil_edit.html.twig', [
@@ -337,5 +330,138 @@ class ProfileController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('service_index');
+    }
+
+    /**
+     * @Route ("/choiceStatus/{id}", name="choice_role")
+     */
+
+    public function choiceRole(UserRepository $userRepository,
+                               $id,
+                               User $user): Response
+    {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
+
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        return $this->render('profile/choice_role.html.twig', [
+            'user' => $user
+        ]);
+
+    }
+
+    /**
+     * @Route ("/register/company/{id}", name="register_company")
+     */
+
+    public function companyRegister(Request $request,
+                                    EntityManagerInterface $entityManager,
+                                    UserRepository $userRepository,
+                                    $id,
+                                    User $user): Response
+    {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
+
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+        $company = new Company();
+        $form = $this->createForm(CompanyType::class, $company);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRoles() === ['ROLE_USER']) {
+                $user->setRoles(['ROLE_COMPANY']);
+                $user->setIsVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            $company->setUser($user);
+            $entityManager->persist($company);
+            $entityManager->flush();
+            return $this->redirectToRoute('ressource_index');
+        }
+
+        return $this->render('component/_register_company.html.twig', [
+            'form_company' => $form->createView(),
+
+        ]);
+    }
+
+    /**
+     * @Route ("/register/dietetician/{id}", name="register_dietetician")
+     */
+    public function dieteticianRegister(Request $request,
+                                        EntityManagerInterface $entityManager,
+                                        UserRepository $userRepository,
+                                        $id,
+                                        User $user): Response
+    {
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'No profile with id : ' . $user->getId() . ' found in user\'s table.'
+            );
+        } else {
+            $userInfos = $this->getDoctrine()
+                ->getRepository(User::class)
+                ->findBy(['id' => $user->getId()]);
+        }
+        if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
+            throw $this->createNotFoundException(
+                'Vous ne pouvez pas accéder à cette page' . $this->getUser()->getId() . '.'
+            );
+        }
+
+        $user = $userRepository->findOneBy(['id' => $id]);
+
+
+        $dietetician= new Dietetician();
+        $form = $this->createForm(DieteticianType::class, $dietetician);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($user->getRoles() === ['ROLE_USER']) {
+                $user->setRoles(['ROLE_CONTRIBUTOR']);
+                $user->setIsVerified(true);
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }
+            $dietetician->setUser($user);
+            $entityManager->persist($dietetician);
+            $entityManager->flush();
+            return $this->redirectToRoute('ressource_index');
+        }
+
+        return $this->render('component/_register_dietetician.html.twig', [
+            'form_dietetician' => $form->createView(),
+
+        ]);
+
+
     }
 }

@@ -29,7 +29,6 @@ class EventType extends AbstractType
                 'label' => 'Prix (facultatif)',
                 'required' => false,
             ])
-            //->add('eventIsValidated')
             ->add('eventFormat', EntityType::class, [
                 'class' => EventFormat::class,
                 'choice_label' => 'format',

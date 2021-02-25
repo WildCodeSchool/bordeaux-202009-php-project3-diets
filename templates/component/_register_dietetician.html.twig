@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editer ton profil{% endblock %}
+
+{% block body %}
+    <div class="company-register pt-5 d-flex flex-column">
+        <h2 class="pt-5 pb-4 mt-5 text-center">Finalisez votre inscription en tant que diététicien(ne)</h2>
+        <div class=" profile-main-forms pt-5 d-flex justify-content-center">
+            <div class="form-user w-50">
+                {% form_theme form_dietetician 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_dietetician) }}
+                    {{ form_row(form_dietetician.firstname) }}
+                    {{ form_row(form_dietetician.lastname) }}
+                    {{ form_row(form_dietetician.birthday) }}
+                    {{ form_row(form_dietetician.adeli) }}
+                    <button type="submit" class="btn mt-5">Finaliser mon inscription</button>
+                {{ form_end(form_dietetician) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

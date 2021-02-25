@@ -1,0 +1,48 @@
+{% extends 'home.html.twig' %}
+
+{% block title %}
+    Votre statut
+{% endblock %}
+
+{% block body_home %}
+    <div class="vh-100 vw-100 home-full-screen position-relative">
+        <div class="home-page">
+            <div class="container-fluid home-main-container fixed-bottom">
+                <div class="row home-main-container-row d-flex">
+                    <div class="col-8 d-flex flex-column align-items-center ml-0">
+                        <div class="text-center home-logo">Dernière étape</div>
+                        <div class="text-center home-slogan">Choisissez votre statut, vous êtes:</div>
+                        <div class="home-btn-container justify-content-center">
+                            <div class="row">
+                                <div class="text-center">
+                                    <div class="home-btn-second">
+                                        <a href="{{ path('profile_register_company', {'id': user.id}) }}" class="non_underline">Une société ou entreprise</a>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="home-btn-main">
+                                        <a href="{{ path('profile_register_dietetician', {'id': user.id}) }}" class="non_underline">Un(e) diététicien(ne)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="visit-link">
+                    <div>
+                        <a href="{{ path('ressource_index') }}" class="visit-title">
+                            <h2 >Visiter</h2>
+                        </a>
+                    </div>
+                    <a href="{{ path('ressource_index') }}">
+                        <div class="home-arrow">
+                            <span class="main-green">
+                                <i class="fas fa-4x fa-arrow-circle-right"></i>
+                            </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
