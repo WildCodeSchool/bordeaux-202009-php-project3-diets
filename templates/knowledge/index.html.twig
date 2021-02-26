@@ -18,16 +18,18 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 {{ form_start(form_search) }}
-                            {{ form_widget(form_search.search) }}
-                            <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
-                            <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
-
+                                {{ form_widget(form_search.search) }}
+                                <button type="submit" class="search-button home-btn-main search-text">Rechercher</button>
+                                <button type="submit" class="search-button home-btn-main search-loop"><i class="fas fa-search"></i></button>
                             </div>
-
                         </div>
                         <div class=" d-flex row justify-content-around mt-4 option-search">
-                            {{ form_widget(form_search.format) }}
-                            {{ form_widget(form_search.pathology) }}
+                            <div class="col-lg-4 search-format">
+                                {{ form_widget(form_search.format) }}
+                            </div>
+                            <div class="col-lg-6 search-category dropdown-toggle">
+                                {{ form_widget(form_search.pathology) }}
+                            </div>
                         </div>
                         {{ form_end(form_search) }}
                     </div>
@@ -80,10 +82,12 @@
                                     <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
                                     {% include '/knowledge/_delete_knowledge.html.twig' %}
                                 {% endif %}
-                                {% if resource.fileName is empty %}
+                                {% if resource.resourceFiles is empty %}
                                     <div></div>
                                 {% else %}
-                                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                    {% for resourceFile in resource.resourceFiles %}
+                                    <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                    {% endfor %}
                                 {% endif %}
                                 </div>
                             </div>

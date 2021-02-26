@@ -89,6 +89,38 @@
         outline-width: 0;
         width: 20%;
       }
+      .option-search{
+        justify-content: start!important;
+      }
+      .search-format{
+        padding-left: 20px;
+        select {
+          border-width: 1px;
+          //background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+          background-color: white;
+          border-color: $main-orange;
+          padding: 7px 7px;
+          margin-left: 10px;
+          border-radius: 20px;
+          color: $main-black;
+          outline-width: 0;
+          width: 100%;
+        }
+      }
+      .search-category{
+        select {
+          border-width: 1px;
+          //background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
+          background-color: white;
+          border-color: $main-orange;
+          padding: 7px 7px;
+          margin-left: 10px;
+          border-radius: 20px;
+          color: $main-black;
+          outline-width: 0;
+          width: 100%;
+        }
+      }
 
     }
 

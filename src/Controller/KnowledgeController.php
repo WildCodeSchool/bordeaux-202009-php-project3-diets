@@ -30,36 +30,40 @@ class KnowledgeController extends AbstractController
         Request $request,
         ResourceRepository $resourceRepository,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
         if ($formSearch->isSubmitted() && $formSearch->isValid()) {
             $formSearch->getData()['search'] !== null ?
                 $search = $formSearch->getData()['search'] : $search = '';
-            $formSearch->getData()['pathology'] !== null ?
-                $pathology = $formSearch->getData()['pathology']->getIdentifier() : $pathology = '';
+            $pathology = [];
+            $pathologies = $formSearch->getData()['pathology'];
+            if ($pathologies !== null) {
+                foreach ($pathologies as $patho) {
+                    $pathology[] = $patho->getIdentifier() ;
+                }
+            }
             $formSearch->getData()['format'] !== null ?
                 $format = $formSearch->getData()['format']->getIdentifier() : $format = '';
-            if (!$search && !$pathology && !$format) {
+            if (!$search && (empty($pathology)) && !$format) {
                 $resourcesSearch = ['last'];
-            } elseif (!$search && !$pathology && $format) {
+            } elseif (!$search && (empty($pathology)) && $format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByFormat($format);
-            } elseif (!$search && $pathology && !$format) {
+            } elseif (!$search && (!empty($pathology)) && !$format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByPathology($pathology);
-            } elseif ($search && !$pathology && !$format) {
+            } elseif ($search && (empty($pathology)) && !$format) {
                 $resourcesSearch = $resourceRepository
                     ->searchLikeName($search);
-            } elseif ($search && $pathology && !$format) {
+            } elseif ($search && (empty($pathology)) && !$format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByPathologyAndLikeName($pathology, $search);
-            } elseif ($search && !$pathology && $format) {
+            } elseif ($search && (empty($pathology)) && $format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByFormatAndLikeName($format, $search);
-            } elseif (!$search && $pathology && $format) {
+            } elseif (!$search && (!empty($pathology)) && $format) {
                 $resourcesSearch = $resourceRepository
                     ->searchByPathologyAndFormat($pathology, $format);
             } else {
@@ -126,8 +130,7 @@ class KnowledgeController extends AbstractController
     public function deleteKnowledge(
         Request $request,
         Resource $resource
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $resource->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($resource);
