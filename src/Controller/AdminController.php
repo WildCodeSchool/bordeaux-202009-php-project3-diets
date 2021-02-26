@@ -230,8 +230,7 @@ class AdminController extends AbstractController
     public function deletePathology(
         Request $request,
         Pathology $pathology
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $pathology->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($pathology);
