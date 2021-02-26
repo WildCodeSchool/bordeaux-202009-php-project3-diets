@@ -13,6 +13,21 @@
                     {{ form_row(form_dietetician.lastname) }}
                     {{ form_row(form_dietetician.birthday) }}
                     {{ form_row(form_dietetician.adeli) }}
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalEvent">
+                        Je n'ai pas de numéro ADELI
+                    </button>
+                    <div class="modal fade" id="modalEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center">
+                                    Vous pouvez tout de même vous inscrire sur le site Nous Les Diets.
+                                    Pour cela, il vous suffit de contacter <a href="{{ path('contact_index') }}">alexandra.jacob.diet@gmail.com</a>.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                     <button type="submit" class="btn mt-5">Finaliser mon inscription</button>
                 {{ form_end(form_dietetician) }}
             </div>
