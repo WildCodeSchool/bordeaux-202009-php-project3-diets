@@ -80,10 +80,12 @@
                                     <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
                                     {% include '/knowledge/_delete_knowledge.html.twig' %}
                                 {% endif %}
-                                {% if resource.fileName is empty %}
+                                {% if resource.resourceFiles is empty %}
                                     <div></div>
                                 {% else %}
-                                    <a href="/uploads/resources/{{ resource.fileName }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                    {% for resourceFile in resource.resourceFiles %}
+                                    <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                    {% endfor %}
                                 {% endif %}
                                 </div>
                             </div>

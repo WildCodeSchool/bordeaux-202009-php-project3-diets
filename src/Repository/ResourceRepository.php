@@ -18,24 +18,24 @@ class ResourceRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Resource::class);
     }
-    public function searchLikeName(string $name) {
+    public function searchLikeName(string $name)
+    {
         $queryBuilder = $this->createQueryBuilder('r')
             ->where('r.name LIKE :name')
             ->orWhere('r.description LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->getQuery();
-
         return $queryBuilder->getResult();
     }
 
-    public function searchByPathologyFormatAndLikeName(string $pathology, string $format, string $name)
+    public function searchByPathologyFormatAndLikeName(array $pathology, string $format, string $name)
     {
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.pathology', 'p')
             ->leftJoin('r.resourceFormat', 'f')
             ->where('r.name LIKE :name')
             ->orWhere('r.description LIKE :name')
-            ->andWhere('p.identifier = :pathology')
+            ->andWhere('p.identifier IN (:pathology)')
             ->andWhere('f.identifier = :format')
             ->setParameter('name', '%' . $name . '%')
             ->setParameter('pathology', $pathology)
@@ -54,22 +54,22 @@ class ResourceRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
-    public function searchByPathology(string $pathology)
+    public function searchByPathology(array $pathology)
     {
-        $queryBuilder = $this->createQueryBuilder('r')
-            ->leftJoin('r.pathology', 'p')
-            ->andWhere('p.identifier = :pathology')
-            ->setParameter('pathology', $pathology)
-            ->getQuery();
+            $queryBuilder = $this->createQueryBuilder('r')
+                ->leftJoin('r.pathology', 'p')
+                ->andWhere('p.identifier IN (:pathology)')
+                ->setParameter('pathology', $pathology)
+                ->getQuery();
         return $queryBuilder->getResult();
     }
 
-    public function searchByPathologyAndFormat(string $pathology, string $format)
+    public function searchByPathologyAndFormat(array $pathology, string $format)
     {
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.pathology', 'p')
             ->leftJoin('r.resourceFormat', 'f')
-            ->andWhere('p.identifier = :pathology')
+            ->andWhere('p.identifier IN (:pathology)')
             ->andWhere('f.identifier = :format')
             ->setParameter('pathology', $pathology)
             ->setParameter('format', $format)
@@ -77,13 +77,13 @@ class ResourceRepository extends ServiceEntityRepository
         return $queryBuilder->getResult();
     }
 
-    public function searchByPathologyAndLikeName(string $pathology, string $name)
+    public function searchByPathologyAndLikeName(array $pathology, string $name)
     {
         $queryBuilder = $this->createQueryBuilder('r')
             ->leftJoin('r.pathology', 'p')
             ->where('r.name LIKE :name')
             ->orWhere('r.description LIKE :name')
-            ->andWhere('p.identifier = :pathology')
+            ->andWhere('p.identifier IN (:pathology)')
             ->setParameter('name', '%' . $name . '%')
             ->setParameter('pathology', $pathology)
             ->getQuery();
@@ -102,6 +102,4 @@ class ResourceRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
-
-
 }
