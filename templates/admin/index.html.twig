@@ -34,8 +34,8 @@
                     </div>
                     <div class="text-center users-list">
                         {% for pathology in pathologies %}
-
                                 <div class="d-flex pb-1">
+                                    {{ include('component/formats/_delete_pathology.html.twig') }}
                                     <p class="justify-content-start">{{ loop.index }}. {{ pathology.name }} </p>
                                     <br>
                                 </div>
@@ -60,6 +60,7 @@
                         {% for expertise in expertises %}
 
                                 <div class="d-flex pb-1">
+                                    {{ include('component/formats/_delete_expertise.html.twig') }}
                                     <p class="justify-content-start">{{ loop.index }}. {{ expertise.name }} </p>
                                 </div>
 
@@ -83,6 +84,7 @@
                         {% for format in formats %}
 
                                 <div class="d-flex pb-1">
+                                    {{ include('component/formats/_delete_resourceFormat.html.twig') }}
                                     <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
                                 </div>
 
@@ -104,11 +106,10 @@
                     </div>
                     <div class="text-center users-list">
                         {% for format in event_formats %}
-
                                 <div class="d-flex pb-1">
+                                    {{ include('component/formats/_delete_eventFormat.html.twig') }}
                                     <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
                                 </div>
-
                         {% endfor %}
                     </div>
                 </div>

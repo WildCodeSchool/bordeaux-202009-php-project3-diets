@@ -223,4 +223,72 @@ class AdminController extends AbstractController
 
     }
 
+    /**
+     * @Route("/supprimer/pathologie/{id}", name="admin_delete_pathology", methods={"DELETE"})
+     *
+     */
+    public function deletePathology(
+        Request $request,
+        Pathology $pathology
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $pathology->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($pathology);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/expertise/{id}", name="admin_delete_expertise", methods={"DELETE"})
+     *
+     */
+    public function deleteExpertise(
+        Request $request,
+        Expertise $expertise
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $expertise->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($expertise);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/formatRessource/{id}", name="admin_delete_resourceFormat", methods={"DELETE"})
+     *
+     */
+    public function deleteResourceFormat(
+        Request $request,
+        ResourceFormat $resourceFormat
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $resourceFormat->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($resourceFormat);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/formatEvenement/{id}", name="admin_delete_eventFormat", methods={"DELETE"})
+     *
+     */
+    public function deleteEventFormat(
+        Request $request,
+        EventFormat $eventFormat
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $eventFormat->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($eventFormat);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
 }
