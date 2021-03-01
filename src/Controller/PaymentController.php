@@ -6,13 +6,14 @@ use App\Service\Basket\BasketService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Stripe\Stripe as Stripe;
 use Stripe\Checkout\Session as CheckoutSession;
 
 /**
- * @Route("/payment", name="payment_")
+ * @Route("/paiement", name="payment_")
  */
 class PaymentController extends AbstractController
 {
@@ -28,7 +29,7 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/success", name="success")
+     * @Route("/valider", name="success")
      */
 
     public function success(): Response
@@ -39,7 +40,7 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/error", name="error")
+     * @Route("/erreur", name="error")
      */
 
     public function error(): Response
@@ -50,7 +51,7 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/create-checkout-session", name="checkout")
+     * @Route("/creation-session", name="checkout")
      */
     public function checkout(BasketService $basketService): Response
     {
@@ -74,6 +75,7 @@ class PaymentController extends AbstractController
         ]);
 
         return new JsonResponse(['id'=> $session ->id]);
+
     }
 
 

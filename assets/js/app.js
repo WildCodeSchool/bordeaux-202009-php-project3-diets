@@ -4,9 +4,8 @@ const $ = require('jquery');
 
 require('bootstrap');
 
-//Main page arrow
 const arrow = document.getElementById('welcome-arrow');
-if(arrow !== null) {
+if (arrow !== null) {
     arrow.addEventListener('click', () => {
         window.scrollTo({
             top: 710,

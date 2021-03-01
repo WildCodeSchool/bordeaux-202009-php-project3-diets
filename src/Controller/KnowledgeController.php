@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/knowledge", name="knowledge_")
+ * @Route("/connaissances", name="knowledge_")
  */
 
 class KnowledgeController extends AbstractController
@@ -124,7 +124,7 @@ class KnowledgeController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     * @Route("/supprimer/{id}", name="delete", methods={"DELETE"})
      *
      */
     public function deleteKnowledge(

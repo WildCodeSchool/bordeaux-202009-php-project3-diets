@@ -16,6 +16,9 @@ class EventRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
+
+
+
     }
 
     public function findAll()
@@ -56,6 +59,7 @@ class EventRepository extends ServiceEntityRepository
             ->setParameter('datecourant', new \Datetime(date('now')))
             ->orderBy('e.dateStart', 'DESC')
             ->setMaxResults('4');
+
 
 
         return $queryBuilder->getQuery()->getResult();

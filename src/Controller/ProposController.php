@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProposController extends AbstractController
 {
     /**
-     * @Route("/propos", name="propos")
+     * @Route("/a-propos", name="propos")
      */
     public function index(): Response
     {

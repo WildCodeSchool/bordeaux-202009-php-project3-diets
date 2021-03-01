@@ -27,8 +27,10 @@
                 </td>
             </tr>
         {% endfor %}
-        {{ knp_pagination_render(messages) }}
         </tbody>
     </table>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(messages) }}
+    </div>
 </div>
 {% endblock %}

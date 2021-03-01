@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegisteredEventController extends AbstractController
 {
     /**
-     * @Route("/register/event/{id}", name="register_event", methods={"GET","POST"})
+     * @Route("/inscription/evenement/{id}", name="register_event", methods={"GET","POST"})
      */
     public function registerToEvent(Request $request, EntityManagerInterface $entityManager,
                                   RegisteredEventRepository $registeredEventRepository,
@@ -30,7 +30,7 @@ class RegisteredEventController extends AbstractController
     }
 
     /**
-     * @Route("/unregister/event/{id}", name="unregister_event", methods={"GET","POST"})
+     * @Route("/desinscription/evenement/{id}", name="unregister_event", methods={"GET","POST"})
      */
     public function unregisterFromEvent(Request $request, EntityManagerInterface $entityManager,
                                     RegisteredEventRepository $registeredEventRepository,

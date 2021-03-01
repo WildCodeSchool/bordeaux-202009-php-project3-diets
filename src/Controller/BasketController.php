@@ -7,12 +7,13 @@ use App\Service\Basket\BasketService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
  * @IsGranted ("ROLE_CONTRIBUTOR")
- * @Route("/basket", name="basket_")
+ * @Route("/panier", name="basket_")
  */
 class BasketController extends AbstractController
 {
@@ -23,6 +24,7 @@ class BasketController extends AbstractController
     {
         $basketData = $basketService->getAllBasket();
 
+
         $total = $basketService->getTotal();
 
         return $this->render('basket/index.html.twig', [
@@ -32,7 +34,7 @@ class BasketController extends AbstractController
     }
 
     /**
-     * @Route("/add/{id}", name="add")
+     * @Route("/ajouter/{id}", name="add")
      */
     public function add(BasketService $basketService, int $id)
     {
@@ -42,7 +44,7 @@ class BasketController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete")
+     * @Route("/supprimer/{id}", name="delete")
      */
     public function delete($id, BasketService $basketService)
     {

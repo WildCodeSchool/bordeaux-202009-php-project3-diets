@@ -33,12 +33,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/profile", name="profile_")
+ * @Route("/profil", name="profile_")
  */
 class ProfileController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", methods={"GET", "POST"}, name="edit")
+     * @Route("/edition/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
     public function edit(Request $request,
@@ -168,7 +168,7 @@ class ProfileController extends AbstractController
 
 
     /**
-     * @Route("/profil/edit/{id}", methods={"GET", "POST"}, name="profil_edit")
+     * @Route("/profil/edition/{id}", methods={"GET", "POST"}, name="profil_edit")
      * @return Response
      */
 
@@ -215,7 +215,7 @@ class ProfileController extends AbstractController
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/resource/edit/{id}", methods={"GET", "POST"}, name="resource_edit")
+     * @Route("/connaissance/edition/{id}", methods={"GET", "POST"}, name="resource_edit")
      * @return Response
      */
 
@@ -244,7 +244,7 @@ class ProfileController extends AbstractController
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/service/edit/{id}", methods={"GET", "POST"}, name="service_edit")
+     * @Route("/service/edition/{id}", methods={"GET", "POST"}, name="service_edit")
      * @return Response
      */
 
@@ -274,7 +274,7 @@ class ProfileController extends AbstractController
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/event/edit/{id}", methods={"GET", "POST"}, name="event_edit")
+     * @Route("/evenemement/edition/{id}", methods={"GET", "POST"}, name="event_edit")
      * @return Response
      */
 
@@ -305,7 +305,7 @@ class ProfileController extends AbstractController
 
 
     /**
-     * @Route("/ressource/{id}", name="delete_resource", methods={"DELETE"})
+     * @Route("/connaissance/{id}", name="delete_resource", methods={"DELETE"})
      */
     public function deleteResource(Request $request,
                                    Resource $resource): Response
@@ -335,7 +335,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("/choiceStatus/{id}", name="choice_role")
+     * @Route ("/choix-statut/{id}", name="choice_role")
      */
 
     public function choiceRole(UserRepository $userRepository,
@@ -366,7 +366,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("/register/company/{id}", name="register_company")
+     * @Route ("/inscription/societe/{id}", name="register_company")
      */
 
     public function companyRegister(Request $request,
@@ -416,7 +416,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("/register/dietetician/{id}", name="register_dietetician")
+     * @Route ("/inscription/dieteticien/{id}", name="register_dietetician")
      */
     public function dieteticianRegister(Request $request,
                                         EntityManagerInterface $entityManager,
@@ -468,7 +468,7 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route ("/register/freelancer/{id}", name="register_freelancer")
+     * @Route ("/inscription/auto-entrepreneur/{id}", name="register_freelancer")
      */
     public function freelancerRegister(Request $request,
                                         EntityManagerInterface $entityManager,
