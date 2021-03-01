@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Stripe\Stripe as Stripe;
+use Stripe\Checkout\Session as CheckoutSession;
 
 /**
  * @Route("/payment", name="payment_")
@@ -52,9 +54,9 @@ class PaymentController extends AbstractController
      */
     public function checkout(BasketService $basketService): Response
     {
-        \Stripe\Stripe::setApiKey('sk_test_51ILlKBLs9HAnEomvW4fCbd6XOcmVOO3VNbFNxOPf91KJbm53lKu7ry3RT2aB5gwWtMuOcgPHdBwmDGHqeFO8Hfdj003Q9JwUrd');
+        Stripe::setApiKey($this->getParameter('api_key'));
 
-        $session = \Stripe\Checkout\Session::create([
+        $session = CheckoutSession::create([
             'payment_method_types' => ['card'],
             'line_items' => [[
                 'price_data' => [
