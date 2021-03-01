@@ -34,7 +34,6 @@ class RessourceController extends AbstractController
     {
 
         $events = $eventRepository->nextEventByFour();
-        dd($events);
 
 
 
