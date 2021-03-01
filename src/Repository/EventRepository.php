@@ -34,7 +34,7 @@ class EventRepository extends ServiceEntityRepository
             ->andWhere('e.eventIsValidated = 1')
             ->andWhere('e.dateEnd >= :datecourant')
             ->setParameter('name', '%' . $name . '%')
-            ->setParameter('datecourant', new \Datetime(date('now')))
+            ->setParameter('datecourant', \DateTime::CreateFromFormat("d/m/Y h:i", date('now')))
             ->orderBy('e.name', 'ASC')
             ->getQuery();
         return $queryBuilder->getResult();
@@ -45,7 +45,7 @@ class EventRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('e')
             ->where('e.dateEnd >= :datecourant')
             ->andWhere('e.eventIsValidated = 1')
-            ->setParameter('datecourant', new \Datetime(date('now')))
+            ->setParameter('datecourant', \DateTime::CreateFromFormat("d/m/Y h:i", date('now')))
             ->orderBy('e.dateEnd', 'ASC');
 
         return $queryBuilder->getQuery()->getResult();
@@ -56,7 +56,7 @@ class EventRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('e')
             ->where('e.dateStart >= :datecourant')
             ->andWhere('e.eventIsValidated = 1')
-            ->setParameter('datecourant', new \Datetime(date('now')))
+            ->setParameter('datecourant', \DateTime::CreateFromFormat("d/m/Y h:i", date('now')))
             ->orderBy('e.dateStart', 'DESC')
             ->setMaxResults('4');
 
@@ -65,6 +65,16 @@ class EventRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
+
+    public function verifyEventFormatUsed(array $eventFormats)
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->leftJoin('e.eventFormat', 'f')
+            ->where('e.eventFormat IN (:eventFormats)')
+            ->setParameter('eventFormats', $eventFormats)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 
     // /**
     //  * @return Event[] Returns an array of Event objects
