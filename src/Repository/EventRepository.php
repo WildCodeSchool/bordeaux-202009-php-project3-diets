@@ -62,6 +62,16 @@ class EventRepository extends ServiceEntityRepository
     }
 
 
+    public function verifyEventFormatUsed(array $eventFormats)
+    {
+        $queryBuilder = $this->createQueryBuilder('e')
+            ->leftJoin('e.eventFormat', 'f')
+            ->where('e.eventFormat IN (:eventFormats)')
+            ->setParameter('eventFormats', $eventFormats)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

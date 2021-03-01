@@ -22,6 +22,7 @@ use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\Format\VerifyUseFormat;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +45,8 @@ class AdminController extends AbstractController
         ExpertiseRepository $expertiseRepository,
         ResourceFormatRepository $resourceFormatRepository,
         EventFormatRepository $eventFormatRepository,
-        RegisteredEventRepository $registeredEventRepository
+        RegisteredEventRepository $registeredEventRepository,
+        ResourceRepository $resourceRepository
     ): Response
     {
         $registeredUser = $userRepository->findAll();
@@ -108,6 +110,30 @@ class AdminController extends AbstractController
 
         $eventFormats = $eventFormatRepository->findAll();
 
+        $allResourceFormats = [];
+        $allUsedResourceFormat = [];
+        $allEventFormats = [];
+        $allUsedEventFormat = [];
+
+        foreach ($resourceFormats as $allResourceFormat) {
+            $allResourceFormats[] = $allResourceFormat->getFormat();
+    }
+        $usedResourceFormats = $resourceRepository->verifyResourceFormatUsed($resourceFormats);
+        foreach ($usedResourceFormats as $usedResourceFormat) {
+            $allUsedResourceFormat[] = $usedResourceFormat->getResourceFormat()->getFormat();
+
+    }
+        $notUsedResourceFormats = array_diff($allResourceFormats, $allUsedResourceFormat);
+
+        foreach ($eventFormats as $alleventFormat) {
+            $allEventFormats[] = $alleventFormat->getFormat();
+        }
+        $usedEventFormats = $eventRepository->verifyEventFormatUsed($eventFormats);
+        foreach ($usedEventFormats as $usedEventFormat) {
+            $allUsedEventFormat[] = $usedEventFormat->getEventFormat()->getFormat();
+
+        }
+        $notUsedEventFormats = array_diff($allEventFormats, $allUsedEventFormat);
 
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
@@ -120,11 +146,13 @@ class AdminController extends AbstractController
             'expertises' => $expertises,
             'form_resource_format' => $formResourceFormat->createView(),
             'formats' => $resourceFormats,
-            'form_event_format'=> $formEventFormat->createView(),
+            'form_event_format' => $formEventFormat->createView(),
             'event_formats' => $eventFormats,
             'registered_events' => $registeredEventRepository->findAll(),
             'events' => $eventRepository->findAll(),
-            'services' => $serviceRepository->findAll()
+            'services' => $serviceRepository->findAll(),
+            'notUsedResourceFormats' => $notUsedResourceFormats,
+            'notUsedEventFormats' => $notUsedEventFormats
         ]);
     }
 

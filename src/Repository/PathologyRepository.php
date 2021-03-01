@@ -28,4 +28,14 @@ class PathologyRepository extends ServiceEntityRepository
 
         return $queryBuilder->getResult();
     }
+
+    public function findResourceByPathologyName(string $name)
+    {
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->leftJoin('p.resource', 'r')
+            ->where('p.name LIKE :name')
+            ->setParameter('name', $name)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
