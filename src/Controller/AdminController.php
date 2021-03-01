@@ -22,6 +22,7 @@ use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\Format\VerifyUseFormat;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,7 +45,8 @@ class AdminController extends AbstractController
         ExpertiseRepository $expertiseRepository,
         ResourceFormatRepository $resourceFormatRepository,
         EventFormatRepository $eventFormatRepository,
-        RegisteredEventRepository $registeredEventRepository
+        RegisteredEventRepository $registeredEventRepository,
+        ResourceRepository $resourceRepository
     ): Response
     {
         $registeredUser = $userRepository->findAll();
@@ -108,6 +110,30 @@ class AdminController extends AbstractController
 
         $eventFormats = $eventFormatRepository->findAll();
 
+        $allResourceFormats = [];
+        $allUsedResourceFormat = [];
+        $allEventFormats = [];
+        $allUsedEventFormat = [];
+
+        foreach ($resourceFormats as $allResourceFormat) {
+            $allResourceFormats[] = $allResourceFormat->getFormat();
+    }
+        $usedResourceFormats = $resourceRepository->verifyResourceFormatUsed($resourceFormats);
+        foreach ($usedResourceFormats as $usedResourceFormat) {
+            $allUsedResourceFormat[] = $usedResourceFormat->getResourceFormat()->getFormat();
+
+    }
+        $notUsedResourceFormats = array_diff($allResourceFormats, $allUsedResourceFormat);
+
+        foreach ($eventFormats as $alleventFormat) {
+            $allEventFormats[] = $alleventFormat->getFormat();
+        }
+        $usedEventFormats = $eventRepository->verifyEventFormatUsed($eventFormats);
+        foreach ($usedEventFormats as $usedEventFormat) {
+            $allUsedEventFormat[] = $usedEventFormat->getEventFormat()->getFormat();
+
+        }
+        $notUsedEventFormats = array_diff($allEventFormats, $allUsedEventFormat);
 
         return $this->render('admin/index.html.twig', [
             'registered_user_count' => count($registeredUser),
@@ -120,11 +146,13 @@ class AdminController extends AbstractController
             'expertises' => $expertises,
             'form_resource_format' => $formResourceFormat->createView(),
             'formats' => $resourceFormats,
-            'form_event_format'=> $formEventFormat->createView(),
+            'form_event_format' => $formEventFormat->createView(),
             'event_formats' => $eventFormats,
             'registered_events' => $registeredEventRepository->findAll(),
             'events' => $eventRepository->findAll(),
-            'services' => $serviceRepository->findAll()
+            'services' => $serviceRepository->findAll(),
+            'notUsedResourceFormats' => $notUsedResourceFormats,
+            'notUsedEventFormats' => $notUsedEventFormats
         ]);
     }
 
@@ -221,6 +249,73 @@ class AdminController extends AbstractController
         }
         return $this->redirectToRoute('admin_message');
 
+    }
+
+    /**
+     * @Route("/supprimer/pathologie/{id}", name="admin_delete_pathology", methods={"DELETE"})
+     *
+     */
+    public function deletePathology(
+        Request $request,
+        Pathology $pathology
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $pathology->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($pathology);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/expertise/{id}", name="admin_delete_expertise", methods={"DELETE"})
+     *
+     */
+    public function deleteExpertise(
+        Request $request,
+        Expertise $expertise
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $expertise->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($expertise);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/formatRessource/{id}", name="admin_delete_resourceFormat", methods={"DELETE"})
+     *
+     */
+    public function deleteResourceFormat(
+        Request $request,
+        ResourceFormat $resourceFormat
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $resourceFormat->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($resourceFormat);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/supprimer/formatEvenement/{id}", name="admin_delete_eventFormat", methods={"DELETE"})
+     *
+     */
+    public function deleteEventFormat(
+        Request $request,
+        EventFormat $eventFormat
+    ): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $eventFormat->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($eventFormat);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
     }
 
 }

@@ -34,17 +34,21 @@
                     </div>
                     <div class="text-center users-list">
                         {% for pathology in pathologies %}
-
                                 <div class="d-flex pb-1">
                                     <p class="justify-content-start">{{ loop.index }}. {{ pathology.name }} </p>
+                                    {%  if pathology.resources is empty%}
+                                        {{ include('component/formats/_delete_pathology.html.twig') }}
+                                    {% else %}
+
+                                    {% endif %}
                                     <br>
                                 </div>
-
                         {% endfor %}
                     </div>
                 </div>
             </div>
-            <div class="col-3 border">
+            {# Voir avec Alexandra si on doit bien supprimer les expertises !!!! #}
+            {# <div class="col-3 border">
                 <div class="container d-flex justify-content-center mt-3 mb-5">
                     {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form_expertise) }}
@@ -57,16 +61,19 @@
                         <h4>Les Expertises en ligne</h4>
                     </div>
                     <div class="text-center users-list">
-                        {% for expertise in expertises %}
-
+                         {% for expertise in expertises %}
                                 <div class="d-flex pb-1">
                                     <p class="justify-content-start">{{ loop.index }}. {{ expertise.name }} </p>
-                                </div>
+                                    {%  if expertise.users is empty%}
+                                        {{ include('component/formats/_delete_expertise.html.twig') }}
+                                    {% else %}
 
+                                    {% endif %}
+                                </div>
                         {% endfor %}
                     </div>
                 </div>
-            </div>
+            </div> #}
             <div class="col-3 border">
                 <div class="container d-flex justify-content-center mt-3 mb-5">
                     {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
@@ -81,11 +88,12 @@
                     </div>
                     <div class="text-center users-list">
                         {% for format in formats %}
-
                                 <div class="d-flex pb-1">
                                     <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
+                                    {% if format.format in notUsedResourceFormats %}
+                                    {{ include('component/formats/_delete_resourceFormat.html.twig') }}
+                                    {% endif %}
                                 </div>
-
                         {% endfor %}
                     </div>
                 </div>
@@ -104,11 +112,12 @@
                     </div>
                     <div class="text-center users-list">
                         {% for format in event_formats %}
-
                                 <div class="d-flex pb-1">
                                     <p href="#" class="justify-content-start">{{ loop.index }}. {{ format.format }} </p>
+                                    {% if format.format in notUsedEventFormats %}
+                                        {{ include('component/formats/_delete_eventFormat.html.twig') }}
+                                    {% endif %}
                                 </div>
-
                         {% endfor %}
                     </div>
                 </div>

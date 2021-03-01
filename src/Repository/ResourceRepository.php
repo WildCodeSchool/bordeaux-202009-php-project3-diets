@@ -102,4 +102,14 @@ class ResourceRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function verifyResourceFormatUsed(array $resourceFormats)
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->leftJoin('r.resourceFormat', 'f')
+            ->where('r.resourceFormat IN (:resourceFormats)')
+            ->setParameter('resourceFormats', $resourceFormats)
+            ->getQuery();
+        return $queryBuilder->getResult();
+    }
 }
