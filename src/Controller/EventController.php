@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/event", name="event_")
+ * @Route("/evenement", name="event_")
  */
 
 class EventController extends AbstractController
@@ -92,7 +92,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     * @Route("/supprimer/{id}", name="delete", methods={"DELETE"})
      *
      */
     public function deleteEvent(

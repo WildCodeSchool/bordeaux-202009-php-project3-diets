@@ -17,7 +17,7 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/card", name="card")
+     * @Route("/carte", name="card")
      */
     public function card(): Response
     {

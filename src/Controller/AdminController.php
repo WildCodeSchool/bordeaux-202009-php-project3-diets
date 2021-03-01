@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin")
+     * @Route("/administrateur", name="admin")
      */
     public function index(
         UserRepository $userRepository,
@@ -157,7 +157,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/event/", methods={"POST"}, name="valid_event")
+     * @Route("/administrateur/evenement/", methods={"POST"}, name="valid_event")
      */
     public function validAnEvent(
         Request $request,
@@ -174,7 +174,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/service/", methods={"POST"}, name="valid_service")
+     * @Route("/administrateur/service/", methods={"POST"}, name="valid_service")
      *
      */
     public function validService(
@@ -192,7 +192,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/{id}", name="admin_delete_user", methods={"DELETE"})
+     * @Route("/administrateur/{id}", name="admin_delete_user", methods={"DELETE"})
      *
      */
     public function deleteUser(
@@ -218,7 +218,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/message", name="admin_message")
+     * @Route("/administrateur/message", name="admin_message")
      */
 
     public function messagePaginator(Request $request, PaginatorInterface $paginator)
@@ -236,7 +236,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/admin/message/{id}", name="admin_message_delete", methods={"DELETE"})
+     * @Route("/administrateur/message/{id}", name="admin_message_delete", methods={"DELETE"})
      */
 
 

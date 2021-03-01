@@ -83,7 +83,7 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/delete/{id}", name="delete", methods={"DELETE"})
+     * @Route("/supprimer/{id}", name="delete", methods={"DELETE"})
      *
      */
     public function deleteService(

@@ -15,6 +15,7 @@
         "sass-lint": "^1.13.1",
         "sass-loader": "^10.0.5",
         "webpack-notifier": "^1.6.0"
+
     },
     "license": "UNLICENSED",
     "private": true,
@@ -25,6 +26,9 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.1"
+        "@fortawesome/fontawesome-free": "^5.15.1",
+        "@types/stripe-v3": "^3.1.23",
+        "stripe": "^8.137.0"
+
     }
 }
