@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
-use App\Service\Basket\BasketService;
+
+use App\Service\Stripe\StripeService;
+use Stripe\Account as Account;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use \Stripe\Stripe as Stripe;
 use Symfony\Component\Routing\Annotation\Route;
+use \Stripe\Checkout\Session as CheckoutSession;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Stripe\Stripe as Stripe;
-use Stripe\Checkout\Session as CheckoutSession;
+
 
 /**
  * @Route("/paiement", name="payment_")
@@ -51,32 +55,31 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route("/creation-session", name="checkout")
+     * @Route("/creation-session/", name="checkout")
      */
-    public function checkout(BasketService $basketService): Response
+    public function checkout(StripeService $stripeService): Response
     {
-        Stripe::setApiKey($this->getParameter('api_key'));
+        $session = $stripeService->checkoutCreateSession();
 
-        $session = CheckoutSession::create([
-            'payment_method_types' => ['card'],
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'eur',
-                    'product_data' => [
-                        'name' => 'T-shirt',
-                    ],
-                    'unit_amount' => $basketService->getTotal()*100,
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'success_url' => $this->generateUrl('payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('payment_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ]);
 
         return new JsonResponse(['id'=> $session ->id]);
 
     }
+
+    /**
+     * @Route ("/inscription-stripe/{id}", name="register_stripe")
+     */
+
+    public function registerStripe(StripeService $stripeService, int $id)
+    {
+        $stripe = $stripeService->createLinkAccount($id);
+
+        return $this->redirect($stripe);
+
+    }
+
+
+
 
 
 }

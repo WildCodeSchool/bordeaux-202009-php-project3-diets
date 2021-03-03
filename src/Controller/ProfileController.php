@@ -16,7 +16,6 @@ use App\Form\CompanyType;
 use App\Form\DieteticianType;
 use App\Form\EventType;
 use App\Form\FreelancerType;
-use App\Form\PictureType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
@@ -25,6 +24,7 @@ use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\Stripe\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -150,6 +150,7 @@ class ProfileController extends AbstractController
         $pictures = $this->getDoctrine()
             ->getRepository(Picture::class)
             ->findBy(['link' => null]);
+
 
         return $this->render('profile/edit.html.twig', [
             'events_organized' => $eventsOrganized,
@@ -422,7 +423,8 @@ class ProfileController extends AbstractController
                                         EntityManagerInterface $entityManager,
                                         UserRepository $userRepository,
                                         $id,
-                                        User $user): Response
+                                        User $user,
+                                        StripeService $stripeService): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -452,12 +454,18 @@ class ProfileController extends AbstractController
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $stripe = $stripeService->createAccount($id);
             }
             $dietetician->setUser($user);
             $entityManager->persist($dietetician);
             $entityManager->flush();
             return $this->redirectToRoute('ressource_index');
         }
+
+
+
+
+
 
         return $this->render('component/_register_dietetician.html.twig', [
             'form_dietetician' => $form->createView(),
@@ -516,6 +524,7 @@ class ProfileController extends AbstractController
 
         ]);
 
-
     }
+
+
 }

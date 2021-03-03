@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Service\Basket\BasketService;
+use App\Service\Stripe\StripeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,16 +21,19 @@ class BasketController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(BasketService $basketService): Response
+    public function index(BasketService $basketService, StripeService $stripeService): Response
     {
         $basketData = $basketService->getAllBasket();
+        $account = $stripeService->getAccountId();
+
 
 
         $total = $basketService->getTotal();
 
         return $this->render('basket/index.html.twig', [
             'products' => $basketData,
-            'total' => $total
+            'total' => $total,
+            'account' => $account
         ]);
     }
 
@@ -40,7 +44,7 @@ class BasketController extends AbstractController
     {
         $basketService->add($id);
 
-        return $this->redirectToRoute('knowledge_index');
+        return $this->redirectToRoute('basket_index');
     }
 
     /**
