@@ -20,13 +20,13 @@ class BasketService
 
     public function add(int $id)
     {
-        $basket = $this->session->get('basket', []);
 
-        if (!empty($basket[$id])) {
-            $basket[$id]++;
-        } else {
+
+        $basket = $this->session->get('basket');
+        if (empty($basket)) {
             $basket[$id] = 1;
         }
+
 
         $this->session->set('basket', $basket);
 
@@ -46,8 +46,9 @@ class BasketService
 
     public function getAllBasket(): array
     {
-        $basket = $this->session->get('basket', []);
+        $basket = '';
 
+        $basket = $this->session->get('basket');
 
         $basketData = [];
 
