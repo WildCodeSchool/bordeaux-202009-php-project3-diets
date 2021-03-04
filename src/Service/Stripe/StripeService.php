@@ -41,23 +41,18 @@ class StripeService extends AbstractController
             'type' => 'standard',
             'email' => $this->userRepository->find($id)->getEmail(),
         ]);
-
-
     }
 
     public function createLinkAccount(int $id)
     {
         Stripe::setApiKey($this->getParameter('api_key'));
 
-        $accounts= Account::all();
+        $accounts = Account::all();
 
-
-
-        foreach($accounts as $account) {
+        foreach ($accounts as $account) {
             if ($account['email'] === $this->userRepository->find($id)->getEmail()) {
                 $accountId = $account['id'];
             }
-
         }
 
         $account_links = AccountLink::create([
@@ -68,10 +63,7 @@ class StripeService extends AbstractController
         ]);
 
         $url = $account_links->url;
-
-
         return $url;
-
     }
 
     public function checkoutCreateSession()
@@ -84,7 +76,7 @@ class StripeService extends AbstractController
 
         $shopping = '';
 
-        foreach($basket as $id => $shop){
+        foreach ($basket as $id => $shop){
             $shopping = $this->resourceRepository->find($id)->getName();
         }
 
@@ -101,7 +93,7 @@ class StripeService extends AbstractController
                         'name' => 'Achat du ' . $date->format('Y-m-d H:i:s'),
                         'description' => $shopping,
                     ],
-                    'unit_amount' => $this->basketService->getTotal()*100,
+                    'unit_amount' => $this->basketService->getTotal() * 100,
                 ],
                 'quantity' => 1,
             ]],
@@ -114,7 +106,6 @@ class StripeService extends AbstractController
         ], ['stripe_account' => $accountId]);
 
         return $session;
-
     }
 
     public function getAccountId()
@@ -138,17 +129,8 @@ class StripeService extends AbstractController
                 if ($account['email'] === $this->resourceRepository->find($id)->getUser()->getEmail()) {
                     $accountId = $account['id'];
                 }
-
             }
-
         }
-
         return $accountId;
-
-
     }
-
-
-
-
 }
