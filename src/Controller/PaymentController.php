@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Repository\UserRepository;
 use App\Service\Stripe\StripeService;
 use Stripe\Account as Account;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use \Stripe\Stripe as Stripe;
 use Symfony\Component\Routing\Annotation\Route;
 use \Stripe\Checkout\Session as CheckoutSession;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 
 /**
@@ -62,7 +64,7 @@ class PaymentController extends AbstractController
         $session = $stripeService->checkoutCreateSession();
 
 
-        return new JsonResponse(['id'=> $session ->id]);
+        return new JsonResponse(['id' => $session ->id]);
 
     }
 
@@ -78,8 +80,79 @@ class PaymentController extends AbstractController
 
     }
 
+    /**
+     * @Route ("/creation-client/{id}", name="create_customer")
+     */
+    public function createStripeCustomer(StripeService $stripeService, int $id, UserRepository $userRepository)
+    {
+        $user = $userRepository->find($id);
+        $email = $user->getEmail();
+
+        Stripe::setApiKey($this->getParameter('api_key'));
 
 
 
+        $stripe = new \Stripe\StripeClient(
+            $this->getParameter('api_key')
+        );
+        $stripe->customers->create([
+            'email' => $user->getEmail(),
+        ]);
 
+
+        return $this->redirectToRoute('ressource_index');
+    }
+
+    /**
+     * @Route ("/creation-portail-session", name="create_portal_session")
+     */
+    public function createStripePortalSession(StripeService $stripeService)
+    {
+
+        \Stripe\Stripe::setApiKey(
+            $this->getParameter('api_key')
+        );
+
+        $configuration = \Stripe\BillingPortal\Configuration::create([
+            'business_profile' => [
+                'privacy_policy_url' => 'https://example.com/privacy',
+                'terms_of_service_url' => 'https://example.com/terms',
+            ],
+            'features' => [
+                'invoice_history' => ['enabled' => true],
+            ],
+        ]);
+
+        dump($configuration);
+
+
+        \Stripe\Stripe::setApiKey($this->getParameter('api_key'));
+
+// Authenticate your user.
+        $session = \Stripe\BillingPortal\Session::create([
+            'customer' => 'cus_J3JWumEl1K5WhV',
+            'configuration' => $configuration['id'],
+            'return_url' => 'https://example.com/account',
+        ]);
+
+// Redirect to the customer portal.
+        header("Location: " . $session->url);
+        exit();
+    }
+
+    /**
+     * @Route ("/subscription", name="subscription")
+     */
+    public function stripeSubscription(StripeService $stripeService)
+    {
+
+        $stripe = new \Stripe\StripeClient(
+            $this->getParameter('api_key')
+        );
+        $stripe->subscriptionItems->create([
+            'subscription' => 'sub_J3346OSj4tnUll',
+            'price' => 'price_1IQwNGEL1K4XLo1p8PbZ8mR4',
+            'quantity' => 1,
+        ]);
+    }
 }
