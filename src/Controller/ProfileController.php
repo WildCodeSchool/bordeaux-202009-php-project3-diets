@@ -30,6 +30,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -44,7 +45,7 @@ class ProfileController extends AbstractController
     public function edit(Request $request,
                          EntityManagerInterface $entityManager,
                          User $user,
-                         PictureRepository $pictureRepository): Response
+                         PictureRepository $pictureRepository, SessionInterface $session): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -76,7 +77,15 @@ class ProfileController extends AbstractController
             ->registeredEventOrganized($user);
 
 
-
+        /*******************************************************************************************************/
+        $userMail = $session->get('user');
+        if (empty($userMail)) {
+            $userEmail = $user->getEmail();
+        }
+        dump($userMail, $userEmail);
+        $session->set('userEmail', $userEmail);
+        dump($session->get('userEmail'));
+        /*******************************************************************************************************/
 
         $newResource = new Resource();
         $formResource = $this->createForm(ResourceType::class, $newResource);

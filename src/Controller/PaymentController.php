@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Service\Stripe\StripeService;
 use Stripe\Account as Account;
@@ -80,33 +81,11 @@ class PaymentController extends AbstractController
 
     }
 
-    /**
-     * @Route ("/creation-client/{id}", name="create_customer")
-     */
-    public function createStripeCustomer(StripeService $stripeService, int $id, UserRepository $userRepository)
-    {
-        $user = $userRepository->find($id);
-        $email = $user->getEmail();
-
-        Stripe::setApiKey($this->getParameter('api_key'));
-
-
-
-        $stripe = new \Stripe\StripeClient(
-            $this->getParameter('api_key')
-        );
-        $stripe->customers->create([
-            'email' => $user->getEmail(),
-        ]);
-
-
-        return $this->redirectToRoute('ressource_index');
-    }
 
     /**
      * @Route ("/creation-portail-session", name="create_portal_session")
      */
-    public function createStripePortalSession(StripeService $stripeService)
+    public function createStripePortalSession(StripeService $stripeService, SessionInterface $session)
     {
 
         \Stripe\Stripe::setApiKey(
@@ -123,16 +102,23 @@ class PaymentController extends AbstractController
             ],
         ]);
 
-        dump($configuration);
-
-
         \Stripe\Stripe::setApiKey($this->getParameter('api_key'));
 
 // Authenticate your user.
+        Stripe::setApiKey($this->getParameter('api_key'));
+
+        $customers = \Stripe\Customer::all();
+        foreach ($customers as $customer){
+            if ($customer['email'] === $session->get('userEmail')) {
+                $customerId = $customer['id'];
+            }
+        }
+        dump($customerId);
+
         $session = \Stripe\BillingPortal\Session::create([
-            'customer' => 'cus_J3JWumEl1K5WhV',
+            'customer' => $customerId,
             'configuration' => $configuration['id'],
-            'return_url' => 'https://example.com/account',
+            'return_url' => 'https://nouslesdiets.fr/account',
         ]);
 
 // Redirect to the customer portal.
@@ -141,18 +127,54 @@ class PaymentController extends AbstractController
     }
 
     /**
-     * @Route ("/subscription", name="subscription")
+     * @Route ("/create-subscription/", name="create_subscription")
      */
-    public function stripeSubscription(StripeService $stripeService)
+    public function createStripeSubscription(StripeService $stripeService,
+                                             UserRepository $userRepository,
+                                             SessionInterface $session): Response
     {
 
-        $stripe = new \Stripe\StripeClient(
-            $this->getParameter('api_key')
-        );
-        $stripe->subscriptionItems->create([
-            'subscription' => 'sub_J3346OSj4tnUll',
-            'price' => 'price_1IQwNGEL1K4XLo1p8PbZ8mR4',
-            'quantity' => 1,
+        Stripe::setApiKey($this->getParameter('api_key'));
+
+        $customers = \Stripe\Customer::all();
+        foreach ($customers as $customer) {
+            if ($customer['email'] === $session->get('userEmail')) {
+                $customerId = $customer['id'];
+            }
+        }
+
+        $stripe = new \Stripe\StripeClient($this->getParameter('api_key'));
+
+        if(!isset($customerId)){
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price' => $this->getParameter('basic_price'),
+                    'quantity' => 1,
+                ]],
+                'mode' => 'subscription',
+                'success_url' => $this->generateUrl('payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
+                'cancel_url' => $this->generateUrl('payment_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            ]);
+
+            return new JsonResponse(['id' => $session ->id]);
+
+        } else {
+        $session = \Stripe\Checkout\Session::create([
+            'customer' => $customerId,
+            'payment_method_types' => ['card'],
+            'line_items' => [[
+                'price' => $this->getParameter('basic_price'),
+                'quantity' => 1,
+            ]],
+            'mode' => 'subscription',
+            'success_url' => $this->generateUrl('payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'cancel_url' => $this->generateUrl('payment_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
+
+        return new JsonResponse(['id' => $session ->id]);
+        }
     }
+
+
 }

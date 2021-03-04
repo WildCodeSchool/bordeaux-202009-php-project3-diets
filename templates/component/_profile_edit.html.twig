@@ -104,8 +104,43 @@
                 </div>
             </div>
             <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}">Créer un compte stripe</a>
-            <a href="{{ path('payment_create_customer', {'id': infos.id}) }}">Créer le customer</a>
+            <a id="checkout-subscription" href="#">S'abonner</a>
             <a href="{{ path('payment_create_portal_session') }}">Visualiser le portail</a>
+
         </div>
     </div>
 </div>
+
+{% block javascripts %}
+<script type="text/javascript">
+    // Create an instance of the Stripe object with your publishable API key
+
+    var stripe = Stripe('pk_test_51IQBMKEL1K4XLo1pv1E1OGRIoezlRWoYBTSinKREoxDV7yynUxaeGfZFQb6lcVFtwOjhKZcCEwLWICsYBu1UUcjI008gwplmCA');
+    var checkoutButton = document.getElementById('checkout-subscription');
+
+    checkoutButton.addEventListener('click', function() {
+        // Create a new Checkout Session using the server-side endpoint you
+        // created in step 3.
+        fetch('/paiement/create-subscription/', {
+            method: 'POST',
+        })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(session) {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(function(result) {
+                // If `redirectToCheckout` fails due to a browser or network
+                // error, you should display the localized error message to your
+                // customer using `error.message`.
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+            });
+    });
+</script>
+{% endblock %}
