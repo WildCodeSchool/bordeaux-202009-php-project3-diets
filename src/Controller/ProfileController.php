@@ -160,6 +160,8 @@ class ProfileController extends AbstractController
             ->getRepository(Picture::class)
             ->findBy(['link' => null]);
 
+        $publicKey = $this->getParameter('api_public_key');
+
 
         return $this->render('profile/edit.html.twig', [
             'events_organized' => $eventsOrganized,
@@ -173,6 +175,7 @@ class ProfileController extends AbstractController
             'form_resource' => $formResource->createView(),
             'pictures' => $pictures,
             'path' => 'profile_edit',
+            'public_key' => $publicKey,
         ]);
     }
 
@@ -214,6 +217,7 @@ class ProfileController extends AbstractController
                 return $this->redirectToRoute('profile_edit', ['id' => $id ]);
             }
         }
+
 
         return $this->render('component/_profil_edit.html.twig', [
             'form_edit_user' => $formEditUser->createView(),

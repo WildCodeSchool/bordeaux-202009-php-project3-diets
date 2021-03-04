@@ -115,7 +115,7 @@
 <script type="text/javascript">
     // Create an instance of the Stripe object with your publishable API key
 
-    var stripe = Stripe('pk_test_51IQBMKEL1K4XLo1pv1E1OGRIoezlRWoYBTSinKREoxDV7yynUxaeGfZFQb6lcVFtwOjhKZcCEwLWICsYBu1UUcjI008gwplmCA');
+    var stripe = Stripe('{{ public_key }}');
     var checkoutButton = document.getElementById('checkout-subscription');
 
     checkoutButton.addEventListener('click', function() {
