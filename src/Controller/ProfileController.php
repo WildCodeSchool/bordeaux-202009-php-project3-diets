@@ -82,9 +82,7 @@ class ProfileController extends AbstractController
         if (empty($userMail)) {
             $userEmail = $user->getEmail();
         }
-        dump($userMail, $userEmail);
         $session->set('userEmail', $userEmail);
-        dump($session->get('userEmail'));
         /*******************************************************************************************************/
 
         $newResource = new Resource();
