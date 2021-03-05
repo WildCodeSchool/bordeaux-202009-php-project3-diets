@@ -9,6 +9,7 @@ use App\Form\ResourcesAllType;
 use App\Form\ResourceType;
 use App\Form\SearchResourceType;
 use App\Repository\ResourceRepository;
+use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +30,8 @@ class KnowledgeController extends AbstractController
     public function index(
         Request $request,
         ResourceRepository $resourceRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        MultiUploadService $multiUploadService
     ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -87,18 +89,7 @@ class KnowledgeController extends AbstractController
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
             $newResource->setUser($this->getUser());
-            $files = $formResource->get('resourceFiles')->getData();
-            foreach ($files as $file) {
-                $file->move(
-                    $this->getParameter('uploadresource_directory'),
-                    $file
-                );
-                $newResourceFile = new ResourceFile();
-                $newResourceFile->setUpdatedAt(new \DateTime('now'));
-                $fileName = substr($file, -9);
-                $newResourceFile->setName($fileName);
-                $newResource->addResourceFile($newResourceFile);
-            }
+            $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
             $entityManager->persist($newResource);
             $entityManager->flush();
         }

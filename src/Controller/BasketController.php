@@ -26,16 +26,15 @@ class BasketController extends AbstractController
         $basketData = $basketService->getAllBasket();
         $account = $stripeService->getAccountId();
 
-
-
         $total = $basketService->getTotal();
+
         $publicKey = $this->getParameter('api_public_key');
 
         return $this->render('basket/index.html.twig', [
             'products' => $basketData,
             'total' => $total,
             'account' => $account,
-            'public_key' => $publicKey
+            'public_key' => $publicKey,
         ]);
     }
 
