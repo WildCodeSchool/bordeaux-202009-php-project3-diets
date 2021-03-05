@@ -24,6 +24,7 @@ use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\MultiUpload\MultiUploadService;
 use App\Service\Stripe\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -45,7 +46,9 @@ class ProfileController extends AbstractController
     public function edit(Request $request,
                          EntityManagerInterface $entityManager,
                          User $user,
-                         PictureRepository $pictureRepository, SessionInterface $session): Response
+                         PictureRepository $pictureRepository,
+                         SessionInterface $session,
+                         MultiUploadService $multiUploadService): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -82,9 +85,7 @@ class ProfileController extends AbstractController
         if (empty($userMail)) {
             $userEmail = $user->getEmail();
         }
-        dump($userMail, $userEmail);
         $session->set('userEmail', $userEmail);
-        dump($session->get('userEmail'));
         /*******************************************************************************************************/
 
         $newResource = new Resource();
@@ -92,18 +93,7 @@ class ProfileController extends AbstractController
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
             $newResource->setUser($this->getUser());
-            $files = $formResource->get('resourceFiles')->getData();
-            foreach ($files as $file) {
-                $file->move(
-                    $this->getParameter('uploadresource_directory'),
-                    $file
-                );
-                $newResourceFile = new ResourceFile();
-                $newResourceFile->setUpdatedAt(new \DateTime('now'));
-                $resourceName = substr($file, -9);
-                $newResourceFile->setName($resourceName);
-                $newResource->addResourceFile($newResourceFile);
-            }
+            $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
             $entityManager->persist($newResource);
             $entityManager->flush();
         }
@@ -114,18 +104,7 @@ class ProfileController extends AbstractController
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
             $service->setServiceIsValidated(false);
-            $pictures = $formService->get('pictures')->getData();
-            foreach ($pictures as $picture) {
-                $picture->move(
-                    $this->getParameter('uploadpicture_directory'),
-                    $picture
-                );
-                $newPicture = new Picture();
-                $newPicture->setUpdatedAt(new \DateTime('now'));
-                $pictureName = substr($picture, -9);
-                $newPicture->setName($pictureName);
-                $service->addPicture($newPicture);
-            }
+            $service = $multiUploadService->createMultiUploadToService($formService, $service);
             $entityManager->persist($service);
             $entityManager->flush();
         }
@@ -139,18 +118,7 @@ class ProfileController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
-            $pictures = $formEvent->get('pictures')->getData();
-            foreach ($pictures as $picture) {
-                $picture->move(
-                    $this->getParameter('uploadpicture_directory'),
-                    $picture
-                );
-                $newPicture = new Picture();
-                $newPicture->setUpdatedAt(new \DateTime('now'));
-                $pictureName = substr($picture, -9);
-                $newPicture->setName($pictureName);
-                $event->addPicture($newPicture);
-            }
+            $event = $multiUploadService->createMultiUploadToEvent($formEvent, $event);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();

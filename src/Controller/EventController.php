@@ -12,6 +12,7 @@ use App\Form\SearchResourceType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
+use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,7 +35,8 @@ class EventController extends AbstractController
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
         PictureRepository $pictureRepository,
-        RegisteredEventRepository $registeredEventRepository): Response
+        RegisteredEventRepository $registeredEventRepository,
+        MultiUploadService $multiUploadService): Response
     {
 
         $event = new Event();
@@ -46,18 +48,7 @@ class EventController extends AbstractController
             $registerEvent->setEvent($event);
             $registerEvent->setIsOrganizer(true);
             $event->setEventIsValidated(false);
-            $pictures = $formEvent->get('pictures')->getData();
-            foreach ($pictures as $picture) {
-                $picture->move(
-                    $this->getParameter('uploadpicture_directory'),
-                    $picture
-                );
-                $newPicture = new Picture();
-                $newPicture->setUpdatedAt(new \DateTime('now'));
-                $pictureName = substr($picture, -9);
-                $newPicture->setName($pictureName);
-                $event->addPicture($newPicture);
-            }
+            $event = $multiUploadService->createMultiUploadToEvent($formEvent, $event);
             $entityManager->persist($registerEvent);
             $entityManager->persist($event);
             $entityManager->flush();

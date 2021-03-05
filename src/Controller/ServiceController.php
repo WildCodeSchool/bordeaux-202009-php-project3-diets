@@ -8,6 +8,7 @@ use App\Form\SearchResourceType;
 use App\Form\ServiceType;
 use App\Repository\PictureRepository;
 use App\Repository\ServiceRepository;
+use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,8 @@ class ServiceController extends AbstractController
     public function index(EntityManagerInterface $entityManager,
                           Request $request,
                           ServiceRepository $serviceRepository,
-                          PictureRepository $pictureRepository): Response
+                          PictureRepository $pictureRepository,
+                          MultiUploadService $multiUploadService): Response
     {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -48,18 +50,7 @@ class ServiceController extends AbstractController
         if ($formService->isSubmitted() && $formService->isValid()) {
             $service->setUser($this->getUser());
             $service->setServiceIsValidated(false);
-            $pictures = $formService->get('pictures')->getData();
-            foreach ($pictures as $picture) {
-                $picture->move(
-                    $this->getParameter('uploadpicture_directory'),
-                    $picture
-                );
-                $newPicture = new Picture();
-                $newPicture->setUpdatedAt(new \DateTime('now'));
-                $pictureName = substr($picture, -9);
-                $newPicture->setName($pictureName);
-                $service->addPicture($newPicture);
-            }
+            $service = $multiUploadService->createMultiUploadToService($formService, $service);
             $entityManager->persist($service);
             $entityManager->flush();
             $this->redirectToRoute('service_index');
