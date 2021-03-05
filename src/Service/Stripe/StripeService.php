@@ -103,7 +103,7 @@ class StripeService extends AbstractController
             ],
             'success_url' => $this->generateUrl('payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
             'cancel_url' => $this->generateUrl('payment_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
-        ], ['stripe_account' => $accountId]);
+         ], ['stripe_account' => $accountId]);
 
         return $session;
     }
