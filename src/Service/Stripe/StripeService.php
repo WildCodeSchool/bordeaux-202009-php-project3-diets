@@ -58,7 +58,7 @@ class StripeService extends AbstractController
         $account_links = AccountLink::create([
             'account' => $accountId,
             'refresh_url' => 'https://nouslesdiets.fr/connaissances/',
-            'return_url' => 'https://nouslesdiets.fr/connaissances/',
+            'return_url' => 'https://dashboard.stripe.com/',
             'type' => 'account_onboarding',
         ]);
 
