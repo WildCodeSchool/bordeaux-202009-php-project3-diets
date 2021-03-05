@@ -6,16 +6,23 @@ namespace App\Service\MultiUpload;
 use App\Entity\Picture;
 use App\Entity\ResourceFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class MultiUploadService extends AbstractController
+class MultiUploadService
 {
+    private $params;
+
+    public function __construct(ParameterBagInterface $params)
+    {
+        $this->params = $params;
+    }
 
     public function createMultiUploadToResource($formResource, $newResource)
     {
         $files = $formResource->get('resourceFiles')->getData();
         foreach ($files as $file) {
             $file->move(
-                $this->getParameter('uploadresource_directory'),
+                $this->params->get('uploadresource_directory'),
                 $file
             );
             $newResourceFile = new ResourceFile();
@@ -32,7 +39,7 @@ class MultiUploadService extends AbstractController
         $pictures = $formService->get('pictures')->getData();
         foreach ($pictures as $picture) {
             $picture->move(
-                $this->getParameter('uploadpicture_directory'),
+                $this->params->get('uploadpicture_directory'),
                 $picture
             );
             $newPicture = new Picture();
@@ -49,7 +56,7 @@ class MultiUploadService extends AbstractController
         $pictures = $formEvent->get('pictures')->getData();
         foreach ($pictures as $picture) {
             $picture->move(
-                $this->getParameter('uploadpicture_directory'),
+                $this->params->get('uploadpicture_directory'),
                 $picture
             );
             $newPicture = new Picture();
