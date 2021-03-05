@@ -385,7 +385,8 @@ class ProfileController extends AbstractController
                                     EntityManagerInterface $entityManager,
                                     UserRepository $userRepository,
                                     $id,
-                                    User $user): Response
+                                    User $user,
+                                    StripeService $stripeService): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -414,11 +415,12 @@ class ProfileController extends AbstractController
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $stripe = $stripeService->createAccount($id);
             }
             $company->setUser($user);
             $entityManager->persist($company);
             $entityManager->flush();
-            return $this->redirectToRoute('ressource_index');
+            return $this->redirectToRoute('payment_register_stripe', ['id' => $user->getId() ]);
         }
 
         return $this->render('component/_register_company.html.twig', [
@@ -470,7 +472,7 @@ class ProfileController extends AbstractController
             $dietetician->setUser($user);
             $entityManager->persist($dietetician);
             $entityManager->flush();
-            return $this->redirectToRoute('ressource_index');
+            return $this->redirectToRoute('payment_register_stripe', ['id' => $user->getId() ]);
         }
 
 
@@ -480,7 +482,6 @@ class ProfileController extends AbstractController
 
         return $this->render('component/_register_dietetician.html.twig', [
             'form_dietetician' => $form->createView(),
-
         ]);
 
 
@@ -490,10 +491,11 @@ class ProfileController extends AbstractController
      * @Route ("/inscription/auto-entrepreneur/{id}", name="register_freelancer")
      */
     public function freelancerRegister(Request $request,
-                                        EntityManagerInterface $entityManager,
-                                        UserRepository $userRepository,
-                                        $id,
-                                        User $user): Response
+                                       EntityManagerInterface $entityManager,
+                                       UserRepository $userRepository,
+                                       $id,
+                                       User $user,
+                                       StripeService $stripeService): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -523,11 +525,12 @@ class ProfileController extends AbstractController
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
+                $stripe = $stripeService->createAccount($id);
             }
             $freelancer->setUser($user);
             $entityManager->persist($freelancer);
             $entityManager->flush();
-            return $this->redirectToRoute('ressource_index');
+            return $this->redirectToRoute('payment_register_stripe', ['id' => $user->getId() ]);
         }
 
         return $this->render('component/_register_freelancer.html.twig', [
