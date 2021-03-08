@@ -8,6 +8,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,8 +25,12 @@ class CompanyType extends AbstractType
                 'required' => true,
 
             ])
-            ->add('siret', IntegerType::class, [
-                'label' => 'Numéro de siret'
+            ->add('siret', NumberType::class, [
+                'label' => 'Numéro de siret',
+                'attr' => [
+                    'minlength' => 14,
+                    'maxlength' => 14
+                ]
             ])
             ->add('description', TextareaType::class, [
                 'label' => 'Décrivez vos activités'

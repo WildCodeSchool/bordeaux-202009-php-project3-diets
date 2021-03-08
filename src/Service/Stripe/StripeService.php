@@ -11,31 +11,33 @@ use Stripe\Stripe as Stripe;
 use Stripe\Checkout\Session as CheckoutSession;
 use Stripe\Account as Account;
 use Stripe\AccountLink as AccountLink;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 
 
-class StripeService extends AbstractController
+class StripeService
 {
     protected $userRepository;
     protected $basketService;
     protected $session;
     protected $resourceRepository;
+    private $params;
 
-    public function __construct(UserRepository $userRepository, BasketService $basketService, SessionInterface $session, ResourceRepository $resourceRepository)
+    public function __construct(UserRepository $userRepository, BasketService $basketService, SessionInterface $session, ResourceRepository $resourceRepository, ParameterBagInterface $params)
     {
         $this->userRepository = $userRepository;
         $this->basketService = $basketService;
         $this->session = $session;
         $this->resourceRepository = $resourceRepository;
+        $this->params = $params;
 
     }
 
     public function createAccount(int $id): void
     {
-        Stripe::setApiKey($this->getParameter('api_key'));
+        Stripe::setApiKey($this->params->get('api_key'));
 
         $account = Account::create([
             'type' => 'standard',
@@ -45,7 +47,7 @@ class StripeService extends AbstractController
 
     public function createLinkAccount(int $id)
     {
-        Stripe::setApiKey($this->getParameter('api_key'));
+        Stripe::setApiKey($this->params->get('api_key'));
 
         $accounts = Account::all();
 
@@ -57,8 +59,8 @@ class StripeService extends AbstractController
 
         $account_links = AccountLink::create([
             'account' => $accountId,
-            'refresh_url' => 'https://nouslesdiets.fr/connaissances/',
-            'return_url' => 'https://dashboard.stripe.com/',
+            'refresh_url' => $this->params->get('refresh_url'),
+            'return_url' => $this->params->get('return_url'),
             'type' => 'account_onboarding',
         ]);
 
@@ -68,7 +70,7 @@ class StripeService extends AbstractController
 
     public function checkoutCreateSession()
     {
-        Stripe::setApiKey($this->getParameter('api_key'));
+        Stripe::setApiKey($this->params->get('api_key'));
 
         $date = new \DateTime('now');
 
@@ -82,7 +84,7 @@ class StripeService extends AbstractController
 
         $accountId = $this->getAccountId();
 
-        Stripe::setApiKey($this->getParameter('api_key'));
+        Stripe::setApiKey($this->params->get('api_key'));
 
         $session = CheckoutSession::create([
             'payment_method_types' => ['card'],
@@ -101,8 +103,8 @@ class StripeService extends AbstractController
             'payment_intent_data' => [
                 'application_fee_amount' => round(($this->basketService->getTotal() * 100) * 0.1),
             ],
-            'success_url' => $this->generateUrl('payment_success', [], UrlGeneratorInterface::ABSOLUTE_URL),
-            'cancel_url' => $this->generateUrl('payment_error', [], UrlGeneratorInterface::ABSOLUTE_URL),
+            'success_url' => $this->params->get('success_url'),
+            'cancel_url' => $this->params->get('error_url'),
          ], ['stripe_account' => $accountId]);
 
         return $session;
@@ -110,9 +112,9 @@ class StripeService extends AbstractController
 
     public function getAccountId()
     {
-        Stripe::setApiKey($this->getParameter('api_key'));
+        Stripe::setApiKey($this->params->get('api_key'));
 
-        $accounts = Account::all();
+        $accounts = Account::all(['limit' => 100]);
 
         $basket = $this->session->get('basket');
 

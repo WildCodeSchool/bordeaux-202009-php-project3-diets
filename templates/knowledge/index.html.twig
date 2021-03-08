@@ -86,7 +86,7 @@
                                     <div></div>
                                 {% else %}
                                     {% for resourceFile in resource.resourceFiles %}
-                                    <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                    <i class="{{ resource.resourceFormat.icon }}"></i>
                                     {% endfor %}
                                 {% endif %}
                                 </div>
@@ -97,11 +97,6 @@
                             <div class="pb-1">
                                 dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                             </div>
-                            {% if is_granted('ROLE_CONTRIBUTOR') %}
-                            <div class="mt-4">
-                                Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
-                            </div>
-                            {% endif %}
                         </div>
                         <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
                             <div class="pl-3">Description :</div>
@@ -113,7 +108,9 @@
                             <p class="col">
                                 Prix :{{ resource.price }}€
                             </p>
+                            {% if is_granted('ROLE_CONTRIBUTOR') %}
                             <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary"><i class="fas fa-shopping-cart"></i>Ajouter au panier</button></a>
+                            {% endif %}
                         </div>
 
                     </div>
@@ -132,13 +129,6 @@
             {%  for resource in resources_last_update  %}
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center pb-3 pt-3">
-                        <div class="col-lg-4 justify-content-center d-flex align-items-center">
-                            <div class="img-container">
-                                {% for file in resource.resourceFiles %}
-                                    <img class="file-resource" src="/uploads/resources/{{ file.name }}" alt='{{ file.name }}'>
-                                {% endfor %}
-                            </div>
-                        </div>
                         <div class="col-8 col-lg-5 pb-4">
                             <div class="d-flex container pl-0">
                                 <div class="pb-2 col-11 pl-0">
@@ -150,13 +140,13 @@
                                         <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class=""><i class="fas fa-edit fa-2x"></i></a>
                                         {% include '/knowledge/_delete_knowledge.html.twig' %}
                                     {% endif %}
-                                        {% for resourceFile in resource.resourceFiles %}
-                                        {% if resourceFile.name is empty %}
+                                        {% if resource.resourceFiles is empty %}
                                             <div></div>
                                         {% else %}
-                                            <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                            {% for resourceFile in resource.resourceFiles %}
+                                                <i class="{{ resource.resourceFormat.icon }}"></i>
+                                            {% endfor %}
                                         {% endif %}
-                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -165,11 +155,6 @@
                                 <div class="pb-1">
                                     dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                                 </div>
-                                {% if is_granted('ROLE_CONTRIBUTOR') %}
-                                    <div class="mt-4">
-                                        Document : <a class="knowledge-link" href="{{ resource.link }}" target="_blank">Lien externe vers la ressource</a>
-                                    </div>
-                                {% endif %}
                             </div>
                             <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
                                 <div class="pl-3">Description :</div>
@@ -181,7 +166,9 @@
                                 <p class="col">
                                     Prix : {{ resource.price }}€
                                 </p>
+                                {% if is_granted('ROLE_CONTRIBUTOR') %}
                                  <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button></a>
+                                {% endif %}
                             </div>
 
                         </div>
