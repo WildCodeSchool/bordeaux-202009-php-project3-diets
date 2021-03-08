@@ -11,6 +11,10 @@ parameters:
     api_key: '%env(resolve:API_KEY)%'
     company_price: '%env(resolve:COMPANY_PRICE)%'
     api_public_key: '%env(resolve:API_PUBLIC_KEY)%'
+    success_url:  '%env(resolve:URL_SUCCESS)%'
+    error_url:  '%env(resolve:URL_ERROR)%'
+    return_url:  '%env(resolve:URL_RETURN)%'
+    refresh_url:  '%env(resolve:URL_REFRESH)%'
 
 services:
     # default configuration for services in *this* file

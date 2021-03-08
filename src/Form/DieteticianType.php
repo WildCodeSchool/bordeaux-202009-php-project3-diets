@@ -6,6 +6,7 @@ use App\Entity\Dietetician;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,11 +28,14 @@ class DieteticianType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'required' => true,
             ])
-            ->add('adeli', IntegerType::class, [
+            ->add('adeli', NumberType::class, [
                 'label' => 'Numéro ADELI *',
                 'required' => false,
+                'attr' => [
+                    'minlength' => 9,
+                    'maxlength' => 9
+                ]
             ])
-            //->add('user')
         ;
     }
 

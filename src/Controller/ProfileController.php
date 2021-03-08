@@ -213,8 +213,7 @@ class ProfileController extends AbstractController
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            return $this->redirectToRoute('knowledge_index', [
-            ]);
+            return $this->redirectToRoute('knowledge_index');
         }
 
         return $this->render('component/_resource_edit.html.twig', [

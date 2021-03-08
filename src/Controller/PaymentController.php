@@ -40,8 +40,9 @@ class PaymentController extends AbstractController
      * @Route("/valider", name="success")
      */
 
-    public function success(): Response
+    public function success(SessionInterface $session): Response
     {
+        $session->set('basket', []);
         return $this->render('basket/success.html.twig', [
             'controller_name' => 'PaymentController',
         ]);
