@@ -1,8 +1,6 @@
 <div class="profile-edit">
     <div class="d-flex justify-content-center">
-        <h2 class="page-title">Bonjour  {% if infos.company %} {{ infos.company.name }} {% endif %}
-            {% if infos.freelancer %} {{ infos.freelancer.name }} {% endif %}
-            {% if infos.dietetician%} {{ infos.dietetician.firstname }}  {{ infos.dietetician.lastname }} {% endif %} ! Heureux de vous revoir.</h2>
+        <h2 class="page-title">Bonjour  {% include '/component/_name_for_all_role.html.twig' %} ! Heureux de vous revoir.</h2>
     </div>
     <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
         {% if is_granted('ROLE_CONTRIBUTOR') %}
@@ -77,17 +75,12 @@
             </div>
             <div class="col-xl-6 col-12 d-sm-flex  profile-text-center text-sm-left justify-content-xl-start justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
-                    <h3>{% if infos.company %} {{ infos.company.name }} {% endif %}
-                    {% if infos.freelancer %} {{ infos.freelancer.name }} {% endif %}
-                    {% if infos.dietetician %} {{ infos.dietetician.firstname }}  {{ infos.dietetician.lastname }} {% endif %}
-                    </h3>
+                    <h3>{% include '/component/_name_for_all_role.html.twig' %} </h3>
                     <p>
                         {% if infos.dietetician %}  {{ infos.dietetician.birthday|date("d/m/Y") }} {% endif %}
                     </p>
                     <p>
-                        {% if infos.company %} {{ infos.company.siret }} {% endif %}
-                        {% if infos.freelancer %} {{ infos.freelancer.siret }} {% endif %}
-                        {% if infos.dietetician %} {{ infos.dietetician.adeli }} {% endif %}
+                        {% include '/component/_siret_adeli_for_user.html.twig' %}
                     </p>
                     <p>
                         {% if infos.company %} {{ infos.company.description }} {% endif %}

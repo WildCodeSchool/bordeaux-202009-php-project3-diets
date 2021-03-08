@@ -80,7 +80,6 @@
         {% if event_organized is defined %}
             <div class="box-back shadow p-3 mb-5 bg-white rounded">
                 {% if ((is_granted('ROLE_CONTRIBUTOR') and (app.user.id == event_organized.user.id)) or is_granted('ROLE_ADMIN')) %}
-                {# {{ include('service/_delete_service.html.twig') }} #}
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ event_organized.event.name[:50] }}</h5>
