@@ -134,9 +134,8 @@
                         <div class="col-4">
                             <div class="d-flex pb-1">
                                 {{ include('admin/_delete_user.html.twig') }}
-                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {% if listed_user.company %} {{ listed_user.company.name }} {% endif %}
-                                    {% if listed_user.freelancer%} {{ listed_user.freelancer.name }} {% endif %}
-                                    {% if listed_user.dietetician %} {{ listed_user.dietetician.lastname }} {{ listed_user.dietetician.firstname }}{% endif %}</a>
+                                {% set infos = listed_user %}
+                                <a href="#" class="justify-content-start user-link">{{ loop.index}}. {% include '/component/_name_for_all_role.html.twig' %}</a>
                                 <br>
                             </div>
                         </div>
@@ -159,9 +158,8 @@
                             {% for registered in registered_events %}
                                 {% if registered.event.id == event.id %}
                                     {% if registered.isOrganizer == true %}
-                                        {% if registered.user.company %} {{ registered.user.company.name }} {% endif %}
-                                        {% if registered.user.freelancer %} {{ registered.user.freelancer.name }} {% endif %}
-                                        {% if registered.user.dietetician%} {{ registered.user.dietetician.firstname }}  {{ registered.user.dietetician.lastname }} {% endif %}
+                                        {% set infos = registered.user %}
+                                        {% include '/component/_name_for_all_role.html.twig' %}
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}
@@ -190,9 +188,8 @@
                                     {% for registered in registered_events %}
                                         {% if registered.event.id == event.id %}
                                             {% if registered.isOrganizer == true %}
-                                                {% if registered.user.company %} {{ registered.user.company.name }} {% endif %}
-                                                {% if registered.user.freelancer %} {{ registered.user.freelancer.name }} {% endif %}
-                                                {% if registered.user.dietetician%} {{ registered.user.dietetician.firstname }}  {{ registered.user.dietetician.lastname }} {% endif %}
+                                                {% set infos = registered.user %}
+                                                {% include '/component/_name_for_all_role.html.twig' %}
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -216,9 +213,8 @@
                         <div class="d-flex pb-1">
                             <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ service.name }}</p>
                                <br> Posté par:
-                                {% if service.user.company %} {{ service.user.company.name }} {% endif %}
-                                {% if service.user.freelancer %} {{ service.user.freelancer.name }} {% endif %}
-                                {% if service.user.dietetician%} {{ service.user.dietetician.firstname }}  {{ service.user.dietetician.lastname }} {% endif %} </a>
+                                {% set infos = service.user %}
+                                {% include '/component/_name_for_all_role.html.twig' %} </a>
                             <form method="post" action="{{ path('valid_service') }}"><input type="hidden" value="{{ service.id }}" name="service"><button>Ok</button></form>
                             <br>
                         </div>
@@ -239,9 +235,8 @@
                                     {% include '/service/_delete_service.html.twig' %}
                                     <a href="{{ path('profile_service_edit', {'id': service.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ service.name }}</p>
                                         <br> Posté par :
-                                        {% if service.user.company %} {{ service.user.company.name }} {% endif %}
-                                        {% if service.user.freelancer %} {{ service.user.freelancer.name }} {% endif %}
-                                        {% if service.user.dietetician %} {{ service.user.dietetician.firstname }}  {{ service.user.dietetician.lastname }} {% endif %}
+                                        {% set infos = service.user %}
+                                        {% include '/component/_name_for_all_role.html.twig' %}
                                     </a>
                                     <br>
                                 </div>

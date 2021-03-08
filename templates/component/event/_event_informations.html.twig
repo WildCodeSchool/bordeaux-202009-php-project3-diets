@@ -1,4 +1,5 @@
 <!-- Modal -->
+{% set infos = event_organized.user %}
 <div class="modal fade" id="id{{ event_organized.event.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content modal-resource">
@@ -7,9 +8,7 @@
             </div>
             <div class="modal-body">
                 <p>{{ event_organized.event.description }}</p>
-                <p class="font-weight-bold text-right">{% if event_organized.user.company %} {{ event_organized.user.company.name }} {% endif %}
-                {% if event_organized.user.freelancer %} {{ event_organized.user.freelancer.name }} {% endif %}
-                {% if event_organized.user.dietetician%} {{ event_organized.user.dietetician.firstname }}  {{ event_organized.user.dietetician.lastname }} {% endif %}</p>
+                <p class="font-weight-bold text-right">{% include '/component/_name_for_all_role.html.twig' %}</p>
                 <p class="font-italic text-right"> Mis à jour le {{ event_organized.event.updatedAt|date("d/m/Y") }}</p>
                 <div class="d-flex justify-content-center">
                     <div class="ressource-link mt-3 mb-3">
@@ -28,3 +27,4 @@
         </div>
     </div>
 </div>
+

@@ -177,14 +177,14 @@
                                         {{ event.description }}
                                     </p>
                                     <div class="descript pl-3">Organisé par:</div>
+
                                     <p class="col">{% for registered in registered_events %}
-                                        {% if registered.event.id == event.id %}
-                                            {% if registered.isOrganizer == true %}
-                                                {% if registered.user.company %} {{ registered.user.company.name }} {% endif %}
-                                                {% if registered.user.freelancer %} {{ registered.user.freelancer.name }} {% endif %}
-                                                {% if registered.user.dietetician%} {{ registered.user.dietetician.firstname }}  {{ registered.user.dietetician.lastname }} {% endif %}
-                                            {% endif %}
-                                        {% endif %}
+                                            {% set infos = registered.user %}
+                                                {% if registered.event.id == event.id %}
+                                                    {% if registered.isOrganizer == true %}
+                                                        {% include '/component/_name_for_all_role.html.twig' %} -
+                                                    {% endif %}
+                                                {% endif %}
                                     {% endfor %}
                                     <p>
                                 </div>
