@@ -95,4 +95,20 @@ class ServiceController extends AbstractController
         }
         return $this->redirectToRoute('service_index');
     }
+
+    /**
+     * @Route("/picture/{id}", name="delete_picture", methods={"DELETE"})
+     *
+     */
+    public function deletePicture(
+        Request $request,
+        Picture $picture
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($picture);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('service_index');
+    }
 }

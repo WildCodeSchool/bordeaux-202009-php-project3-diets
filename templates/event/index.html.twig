@@ -87,6 +87,9 @@
                         <div class="img-container">
                             {% for picture in event.pictures %}
                                 <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% include '/event/_delete_picture.html.twig' %}
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -136,6 +139,9 @@
                                 <div class="img-container">
                                     {% for picture in event.pictures %}
                                         <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            {% include '/event/_delete_picture.html.twig' %}
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
