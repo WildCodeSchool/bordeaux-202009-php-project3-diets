@@ -26,6 +26,7 @@ use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use App\Service\Stripe\StripeService;
+use App\Service\Stripe\StripeSubscribeService;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpParser\Node\Expr\AssignOp\Mul;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -49,7 +50,8 @@ class ProfileController extends AbstractController
                          User $user,
                          PictureRepository $pictureRepository,
                          SessionInterface $session,
-                         MultiUploadService $multiUploadService): Response
+                         MultiUploadService $multiUploadService,
+                         StripeSubscribeService $stripeSubscribeService): Response
     {
         if (!$user) {
             throw $this->createNotFoundException(
@@ -130,6 +132,11 @@ class ProfileController extends AbstractController
             ->findBy(['link' => null]);
 
         $publicKey = $this->getParameter('api_public_key');
+
+        $checkSubscription = $stripeSubscribeService->changeStatusForSubscriber();
+
+
+
 
 
         return $this->render('profile/edit.html.twig', [

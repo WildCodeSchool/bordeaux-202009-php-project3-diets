@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 
 /**
- * @IsGranted ("ROLE_CONTRIBUTOR")
+ * @IsGranted ("ROLE_ENTERPRISE")
  * @Route("/panier", name="basket_")
  */
 class BasketController extends AbstractController

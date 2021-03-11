@@ -4,6 +4,10 @@
 namespace App\Service\Stripe;
 
 
+
+use App\Entity\User;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as Session;
 use Stripe\Customer as Customer;
@@ -13,18 +17,23 @@ use Stripe\BillingPortal\Configuration as Configuration;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Stripe\Subscription as Subscription;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class StripeSubscribeService
 {
 
     protected $session;
     protected $params;
+    protected $userRepository;
+    protected $entityManager;
 
-    public function __construct(SessionInterface $session, ParameterBagInterface $params)
+    public function __construct(SessionInterface $session, ParameterBagInterface $params, TokenStorageInterface $tokenStorage,EntityManagerInterface $entityManager)
     {
         $this->session = $session;
         $this->params = $params;
+        $this->user = $tokenStorage->getToken()->getUser();
+        $this->entityManager = $entityManager;
     }
 
     public function createPortalSession()
@@ -53,11 +62,14 @@ class StripeSubscribeService
                 $customerId = $customer['id'];
             }
         }
+
         $sessionStripe = SessionStripe::create([
             'customer' => $customerId,
             'configuration' => $configuration['id'],
             'return_url' => $this->params->get('return_url'),
         ]);
+
+
 
         return $sessionStripe;
     }
@@ -66,7 +78,7 @@ class StripeSubscribeService
     {
         Stripe::setApiKey($this->params->get('api_key'));
 
-        $customers = \Stripe\Customer::all();
+        $customers = Customer::all();
         foreach ($customers as $customer) {
             if ($customer['email'] === $this->session->get('userEmail')) {
                 $customerId = $customer['id'];
@@ -83,7 +95,7 @@ class StripeSubscribeService
                     'quantity' => 1,
                 ]],
                 'mode' => 'subscription',
-                'success_url' => $this->params->get('success_url'),
+                'success_url' => $this->params->get('success_url_subscription'),
                 'cancel_url' => $this->params->get('error_url'),
             ]);
         } else {
@@ -95,10 +107,64 @@ class StripeSubscribeService
                     'quantity' => 1,
                 ]],
                 'mode' => 'subscription',
-                'success_url' => $this->params->get('success_url'),
+                'success_url' => $this->params->get('success_url_subscription'),
                 'cancel_url' => $this->params->get('error_url'),
             ]);
         }
+
+
         return $session;
+    }
+
+    public function changeStatusForSubscriber()
+    {
+        Stripe::setApiKey($this->params->get('api_key'));
+
+
+        $customers = Customer::all();
+
+        foreach ($customers as $customer) {
+            if ($customer['email'] === $this->session->get('userEmail')) {
+                $customerId = $customer['id'];
+            }
+        }
+
+        $subscriptions = Subscription::all(['limit' => 100]);
+
+        $result = null;
+
+
+
+        foreach ($subscriptions as $subscription){
+            if ($subscription['customer'] === $customerId) {
+                $result = $customerId;
+                $takeuser = $this->user;
+                if ($takeuser->getRoles(['ROLE_COMPANY'])) {
+                $changeRole = $takeuser->setRoles(['ROLE_COMPANY_SUBSCRIBER']);
+                }
+                if ($takeuser->getRoles(['ROLE_FREELANCER'])) {
+                    $changeRole = $takeuser->setRoles(['ROLE_FREELANCER_SUBSCRIBER']);
+                }
+                $this->entityManager->persist($changeRole);
+                $this->entityManager->flush();
+            }
+
+        }
+
+        if (is_null($result)) {
+            $takeuser = $this->user;
+            if ($takeuser->getRoles(['ROLE_COMPANY_SUBSCRIBER'])) {
+                $changeRole = $takeuser->setRoles(['ROLE_COMPANY']);
+            }
+            if ($takeuser->getRoles(['ROLE_FREELANCER_SUBSCRIBER'])) {
+                $changeRole = $takeuser->setRoles(['ROLE_FREELANCER']);
+            }
+            $this->entityManager->persist($changeRole);
+            $this->entityManager->flush();
+        }
+        dump($result);
+
+        return $subscription['status'];
+
     }
 }

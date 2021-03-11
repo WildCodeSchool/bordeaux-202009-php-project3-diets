@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\Stripe\StripeSubscribeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
