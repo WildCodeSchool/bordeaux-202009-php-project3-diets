@@ -102,6 +102,7 @@ class StripeService
             'mode' => 'payment',
             'payment_intent_data' => [
                 'application_fee_amount' => round(($this->basketService->getTotal() * 100) * 0.1),
+                'setup_future_usage' => 'off_session',
             ],
             'success_url' => $this->params->get('success_url'),
             'cancel_url' => $this->params->get('error_url'),

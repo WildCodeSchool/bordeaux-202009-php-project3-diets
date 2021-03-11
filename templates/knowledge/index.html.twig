@@ -108,7 +108,7 @@
                             <p class="col">
                                 Prix :{{ resource.price }}€
                             </p>
-                            {% if is_granted('ROLE_CONTRIBUTOR') %}
+                            {% if is_granted('ROLE_ENTERPRISE')%}
                             <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary"><i class="fas fa-shopping-cart"></i>Ajouter au panier</button></a>
                             {% endif %}
                         </div>
@@ -166,7 +166,7 @@
                                 <p class="col">
                                     Prix : {{ resource.price }}€
                                 </p>
-                                {% if is_granted('ROLE_CONTRIBUTOR') %}
+                                {% if (is_granted('ROLE_COMPANY')) or (is_granted('ROLE_FREELANCER')) %}
                                  <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button></a>
                                 {% endif %}
                             </div>
