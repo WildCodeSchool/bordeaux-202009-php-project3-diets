@@ -1,9 +1,6 @@
 <?php
 
-
 namespace App\Service\Stripe;
-
-
 
 use App\Entity\User;
 use App\Repository\UserRepository;
@@ -28,7 +25,7 @@ class StripeSubscribeService
     protected $userRepository;
     protected $entityManager;
 
-    public function __construct(SessionInterface $session, ParameterBagInterface $params, TokenStorageInterface $tokenStorage,EntityManagerInterface $entityManager)
+    public function __construct(SessionInterface $session, ParameterBagInterface $params, TokenStorageInterface $tokenStorage, EntityManagerInterface $entityManager)
     {
         $this->session = $session;
         $this->params = $params;
@@ -112,7 +109,6 @@ class StripeSubscribeService
             ]);
         }
 
-
         return $session;
     }
 
@@ -120,7 +116,7 @@ class StripeSubscribeService
     {
         Stripe::setApiKey($this->params->get('api_key'));
 
-
+        $customerId = '';
         $customers = Customer::all();
 
         foreach ($customers as $customer) {
@@ -134,13 +130,12 @@ class StripeSubscribeService
         $result = null;
 
 
-
-        foreach ($subscriptions as $subscription){
+        foreach ($subscriptions as $subscription) {
             if ($subscription['customer'] === $customerId) {
                 $result = $customerId;
                 $takeuser = $this->user;
                 if ($takeuser->getRoles(['ROLE_COMPANY'])) {
-                $changeRole = $takeuser->setRoles(['ROLE_COMPANY_SUBSCRIBER']);
+                    $changeRole = $takeuser->setRoles(['ROLE_COMPANY_SUBSCRIBER']);
                 }
                 if ($takeuser->getRoles(['ROLE_FREELANCER'])) {
                     $changeRole = $takeuser->setRoles(['ROLE_FREELANCER_SUBSCRIBER']);
@@ -148,23 +143,22 @@ class StripeSubscribeService
                 $this->entityManager->persist($changeRole);
                 $this->entityManager->flush();
             }
-
         }
 
         if (is_null($result)) {
             $takeuser = $this->user;
-            if ($takeuser->getRoles(['ROLE_COMPANY_SUBSCRIBER'])) {
+            if (in_array('ROLE_COMPANY_SUBSCRIBER', $takeuser->getRoles(), $strict = true)) {
                 $changeRole = $takeuser->setRoles(['ROLE_COMPANY']);
+                $this->entityManager->persist($changeRole);
+                $this->entityManager->flush();
             }
-            if ($takeuser->getRoles(['ROLE_FREELANCER_SUBSCRIBER'])) {
+            if (in_array('ROLE_FREELANCER_SUBSCRIBER', $takeuser->getRoles(), $strict = true)) {
                 $changeRole = $takeuser->setRoles(['ROLE_FREELANCER']);
+                $this->entityManager->persist($changeRole);
+                $this->entityManager->flush();
             }
-            $this->entityManager->persist($changeRole);
-            $this->entityManager->flush();
         }
-        dump($result);
 
         return $subscription['status'];
-
     }
 }
