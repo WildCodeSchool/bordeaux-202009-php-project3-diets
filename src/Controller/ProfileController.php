@@ -27,6 +27,7 @@ use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use App\Service\Stripe\StripeService;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Expr\AssignOp\Mul;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -201,17 +202,20 @@ class ProfileController extends AbstractController
      * @return Response
      */
 
-    public function editResource(Resource $resource,
-                                 Request $request,
-                                 int $id,
-                                 ResourceRepository $resourceRepository): Response
-    {
+    public function editResource(
+        Resource $resource,
+        Request $request,
+        int $id,
+        ResourceRepository $resourceRepository,
+        MultiUploadService $multiUploadService
+    ): Response {
 
         $resource = $resourceRepository->findOneBy(['id' => $id]);
 
         $formEditResource = $this->createForm(ResourceType::class, $resource);
         $formEditResource->handleRequest($request);
         if ($formEditResource->isSubmitted() && $formEditResource->isValid()) {
+            $multiUploadService->createMultiUploadToResource($formEditResource, $resource);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('knowledge_index');
         }
@@ -229,17 +233,20 @@ class ProfileController extends AbstractController
      * @return Response
      */
 
-    public function editService(Service $service,
-                                int $id,
-                                Request $request,
-                                ServiceRepository $serviceRepository,
-                                PictureRepository $pictureRepository): Response
-    {
+    public function editService(
+        Service $service,
+        int $id,
+        Request $request,
+        ServiceRepository $serviceRepository,
+        PictureRepository $pictureRepository,
+        MultiUploadService $multiUploadService
+    ): Response {
         $service = $serviceRepository->findOneBy(['id' => $id]);
 
         $formEditService = $this->createForm(ServiceType::class, $service);
         $formEditService->handleRequest($request);
         if ($formEditService->isSubmitted() && $formEditService->isValid()) {
+            $multiUploadService->createMultiUploadToService($formEditService, $service);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('service_index');
         }
@@ -259,18 +266,21 @@ class ProfileController extends AbstractController
      * @return Response
      */
 
-    public function editEvent(Event $event,
-                              int $id,
-                              Request $request,
-                              EventRepository $eventRepository,
-                              PictureRepository $pictureRepository): Response
-    {
+    public function editEvent(
+        Event $event,
+        int $id,
+        Request $request,
+        EventRepository $eventRepository,
+        PictureRepository $pictureRepository,
+        MultiUploadService $multiUploadService
+    ): Response {
 
         $event = $eventRepository->findOneBy(['id' => $id]);
 
         $formEditEvent = $this->createForm(EventType::class, $event);
         $formEditEvent->handleRequest($request);
         if ($formEditEvent->isSubmitted() && $formEditEvent->isValid()) {
+            $multiUploadService->createMultiUploadToEvent($formEditEvent, $event);
             $this->getDoctrine()->getManager()->flush();
             return $this->redirectToRoute('event_index');
         }

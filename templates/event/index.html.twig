@@ -79,14 +79,17 @@
                 <div>
                 <h3 class="part-title mt-4">Evènements trouvés :</h3>
             </div>
-            <div class="container-fluid-event row justify-content-start">
+            <div class="container-fluid row justify-content-start">
                {% for event in events_search %}
                     <div class="col-lg-2">
                     </div>
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in event.pictures %}
-                                    <img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% include '/event/_delete_picture.html.twig' %}
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -135,7 +138,10 @@
                             <div class="div-container col-lg-4 d-flex justify-content-center align-items-center">
                                 <div class="img-container">
                                     {% for picture in event.pictures %}
-                                            <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                        <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-event" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            {% include '/event/_delete_picture.html.twig' %}
+                                        {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>

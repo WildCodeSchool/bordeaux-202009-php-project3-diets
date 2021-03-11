@@ -48,7 +48,10 @@
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in service.pictures %}
-                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% include '/service/_delete_picture.html.twig' %}
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -77,10 +80,13 @@
                         {%  for service in services  %}
                             <div class="container-fluid">
                                 <div class="row d-flex justify-content-center pb-3 pt-3">
-                                    <div class="col-lg-4 d-flex justify-content-center align-items-center">
+                                    <div class="col-lg-5 d-flex justify-content-center align-items-center">
                                         <div class="img-container">
                                             {% for picture in service.pictures %}
-                                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                                <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    {% include '/service/_delete_picture.html.twig' %}
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
