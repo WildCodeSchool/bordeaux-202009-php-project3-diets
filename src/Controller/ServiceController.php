@@ -11,6 +11,7 @@ use App\Repository\ServiceRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +25,13 @@ class ServiceController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(EntityManagerInterface $entityManager,
-                          Request $request,
-                          ServiceRepository $serviceRepository,
-                          PictureRepository $pictureRepository,
-                          MultiUploadService $multiUploadService): Response
-    {
+    public function index(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        ServiceRepository $serviceRepository,
+        PictureRepository $pictureRepository,
+        MultiUploadService $multiUploadService
+    ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
