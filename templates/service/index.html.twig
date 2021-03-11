@@ -48,7 +48,7 @@
                     <div class="col-lg-4 justify-content-center d-flex align-items-center">
                         <div class="img-container">
                             {% for picture in service.pictures %}
-                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
                             {% endfor %}
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                                     <div class="col-lg-4 d-flex justify-content-center align-items-center">
                                         <div class="img-container">
                                             {% for picture in service.pictures %}
-                                                    <img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'>
+                                                <a href="/uploads/pictures/{{ picture.name }}" target="_blank"><img class="picture-service" src="/uploads/pictures/{{ picture.name }}" alt='{{ picture.name }}'></a>
                                             {% endfor %}
                                         </div>
                                     </div>
