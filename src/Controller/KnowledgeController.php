@@ -129,4 +129,20 @@ class KnowledgeController extends AbstractController
         }
         return $this->redirectToRoute('knowledge_index');
     }
+
+    /**
+     * @Route("/resourceFile/{id}", name="delete_resourceFile", methods={"DELETE"})
+     *
+     */
+    public function deleteResourceFile(
+        Request $request,
+        ResourceFile $resourceFile
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $resourceFile->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($resourceFile);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('knowledge_index');
+    }
 }

@@ -12,7 +12,6 @@
                 <div class="d-flex justify-content-center">
                     <h2 class="page-title">Connaissances</h2>
                 </div>
-
                 <div class="search">
                     <div class="form">
                         <div class="input-group">
@@ -86,7 +85,14 @@
                                     <div></div>
                                 {% else %}
                                     {% for resourceFile in resource.resourceFiles %}
-                                    <i class="{{ resource.resourceFormat.icon }}"></i>
+                                        {% if resource.price == 0 %}
+                                            <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                        {% else %}
+                                            <i class="{{ resource.resourceFormat.icon }}"></i>
+                                        {% endif %}
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            {% include '/knowledge/_delete_resourceFile.html.twig' %}
+                                        {% endif %}
                                     {% endfor %}
                                 {% endif %}
                                 </div>
@@ -144,7 +150,14 @@
                                             <div></div>
                                         {% else %}
                                             {% for resourceFile in resource.resourceFiles %}
+                                                {% if resource.price == 0 %}
+                                                <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                                {% else %}
                                                 <i class="{{ resource.resourceFormat.icon }}"></i>
+                                                {% endif %}
+                                                {% if is_granted('ROLE_ADMIN') %}
+                                                    {% include '/knowledge/_delete_resourceFile.html.twig' %}
+                                                {% endif %}
                                             {% endfor %}
                                         {% endif %}
                                     </div>

@@ -12,8 +12,8 @@
                     {% if resource.resourceFiles is empty %}
                         <div></div>
                     {% else %}
-                        {% for resource in resource.resourceFiles %}
-                        <a href="/uploads/resources/{{ resource.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                        {% for resourceFile in resource.resourceFiles %}
+                        <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
                         {% endfor %}
                     {% endif %}
                 </div>

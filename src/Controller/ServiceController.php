@@ -11,6 +11,7 @@ use App\Repository\ServiceRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,12 +25,13 @@ class ServiceController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(EntityManagerInterface $entityManager,
-                          Request $request,
-                          ServiceRepository $serviceRepository,
-                          PictureRepository $pictureRepository,
-                          MultiUploadService $multiUploadService): Response
-    {
+    public function index(
+        EntityManagerInterface $entityManager,
+        Request $request,
+        ServiceRepository $serviceRepository,
+        PictureRepository $pictureRepository,
+        MultiUploadService $multiUploadService
+    ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
 
@@ -80,11 +82,31 @@ class ServiceController extends AbstractController
     public function deleteService(
         Request $request,
         Service $service
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+            $pictures = $service->getPictures();
+            foreach ($pictures as $picture) {
+                $entityManager->remove($picture);
+                $entityManager->flush();
+            }
             $entityManager->remove($service);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('service_index');
+    }
+
+    /**
+     * @Route("/picture/{id}", name="delete_picture", methods={"DELETE"})
+     *
+     */
+    public function deletePicture(
+        Request $request,
+        Picture $picture
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $picture->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($picture);
             $entityManager->flush();
         }
         return $this->redirectToRoute('service_index');

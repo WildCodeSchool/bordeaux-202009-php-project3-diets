@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Service\MultiUpload;
 
 use App\Entity\Picture;
@@ -10,6 +9,8 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MultiUploadService
 {
+    private const SUBSTR = -9;
+
     private $params;
 
     public function __construct(ParameterBagInterface $params)
@@ -44,7 +45,7 @@ class MultiUploadService
             );
             $newPicture = new Picture();
             $newPicture->setUpdatedAt(new \DateTime('now'));
-            $pictureName = substr($picture, -9);
+            $pictureName = substr($picture, MultiUploadService::SUBSTR);
             $newPicture->setName($pictureName);
             $service->addPicture($newPicture);
         }
@@ -67,5 +68,4 @@ class MultiUploadService
         }
         return $event;
     }
-
 }
