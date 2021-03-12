@@ -2,20 +2,19 @@
 
 namespace App\Service\Stripe;
 
-
-
+use App\Entity\SecuringPurchases;
 use App\Repository\ResourceRepository;
+use App\Repository\SecuringPurchasesRepository;
 use App\Repository\UserRepository;
 use App\Service\Basket\BasketService;
+use Doctrine\ORM\EntityManagerInterface;
 use Stripe\Stripe as Stripe;
 use Stripe\Checkout\Session as CheckoutSession;
 use Stripe\Account as Account;
 use Stripe\AccountLink as AccountLink;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-
-
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class StripeService
 {
@@ -23,16 +22,29 @@ class StripeService
     protected $basketService;
     protected $session;
     protected $resourceRepository;
-    private $params;
+    protected $params;
+    protected $securingPurchasesRepository;
+    protected $entityManager;
+    protected $user;
 
-    public function __construct(UserRepository $userRepository, BasketService $basketService, SessionInterface $session, ResourceRepository $resourceRepository, ParameterBagInterface $params)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        BasketService $basketService,
+        SessionInterface $session,
+        ResourceRepository $resourceRepository,
+        ParameterBagInterface $params,
+        SecuringPurchasesRepository $securingPurchasesRepository,
+        EntityManagerInterface $entityManager,
+        TokenStorageInterface $tokenStorage
+    ) {
         $this->userRepository = $userRepository;
         $this->basketService = $basketService;
         $this->session = $session;
         $this->resourceRepository = $resourceRepository;
         $this->params = $params;
-
+        $this->securingPurchasesRepository = $securingPurchasesRepository;
+        $this->entityManager = $entityManager;
+        $this->user = $tokenStorage->getToken()->getUser();
     }
 
     public function createAccount(int $id): void
@@ -78,11 +90,21 @@ class StripeService
 
         $shopping = '';
 
-        foreach ($basket as $id => $shop){
+        foreach ($basket as $id => $shop) {
             $shopping = $this->resourceRepository->find($id)->getName();
+            $shoppingId = $this->resourceRepository->find($id)->getId();
         }
 
         $accountId = $this->getAccountId();
+
+
+        $token = uniqid();
+        $newSecuringPurchase = new SecuringPurchases();
+        $newSecuringPurchase->setIdentifier($token);
+        $newSecuringPurchase->setUser($this->user);
+        $this->entityManager->persist($newSecuringPurchase);
+        $this->entityManager->flush();
+
 
         Stripe::setApiKey($this->params->get('api_key'));
 
@@ -104,7 +126,7 @@ class StripeService
                 'application_fee_amount' => round(($this->basketService->getTotal() * 100) * 0.1),
                 'setup_future_usage' => 'off_session',
             ],
-            'success_url' => $this->params->get('success_url'),
+            'success_url' => $this->params->get('success_url') . '?token=' . $token . '&achat=' . $shoppingId ,
             'cancel_url' => $this->params->get('error_url'),
          ], ['stripe_account' => $accountId]);
 
@@ -121,9 +143,12 @@ class StripeService
 
         $id = '';
 
-        foreach ($basket as $id => $shop) {
-            $shopping = $this->resourceRepository->find($id)->getName();
+        if (isset($basket)) {
+            foreach ($basket as $id => $shop) {
+                $shopping = $this->resourceRepository->find($id)->getName();
+            }
         }
+
 
         foreach ($accounts as $account) {
             if (empty($id)) {
