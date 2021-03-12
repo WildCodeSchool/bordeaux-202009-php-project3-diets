@@ -6,11 +6,12 @@
     <div class="pt-5">
         <h1 class="pt-5">Paiement accepté</h1>
 
-        {% if basketData is not empty %}
+        {% if purchased_resource is not empty %}
             <p>Ci-dessous le lien de téléchargement:</p>
 
-            {% for basket in basketData %}
-                {% for resourceFile in basket.resource.resourceFiles %}
+            {% for basket in purchased_resource %}
+                {% dump(basket) %}
+                {% for resourceFile in basket.resourceFiles %}
                     <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resourceFile.resource.resourceFormat.icon }}"></i></a>
                 {% endfor %}
             {% endfor %}

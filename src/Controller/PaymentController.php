@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Resource;
 use App\Entity\SecuringPurchases;
 use App\Entity\User;
+use App\Repository\ResourceRepository;
 use App\Repository\SecuringPurchasesRepository;
 use App\Repository\UserRepository;
 use App\Service\Basket\BasketService;
@@ -46,9 +48,9 @@ class PaymentController extends AbstractController
         StripeService $stripeService,
         Request $request,
         SecuringPurchasesRepository $securingPurchasesRepository,
-        BasketService $basketService
+        BasketService $basketService,
+        ResourceRepository $resourceRepository
     ): Response {
-
 
         $securingPurchases = $this->getDoctrine()
             ->getRepository(SecuringPurchases::class)
@@ -56,18 +58,20 @@ class PaymentController extends AbstractController
         $securingPurchase = end($securingPurchases);
 
         $token = $_GET['token'];
+        $shoppingId = $_GET['achat'];
 
         $date = new \DateTime('now');
 
-        $basketData = '';
+        $purchasedResource = '';
 
         if (($token === $securingPurchase->getIdentifier()) && ($date < $securingPurchase->getExpirationAt())) {
-            $basketData = $basketService->getAllBasket();
+            $purchasedResource = $this->getDoctrine()
+                ->getRepository(Resource::class)
+                ->findBy(['id' => $shoppingId]);
         }
 
-        dump($token, $securingPurchase->getIdentifier(), $basketData);
         return $this->render('basket/success.html.twig', [
-            'basketData' => $basketData,
+            'purchased_resource' => $purchasedResource,
         ]);
     }
 

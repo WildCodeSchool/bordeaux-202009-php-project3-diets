@@ -46,17 +46,18 @@ class BasketService
 
     public function getAllBasket(): array
     {
-        $basket = '';
 
         $basket = $this->session->get('basket');
 
         $basketData = [];
 
-        foreach ($basket as $id => $quantity) {
-            $basketData[] = [
-                'resource' => $this->resourceRepository->find($id),
-                'quantity' => $quantity
-            ];
+        if (isset($basket)){
+            foreach ($basket as $id => $quantity) {
+                $basketData[] = [
+                    'resource' => $this->resourceRepository->find($id),
+                    'quantity' => $quantity
+                ];
+            }
         }
         return $basketData;
 

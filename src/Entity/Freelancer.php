@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\FreelancerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=FreelancerRepository::class)
@@ -24,6 +25,10 @@ class Freelancer
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 14,
+     *      max = 14,
+     * )
      */
     private $siret;
 

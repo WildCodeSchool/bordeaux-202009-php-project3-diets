@@ -2,8 +2,6 @@
 
 namespace App\Service\Stripe;
 
-
-
 use App\Entity\SecuringPurchases;
 use App\Repository\ResourceRepository;
 use App\Repository\SecuringPurchasesRepository;
@@ -17,7 +15,6 @@ use Stripe\AccountLink as AccountLink;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-
 
 class StripeService
 {
@@ -93,11 +90,13 @@ class StripeService
 
         $shopping = '';
 
-        foreach ($basket as $id => $shop){
+        foreach ($basket as $id => $shop) {
             $shopping = $this->resourceRepository->find($id)->getName();
+            $shoppingId = $this->resourceRepository->find($id)->getId();
         }
 
         $accountId = $this->getAccountId();
+
 
         $token = uniqid();
         $newSecuringPurchase = new SecuringPurchases();
@@ -127,7 +126,7 @@ class StripeService
                 'application_fee_amount' => round(($this->basketService->getTotal() * 100) * 0.1),
                 'setup_future_usage' => 'off_session',
             ],
-            'success_url' => 'http://127.0.0.1:8000/paiement/valider' . '?token=' . $token,
+            'success_url' => $this->params->get('success_url') . '?token=' . $token . '&achat=' . $shoppingId ,
             'cancel_url' => $this->params->get('error_url'),
          ], ['stripe_account' => $accountId]);
 
@@ -144,9 +143,12 @@ class StripeService
 
         $id = '';
 
-        foreach ($basket as $id => $shop) {
-            $shopping = $this->resourceRepository->find($id)->getName();
+        if (isset($basket)) {
+            foreach ($basket as $id => $shop) {
+                $shopping = $this->resourceRepository->find($id)->getName();
+            }
         }
+
 
         foreach ($accounts as $account) {
             if (empty($id)) {

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\DieteticianRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=DieteticianRepository::class)
@@ -34,6 +35,10 @@ class Dietetician
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 9,
+     *      max = 9,
+     * )
      */
     private $adeli;
 
