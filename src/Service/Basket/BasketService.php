@@ -22,10 +22,12 @@ class BasketService
     {
 
 
+
         $basket = $this->session->get('basket');
         if (empty($basket)) {
             $basket[$id] = 1;
         }
+
 
 
         $this->session->set('basket', $basket);
@@ -46,30 +48,36 @@ class BasketService
 
     public function getAllBasket(): array
     {
-        $basket = '';
-
         $basket = $this->session->get('basket');
+        $basketData= [];
 
-        $basketData = [];
-
-        foreach ($basket as $id => $quantity) {
-            $basketData[] = [
-                'resource' => $this->resourceRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
+       if(isset ($basket)) {
+           foreach ($basket as $id => $quantity) {
+               $basketData[] = [
+                   'resource' => $this->resourceRepository->find($id),
+                   'quantity' => $quantity
+               ];
+           }
+       }
         return $basketData;
 
     }
 
     public function getTotal(): float
     {
+
         $total = 0;
         $basketData = $this->getAllBasket();
 
+
         foreach ($basketData as $product) {
+            if (empty($product['resource'])) {
+
+            } else {
             $total += $product['resource']->getPrice() * $product['quantity'];
+            }
         }
+
         return $total;
 
     }

@@ -134,14 +134,17 @@ class StripeSubscribeService
             if ($subscription['customer'] === $customerId) {
                 $result = $customerId;
                 $takeuser = $this->user;
-                if ($takeuser->getRoles(['ROLE_COMPANY'])) {
+                if (in_array('ROLE_COMPANY', $takeuser->getRoles(), $strict = true)) {
                     $changeRole = $takeuser->setRoles(['ROLE_COMPANY_SUBSCRIBER']);
+                    $this->entityManager->persist($changeRole);
+                    $this->entityManager->flush();
                 }
-                if ($takeuser->getRoles(['ROLE_FREELANCER'])) {
+                if (in_array('ROLE_FREELANCER', $takeuser->getRoles(), $strict = true)) {
                     $changeRole = $takeuser->setRoles(['ROLE_FREELANCER_SUBSCRIBER']);
+                    $this->entityManager->persist($changeRole);
+                    $this->entityManager->flush();
                 }
-                $this->entityManager->persist($changeRole);
-                $this->entityManager->flush();
+
             }
         }
 

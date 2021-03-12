@@ -34,6 +34,7 @@ class Dietetician
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $adeli;
 

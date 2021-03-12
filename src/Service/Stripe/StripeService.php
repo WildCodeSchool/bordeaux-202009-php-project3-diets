@@ -78,6 +78,7 @@ class StripeService
 
         $shopping = '';
 
+
         foreach ($basket as $id => $shop){
             $shopping = $this->resourceRepository->find($id)->getName();
         }
@@ -121,9 +122,13 @@ class StripeService
 
         $id = '';
 
-        foreach ($basket as $id => $shop) {
-            $shopping = $this->resourceRepository->find($id)->getName();
+
+        if(isset($basket)) {
+            foreach ($basket as $id => $shop) {
+                $shopping = $this->resourceRepository->find($id);
+            }
         }
+
 
         foreach ($accounts as $account) {
             if (empty($id)) {

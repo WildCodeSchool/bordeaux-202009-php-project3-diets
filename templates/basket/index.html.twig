@@ -5,7 +5,7 @@
 {% block body %}
     <div class="basket pt-5">
          <h2 class="pt-5 pb-4 text-center">Votre panier</h2>
-    {% if products | length > 0 %}
+        {% if products | length > 0 %}
         <table class="table">
             <thead>
                 <tr>
@@ -46,6 +46,7 @@
         {% else %}
             <p>Votre panier est actuellement vide</p>
         {% endif %}
+
     </div>
 
 
