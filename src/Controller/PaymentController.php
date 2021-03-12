@@ -6,6 +6,7 @@ use App\Entity\SecuringPurchases;
 use App\Entity\User;
 use App\Repository\SecuringPurchasesRepository;
 use App\Repository\UserRepository;
+use App\Service\Basket\BasketService;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,26 +45,29 @@ class PaymentController extends AbstractController
         SessionInterface $session,
         StripeService $stripeService,
         Request $request,
-        SecuringPurchasesRepository $securingPurchasesRepository
+        SecuringPurchasesRepository $securingPurchasesRepository,
+        BasketService $basketService
     ): Response {
-        /*$securingPurchases = $this->getDoctrine()
+
+
+        $securingPurchases = $this->getDoctrine()
             ->getRepository(SecuringPurchases::class)
             ->findBy(['user' => $this->getUser()]);
         $securingPurchase = end($securingPurchases);
 
-        $token = $_GET['token'];*/
+        $token = $_GET['token'];
 
-        /*$basket = $session->set('basket', []);*/
-        $basket = $session->get('basket');
+        $date = new \DateTime('now');
 
-        /*if($token === $securingPurchase) {
-            $basket = $session->get('basket');
-        }*/
+        $basketData = '';
 
-        dd($basket);
+        if (($token === $securingPurchase->getIdentifier()) && ($date < $securingPurchase->getExpirationAt())) {
+            $basketData = $basketService->getAllBasket();
+        }
 
+        dump($token, $securingPurchase->getIdentifier(), $basketData);
         return $this->render('basket/success.html.twig', [
-            'basket' => $basket,
+            'basketData' => $basketData,
         ]);
     }
 
