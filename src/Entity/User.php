@@ -107,6 +107,11 @@ class User implements UserInterface
      */
     private $freelancer;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SecuringPurchases::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $securingPurchases;
+
 
 
     public function __construct()
@@ -115,6 +120,7 @@ class User implements UserInterface
         $this->services = new ArrayCollection();
         $this->resources = new ArrayCollection();
         $this->registeredEvents = new ArrayCollection();
+        $this->securingPurchases = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -435,6 +441,36 @@ class User implements UserInterface
         // set the owning side of the relation if necessary
         if ($freelancer->getUser() !== $this) {
             $freelancer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SecuringPurchases[]
+     */
+    public function getSecuringPurchases(): Collection
+    {
+        return $this->securingPurchases;
+    }
+
+    public function addSecuringPurchase(SecuringPurchases $securingPurchase): self
+    {
+        if (!$this->securingPurchases->contains($securingPurchase)) {
+            $this->securingPurchases[] = $securingPurchase;
+            $securingPurchase->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSecuringPurchase(SecuringPurchases $securingPurchase): self
+    {
+        if ($this->securingPurchases->removeElement($securingPurchase)) {
+            // set the owning side to null (unless already changed)
+            if ($securingPurchase->getUser() === $this) {
+                $securingPurchase->setUser(null);
+            }
         }
 
         return $this;

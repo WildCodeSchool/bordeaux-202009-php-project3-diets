@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-
+use App\Entity\SecuringPurchases;
 use App\Entity\User;
+use App\Repository\SecuringPurchasesRepository;
 use App\Repository\UserRepository;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
@@ -13,12 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ServerBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use \Stripe\Stripe as Stripe;
+use Stripe\Stripe as Stripe;
 use Symfony\Component\Routing\Annotation\Route;
-use \Stripe\Checkout\Session as CheckoutSession;
+use Stripe\Checkout\Session as CheckoutSession;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
-
 
 /**
  * @Route("/paiement", name="payment_")
@@ -40,56 +40,30 @@ class PaymentController extends AbstractController
      * @Route("/valider", name="success")
      */
 
-    public function success(SessionInterface $session, StripeService $stripeService, Request $request): Response
-    {
-        $session->set('basket', []);
+    public function success(
+        SessionInterface $session,
+        StripeService $stripeService,
+        Request $request,
+        SecuringPurchasesRepository $securingPurchasesRepository
+    ): Response {
+        /*$securingPurchases = $this->getDoctrine()
+            ->getRepository(SecuringPurchases::class)
+            ->findBy(['user' => $this->getUser()]);
+        $securingPurchase = end($securingPurchases);
 
-       /* \Stripe\Stripe::setApiKey('sk_test_51ILlKBLs9HAnEomvW4fCbd6XOcmVOO3VNbFNxOPf91KJbm53lKu7ry3RT2aB5gwWtMuOcgPHdBwmDGHqeFO8Hfdj003Q9JwUrd');
+        $token = $_GET['token'];*/
 
-        function print_log($val) {
-            return file_put_contents('php://stderr', print_r($val, TRUE));
-        }
+        /*$basket = $session->set('basket', []);*/
+        $basket = $session->get('basket');
 
-        $endpoint_secret = 'whsec_dZSYn8K8Rjpq8XuSMCx1nt9mQQe4Wmyk';
+        /*if($token === $securingPurchase) {
+            $basket = $session->get('basket');
+        }*/
 
-        $payload = @file_get_contents('php://input');
-
-
-        $sig_header = $request->server->get('HTTP_STRIPE_SIGNATURE');
-        $event = null;
-
-
-        try {
-            $event = \Stripe\Webhook::constructEvent(
-                $payload, $sig_header, $endpoint_secret
-            );
-        } catch(\UnexpectedValueException $e) {
-            // Invalid payload
-            http_response_code(400);
-            exit();
-        } catch(\Stripe\Exception\SignatureVerificationException $e) {
-            // Invalid signature
-            http_response_code(400);
-            exit();
-        }
-        function fulfill_order($session) {
-            print_log("Fulfilling order...");
-            print_log($session);
-        }
-
-// Handle the checkout.session.completed event
-       if ($event->type == 'checkout.session.completed') {
-            $session = $event->data->object;
-
-            // Fulfill the purchase...
-            fulfill_order($session);
-        }
-
-        return new Response(200);*/
-
+        dd($basket);
 
         return $this->render('basket/success.html.twig', [
-            'controller_name' => 'PaymentController',
+            'basket' => $basket,
         ]);
     }
 
