@@ -149,7 +149,6 @@ class StripeService
             }
         }
 
-
         foreach ($accounts as $account) {
             if (empty($id)) {
                 $accountId = '';
