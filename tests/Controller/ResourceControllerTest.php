@@ -2,6 +2,8 @@
 
 namespace App\Tests\Controller;
 
+use App\Entity\ResourceFormat;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,5 +29,26 @@ class ResourceControllerTest extends WebTestCase
         $client->request('GET', '/ressource/');
         $this->assertSelectorTextContains('h1', 'Bienvenue sur Nous les Diets !!!');
     }
-}
 
+    public function testResourceForm()
+    {
+        $format = new ResourceFormat();
+        $format->setFormat('1');
+
+        $client = static::createClient();
+        $userRepository = static::$container->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('admin@gmail.com');
+        $client->loginUser($testUser);
+
+        $client->request('GET', '/connaissances/');
+
+        $client->submitForm('Valider', [
+            'resource[name]' => 'Name',
+            'resource[link]' => 'https://www.google.fr',
+            'resource[price]' => '150',
+            'resource[description]' => 'Description',
+            'resource[resourceFormat]' => $format->getFormat(),
+        ]);
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+    }
+}
