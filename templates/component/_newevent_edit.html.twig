@@ -18,11 +18,10 @@
                     {{ form_row(form_event.link) }}
                     {{ form_row(form_event.description) }}
                     {{ form_row(form_event.pictures) }}
-            </div>
-            <div class="d-flex flex-row-reverse">
-                <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
-            </div>
-            {{ form_end(form_event) }}
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                </div>
+                {{ form_end(form_event) }}
             </div>
         </div>
     </div>
