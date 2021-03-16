@@ -28,17 +28,6 @@ use Symfony\Component\HttpFoundation\ParameterBag;
  */
 class PaymentController extends AbstractController
 {
-
-    /**
-     * @Route("/", name="index")
-     */
-    public function index(): Response
-    {
-        return $this->render('payment/index.html.twig', [
-            'controller_name' => 'PaymentController',
-        ]);
-    }
-
     /**
      * @Route("/valider", name="success")
      */
@@ -51,6 +40,8 @@ class PaymentController extends AbstractController
         BasketService $basketService,
         ResourceRepository $resourceRepository
     ): Response {
+
+        $session->set('basket', []);
 
         $securingPurchases = $this->getDoctrine()
             ->getRepository(SecuringPurchases::class)
