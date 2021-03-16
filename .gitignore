@@ -9,6 +9,7 @@
 /vendor/
 /.idea/
 /public/uploads/
+/.env.test
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

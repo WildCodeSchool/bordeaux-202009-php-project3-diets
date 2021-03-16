@@ -93,6 +93,25 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($user);
 
         $manager->flush();
+
+        $user = new User();
+        $user->setEmail('user@gmail.com');
+        $user->setAddress($faker->address);
+        $user->setPhone($faker->numberBetween(100000, 500000));
+        $user->setWebsite($faker->domainName);
+        $user->setCountry($faker->country);
+        $user->addExpertise($this->getReference('expertise_' . rand(0, 8)));
+        $user->setRoles(['ROLE_USER']);
+        $user->setIsVerified(true);
+        $user->setPassword($this->passwordEncoder->encodePassword(
+            $user,
+            'user'
+        ));
+        $user->setPicture($this->getReference('picture_11'));
+        $this->addReference('user_4', $user);
+        $manager->persist($user);
+
+        $manager->flush();
     }
 
     public function getDependencies()

@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\SecuringPurchasesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SecuringPurchasesRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity ("identifier")
  */
 class SecuringPurchases
 {
@@ -20,6 +23,11 @@ class SecuringPurchases
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 13,
+     *      max = 13,
+     * )
      */
     private $identifier;
 
