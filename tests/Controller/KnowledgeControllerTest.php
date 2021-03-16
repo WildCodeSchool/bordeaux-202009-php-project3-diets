@@ -27,7 +27,7 @@ class KnowledgeControllerTest extends WebTestCase
     public function testKnowledgeForm()
     {
         $format = new ResourceFormat();
-        $format->setFormat('27');
+        $format->setFormat('1');
         $pathology = new Pathology();
         $pathology->setName('pdf');
         $client = static::createClient();

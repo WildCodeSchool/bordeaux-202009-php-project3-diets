@@ -45,5 +45,4 @@ class AdminControllerTest extends WebTestCase
         $client->request('GET', '/administrateur');
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
     }
-
 }
