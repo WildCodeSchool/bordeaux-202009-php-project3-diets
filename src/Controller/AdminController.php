@@ -322,8 +322,14 @@ class AdminController extends AbstractController
         ShoppingRepository $shoppingRepository
     ): Response {
 
+        $shopping = $shoppingRepository->findBy(['type' => 'achat']);
+        $freelancerSubscription = $shoppingRepository->findBy(['type' => 'Abonnement Freelancer']);
+        $companySubscription = $shoppingRepository->findBy(['type' => 'Abonnement Société']);
+
         return $this->render('admin/shopping.html.twig', [
-            'shopping' => $shoppingRepository->findAll()
+            'shopping' => $shopping,
+            'freelancer_subscriptions' => $freelancerSubscription,
+            'company_subscriptions' => $companySubscription
         ]);
     }
 

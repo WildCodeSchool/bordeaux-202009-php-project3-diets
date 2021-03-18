@@ -10,6 +10,7 @@
         </div>
         <div>
             <div class="text-center shopping-list">
+                <h3>Achats</h3>
             <table>
                     <thead>
                         <tr>
@@ -32,6 +33,52 @@
                          {% endfor %}
                     </tbody>
             </table>
+            </div>
+        </div>
+        <div>
+            <div class="text-center shopping-list">
+                <h3>Abonnements Freelancers</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Date d'achats</td>
+                        <td>Acheteurs</td>
+                        <td>Montant</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for freelancer_subscription in freelancer_subscriptions %}
+                        <tr>
+                            <td>{{ freelancer_subscription.realizedAt|date("d/m/Y H:i:s") }}</td>
+                            <td>{{ freelancer_subscription.buyer}}</td>
+                            <td>{{ freelancer_subscription.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="text-center shopping-list">
+                <h3>Abonnements Sociétés</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <td>Date d'achats</td>
+                        <td>Acheteurs</td>
+                        <td>Montant</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for company_subscription in company_subscriptions %}
+                        <tr>
+                            <td>{{ company_subscription.realizedAt|date("d/m/Y H:i:s") }}</td>
+                            <td>{{ company_subscription.buyer}}</td>
+                            <td>{{ company_subscription.amount }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
