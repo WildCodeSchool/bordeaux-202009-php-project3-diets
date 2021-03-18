@@ -1,0 +1,29 @@
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+</button>
+<div id="new-visio">
+    <h3 class="part-title">Je propose une visio-conférence :</h3>
+</div>
+<div class="container-fluid-resource">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-7 profile-main-forms">
+            <div class="form-resource">
+                {% form_theme form_visio 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_visio) }}
+                {{ form_row(form_visio.name) }}
+                {{ form_row(form_visio.dateStart) }}
+                {{ form_row(form_visio.dateEnd) }}
+                {{ form_row(form_visio.pathology) }}
+                {{ form_row(form_visio.description) }}
+                {{ form_row(form_visio.price) }}
+                {{ form_row(form_visio.resourceFiles) }}
+                {{ form_row(form_visio.link) }}
+                <a href="https://meet.google.com/" target="_blank">Cliquez ici ! Pour proposer une visio et créer votre lien meet puis copier le dans le champ lien ci-dessus.</a>
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                </div>
+                {{ form_end(form_visio) }}
+            </div>
+        </div>
+    </div>
+</div>

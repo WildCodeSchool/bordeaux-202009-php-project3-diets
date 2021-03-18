@@ -34,6 +34,28 @@
     margin-bottom: 1em;
     font-weight: bold;
   }
+  .form-modal-event {
+    .btn {
+      display: table-cell;
+      background-color: $main-green;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #38ba92;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+  }
   .calendrier-form {
     position: absolute;
     margin-left: 2em;
@@ -111,7 +133,7 @@
   .form-modal {
     .event-button {
       display: table-cell;
-      background-color: $main-orange;
+      background-color: $main-green;
       color: white;
       border-radius: 500px;
       margin:1rem;
@@ -119,7 +141,7 @@
       transition: 0.5s;
       &:hover{
         font-weight: bold;
-        background-color: #e5bc70;
+        background-color: #38ba92;
       }
       a {
         text-decoration: none;

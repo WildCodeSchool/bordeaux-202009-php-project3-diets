@@ -97,6 +97,26 @@
                     </div>
                 </div>
             </div>
+                {% else %}
+            <div class="mb-4">
+                <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="form-modal-event">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                            Créer un évènement
+                        </button>
+                        <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         {% endif %}
         </div>
     </div>

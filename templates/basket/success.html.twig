@@ -3,14 +3,22 @@
 {% block title %}Paiement accepté{% endblock %}
 
 {% block body %}
-    <div class="pt-5">
-        <h1 class="pt-5">Paiement accepté</h1>
+    <div class="pt-5 payment-success">
+        <h1 class="pt-5 mb-5 text-center title-payment-success">Paiement accepté</h1>
 
         {% if purchased_resource is not empty %}
-            <p>Ci-dessous le lien de téléchargement:</p>
-                {% for resourceFile in purchased_resource.resourceFiles %}
-                    <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resourceFile.resource.resourceFormat.icon }}"></i></a>
+            {% for basket in purchased_resource %}
+                {% if basket.resourceFiles is not empty %}
+                    <h3 class="text-center mb-5">Ci-dessous le lien de téléchargement:</h3>
+                {% for resourceFile in basket.resourceFiles %}
+                    <a class="d-flex justify-content-center mb-5" href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resourceFile.resource.resourceFormat.icon }}"></i></a>
                 {% endfor %}
+                {% endif %}
+                {% if basket.link is not empty %}
+                    <h3 class="text-center mb-5">Lien à conserver (nous vous conseillons de le copier dans un de vos fichier car vous ne pourrez plus y accéder par la suite):</h3>
+                    <a class="d-flex justify-content-center" href="{{ basket.link }}" target="_blank">{{ basket.link }}</a>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     </div>
 {% endblock %}

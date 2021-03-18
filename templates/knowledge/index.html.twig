@@ -85,6 +85,51 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-modal">
+                    <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenterVisio">
+                        Créer une visioconférence
+                    </button>
+                    <div class="modal fade" id="exampleModalCenterVisio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_new_visio.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+                <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="form-modal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                            Créer une connaissance
+                        </button>
+                        <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-modal">
+                        <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                           Créer une visioconférence
+                        </button>
+                        <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -97,9 +142,15 @@
                 <div class="row d-flex justify-content-center pb-3 pt-3">
                     <div class="col-8 col-lg-5 pb-4">
                         <div class="d-flex container pl-0">
+                            {% if resource.dateStart %}
+                            <div class="pl-0 pb-2 col-11">
+                                <h3 class="pb-1 knowledge-visio-title"><i class="fas fa-play-circle"></i> Visioconférence : {{ resource.name }}</h3>
+                            </div>
+                            {% else %}
                             <div class="pl-0 pb-2 col-11">
                                 <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
                             </div>
+                            {% endif %}
                             <div class="row m-lg-2">
                                 <div class="col-2 d-flex">
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -126,21 +177,36 @@
 
                         <div>
                             <div class="pb-1">
-                                dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
+                                Dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                             </div>
+                            {% if resource.dateStart is not empty %}
+                                <div class="pb-1">
+                                    Début de la conférence le  : {{ resource.dateStart|date("d/m/Y h:s") }}
+                                </div>
+                            {% endif %}
+                            {% if resource.dateEnd is not empty %}
+                                <div class="pb-1">
+                                    Fin de la conférence le : {{ resource.dateEnd|date("d/m/Y h:s") }}
+                                </div>
+                            {% endif %}
                         </div>
-                        <div class="row d-flex flex-column flex-lg-row justify-content-center pt-3 pb-3">
+                        <div class="row d-flex flex-column flex-lg-row justify-content-center pt-2 pb-1">
                             <div class="pl-3">Description :</div>
                             <p class="col">
                                 {{ resource.description }}
                             </p>
                         </div>
-                        <div>
-                            <p class="col">
+                        {% if resource.price == 0 %}
+                            <div class="pl-0">Lien de la visioconférence: <a href="{{ resource.link }}" target="_blank">{{ resource.link }}</a></div>
+                        {% endif %}
+                        <div class="pt-4">
+                            <p class="col pl-0">
                                 Prix :{{ resource.price }}€
                             </p>
                             {% if is_granted('ROLE_ENTERPRISE')%}
-                            <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn-primary"><i class="fas fa-shopping-cart"></i>Ajouter au panier</button></a>
+                                {% if resource.price > 0 %}
+                                <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button></a>
+                                {% endif %}
                             {% endif %}
                         </div>
 
@@ -162,9 +228,15 @@
                     <div class="row d-flex justify-content-center pb-3 pt-3">
                         <div class="col-8 col-lg-5 pb-4">
                             <div class="d-flex container pl-0">
-                                <div class="pb-2 col-11 pl-0">
-                                    <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
-                                </div>
+                                {% if resource.dateStart %}
+                                    <div class="pl-0 pb-2 col-11">
+                                        <h3 class="pb-1 knowledge-visio-title"><i class="fas fa-play-circle"></i> Visioconférence : {{ resource.name }}</h3>
+                                    </div>
+                                {% else %}
+                                    <div class="pl-0 pb-2 col-11">
+                                        <h3 class="pb-1 knowledge-title">{{ resource.name }}</h3>
+                                    </div>
+                                {% endif %}
                                 <div class="row m-lg-2">
                                     <div class="col-2 d-flex ">
                                     {% if is_granted('ROLE_ADMIN') %}
@@ -193,19 +265,40 @@
                                 <div class="pb-1">
                                     dernière mise à jour : {{ resource.updatedAt|date("d/m/Y") }}
                                 </div>
+                                {% if resource.dateStart is not empty %}
+                                <div class="pb-1">
+                                    Début de la conférence le  : {{ resource.dateStart|date("d/m/Y h:s") }}
+                                </div>
+                                {% endif %}
+                                {% if resource.dateEnd is not empty %}
+                                <div class="pb-1">
+                                    Fin de la conférence le : {{ resource.dateEnd|date("d/m/Y h:s") }}
+                                </div>
+                                {% endif %}
                             </div>
-                            <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-3 pb-3">
+                            <div class="row d-flex flex-column flex-lg-row  justify-content-center pt-2 pb-1">
                                 <div class="pl-3">Description :</div>
                                 <p class="col">
                                     {{ resource.description }}
                                 </p>
                             </div>
+                            {% if resource.price == 0 %}
+                                {% if resource.dateStart %}
+                                <div class="pl-0">Lien de la visioconférence: <a href="{{ resource.link }}" target="_blank">{{ resource.link }}</a></div>
+                                    {% else %}
+                                        {% if resource.link is not empty %}
+                                        <div class="pl-0">Lien de la ressource: <a href="{{ resource.link }}" target="_blank">{{ resource.link }}</a></div>
+                                        {% endif %}
+                                {% endif %}
+                            {% endif %}
                             <div>
-                                <p class="col">
+                                <p class="col pl-0 pt-3">
                                     Prix : {{ resource.price }}€
                                 </p>
-                                {% if (is_granted('ROLE_COMPANY')) or (is_granted('ROLE_FREELANCER')) %}
+                                {% if is_granted('ROLE_ENTERPRISE')%}
+                                    {% if resource.price > 0 %}
                                  <a href="{{ path('basket_add', {'id' : resource.id}) }}"><button class="btn"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button></a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
 
