@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Page admin {% endblock %}
+{% block body %}
+    <div class="shopping-page">
+        <div class="input-group shopping-title">
+            <div class="d-flex justify-content-center">
+                <h2 class="page-title">• Listing du shopping •</h2>
+            </div>
+        </div>
+        <div>
+            <div class="text-center shopping-list">
+            <table>
+                    <thead>
+                        <tr>
+                            <td>Achats</td>
+                            <td>Date d'achats</td>
+                            <td>Acheteurs</td>
+                            <td>Montant</td>
+                            <td>Propriétaires</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                         {% for purchase in shopping %}
+                            <tr>
+                                <td>{{ purchase.name }}</td>
+                                <td>{{ purchase.realizedAt|date("d/m/Y H:i:s") }}</td>
+                                <td>{{ purchase.buyer}}</td>
+                                <td>{{ purchase.amount }}</td>
+                                <td>{{ purchase.owner }}</td>
+                            </tr>
+                         {% endfor %}
+                    </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

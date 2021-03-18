@@ -8,13 +8,9 @@
 
         {% if purchased_resource is not empty %}
             <p>Ci-dessous le lien de téléchargement:</p>
-
-            {% for basket in purchased_resource %}
-                {% dump(basket) %}
-                {% for resourceFile in basket.resourceFiles %}
+                {% for resourceFile in purchased_resource.resourceFiles %}
                     <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resourceFile.resource.resourceFormat.icon }}"></i></a>
                 {% endfor %}
-            {% endfor %}
         {% endif %}
     </div>
 {% endblock %}

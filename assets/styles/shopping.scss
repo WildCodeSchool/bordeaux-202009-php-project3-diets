@@ -1,0 +1,34 @@
+.shopping-page {
+  .shopping-title {
+    justify-content: center;
+  }
+
+  .page-title {
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 0;
+    border-style: double;
+    border-color: $main-orange;
+    padding: 0.25em 0.5em;
+    color: $main-green;
+    font-weight: bold;
+    border-radius: 20px;
+    background-color: white;
+  }
+  .shopping-list{
+    margin-top: 100px;
+    justify-content: center;
+  }
+  table {
+    border-collapse:collapse;
+    width:90%;
+  }
+  th, td {
+    border:1px solid black;
+    width:20%;
+  }
+  td {
+    text-align:center;
+  }
+
+}
