@@ -75,6 +75,16 @@ class Resource
      */
     private $resourceFiles;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_start;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_end;
+
     public function __construct()
     {
         $this->pathology = new ArrayCollection();
@@ -249,6 +259,30 @@ class Resource
                 $resourceFile->setResource(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDateStart(): ?\DateTimeInterface
+    {
+        return $this->date_start;
+    }
+
+    public function setDateStart(?\DateTimeInterface $date_start): self
+    {
+        $this->date_start = $date_start;
+
+        return $this;
+    }
+
+    public function getDateEnd(): ?\DateTimeInterface
+    {
+        return $this->date_end;
+    }
+
+    public function setDateEnd(?\DateTimeInterface $date_end): self
+    {
+        $this->date_end = $date_end;
 
         return $this;
     }

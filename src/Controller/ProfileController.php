@@ -10,6 +10,7 @@ use App\Entity\Picture;
 use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
 use App\Entity\ResourceFile;
+use App\Entity\ResourceFormat;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\CompanyType;
@@ -19,6 +20,7 @@ use App\Form\FreelancerType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
+use App\Form\VisioType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
@@ -95,10 +97,36 @@ class ProfileController extends AbstractController
         $formResource = $this->createForm(ResourceType::class, $newResource);
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
-            $newResource->setUser($this->getUser());
-            $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
-            $entityManager->persist($newResource);
-            $entityManager->flush();
+            if (($newResource->getLink() === null) && ($formResource->get('resourceFiles')->getData() === [])){
+                $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
+            } else {
+                $newResource->setUser($this->getUser());
+                $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
+                $entityManager->persist($newResource);
+                $entityManager->flush();
+            }
+        }
+
+        $visio = new Resource();
+        $formVisio = $this->createForm(VisioType::class, $visio);
+        $formVisio->handleRequest($request);
+        if ($formVisio->isSubmitted() && $formVisio->isValid()) {
+            if ($visio->getLink() === null) {
+                $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
+            } else {
+                $visio->setUser($this->getUser());
+                $identifier = $this->getDoctrine()
+                    ->getRepository(ResourceFormat::class)
+                    ->findOneBy([
+                        'identifier' => 'visioconference'
+                    ]);
+
+                $visio->setResourceFormat($identifier);
+
+                $visio = $multiUploadService->createMultiUploadToResource($formVisio, $visio);
+                $entityManager->persist($visio);
+                $entityManager->flush();
+            }
         }
 
         $service = new Service();
@@ -140,6 +168,7 @@ class ProfileController extends AbstractController
 
 
         return $this->render('profile/edit.html.twig', [
+            'form_visio' => $formVisio->createView(),
             'events_organized' => $eventsOrganized,
             'services' => $service,
             'user_infos' => $userInfos[0],

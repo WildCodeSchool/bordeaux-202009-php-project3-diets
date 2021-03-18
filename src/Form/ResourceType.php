@@ -7,6 +7,7 @@ use App\Entity\Resource;
 use App\Entity\ResourceFormat;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -28,6 +29,7 @@ class ResourceType extends AbstractType
             ])
             ->add('link', TextType::class, [
                 'label' => 'Lien',
+                'required' => false,
             ])
             ->add('pathology', EntityType::class, [
                 'class' => Pathology::class,
@@ -45,7 +47,7 @@ class ResourceType extends AbstractType
                 'label' => 'Prix (facultatif)',
             ])
             ->add('resourceFiles', FileType::class, [
-                'label' => false,
+                'label' => 'Déposer un fichier à télécharger',
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,

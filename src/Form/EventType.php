@@ -23,8 +23,18 @@ class EventType extends AbstractType
             ->add('name', TextType::class, ['label' => 'Titre'])
             ->add('description', TextareaType::class, ['label' => 'Description'])
             ->add('link', TextType::class, ['label' => 'Lien'])
-            ->add('dateStart', DateTimeType::class, ['label' => 'Début'])
-            ->add('dateEnd', DateTimeType::class, ['label' => 'Fin'])
+            ->add('dateStart', DateTimeType::class, [
+                'label' => 'Début',
+                'data'   => new \DateTime(),
+                'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
+                'years' => range(2021, 2040, 1),
+            ])
+            ->add('dateEnd', DateTimeType::class, [
+                'label' => 'Fin',
+                'data'   => new \DateTime(),
+                'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
+                'years' => range(2021, 2040, 1),
+            ])
             ->add('price', TextType::class, [
                 'label' => 'Prix (facultatif)',
                 'required' => false,

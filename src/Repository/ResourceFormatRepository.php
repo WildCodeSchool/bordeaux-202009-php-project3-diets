@@ -20,12 +20,21 @@ class ResourceFormatRepository extends ServiceEntityRepository
     }
 
     public function findLikeName(string $name) {
-        $queryBuiler = $this->createQueryBuilder('r')
+        $queryBuilder = $this->createQueryBuilder('r')
             ->where('r.identifier LIKE :name')
             ->setParameter('name', '%' . $name . '%')
             ->orderBy('r.identifier', 'ASC')
             ->getQuery();
 
-        return $queryBuiler->getResult();
+        return $queryBuilder->getResult();
     }
+
+    /*public function selectVisio()
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.identifier LIKE :visioconference')
+
+
+        return $queryBuilder->getQuery();
+    }*/
 }
