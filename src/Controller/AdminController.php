@@ -21,6 +21,7 @@ use App\Repository\RegisteredEventRepository;
 use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
+use App\Repository\ShoppingRepository;
 use App\Repository\UserRepository;
 use App\Service\Format\VerifyUseFormat;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/administrateur", name="admin")
      */
-    public function index(
+    public function index (
         UserRepository $userRepository,
         EventRepository $eventRepository,
         ServiceRepository $serviceRepository,
@@ -47,8 +48,7 @@ class AdminController extends AbstractController
         EventFormatRepository $eventFormatRepository,
         RegisteredEventRepository $registeredEventRepository,
         ResourceRepository $resourceRepository
-    ): Response
-    {
+    ): Response {
         $registeredUser = $userRepository->findAll();
 
         $approveEvent = $eventRepository->findBy(
@@ -117,12 +117,12 @@ class AdminController extends AbstractController
 
         foreach ($resourceFormats as $allResourceFormat) {
             $allResourceFormats[] = $allResourceFormat->getFormat();
-    }
+        }
         $usedResourceFormats = $resourceRepository->verifyResourceFormatUsed($resourceFormats);
         foreach ($usedResourceFormats as $usedResourceFormat) {
             $allUsedResourceFormat[] = $usedResourceFormat->getResourceFormat()->getFormat();
 
-    }
+        }
         $notUsedResourceFormats = array_diff($allResourceFormats, $allUsedResourceFormat);
 
         foreach ($eventFormats as $alleventFormat) {
@@ -162,8 +162,8 @@ class AdminController extends AbstractController
     public function validAnEvent(
         Request $request,
         EntityManagerInterface $entityManager,
-        EventRepository $eventRepository): Response
-    {
+        EventRepository $eventRepository
+    ): Response {
         $event = $eventRepository->find($request->get('event'));
         $event->setEventIsValidated(true);
         $entityManager->persist($event);
@@ -180,8 +180,8 @@ class AdminController extends AbstractController
     public function validService(
         Request $request,
         EntityManagerInterface $entityManager,
-        ServiceRepository $serviceRepository): Response
-    {
+        ServiceRepository $serviceRepository
+    ): Response {
         $service = $serviceRepository->find($request->get('service'));
         $service->setServiceIsValidated(true);
         $entityManager->persist($service);
@@ -199,8 +199,8 @@ class AdminController extends AbstractController
         Request $request,
         User $user,
         RegisteredEventRepository $registeredEventRepository,
-        ResourceRepository $resourceRepository): Response
-    {
+        ResourceRepository $resourceRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $registeredEvents = $registeredEventRepository->findBy(['user' => $user]);
@@ -274,8 +274,7 @@ class AdminController extends AbstractController
     public function deleteExpertise(
         Request $request,
         Expertise $expertise
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $expertise->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($expertise);
@@ -291,8 +290,7 @@ class AdminController extends AbstractController
     public function deleteResourceFormat(
         Request $request,
         ResourceFormat $resourceFormat
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $resourceFormat->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($resourceFormat);
@@ -308,14 +306,25 @@ class AdminController extends AbstractController
     public function deleteEventFormat(
         Request $request,
         EventFormat $eventFormat
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $eventFormat->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($eventFormat);
             $entityManager->flush();
         }
         return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/administrateur/shopping/", name="admin_shopping")
+     */
+    public function shopping(
+        ShoppingRepository $shoppingRepository
+    ): Response {
+
+        return $this->render('admin/shopping.html.twig', [
+            'shopping' => $shoppingRepository->findAll()
+        ]);
     }
 
 }
