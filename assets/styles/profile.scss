@@ -15,12 +15,10 @@
     margin: 1rem;
     padding: 5px 16px;
     transition: 0.5s;
-
     &:hover {
       font-weight: bold;
       background-color: #e5bc70;
     }
-
     a {
       text-decoration: none;
       color: $main-white;
@@ -32,7 +30,7 @@
 
     .service-button {
       display: table-cell;
-      background-color: $main-orange;
+      background-color: $main-green;
       color: white;
       border-radius: 500px;
       margin: 1rem;
@@ -41,7 +39,7 @@
 
       &:hover {
         font-weight: bold;
-        background-color: #e5bc70;
+        background-color: #38ba92;
       }
 
       a {
@@ -75,7 +73,7 @@
 
     .knowledge-button {
       display: table-cell;
-      background-color: $main-orange;
+      background-color: $main-green;
       color: white;
       border-radius: 500px;
       margin: 1rem;
@@ -84,7 +82,7 @@
 
       &:hover {
         font-weight: bold;
-        background-color: #e5bc70;
+        background-color: #38ba92;
       }
 
       a {
@@ -122,7 +120,7 @@
 
     .event-button {
       display: table-cell;
-      background-color: $main-orange;
+      background-color: $main-green;
       color: white;
       border-radius: 500px;
       margin: 1rem;
@@ -131,7 +129,7 @@
 
       &:hover {
         font-weight: bold;
-        background-color: #e5bc70;
+        background-color: #38ba92;
       }
 
       a {
@@ -162,14 +160,42 @@
   }
 
   .profile-edit {
+    .page-title {
+      color: $main-orange;
+    }
     p {
       margin-bottom: 0;
+    }
+    .form-modal-event {
+      .btn {
+        display: table-cell;
+        background-color: $main-green;
+        color: white;
+        border-radius: 500px;
+        margin: 1rem;
+        padding: 5px 16px;
+        transition: 0.5s;
+
+        &:hover {
+          font-weight: bold;
+          background-color: #38ba92;
+        }
+
+        a {
+          text-decoration: none;
+          color: $main-white;
+          font-size: 26px;
+        }
+      }
     }
   }
 
   .profile-informations {
     border-left: solid 5px $main-black;
     padding-left: 1rem;
+    .name-user-all {
+      color: $main-orange;
+    }
 
     p {
       margin: 4px 0;
@@ -181,6 +207,27 @@
     p {
       margin: 4px 0;
       font-size: 22px;
+    }
+    .btn {
+      display: table-cell;
+      background-color: $main-orange;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+      font-size: 24px;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #e0c158;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
     }
   }
 

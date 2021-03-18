@@ -2,6 +2,28 @@
   .btn{
     background-color: $bg-titleCard;
   }
+  .form-modal-event {
+    .btn {
+      display: table-cell;
+      background-color: $main-green;
+      color: white;
+      border-radius: 500px;
+      margin: 1rem;
+      padding: 5px 16px;
+      transition: 0.5s;
+
+      &:hover {
+        font-weight: bold;
+        background-color: #38ba92;
+      }
+
+      a {
+        text-decoration: none;
+        color: $main-white;
+        font-size: 26px;
+      }
+    }
+  }
   .home-btn-main {
     background-image: linear-gradient(to right, $main-orange 0%, #ffdc58 51%, $main-orange 100%);
     margin: 10px;
@@ -106,7 +128,7 @@
       .form-modal {
         .service-button {
           display: table-cell;
-          background-color: $main-orange;
+          background-color: $main-green;
           color: white;
           border-radius: 500px;
           margin:1rem;
@@ -114,7 +136,7 @@
           transition: 0.5s;
           &:hover{
             font-weight: bold;
-            background-color: #e5bc70;
+            background-color: #38ba92;
           }
           a {
             text-decoration: none;

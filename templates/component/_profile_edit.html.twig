@@ -22,6 +22,24 @@
                     </div>
                 </div>
             </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center">
+                <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                    <div class="form-modal-knowledge">
+                        <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenterVisio">
+                             une visioconférence
+                        </button>
+                        <div class="modal fade" id="exampleModalCenterVisio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        {% include '/component/_new_visio.html.twig' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-service">
                     <button type="button" class="service-button" data-toggle="modal" data-target="#modalService">
@@ -55,6 +73,72 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div>Je propose :</div>
+        <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+            <div class="form-modal-event">
+                <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                   une connaissance
+                </button>
+                <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                            {% include '/component/_profil_subscribe_modal.html.twig' %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                        une visioconférence
+                    </button>
+                    <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                        un évènement
+                    </button>
+                    <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                        un service
+                    </button>
+                    <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     </div>
     <div class="container-fluid profile-main">
@@ -75,7 +159,7 @@
             </div>
             <div class="col-xl-6 col-12 d-sm-flex  profile-text-center text-sm-left justify-content-xl-start justify-content-center justify-content-xs-start" >
                 <div class="profile-informations">
-                    <h3>{% include '/component/_name_for_all_role.html.twig' %} </h3>
+                    <h3 class="name-user-all">{% include '/component/_name_for_all_role.html.twig' %} </h3>
                     <p>
                         {% if infos.dietetician %}  {{ infos.dietetician.birthday|date("d/m/Y") }} {% endif %}
                     </p>
@@ -97,15 +181,15 @@
                 </div>
             </div>
             {% if is_granted('ROLE_CONTRIBUTOR') %}
-            <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}">Accès à vos informations et compte Stripe pour vos virements</a>
+            <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}" class="btn mr-3">Accès à vos informations et compte Stripe pour vos virements</a>
             {% endif %}
             {% if is_granted('ROLE_ENTERPRISE') %}
                 {% if (is_granted('ROLE_COMPANY_SUBSCRIBER') or (is_granted('ROLE_FREELANCER_SUBSCRIBER'))) %}
 
                     {% else %}
-                <a id="checkout-subscription" href="#">S'abonner</a>
+                <a id="checkout-subscription" href="#" class="btn">S'abonner</a>
                 {% endif %}
-                <a href="{{ path('payment_create_portal_session') }}">Visualiser le portail</a>
+                <a href="{{ path('payment_create_portal_session') }}" class="btn">Visualiser le portail</a>
             {% endif %}
         </div>
     </div>
