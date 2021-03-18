@@ -144,7 +144,6 @@ class StripeSubscribeService
                     $this->entityManager->persist($changeRole);
                     $this->entityManager->flush();
                 }
-
             }
         }
 

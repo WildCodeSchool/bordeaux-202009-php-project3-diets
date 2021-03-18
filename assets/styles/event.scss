@@ -174,6 +174,40 @@
       color: $main-red;
     }
   }
+  .event-publicity{
+    .row{
+      margin: 0;
+    }
+    .company-image{
+      text-align: center;
+      img{
+        width: 100%;
+      }
+
+    }
+    .company-publicity {
+      background-color: #9fcdff;
+      height: 10em;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      overflow-y: hidden;
+    }
+    .freelancer-image{
+      text-align: center;
+      img{
+        width: 100%;
+      }
+    }
+    .freelancer-publicity {
+      background-color: #ffdc58;
+      height: 10em;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      overflow-y: hidden;
+    }
+  }
 }
 
 #event_picture_pictureFile_file{

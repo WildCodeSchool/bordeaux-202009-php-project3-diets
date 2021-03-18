@@ -10,6 +10,7 @@ use App\Form\SearchResourceType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
+use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,10 +31,10 @@ class EventController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         EventRepository $eventRepository,
-        PictureRepository $pictureRepository,
         RegisteredEventRepository $registeredEventRepository,
-        MultiUploadService $multiUploadService): Response
-    {
+        MultiUploadService $multiUploadService,
+        UserRepository $userRepository
+    ): Response {
 
         $event = new Event();
         $formEvent = $this->createForm(EventType::class, $event);
@@ -67,6 +68,21 @@ class EventController extends AbstractController
             ->getRepository(Picture::class)
             ->findBy(['link' => null, 'service' => null]);
 
+        $company = '';
+        $freelancer = '';
+
+        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
+        if (!empty($companies)){
+            $randcompany = rand(1, count($companies));
+            $company = $companies[$randcompany-1];
+        }
+
+        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
+        if (!empty($freelancers)){
+            $randfreelancer = rand(1, count($freelancers));
+            $freelancer = $freelancers[$randfreelancer-1];
+        }
+
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'events_search' => $eventSearch,
@@ -75,6 +91,8 @@ class EventController extends AbstractController
             'pictures' => $pictures,
             'path' => 'event_index',
             'registered_events' => $registeredEventRepository->findAll(),
+            'company' => $company,
+            'freelancer' => $freelancer,
             ]);
     }
 

@@ -17,6 +17,32 @@
             </div>
         </div>
     </div>
+    <div class="event-publicity row">
+        {% if company is not empty %}
+            <div class="company-publicity row">
+                <div class="company-image col-4">
+                    <img class="picture-service" src="/uploads/pictures/{{ company.picture.name }}" alt='{{ company.picture.name }}'>
+                </div>
+                <div class="col-8">
+                    <h4>{{ company.company.name }}</h4><br>
+                    {{ company.company.description }} <br>
+                    {{ company.email }}
+                </div>
+            </div>
+        {% endif %}
+        {% if freelancer is not empty %}
+            <div class="freelancer-publicity row">
+                <div class="freelancer-image col-4">
+                    <img class="picture-service" src="/uploads/pictures/{{ freelancer.picture.name }}" alt='{{ freelancer.picture.name }}'>
+                </div>
+                <div class="col-8">
+                    <h4>{{ freelancer.freelancer.name }}</h4><br>
+                    {{ freelancer.freelancer.description }} <br>
+                    {{ freelancer.email }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
     <div class="d-flex row justify-content-center">
         <div class="calendar-modal">
                 <div class="mb-4">
