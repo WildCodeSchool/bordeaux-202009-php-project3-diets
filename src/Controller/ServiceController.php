@@ -89,9 +89,9 @@ class ServiceController extends AbstractController
             'form_search' => $formSearch->createView(),
             'services_search' => $services,
             'pictures' => $pictures,
-            'path' => 'service_index',
             'company' => $company,
             'freelancer' => $freelancer,
+            'path' => 'service_index',
         ]);
     }
 
