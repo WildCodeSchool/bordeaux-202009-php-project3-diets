@@ -9,6 +9,7 @@ use App\Form\ResourcesAllType;
 use App\Form\ResourceType;
 use App\Form\SearchResourceType;
 use App\Repository\ResourceRepository;
+use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,7 +32,8 @@ class KnowledgeController extends AbstractController
         Request $request,
         ResourceRepository $resourceRepository,
         EntityManagerInterface $entityManager,
-        MultiUploadService $multiUploadService
+        MultiUploadService $multiUploadService,
+        UserRepository $userRepository
     ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -103,6 +105,21 @@ class KnowledgeController extends AbstractController
             self::NBRESOURCE
         );
 
+        $company = '';
+        $freelancer = '';
+
+        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
+        if (!empty($companies)){
+            $randcompany = rand(1, count($companies));
+            $company = $companies[$randcompany-1];
+        }
+
+        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
+        if (!empty($freelancers)){
+            $randfreelancer = rand(1, count($freelancers));
+            $freelancer = $freelancers[$randfreelancer-1];
+        }
+
         return $this->render('knowledge/index.html.twig', [
             'resources_last_update' => $resourcesLastUpdate,
             'resources_search' => $resourcesSearch,
@@ -111,6 +128,8 @@ class KnowledgeController extends AbstractController
             'form_search' => $formSearch->createView(),
             'form_search_all' => $formSearchAll->createView(),
             'path' => 'knowledge_index',
+            'company' => $company,
+            'freelancer' => $freelancer,
         ]);
     }
 
