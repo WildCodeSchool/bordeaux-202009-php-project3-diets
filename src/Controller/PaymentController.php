@@ -69,6 +69,7 @@ class PaymentController extends AbstractController
         $shopping->setOwner($purchasedResource->getUser()->getEmail());
         $shopping->setAmount($purchasedResource->getPrice());
         $shopping->setBuyer($this->getUser()->getUsername());
+        $shopping->setType('Achat');
         $entityManager->persist($shopping);
         $entityManager->flush();
 
@@ -81,10 +82,26 @@ class PaymentController extends AbstractController
      * @Route("/abonnement/valider/", name="subscription_success")
      */
 
-    public function subscriptionSuccess(StripeSubscribeService $stripeSubscribeService): Response
-    {
+    public function subscriptionSuccess(
+        StripeSubscribeService $stripeSubscribeService,
+        EntityManagerInterface $entityManager
+    ): Response {
 
         $statusSubscriber = $stripeSubscribeService->changeStatusForSubscriber();
+
+        dump($statusSubscriber);
+            $shopping = new Shopping();
+            $shopping->setName('S.O');
+            $shopping->setOwner('S.O');
+            $shopping->setAmount('20');
+            $shopping->setBuyer($this->getUser()->getUsername());
+        if (in_array("ROLE_FREELANCER", $this->getUser()->getRoles())) {
+            $shopping->setType('Abonnement Freelancer');
+        } elseif (in_array("ROLE_COMPANY", $this->getUser()->getRoles())) {
+            $shopping->setType('Abonnement Société');
+        }
+            $entityManager->persist($shopping);
+            $entityManager->flush();
 
 
 
