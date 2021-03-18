@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Resource;
 use App\Entity\SecuringPurchases;
+use App\Entity\Shopping;
 use App\Entity\User;
 use App\Repository\ResourceRepository;
 use App\Repository\SecuringPurchasesRepository;
@@ -11,6 +12,7 @@ use App\Repository\UserRepository;
 use App\Service\Basket\BasketService;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +40,8 @@ class PaymentController extends AbstractController
         Request $request,
         SecuringPurchasesRepository $securingPurchasesRepository,
         BasketService $basketService,
-        ResourceRepository $resourceRepository
+        ResourceRepository $resourceRepository,
+        EntityManagerInterface $entityManager
     ): Response {
 
         $session->set('basket', []);
@@ -58,8 +61,16 @@ class PaymentController extends AbstractController
         if (($token === $securingPurchase->getIdentifier()) && ($date < $securingPurchase->getExpirationAt())) {
             $purchasedResource = $this->getDoctrine()
                 ->getRepository(Resource::class)
-                ->findBy(['id' => $shoppingId]);
+                ->findOneBy(['id' => $shoppingId]);
         }
+
+        $shopping = new Shopping();
+        $shopping->setName($purchasedResource->getName());
+        $shopping->setOwner($purchasedResource->getUser()->getEmail());
+        $shopping->setAmount($purchasedResource->getPrice());
+        $shopping->setBuyer($this->getUser()->getUsername());
+        $entityManager->persist($shopping);
+        $entityManager->flush();
 
         return $this->render('basket/success.html.twig', [
             'purchased_resource' => $purchasedResource,
