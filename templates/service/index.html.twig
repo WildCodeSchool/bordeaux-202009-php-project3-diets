@@ -20,7 +20,9 @@
             {% if company is not empty %}
             <div class="company-publicity row">
                 <div class="company-image col-4">
+                    {% if company.picture is not empty %}
                     <img class="picture-service" src="/uploads/pictures/{{ company.picture.name }}" alt='{{ company.picture.name }}'>
+                    {% endif %}
                 </div>
                 <div class="col-8">
                     <h4>{{ company.company.name }}</h4><br>
@@ -32,7 +34,9 @@
             {% if freelancer is not empty %}
             <div class="freelancer-publicity row">
                 <div class="freelancer-image col-4">
+                    {% if freelancer.picture is not empty %}
                     <img class="picture-service" src="/uploads/pictures/{{ freelancer.picture.name }}" alt='{{ freelancer.picture.name }}'>
+                    {% endif %}
                 </div>
                 <div class="col-8">
                     <h4>{{ freelancer.freelancer.name }}</h4><br>

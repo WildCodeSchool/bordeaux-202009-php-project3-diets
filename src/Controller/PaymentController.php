@@ -91,22 +91,22 @@ class PaymentController extends AbstractController
 
         $statusSubscriber = $stripeSubscribeService->changeStatusForSubscriber();
 
-        Stripe::setApiKey($this->getParameter('api_key'));
+        /*Stripe::setApiKey($this->getParameter('api_key'));
         $companyPrice =  $this->getParameter('company_price');
         $unitAmountCompany = Price::retrieve($companyPrice, []);
         $priceCompany = $unitAmountCompany / 10;
         $freelancerPrice =  $this->getParameter('freelancer_price');
         $unitAmountFreelancer = Price::retrieve($freelancerPrice, []);
-        $priceFreelancer = $unitAmountFreelancer / 10;
+        $priceFreelancer = $unitAmountFreelancer / 10;*/
 
         $shopping = new Shopping();
         $shopping->setName('S.O');
         $shopping->setOwner('S.O');
-        if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
+        /*if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setAmount($priceFreelancer);
         } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setAmount($priceCompany);
-        }
+        }*/
         $shopping->setAmount('20');
         $shopping->setBuyer($this->getUser()->getUsername());
         if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {

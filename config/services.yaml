@@ -10,6 +10,7 @@ parameters:
     mailer_to: '%env(resolve:MAILER_DSN)%'
     api_key: '%env(resolve:API_KEY)%'
     company_price: '%env(resolve:COMPANY_PRICE)%'
+    freelancer_price: '%env(resolve:FREELANCER_PRICE)%'
     api_public_key: '%env(resolve:API_PUBLIC_KEY)%'
     success_url:  '%env(resolve:URL_SUCCESS)%'
     success_url_subscription: '%env(resolve:URL_SUCCESS_SUBSCRIBPTION)%'
