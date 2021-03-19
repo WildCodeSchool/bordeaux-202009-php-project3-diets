@@ -17,18 +17,12 @@
   }
   .shopping-list{
     margin-top: 100px;
+    width: 90%;
+  }
+  .container-tables{
+    display: flex;
     justify-content: center;
   }
-  table {
-    border-collapse:collapse;
-    width:90%;
-  }
-  th, td {
-    border:1px solid black;
-    width:20%;
-  }
-  td {
-    text-align:center;
-  }
+
 
 }

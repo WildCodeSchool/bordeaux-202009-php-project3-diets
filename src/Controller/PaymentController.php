@@ -13,6 +13,8 @@ use App\Service\Basket\BasketService;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client;
+use Stripe\Price;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -89,11 +91,24 @@ class PaymentController extends AbstractController
 
         $statusSubscriber = $stripeSubscribeService->changeStatusForSubscriber();
 
-            $shopping = new Shopping();
-            $shopping->setName('S.O');
-            $shopping->setOwner('S.O');
-            $shopping->setAmount('20');
-            $shopping->setBuyer($this->getUser()->getUsername());
+        /*Stripe::setApiKey($this->getParameter('api_key'));
+        $companyPrice =  $this->getParameter('company_price');
+        $unitAmountCompany = Price::retrieve($companyPrice, []);
+        $priceCompany = $unitAmountCompany / 10;
+        $freelancerPrice =  $this->getParameter('freelancer_price');
+        $unitAmountFreelancer = Price::retrieve($freelancerPrice, []);
+        $priceFreelancer = $unitAmountFreelancer / 10;*/
+
+        $shopping = new Shopping();
+        $shopping->setName('S.O');
+        $shopping->setOwner('S.O');
+        /*if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
+            $shopping->setAmount($priceFreelancer);
+        } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
+            $shopping->setAmount($priceCompany);
+        }*/
+        $shopping->setAmount('20');
+        $shopping->setBuyer($this->getUser()->getUsername());
         if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setType('Abonnement Freelancer');
         } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
