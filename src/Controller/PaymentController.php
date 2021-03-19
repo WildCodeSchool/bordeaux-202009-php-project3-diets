@@ -89,15 +89,14 @@ class PaymentController extends AbstractController
 
         $statusSubscriber = $stripeSubscribeService->changeStatusForSubscriber();
 
-        dump($statusSubscriber);
             $shopping = new Shopping();
             $shopping->setName('S.O');
             $shopping->setOwner('S.O');
             $shopping->setAmount('20');
             $shopping->setBuyer($this->getUser()->getUsername());
-        if (in_array("ROLE_FREELANCER", $this->getUser()->getRoles())) {
+        if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setType('Abonnement Freelancer');
-        } elseif (in_array("ROLE_COMPANY", $this->getUser()->getRoles())) {
+        } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setType('Abonnement Société');
         }
             $entityManager->persist($shopping);
