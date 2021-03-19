@@ -184,12 +184,16 @@
             <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}" class="btn mr-3">Accès à vos informations et compte Stripe pour vos virements</a>
             {% endif %}
             {% if is_granted('ROLE_ENTERPRISE') %}
-                {% if (is_granted('ROLE_COMPANY_SUBSCRIBER') or (is_granted('ROLE_FREELANCER_SUBSCRIBER'))) %}
+                {% if (is_granted('ROLE_COMPANY_SUBSCRIBER') or (is_granted('ROLE_FREELANCER_SUBSCRIBER')) or (is_granted('ROLE_DIETETICIAN'))) %}
 
                     {% else %}
                 <a id="checkout-subscription" href="#" class="btn">S'abonner</a>
                 {% endif %}
+                {% if is_granted ('ROLE_DIETETICIAN') %}
+
+                    {% else %}
                 <a href="{{ path('payment_create_portal_session') }}" class="btn">Visualiser le portail</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
