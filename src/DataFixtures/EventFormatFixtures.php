@@ -12,16 +12,6 @@ class EventFormatFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $eventFormat = new EventFormat();
-        $eventFormat->setFormat('visio-conférence ponctuelle');
-        $manager->persist($eventFormat);
-        $this->addReference('event_format_1', $eventFormat);
-
-        $eventFormat = new EventFormat();
-        $eventFormat->setFormat('visio-conférence annuelle');
-        $manager->persist($eventFormat);
-        $this->addReference('event_format_2', $eventFormat);
-
-        $eventFormat = new EventFormat();
         $eventFormat->setFormat('formation ponctuelle');
         $manager->persist($eventFormat);
         $this->addReference('event_format_3', $eventFormat);
