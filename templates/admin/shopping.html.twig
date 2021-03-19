@@ -8,74 +8,89 @@
                 <h2 class="page-title">• Listing du shopping •</h2>
             </div>
         </div>
-        <div>
-            <div class="text-center shopping-list">
+        <div class="container-tables">
+            <div class="shopping-list text-center">
                 <h3>Achats</h3>
-            <table>
+                <p>Nombre d'achats: {{ shopping|length }}</p>
+            <table class="table table-bordered">
                     <thead>
-                        <tr>
-                            <td>Achats</td>
-                            <td>Date d'achats</td>
-                            <td>Acheteurs</td>
-                            <td>Montant</td>
-                            <td>Propriétaires</td>
+                        <tr class="table-primary">
+                            <th scope="col">#</th>
+                            <th scope="col">Achats</th>
+                            <th scope="col">Date d'achats</th>
+                            <th scope="col">Acheteurs</th>
+                            <th scope="col">Montant</th>
+                            <th scope="col">Propriétaires</th>
                         </tr>
                     </thead>
                     <tbody>
+                    {% set number_purchase = 1 %}
                          {% for purchase in shopping %}
                             <tr>
+                                <th scope="row">{{ number_purchase }}</th>
                                 <td>{{ purchase.name }}</td>
                                 <td>{{ purchase.realizedAt|date("d/m/Y H:i:s") }}</td>
                                 <td>{{ purchase.buyer}}</td>
                                 <td>{{ purchase.amount }}</td>
                                 <td>{{ purchase.owner }}</td>
                             </tr>
+                             {% set number_purchase = number_purchase +1 %}
                          {% endfor %}
                     </tbody>
             </table>
             </div>
         </div>
-        <div>
-            <div class="text-center shopping-list">
+        <div class="container-tables">
+            <div class="shopping-list text-center">
                 <h3>Abonnements Freelancers</h3>
-                <table>
+                <p>Nombre d'abonnements: {{ freelancer_subscriptions|length }}</p>
+                <table class="table table-bordered">
                     <thead>
-                    <tr>
-                        <td>Date d'achats</td>
-                        <td>Acheteurs</td>
-                        <td>Montant</td>
+                    <tr class="table-warning">
+                        <th scope="col">#</th>
+                        <th scope="col">Date d'achats</th>
+                        <th scope="col">Acheteurs</th>
+                        <th scope="col">Montant</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% set number_freelancer = 1 %}
                     {% for freelancer_subscription in freelancer_subscriptions %}
                         <tr>
+                            <th scope="row">{{ number_freelancer }}</th>
                             <td>{{ freelancer_subscription.realizedAt|date("d/m/Y H:i:s") }}</td>
                             <td>{{ freelancer_subscription.buyer}}</td>
                             <td>{{ freelancer_subscription.amount }}</td>
                         </tr>
+                        {% set number_freelancer = number_freelancer +1 %}
                     {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-        <div>
-            <div class="text-center shopping-list">
+        <div class="container-tables">
+            <div class="shopping-list text-center">
                 <h3>Abonnements Sociétés</h3>
-                <table>
+                <p>Nombre d'abonnements: {{ company_subscriptions|length }}</p>
+                <table class="table table-bordered">
                     <thead>
-                    <tr>
-                        <td>Date d'achats</td>
-                        <td>Acheteurs</td>
-                        <td>Montant</td>
+                    <tr class="table-info">
+                        <th scope="col">#</th>
+                        <th scope="col">Date d'achats</th>
+                        <th scope="col">Acheteurs</th>
+                        <th scope="col">Montant</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {% set number_company = 1 %}
                     {% for company_subscription in company_subscriptions %}
                         <tr>
+                            <th scope="row">{{ number_company }}</th>
                             <td>{{ company_subscription.realizedAt|date("d/m/Y H:i:s") }}</td>
                             <td>{{ company_subscription.buyer}}</td>
                             <td>{{ company_subscription.amount }}</td>
                         </tr>
+                        {% set number_company = number_company +1 %}
                     {% endfor %}
                     </tbody>
                 </table>

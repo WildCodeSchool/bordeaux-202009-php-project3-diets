@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Contact;
 use App\Entity\EventFormat;
 use App\Entity\Expertise;
@@ -23,7 +22,6 @@ use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\ShoppingRepository;
 use App\Repository\UserRepository;
-use App\Service\Format\VerifyUseFormat;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,7 +34,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/administrateur", name="admin")
      */
-    public function index (
+    public function index(
         UserRepository $userRepository,
         EventRepository $eventRepository,
         ServiceRepository $serviceRepository,
@@ -121,7 +119,6 @@ class AdminController extends AbstractController
         $usedResourceFormats = $resourceRepository->verifyResourceFormatUsed($resourceFormats);
         foreach ($usedResourceFormats as $usedResourceFormat) {
             $allUsedResourceFormat[] = $usedResourceFormat->getResourceFormat()->getFormat();
-
         }
         $notUsedResourceFormats = array_diff($allResourceFormats, $allUsedResourceFormat);
 
@@ -131,7 +128,6 @@ class AdminController extends AbstractController
         $usedEventFormats = $eventRepository->verifyEventFormatUsed($eventFormats);
         foreach ($usedEventFormats as $usedEventFormat) {
             $allUsedEventFormat[] = $usedEventFormat->getEventFormat()->getFormat();
-
         }
         $notUsedEventFormats = array_diff($allEventFormats, $allUsedEventFormat);
 
@@ -223,16 +219,17 @@ class AdminController extends AbstractController
 
     public function messagePaginator(Request $request, PaginatorInterface $paginator)
     {
-        $data = $this->getDoctrine()->getRepository(Contact::class)->findBy([],['createdAt' => 'desc']);
+        $data = $this->getDoctrine()->getRepository(Contact::class)->findBy([], ['createdAt' => 'desc']);
 
         $messages = $paginator->paginate(
-            $data, $request->query->getInt('page', 1), 10
+            $data,
+            $request->query->getInt('page', 1),
+            10
         );
 
         return $this->render('admin/message.html.twig', [
             'messages' => $messages,
         ]);
-
     }
 
     /**
@@ -248,7 +245,6 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
         return $this->redirectToRoute('admin_message');
-
     }
 
     /**
@@ -329,8 +325,7 @@ class AdminController extends AbstractController
         return $this->render('admin/shopping.html.twig', [
             'shopping' => $shopping,
             'freelancer_subscriptions' => $freelancerSubscription,
-            'company_subscriptions' => $companySubscription
+            'company_subscriptions' => $companySubscription,
         ]);
     }
-
 }
