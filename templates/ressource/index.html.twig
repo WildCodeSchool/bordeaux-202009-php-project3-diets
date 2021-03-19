@@ -24,7 +24,7 @@
                         {% endif %}
                     </div>
                     <div class="col-8">
-                        <h4>{{ company.company.name }}</h4><br>
+                        <a href="{{path('profile_show', {'id': company.id})}}"><h4>{{ company.company.name }}</h4></a>
                         {{ company.company.description }} <br>
                         {{ company.email }}
                     </div>
@@ -38,6 +38,7 @@
                         {% endif %}
                     </div>
                     <div class="col-8">
+                        <a href="{{path('profile_show', {'id': freelancer.id})}}"><h4>{{ freelancer.freelancer.name }}</h4></a>
                         <h4>{{ freelancer.freelancer.name }}</h4><br>
                         {{ freelancer.freelancer.description }} <br>
                         {{ freelancer.email }}

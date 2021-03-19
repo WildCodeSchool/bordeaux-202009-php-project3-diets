@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Show{% endblock %}
+
+{% block body %}
+    <div class="profile-show">
+        <div class="container-fluid profile-main">
+            <div class="d-flex justify-content-center">
+                <h2 class="page-title">{% include '/component/_name_for_all_role.html.twig' %}</h2>
+            </div>
+            <div class="row align-items-center justify-content-center profile-container">
+                <div class="col-xl-6 col-12 d-flex justify-content-center">
+                    <div>
+                        <div class="overflow-hidden">
+                            <img class="profile-picture"
+                                 src=
+                                 {% if (infos.picture) == false %}
+                                    {{ asset('build/images/profile-initial-picture.be6b2f1a.png') }}
+                                {% else %}
+                                 /uploads/pictures/{{ infos.picture.name }}
+                                {% endif %}
+                                 alt="photo_de_profil">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-12 d-sm-flex  profile-text-center text-sm-left justify-content-xl-start justify-content-center justify-content-xs-start" >
+                    <div class="profile-informations">
+                        <p>
+                            {% if infos.dietetician %}  Date de naissance: {{ infos.dietetician.birthday|date("d/m/Y") }} {% endif %}
+                        </p>
+                        <p>
+                            {% include '/component/_siret_adeli_for_user.html.twig' %}
+                        </p>
+                        <p>
+                            {% if infos.company %} Description: {{ infos.company.description }} {% endif %}
+                            {% if infos.freelancer %} Description: {{ infos.freelancer.description }} {% endif %}
+                        </p>
+                        <p> Adresse: {{ infos.address }} </p>
+                        <p> Pays: {{ infos.country }}</p>
+                        <p> Email: {{ infos.email }} </p>
+                        <p> Téléphone: {{ infos.phone }} </p>
+                        {% if infos.website %}
+                            <p>Site internet : {{ infos.website }} </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

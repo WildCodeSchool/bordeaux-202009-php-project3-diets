@@ -552,8 +552,20 @@ class ProfileController extends AbstractController
             'form_freelancer' => $form->createView(),
 
         ]);
-
     }
 
+    /**
+     * @Route("/show/{id}", methods={"GET", "POST"}, name="show")
+     * @return Response
+     */
+    public function show(User $user, $id): Response {
 
+        $userInfos = $this->getDoctrine()
+            ->getRepository(User::class)
+            ->findOneBy(['id' => $id]);
+
+        return $this->render('profile/show.html.twig', [
+            'infos' => $userInfos,
+        ]);
+    }
 }
