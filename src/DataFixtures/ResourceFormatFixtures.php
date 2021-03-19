@@ -59,6 +59,14 @@ class ResourceFormatFixtures extends Fixture
         $manager->persist($resourceFormat);
         $this->addReference('resource_format_6', $resourceFormat);
 
+        $resourceFormat = new ResourceFormat();
+        $resourceFormat->setFormat('visioconference');
+        $resourceFormat->setIcon("fas fa-5x fas fa-play-circle");
+        $resourceFormat->setIdentifier($resourceFormat->getFormat());
+        $resourceFormat->setBackground("https://i.pinimg.com/564x/d4/e9/71/d4e97113fc4b61ab7c805321909c02d2.jpg");
+        $manager->persist($resourceFormat);
+        $this->addReference('resource_format_7', $resourceFormat);
+
 
 
         $manager->flush();
