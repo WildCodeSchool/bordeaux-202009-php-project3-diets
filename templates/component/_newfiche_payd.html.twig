@@ -1,0 +1,27 @@
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
+</button>
+<div id="nouveau-resource">
+    <h3 class="part-title">Je propose une connaissance payante:</h3>
+</div>
+<div class="container-fluid-resource">
+    <div class="row align-items-center justify-content-center">
+        <div class="col-7 profile-main-forms">
+            <div class="form-resource">
+                {% form_theme form_resource_payd 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_resource_payd) }}
+                {{ form_row(form_resource_payd.name) }}
+                {{ form_row(form_resource_payd.resourceFormat) }}
+                {{ form_row(form_resource_payd.pathology) }}
+                {{ form_row(form_resource_payd.description) }}
+                {{ form_row(form_resource_payd.price) }}
+                {{ form_row(form_resource_payd.resourceFiles) }}
+                {{ form_row(form_resource_payd.link) }}
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
+                </div>
+                {{ form_end(form_resource_payd) }}
+            </div>
+        </div>
+    </div>
+</div>

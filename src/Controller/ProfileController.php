@@ -17,9 +17,11 @@ use App\Form\CompanyType;
 use App\Form\DieteticianType;
 use App\Form\EventType;
 use App\Form\FreelancerType;
+use App\Form\ResourcePayingType;
 use App\Form\ResourceType;
 use App\Form\ServiceType;
 use App\Form\UserEditType;
+use App\Form\VisioPaydType;
 use App\Form\VisioType;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
@@ -101,8 +103,24 @@ class ProfileController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResource->setUser($this->getUser());
+                $newResource->setPrice(0);
                 $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
                 $entityManager->persist($newResource);
+                $entityManager->flush();
+            }
+        }
+
+        $newResourcePayd = new Resource();
+        $formResourcePayd = $this->createForm(ResourcePayingType::class, $newResourcePayd);
+        $formResourcePayd->handleRequest($request);
+        if ($formResourcePayd->isSubmitted() && $formResourcePayd->isValid()) {
+            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])){
+                $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
+            } else {
+                $newResourcePayd->setUser($this->getUser());
+                $newResourcePayd = $multiUploadService
+                    ->createMultiUploadToResource($formResourcePayd, $newResourcePayd);
+                $entityManager->persist($newResourcePayd);
                 $entityManager->flush();
             }
         }
@@ -122,9 +140,32 @@ class ProfileController extends AbstractController
                     ]);
 
                 $visio->setResourceFormat($identifier);
+                $visio->setPrice(0);
 
                 $visio = $multiUploadService->createMultiUploadToResource($formVisio, $visio);
                 $entityManager->persist($visio);
+                $entityManager->flush();
+            }
+        }
+
+        $visioPayd = new Resource();
+        $formVisioPayd = $this->createForm(VisioPaydType::class, $visioPayd);
+        $formVisioPayd->handleRequest($request);
+        if ($formVisioPayd->isSubmitted() && $formVisioPayd->isValid()) {
+            if ($visioPayd->getLink() === null) {
+                $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
+            } else {
+                $visioPayd->setUser($this->getUser());
+                $identifier = $this->getDoctrine()
+                    ->getRepository(ResourceFormat::class)
+                    ->findOneBy([
+                        'identifier' => 'visioconference'
+                    ]);
+
+                $visioPayd->setResourceFormat($identifier);
+
+                $visioPayd = $multiUploadService->createMultiUploadToResource($formVisioPayd, $visioPayd);
+                $entityManager->persist($visioPayd);
                 $entityManager->flush();
             }
         }
@@ -169,6 +210,7 @@ class ProfileController extends AbstractController
 
         return $this->render('profile/edit.html.twig', [
             'form_visio' => $formVisio->createView(),
+            'form_visio_payd' => $formVisioPayd->createView(),
             'events_organized' => $eventsOrganized,
             'services' => $service,
             'user_infos' => $userInfos[0],
@@ -178,6 +220,7 @@ class ProfileController extends AbstractController
             'form_event' => $formEvent->createView(),
             'resources' => $resources,
             'form_resource' => $formResource->createView(),
+            'form_resource_payd' => $formResourcePayd->createView(),
             'pictures' => $pictures,
             'path' => 'profile_edit',
             'public_key' => $publicKey,
@@ -482,12 +525,13 @@ class ProfileController extends AbstractController
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
-                $stripe = $stripeService->createAccount($id);
+                //$stripe = $stripeService->createAccount($id);
             }
             $dietetician->setUser($user);
             $entityManager->persist($dietetician);
             $entityManager->flush();
-            return $this->redirectToRoute('payment_register_stripe', ['id' => $user->getId() ]);
+            //return $this->redirectToRoute('payment_register_stripe', ['id' => $user->getId() ]);
+            return $this->redirectToRoute('profile_edit', ['id' => $user->getId() ]);
         }
 
 

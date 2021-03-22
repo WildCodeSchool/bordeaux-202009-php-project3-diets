@@ -72,7 +72,7 @@ class StripeService
         $account_links = AccountLink::create([
             'account' => $accountId,
             'refresh_url' => $this->params->get('refresh_url'),
-            'return_url' => $this->params->get('return_url'),
+            'return_url' => $this->params->get('register_ok_url'),
             'type' => 'account_onboarding',
         ]);
 

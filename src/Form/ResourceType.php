@@ -43,9 +43,6 @@ class ResourceType extends AbstractType
                 'class' => ResourceFormat::class,
                 'choice_label' => 'format',
             ])
-            ->add('price', NumberType::class, [
-                'label' => 'Prix (facultatif)',
-            ])
             ->add('resourceFiles', FileType::class, [
                 'label' => 'Déposer un fichier à télécharger',
                 'multiple' => true,

@@ -6,9 +6,11 @@ use App\Entity\Resource;
 use App\Entity\ResourceFile;
 use App\Entity\ResourceFormat;
 use App\Entity\User;
+use App\Form\ResourcePayingType;
 use App\Form\ResourcesAllType;
 use App\Form\ResourceType;
 use App\Form\SearchResourceType;
+use App\Form\VisioPaydType;
 use App\Form\VisioType;
 use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
@@ -127,6 +129,44 @@ class KnowledgeController extends AbstractController
             }
         }
 
+        $visioPayd = new Resource();
+        $formVisioPayd = $this->createForm(VisioPaydType::class, $visioPayd);
+        $formVisioPayd->handleRequest($request);
+        if ($formVisioPayd->isSubmitted() && $formVisioPayd->isValid()) {
+            if ($visioPayd->getLink() === null) {
+                $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
+            } else {
+                $visioPayd->setUser($this->getUser());
+                $identifier = $this->getDoctrine()
+                    ->getRepository(ResourceFormat::class)
+                    ->findOneBy([
+                        'identifier' => 'visioconference'
+                    ]);
+
+                $visioPayd->setResourceFormat($identifier);
+
+                $visioPayd = $multiUploadService->createMultiUploadToResource($formVisioPayd, $visioPayd);
+                $entityManager->persist($visioPayd);
+                $entityManager->flush();
+            }
+        }
+
+
+        $newResourcePayd = new Resource();
+        $formResourcePayd = $this->createForm(ResourcePayingType::class, $newResourcePayd);
+        $formResourcePayd->handleRequest($request);
+        if ($formResourcePayd->isSubmitted() && $formResourcePayd->isValid()) {
+            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])){
+                $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
+            } else {
+                $newResourcePayd->setUser($this->getUser());
+                $newResourcePayd = $multiUploadService
+                    ->createMultiUploadToResource($formResourcePayd, $newResourcePayd);
+                $entityManager->persist($newResourcePayd);
+                $entityManager->flush();
+            }
+        }
+
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
             ],
@@ -149,6 +189,8 @@ class KnowledgeController extends AbstractController
             'form_search_all' => $formSearchAll->createView(),
             'form_visio' => $formVisio->createView(),
             'path' => 'knowledge_index',
+            'form_visio_payd' => $formVisioPayd->createView(),
+            'form_resource_payd' => $formResourcePayd->createView(),
             'companies_publicity' => $companiespublicity,
             'freelancers_publicity' => $freelancersPublicity,
         ]);

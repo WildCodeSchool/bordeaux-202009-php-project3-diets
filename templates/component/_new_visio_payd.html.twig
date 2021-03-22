@@ -2,26 +2,27 @@
     <span aria-hidden="true"><i class="far fa-times-circle"></i></span>
 </button>
 <div id="new-visio">
-    <h3 class="part-title">Je propose une visio-conférence gartuite:</h3>
+    <h3 class="part-title">Je propose une visio-conférence payante :</h3>
 </div>
 <div class="container-fluid-resource">
     <div class="row align-items-center justify-content-center">
         <div class="col-7 profile-main-forms">
             <div class="form-resource">
-                {% form_theme form_visio 'bootstrap_4_layout.html.twig' %}
-                {{ form_start(form_visio) }}
-                {{ form_row(form_visio.name) }}
-                {{ form_row(form_visio.dateStart) }}
-                {{ form_row(form_visio.dateEnd) }}
-                {{ form_row(form_visio.pathology) }}
-                {{ form_row(form_visio.description) }}
-                {{ form_row(form_visio.resourceFiles) }}
-                {{ form_row(form_visio.link) }}
+                {% form_theme form_visio_payd 'bootstrap_4_layout.html.twig' %}
+                {{ form_start(form_visio_payd) }}
+                {{ form_row(form_visio_payd.name) }}
+                {{ form_row(form_visio_payd.dateStart) }}
+                {{ form_row(form_visio_payd.dateEnd) }}
+                {{ form_row(form_visio_payd.pathology) }}
+                {{ form_row(form_visio_payd.price) }}
+                {{ form_row(form_visio_payd.description) }}
+                {{ form_row(form_visio_payd.resourceFiles) }}
+                {{ form_row(form_visio_payd.link) }}
                 <a href="https://meet.google.com/" target="_blank">Cliquez ici ! Pour proposer une visio et créer votre lien meet puis copier le dans le champ lien ci-dessus.</a>
                 <div class="d-flex flex-row-reverse">
                     <button class="btn mt-5">{{ button_label|default('Valider') }}</button>
                 </div>
-                {{ form_end(form_visio) }}
+                {{ form_end(form_visio_payd) }}
             </div>
         </div>
     </div>
