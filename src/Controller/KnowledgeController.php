@@ -16,6 +16,7 @@ use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
+use App\Service\Publicity\PublicityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,8 @@ class KnowledgeController extends AbstractController
         ResourceRepository $resourceRepository,
         EntityManagerInterface $entityManager,
         MultiUploadService $multiUploadService,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        PublicityService $publicityService
     ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -95,7 +97,7 @@ class KnowledgeController extends AbstractController
         $formResource = $this->createForm(ResourceType::class, $newResource);
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
-            if (($newResource->getLink() === null) && ($formResource->get('resourceFiles')->getData() === [])){
+            if (($newResource->getLink() === null) && ($formResource->get('resourceFiles')->getData() === [])) {
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResource->setUser($this->getUser());
@@ -174,20 +176,9 @@ class KnowledgeController extends AbstractController
             self::NBRESOURCE
         );
 
-        $company = '';
-        $freelancer = '';
-
-        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
-        if (!empty($companies)){
-            $randcompany = rand(1, count($companies));
-            $company = $companies[$randcompany-1];
-        }
-
-        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
-        if (!empty($freelancers)){
-            $randfreelancer = rand(1, count($freelancers));
-            $freelancer = $freelancers[$randfreelancer-1];
-        }
+        $publicities = $publicityService->addPublicity();
+        $companiespublicity = $publicities[0];
+        $freelancersPublicity = $publicities[1];
 
         return $this->render('knowledge/index.html.twig', [
             'resources_last_update' => $resourcesLastUpdate,
@@ -198,10 +189,10 @@ class KnowledgeController extends AbstractController
             'form_search_all' => $formSearchAll->createView(),
             'form_visio' => $formVisio->createView(),
             'path' => 'knowledge_index',
-            'company' => $company,
-            'freelancer' => $freelancer,
             'form_visio_payd' => $formVisioPayd->createView(),
             'form_resource_payd' => $formResourcePayd->createView(),
+            'companies_publicity' => $companiespublicity,
+            'freelancers_publicity' => $freelancersPublicity,
         ]);
     }
 

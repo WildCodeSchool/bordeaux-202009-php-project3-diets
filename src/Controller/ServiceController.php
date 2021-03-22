@@ -12,6 +12,7 @@ use App\Repository\PictureRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
+use App\Service\Publicity\PublicityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -33,7 +34,8 @@ class ServiceController extends AbstractController
         Request $request,
         ServiceRepository $serviceRepository,
         MultiUploadService $multiUploadService,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        PublicityService $publicityService
     ): Response {
         $formSearch = $this->createForm(SearchResourceType::class);
         $formSearch->handleRequest($request);
@@ -68,20 +70,11 @@ class ServiceController extends AbstractController
             ->getRepository(Picture::class)
             ->findBy(['link' => null, 'event' => null]);
 
-        $company = '';
-        $freelancer = '';
 
-        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
-        if (!empty($companies)){
-            $randcompany = rand(1, count($companies));
-            $company = $companies[$randcompany-1];
-        }
+        $publicities = $publicityService->addPublicity();
+        $companiespublicity = $publicities[0];
+        $freelancersPublicity = $publicities[1];
 
-        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
-        if (!empty($freelancers)){
-            $randfreelancer = rand(1, count($freelancers));
-            $freelancer = $freelancers[$randfreelancer-1];
-        }
 
         return $this->render('service/index.html.twig', [
             'form_service' => $formService->createView(),
@@ -89,8 +82,8 @@ class ServiceController extends AbstractController
             'form_search' => $formSearch->createView(),
             'services_search' => $services,
             'pictures' => $pictures,
-            'company' => $company,
-            'freelancer' => $freelancer,
+            'companies_publicity' => $companiespublicity,
+            'freelancers_publicity' => $freelancersPublicity,
             'path' => 'service_index',
         ]);
     }
