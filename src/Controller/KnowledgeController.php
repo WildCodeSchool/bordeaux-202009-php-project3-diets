@@ -136,8 +136,7 @@ class KnowledgeController extends AbstractController
             self::NBRESOURCE
         );
 
-        $testVisio = $resourceRepository->nextVisio();
-        dd($testVisio);
+        $resourcesWithNextVisio = $resourceRepository->nextVisio();
 
         $publicities = $publicityService->addPublicity();
         $companiespublicity = $publicities[0];
@@ -154,6 +153,7 @@ class KnowledgeController extends AbstractController
             'path' => 'knowledge_index',
             'companies_publicity' => $companiespublicity,
             'freelancers_publicity' => $freelancersPublicity,
+            'resources_with_next_visio' => $resourcesWithNextVisio
         ]);
     }
 
