@@ -322,10 +322,32 @@ class AdminController extends AbstractController
         $freelancerSubscription = $shoppingRepository->findBy(['type' => 'Abonnement Freelancer']);
         $companySubscription = $shoppingRepository->findBy(['type' => 'Abonnement Société']);
 
+        $freelancerNumberSubscription = 0;
+        foreach ($freelancerSubscription as $subscriptionFreelancer) {
+            if ($subscriptionFreelancer->getAmount() === '20') {
+                $freelancerNumberSubscription++;
+            } else {
+                $freelancerNumberSubscription--;
+            }
+        }
+
+        $companyNumberSubscription = 0;
+        foreach ($companySubscription as $subscriptionCompany) {
+            if ($subscriptionCompany->getAmount() === '50') {
+                $companyNumberSubscription++;
+            } else {
+                $companyNumberSubscription--;
+            }
+        }
+
+
+
         return $this->render('admin/shopping.html.twig', [
             'shopping' => $shopping,
             'freelancer_subscriptions' => $freelancerSubscription,
             'company_subscriptions' => $companySubscription,
+            'freelancer_number_subscription' => $freelancerNumberSubscription,
+            'company_number_subscription' =>    $companyNumberSubscription
         ]);
     }
 }
