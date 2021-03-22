@@ -345,7 +345,7 @@
         </div>
         {% else %}
         <div class="d-flex flex-wrap justify-content-center">
-            {%  for resource in resources_last_update  %}
+            {%  for resource in resources_with_next_visio  %}
                 <div class="container-fluid">
                     <div class="row d-flex justify-content-center pb-3 pt-3">
                         <div class="col-8 col-lg-5 pb-4">
@@ -390,12 +390,12 @@
                                 </div>
                                 {% if resource.dateStart is not empty %}
                                 <div class="pb-1">
-                                    Début de la conférence le  : {{ resource.dateStart|date("d/m/Y h:s") }}
+                                    Début de la conférence le  : {{ resource.dateStart|date("d/m/Y H:i") }}
                                 </div>
                                 {% endif %}
                                 {% if resource.dateEnd is not empty %}
                                 <div class="pb-1">
-                                    Fin de la conférence le : {{ resource.dateEnd|date("d/m/Y h:s") }}
+                                    Fin de la conférence le : {{ resource.dateEnd|date("d/m/Y H:i") }}
                                 </div>
                                 {% endif %}
                             </div>

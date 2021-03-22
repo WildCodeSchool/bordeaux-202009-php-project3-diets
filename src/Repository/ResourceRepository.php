@@ -112,4 +112,14 @@ class ResourceRepository extends ServiceEntityRepository
             ->getQuery();
         return $queryBuilder->getResult();
     }
+
+    public function nextVisio()
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.date_start >= :datecourant OR r.date_start IS NULL')
+            ->setParameter('datecourant', new \DateTime('now'))
+            ->orderBy('r.date_start', 'DESC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
