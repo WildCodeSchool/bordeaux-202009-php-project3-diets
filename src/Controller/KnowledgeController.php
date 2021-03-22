@@ -136,6 +136,9 @@ class KnowledgeController extends AbstractController
             self::NBRESOURCE
         );
 
+        $testVisio = $resourceRepository->nextVisio();
+        dd($testVisio);
+
         $publicities = $publicityService->addPublicity();
         $companiespublicity = $publicities[0];
         $freelancersPublicity = $publicities[1];
