@@ -2,9 +2,9 @@
 
 namespace App\Service\Stripe;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Entity\Shopping;
 use Doctrine\ORM\EntityManagerInterface;
+use Stripe\Price;
 use Stripe\Stripe;
 use Stripe\Checkout\Session as Session;
 use Stripe\Customer as Customer;
@@ -12,7 +12,6 @@ use Stripe\StripeClient as StripeClient;
 use Stripe\BillingPortal\Session as SessionStripe;
 use Stripe\BillingPortal\Configuration as Configuration;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Stripe\Subscription as Subscription;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -153,14 +152,44 @@ class StripeSubscribeService
                 $changeRole = $takeuser->setRoles(['ROLE_COMPANY']);
                 $this->entityManager->persist($changeRole);
                 $this->entityManager->flush();
+                $this->addUnsubscribeInShopping();
             }
             if (in_array('ROLE_FREELANCER_SUBSCRIBER', $takeuser->getRoles(), $strict = true)) {
                 $changeRole = $takeuser->setRoles(['ROLE_FREELANCER']);
                 $this->entityManager->persist($changeRole);
                 $this->entityManager->flush();
+                $this->addUnsubscribeInShopping();
             }
         }
 
         return $subscription['status'];
+    }
+
+    public function addUnsubscribeInShopping()
+    {
+        Stripe::setApiKey($this->params->get('api_key'));
+        $companyPrice =  $this->params->get('company_price');
+        $unitAmountCompany = Price::retrieve($companyPrice, []);
+        $priceCompany = $unitAmountCompany['unit_amount'] / 100;
+        $freelancerPrice =  $this->params->get('freelancer_price');
+        $unitAmountFreelancer = Price::retrieve($freelancerPrice, []);
+        $priceFreelancer = $unitAmountFreelancer['unit_amount'] / 100;
+
+        $shopping = new Shopping();
+        $shopping->setName('S.O');
+        $shopping->setOwner('S.O');
+        if (in_array("ROLE_FREELANCER", $this->user->getRoles())) {
+            $shopping->setAmount('-' . $priceFreelancer);
+        } elseif (in_array("ROLE_COMPANY", $this->user->getRoles())) {
+            $shopping->setAmount('-' . $priceCompany);
+        }
+        $shopping->setBuyer($this->user->getUsername());
+        if (in_array("ROLE_FREELANCER", $this->user->getRoles())) {
+            $shopping->setType('Abonnement Freelancer');
+        } elseif (in_array("ROLE_COMPANY", $this->user->getRoles())) {
+            $shopping->setType('Abonnement Société');
+        }
+        $this->entityManager->persist($shopping);
+        $this->entityManager->flush();
     }
 }
