@@ -12,6 +12,7 @@ use App\Repository\PictureRepository;
 use App\Repository\RegisteredEventRepository;
 use App\Repository\UserRepository;
 use App\Service\MultiUpload\MultiUploadService;
+use App\Service\Publicity\PublicityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +34,8 @@ class EventController extends AbstractController
         EventRepository $eventRepository,
         RegisteredEventRepository $registeredEventRepository,
         MultiUploadService $multiUploadService,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        PublicityService $publicityService
     ): Response {
 
         $event = new Event();
@@ -68,20 +70,9 @@ class EventController extends AbstractController
             ->getRepository(Picture::class)
             ->findBy(['link' => null, 'service' => null]);
 
-        $company = '';
-        $freelancer = '';
-
-        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
-        if (!empty($companies)){
-            $randcompany = rand(1, count($companies));
-            $company = $companies[$randcompany-1];
-        }
-
-        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
-        if (!empty($freelancers)){
-            $randfreelancer = rand(1, count($freelancers));
-            $freelancer = $freelancers[$randfreelancer-1];
-        }
+        $publicities = $publicityService->addPublicity();
+        $companiespublicity = $publicities[0];
+        $freelancersPublicity = $publicities[1];
 
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
@@ -91,8 +82,8 @@ class EventController extends AbstractController
             'pictures' => $pictures,
             'path' => 'event_index',
             'registered_events' => $registeredEventRepository->findAll(),
-            'company' => $company,
-            'freelancer' => $freelancer,
+            'companies_publicity' => $companiespublicity,
+            'freelancers_publicity' => $freelancersPublicity
             ]);
     }
 
@@ -103,7 +94,8 @@ class EventController extends AbstractController
     public function deleteEvent(
         Request $request,
         Event $event,
-        RegisteredEventRepository $registeredEventRepository): Response {
+        RegisteredEventRepository $registeredEventRepository
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $registeredEvents = $registeredEventRepository->findBy(['event' => $event]);
