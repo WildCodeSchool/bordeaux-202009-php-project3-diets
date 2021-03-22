@@ -12,6 +12,7 @@ use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\Publicity\PublicityService;
 use Container1zMksP6\getDoctrine_DatabaseDropCommandService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -32,7 +33,8 @@ class RessourceController extends AbstractController
         ResourceRepository $resourceRepository,
         Request $request,
         ServiceRepository $serviceRepository,
-        EventRepository $eventRepository, UserRepository $userRepository
+        EventRepository $eventRepository,
+        PublicityService $publicityService
     ): Response {
 
         $events = $eventRepository->nextEventByFour();
@@ -58,28 +60,17 @@ class RessourceController extends AbstractController
             self::NBRESOURCE
         );
 
-        $company = '';
-        $freelancer = '';
-
-        $companies = $userRepository->findByRole("ROLE_COMPANY_SUBSCRIBER");
-        if (!empty($companies)){
-            $randcompany = rand(1, count($companies));
-            $company = $companies[$randcompany-1];
-        }
-
-        $freelancers = $userRepository->findByRole("ROLE_FREELANCER_SUBSCRIBER");
-        if (!empty($freelancers)){
-            $randfreelancer = rand(1, count($freelancers));
-            $freelancer = $freelancers[$randfreelancer-1];
-        }
+        $publicities = $publicityService->addPublicity();
+        $companiespublicity = $publicities[0];
+        $freelancersPublicity = $publicities[1];
 
         return $this->render('ressource/index.html.twig', [
             'form' => 'form',
             'events' => $events,
             'resources_last_update' => $resourcesLastUpdate,
             'services_last_update' => $servicesLastUpdate,
-            'company' => $company,
-            'freelancer' => $freelancer,
+            'companies_publicity' => $companiespublicity,
+            'freelancers_publicity' => $freelancersPublicity,
         ]);
     }
 
