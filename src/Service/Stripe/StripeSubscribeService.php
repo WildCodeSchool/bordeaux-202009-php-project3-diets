@@ -89,7 +89,7 @@ class StripeSubscribeService
                 'line_items' => [[
                     'price' => $this->params->get('company_price'),
                     'quantity' => 1,
-                    'tax_rates' => ['txr_1IXpsHLs9HAnEomverBXVrAe'],
+                    'tax_rates' => [$this->params->get('tva_key')],
                 ]],
                 'mode' => 'subscription',
                 'success_url' => $this->params->get('success_url_subscription'),
@@ -102,7 +102,7 @@ class StripeSubscribeService
                 'line_items' => [[
                     'price' => $this->params->get('company_price'),
                     'quantity' => 1,
-                    'tax_rates' => ['txr_1IXpsHLs9HAnEomverBXVrAe'],
+                    'tax_rates' => [$this->params->get('tva_key')],
                 ]],
                 'mode' => 'subscription',
                 'success_url' => $this->params->get('success_url_subscription'),
