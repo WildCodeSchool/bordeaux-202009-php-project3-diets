@@ -75,7 +75,11 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

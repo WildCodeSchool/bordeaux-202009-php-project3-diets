@@ -19,7 +19,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class VisioType extends AbstractType
+class VisioPaydType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -40,6 +40,10 @@ class VisioType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'label' => 'Choisir une catégorie',
+            ])
+            ->add('price', NumberType::class, [
+                'label' => 'Prix',
+                'required' => true,
             ])
             ->add('resourceFiles', FileType::class, [
                 'label' => 'Déposer un fichier à télécharger 

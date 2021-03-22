@@ -5,11 +5,79 @@
     <div class="d-flex justify-content-center align-items-center flex-wrap mb-5">
         {% if is_granted('ROLE_CONTRIBUTOR') %}
         <div>Je propose :</div>
+            {% if is_granted('ROLE_STRIPE') %}
+
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalPaydKnowledge">
+                        une connaissance payante
+                    </button>
+                    <div class="modal fade" id="modalPaydKnowledge" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_newfiche_payd.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalPaydVisio">
+                        une visioconférence payante
+                    </button>
+                    <div class="modal fade" id="modalPaydVisio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% include '/component/_new_visio_payd.html.twig' %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                {% else %}
+                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                        <div class="form-modal-event">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#modalRegister">
+                                une connaissance payante
+                            </button>
+                            <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            {% include '/component/_profil_register_modal.html.twig' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                        <div class="form-modal-event">
+                            <button type="button" class="btn" data-toggle="modal" data-target="#modalRegister">
+                                une visioconférence payante
+                            </button>
+                            <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            {% include '/component/_profil_register_modal.html.twig' %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
         <div class="profile-button-container d-flex flex-wrap justify-content-center">
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-knowledge">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#modalKnowledge">
-                        une connaissance
+                        une connaissance gratuite
                     </button>
                     <div class="modal fade" id="modalKnowledge" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -26,7 +94,7 @@
                 <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                     <div class="form-modal-knowledge">
                         <button type="button" class="knowledge-button" data-toggle="modal" data-target="#exampleModalCenterVisio">
-                             une visioconférence
+                             une visioconférence gratuite
                         </button>
                         <div class="modal fade" id="exampleModalCenterVisio" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -40,6 +108,8 @@
                     </div>
                 </div>
             </div>
+
+
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-service">
                     <button type="button" class="service-button" data-toggle="modal" data-target="#modalService">
@@ -78,13 +148,17 @@
         <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
             <div class="form-modal-event">
                 <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
-                   une connaissance
+                   une connaissance gratuite
                 </button>
                 <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                            {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                {% if is_granted ('ROLE_ENTERPRISE') %}
+                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                {% else %}
+                                    {% include '/component/_modal_user.html.twig' %}
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -94,13 +168,57 @@
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-event">
                     <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
-                        une visioconférence
+                        une visioconférence gratuite
                     </button>
                     <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                        une connaissance payante
+                    </button>
+                    <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
+                <div class="form-modal-event">
+                    <button type="button" class="btn" data-toggle="modal" data-target="#modalSubscribe">
+                        une visioconférence payante
+                    </button>
+                    <div class="modal fade" id="modalSubscribe" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body">
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -116,7 +234,11 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -132,7 +254,11 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% if is_granted ('ROLE_ENTERPRISE') %}
+                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
+                                    {% else %}
+                                        {% include '/component/_modal_user.html.twig' %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -180,7 +306,7 @@
                     <a href="{{ path('profile_profil_edit', {'id': infos.id}) }}">Modifier mon profil </a>
                 </div>
             </div>
-            {% if is_granted('ROLE_CONTRIBUTOR') %}
+            {% if is_granted('ROLE_STRIPE') %}
             <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}" class="btn mr-3">Accès à vos informations et compte Stripe pour vos virements</a>
             {% endif %}
             {% if is_granted('ROLE_ENTERPRISE') %}
@@ -189,11 +315,16 @@
                     {% else %}
                 <a id="checkout-subscription" href="#" class="btn">S'abonner</a>
                 {% endif %}
+            {% endif %}
                 {% if is_granted ('ROLE_DIETETICIAN') %}
+                    {% if is_granted ('ROLE_STRIPE') %}
 
                     {% else %}
-                <a href="{{ path('payment_create_portal_session') }}" class="btn">Visualiser le portail</a>
+                    <a href="{{ path('payment_register_stripe',  {'id': infos.id}) }}" class="btn">S'inscrire sur Stripe pour poster des connaissances ou visio payante</a>
                 {% endif %}
+            {% endif %}
+            {% if (is_granted('ROLE_COMPANY_SUBSCRIBER') or (is_granted('ROLE_FREELANCER_SUBSCRIBER'))) %}
+            <a href="{{ path('payment_create_portal_session') }}" class="btn">Visualiser le portail</a>
             {% endif %}
         </div>
     </div>

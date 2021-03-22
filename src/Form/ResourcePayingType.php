@@ -1,14 +1,10 @@
 <?php
 
-
 namespace App\Form;
-
 
 use App\Entity\Pathology;
 use App\Entity\Resource;
 use App\Entity\ResourceFormat;
-use App\Repository\ResourceFormatRepository;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -18,8 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class VisioType extends AbstractType
+class ResourcePayingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -32,7 +29,7 @@ class VisioType extends AbstractType
             ])
             ->add('link', TextType::class, [
                 'label' => 'Lien',
-                'required' => true,
+                'required' => false,
             ])
             ->add('pathology', EntityType::class, [
                 'class' => Pathology::class,
@@ -41,25 +38,19 @@ class VisioType extends AbstractType
                 'expanded' => true,
                 'label' => 'Choisir une catégorie',
             ])
+            ->add('resourceFormat', EntityType::class, [
+                'label' => 'Choisir un format',
+                'class' => ResourceFormat::class,
+                'choice_label' => 'format',
+            ])
+             ->add('price', NumberType::class, [
+                 'label' => 'Prix',
+                 'required' => true,
+             ])
             ->add('resourceFiles', FileType::class, [
-                'label' => 'Déposer un fichier à télécharger 
-                (Si vous souhaitez rajouter un support que vos auditeurs pourront télécharger)',
+                'label' => 'Déposer un fichier à télécharger',
                 'multiple' => true,
                 'mapped' => false,
-                'required' => false,
-            ])
-            ->add('dateStart', DateTimeType::class, [
-                'label' => 'Début',
-                'data'   => new \DateTime(),
-                'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
-                'years' => range(2021, 2040, 1),
-                'required' => false,
-            ])
-            ->add('dateEnd', DateTimeType::class, [
-                'label' => 'Fin',
-                'data'   => new \DateTime(),
-                'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
-                'years' => range(2021, 2040, 1),
                 'required' => false,
             ]);
     }
@@ -70,5 +61,4 @@ class VisioType extends AbstractType
             'data_class' => Resource::class,
         ]);
     }
-
 }

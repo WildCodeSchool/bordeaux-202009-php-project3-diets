@@ -81,6 +81,30 @@ class PaymentController extends AbstractController
     }
 
     /**
+     * @Route("/inscription/valider/", name="register_success")
+     */
+
+    public function RegisterSuccess(UserRepository $userRepository, EntityManagerInterface $entityManager)
+    {
+        $userRegister = $userRepository->findOneBy(['id' => $this->getUser()->getId()]);
+        if (in_array('ROLE_DIETETICIAN', $userRegister->getRoles(), $strict = true)) {
+            $userRegister->setRoles(['ROLE_DIETETICIAN_REGISTER']);
+            $entityManager->persist($userRegister);
+            $entityManager->flush();
+        }
+
+
+
+        return $this->render('payment/register_success.html.twig', [
+            'controller_name' => 'PaymentController',
+        ]);
+
+    }
+
+
+
+
+    /**
      * @Route("/abonnement/valider/", name="subscription_success")
      */
 
