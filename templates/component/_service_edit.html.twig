@@ -10,6 +10,16 @@
                 {% if resources_purchased_count[resource.id] is defined %}
                 <p>Achetée {{ resources_purchased_count[resource.id] }} fois</p>
                 {% endif %}
+                {% if resources_buyer[resource.id] is defined %}
+                <div>
+                <button type="button" class="btn" data-toggle="modal" data-target="#modal_buyer">
+                    Voir les participants
+                </button>
+
+                        {% include '/component/_modal_buyers.html.twig' %}
+
+                </div>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
