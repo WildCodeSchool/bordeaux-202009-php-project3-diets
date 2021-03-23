@@ -7,6 +7,9 @@
         <div class="card-container justify-content-center">
             <div>
                 {% include '/component/_card.html.twig' %}
+                {% if resources_purchased_count[resource.id] is defined %}
+                <p>Achetée {{ resources_purchased_count[resource.id] }} fois</p>
+                {% endif %}
             </div>
         </div>
     {% endfor %}
