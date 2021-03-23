@@ -118,7 +118,7 @@ class ResourceRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('r')
             ->where('r.date_start >= :datecourant OR r.date_start IS NULL')
             ->setParameter('datecourant', new \DateTime('now'))
-            ->orderBy('r.date_start', 'DESC');
+            ->orderBy('r.updatedAt', 'DESC');
 
         return $queryBuilder->getQuery()->getResult();
     }
