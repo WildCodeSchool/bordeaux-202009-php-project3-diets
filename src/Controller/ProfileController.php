@@ -85,16 +85,27 @@ class ProfileController extends AbstractController
             ['updatedAt' => 'desc']
         );
         $resourcesPurchasedCount = [];
+        $resourcesBuyer = [];
+        $buyers = [];
         foreach ($resources as $resource) {
             $resourcesPurchased = $this->getDoctrine()->getRepository(Shopping::class)->findBy([
-                'name' => $resource->getName()
+                'name' => $resource->getName(),
             ]);
             if (!empty($resourcesPurchased)) {
                 $count = count($resourcesPurchased);
                 $resourcesPurchasedCount[$resource->getId()] = $count ;
             }
-        }
 
+            if ($resource->getResourceFormat()->getFormat() === 'visioconference') {
+                $resourcesPurchased = $this->getDoctrine()->getRepository(Shopping::class)->findBy([
+                    'name' => $resource->getName(),
+                ]);
+                foreach ($resourcesPurchased as $resourcePurchased) {
+                    $buyers[] = $resourcePurchased->getBuyer();
+                }
+                $resourcesBuyer[$resource->getId()] = $buyers;
+            }
+        }
 
         $eventsOrganized = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
@@ -238,7 +249,8 @@ class ProfileController extends AbstractController
             'pictures' => $pictures,
             'path' => 'profile_edit',
             'public_key' => $publicKey,
-            'resources_purchased_count' => $resourcesPurchasedCount
+            'resources_purchased_count' => $resourcesPurchasedCount,
+            'resources_buyer' => $resourcesBuyer
         ]);
     }
 
