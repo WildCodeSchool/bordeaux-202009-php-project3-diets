@@ -11,6 +11,7 @@ use App\Entity\RegisteredEvent;
 use App\Entity\Resource;
 use App\Entity\ResourceFile;
 use App\Entity\ResourceFormat;
+use App\Entity\Shopping;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\CompanyType;
@@ -49,14 +50,15 @@ class ProfileController extends AbstractController
      * @Route("/edition/{id}", methods={"GET", "POST"}, name="edit")
      * @return Response
      */
-    public function edit(Request $request,
-                         EntityManagerInterface $entityManager,
-                         User $user,
-                         PictureRepository $pictureRepository,
-                         SessionInterface $session,
-                         MultiUploadService $multiUploadService,
-                         StripeSubscribeService $stripeSubscribeService): Response
-    {
+    public function edit(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        User $user,
+        PictureRepository $pictureRepository,
+        SessionInterface $session,
+        MultiUploadService $multiUploadService,
+        StripeSubscribeService $stripeSubscribeService
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -77,10 +79,22 @@ class ProfileController extends AbstractController
             );
         }
 
-        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy([
+        $resources = $this->getDoctrine()->getRepository(Resource::class)->findBy(
+            [
             'user' => $user->getId()],
             ['updatedAt' => 'desc']
         );
+        $resourcesPurchasedCount = [];
+        foreach ($resources as $resource) {
+            $resourcesPurchased = $this->getDoctrine()->getRepository(Shopping::class)->findBy([
+                'name' => $resource->getName()
+            ]);
+            if (!empty($resourcesPurchased)) {
+                $count = count($resourcesPurchased);
+                $resourcesPurchasedCount[$resource->getId()] = $count ;
+            }
+        }
+
 
         $eventsOrganized = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
@@ -99,7 +113,7 @@ class ProfileController extends AbstractController
         $formResource = $this->createForm(ResourceType::class, $newResource);
         $formResource->handleRequest($request);
         if ($formResource->isSubmitted() && $formResource->isValid()) {
-            if (($newResource->getLink() === null) && ($formResource->get('resourceFiles')->getData() === [])){
+            if (($newResource->getLink() === null) && ($formResource->get('resourceFiles')->getData() === [])) {
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResource->setUser($this->getUser());
@@ -114,7 +128,7 @@ class ProfileController extends AbstractController
         $formResourcePayd = $this->createForm(ResourcePayingType::class, $newResourcePayd);
         $formResourcePayd->handleRequest($request);
         if ($formResourcePayd->isSubmitted() && $formResourcePayd->isValid()) {
-            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])){
+            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])) {
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResourcePayd->setUser($this->getUser());
@@ -224,6 +238,7 @@ class ProfileController extends AbstractController
             'pictures' => $pictures,
             'path' => 'profile_edit',
             'public_key' => $publicKey,
+            'resources_purchased_count' => $resourcesPurchasedCount
         ]);
     }
 
@@ -233,12 +248,13 @@ class ProfileController extends AbstractController
      * @return Response
      */
 
-    public function editProfil(Request $request,
-                               int $id,
-                               UserRepository $userRepository,
-                               EntityManagerInterface $entityManager,
-                               User $user): Response
-    {
+    public function editProfil(
+        Request $request,
+        int $id,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        User $user
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -271,7 +287,6 @@ class ProfileController extends AbstractController
             'form_edit_user' => $formEditUser->createView(),
             'user' => $user,
         ]);
-
     }
 
 
@@ -303,7 +318,6 @@ class ProfileController extends AbstractController
             'form' => $formEditResource->createView(),
             'resource' => $resource
         ]);
-
     }
 
     /**
@@ -336,7 +350,6 @@ class ProfileController extends AbstractController
             'pictures' => $pictureRepository->findAll(),
 
         ]);
-
     }
 
     /**
@@ -369,7 +382,6 @@ class ProfileController extends AbstractController
             'event' => $event,
             'pictures' => $pictureRepository->findAll(),
         ]);
-
     }
 
 
@@ -377,9 +389,10 @@ class ProfileController extends AbstractController
     /**
      * @Route("/connaissance/{id}", name="delete_resource", methods={"DELETE"})
      */
-    public function deleteResource(Request $request,
-                                   Resource $resource): Response
-    {
+    public function deleteResource(
+        Request $request,
+        Resource $resource
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $resource->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($resource);
@@ -394,8 +407,7 @@ class ProfileController extends AbstractController
     public function deleteService(
         Request $request,
         Service $service
-    ): Response
-    {
+    ): Response {
         if ($this->isCsrfTokenValid('delete' . $service->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($service);
@@ -408,10 +420,11 @@ class ProfileController extends AbstractController
      * @Route ("/choix-statut/{id}", name="choice_role")
      */
 
-    public function choiceRole(UserRepository $userRepository,
-                               $id,
-                               User $user): Response
-    {
+    public function choiceRole(
+        UserRepository $userRepository,
+        $id,
+        User $user
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -432,20 +445,20 @@ class ProfileController extends AbstractController
         return $this->render('profile/choice_role.html.twig', [
             'user' => $user
         ]);
-
     }
 
     /**
      * @Route ("/inscription/societe/{id}", name="register_company")
      */
 
-    public function companyRegister(Request $request,
-                                    EntityManagerInterface $entityManager,
-                                    UserRepository $userRepository,
-                                    $id,
-                                    User $user,
-                                    StripeService $stripeService): Response
-    {
+    public function companyRegister(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        $id,
+        User $user,
+        StripeService $stripeService
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -490,13 +503,14 @@ class ProfileController extends AbstractController
     /**
      * @Route ("/inscription/dieteticien/{id}", name="register_dietetician")
      */
-    public function dieteticianRegister(Request $request,
-                                        EntityManagerInterface $entityManager,
-                                        UserRepository $userRepository,
-                                        $id,
-                                        User $user,
-                                        StripeService $stripeService): Response
-    {
+    public function dieteticianRegister(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        $id,
+        User $user,
+        StripeService $stripeService
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -515,7 +529,7 @@ class ProfileController extends AbstractController
         $user = $userRepository->findOneBy(['id' => $id]);
 
 
-        $dietetician= new Dietetician();
+        $dietetician = new Dietetician();
         $form = $this->createForm(DieteticianType::class, $dietetician);
         $form->handleRequest($request);
 
@@ -542,20 +556,19 @@ class ProfileController extends AbstractController
         return $this->render('component/_register_dietetician.html.twig', [
             'form_dietetician' => $form->createView(),
         ]);
-
-
     }
 
     /**
      * @Route ("/inscription/auto-entrepreneur/{id}", name="register_freelancer")
      */
-    public function freelancerRegister(Request $request,
-                                       EntityManagerInterface $entityManager,
-                                       UserRepository $userRepository,
-                                       $id,
-                                       User $user,
-                                       StripeService $stripeService): Response
-    {
+    public function freelancerRegister(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        $id,
+        User $user,
+        StripeService $stripeService
+    ): Response {
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -574,7 +587,7 @@ class ProfileController extends AbstractController
         $user = $userRepository->findOneBy(['id' => $id]);
 
 
-        $freelancer= new Freelancer();
+        $freelancer = new Freelancer();
         $form = $this->createForm(FreelancerType::class, $freelancer);
         $form->handleRequest($request);
 
@@ -602,7 +615,8 @@ class ProfileController extends AbstractController
      * @Route("/show/{id}", methods={"GET", "POST"}, name="show")
      * @return Response
      */
-    public function show(User $user, $id): Response {
+    public function show(User $user, $id): Response
+    {
 
         $userInfos = $this->getDoctrine()
             ->getRepository(User::class)
