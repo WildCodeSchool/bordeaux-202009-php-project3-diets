@@ -68,8 +68,7 @@
         "symfony/stopwatch": "^5.1",
         "symfony/var-dumper": "^5.1",
         "symfony/web-profiler-bundle": "^5.1",
-        "theofidry/alice-data-fixtures": "^1.4",
-      "ext-http": "*"
+        "theofidry/alice-data-fixtures": "^1.4"
     },
     "config": {
         "optimize-autoloader": true,

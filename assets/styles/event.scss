@@ -178,34 +178,62 @@
     .row{
       margin: 0;
     }
-    .company-image{
-      text-align: center;
-      img{
-        width: 100%;
+    .company-publicity {
+      height: 10em;
+      width: 50%;
+
+      .company-space {
+        width: 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
 
-    }
-    .company-publicity {
-      background-color: #9fcdff;
-      height: 10em;
-      width: 50%;
-      display: flex;
-      justify-content: center;
-      overflow-y: hidden;
-    }
-    .freelancer-image{
-      text-align: center;
-      img{
-        width: 100%;
+      .transbox {
+        height: 10em;
+        background-color: #ffffff;
+        opacity: 0.6;
+      }
+
+      .transbox p {
+        font-weight: bold;
+        color: #000000;
+      }
+
+      h3 {
+        width: 50%;
+        border-bottom: solid;
+        border-bottom-color: dodgerblue;
       }
     }
+
     .freelancer-publicity {
-      background-color: #ffdc58;
       height: 10em;
       width: 50%;
-      display: flex;
-      justify-content: center;
-      overflow-y: hidden;
+
+      .freelancer-space {
+        width: 50%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+
+      .transbox {
+        height: 10em;
+        background-color: #ffffff;
+        opacity: 0.6;
+      }
+
+      .transbox p {
+        font-weight: bold;
+        color: #000000;
+      }
+
+      h3 {
+        width: 50%;
+        border-bottom: solid;
+        border-bottom-color: dodgerblue;
+      }
     }
   }
 }
