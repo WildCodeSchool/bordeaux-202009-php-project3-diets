@@ -230,4 +230,24 @@ class KnowledgeController extends AbstractController
         }
         return $this->redirectToRoute('knowledge_index');
     }
+
+    /**
+     * @Route("/calendrier", name="calendar")
+     */
+    public function calendar(ResourceRepository $resourceRepository)
+    {
+        $dateVisios = $resourceRepository->selectVisioForCalendar();
+        $visios = [];
+        foreach ($dateVisios as $dateVisio) {
+            $visios[] = [
+                //'id' => $dateVisio->getId(),
+                'start'  => $dateVisio->getDateStart()->format('Y-m-d H:i'),
+                'end' => $dateVisio->getDateEnd()->format('Y-m-d H:i'),
+                'title' => $dateVisio->getName(),
+                //'description' => $dateVisio->getDescription(),
+            ];
+        }
+        $data = json_encode($visios);
+        return $this->render('knowledge/calendar.html.twig', compact('data'));
+    }
 }
