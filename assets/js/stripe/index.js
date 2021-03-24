@@ -1,9 +1,20 @@
 
-    // Create an instance of the Stripe object with your publishable API key
+    function Get(yourUrl) {
+        var Httpreq = new XMLHttpRequest(); // a new request
+        Httpreq.open("GET", yourUrl, false);
+        Httpreq.send(null);
+        return Httpreq.responseText;
+    }
 
-    var stripe = Stripe('public_key', {
-    stripeAccount: 'account'
+    var datas = JSON.parse(Get('/panier/jsonStripe'));
+    var public_key = datas["publickey"];
+    var account = datas['account'];
+
+
+    var stripe = Stripe(public_key, {
+    stripeAccount: account
 });
+    console.log(stripe);
     var checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', function() {

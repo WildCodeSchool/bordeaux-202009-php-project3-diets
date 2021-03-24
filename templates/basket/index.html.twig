@@ -54,9 +54,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-    var public_key = {{ public_key }};
-    var account = {{ account }};
-    </script>
     {{ encore_entry_script_tags('stripe') }}
 {% endblock %}
