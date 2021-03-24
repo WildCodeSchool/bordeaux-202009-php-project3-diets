@@ -19,6 +19,7 @@ use App\Service\MultiUpload\MultiUploadService;
 use App\Service\Publicity\PublicityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -234,7 +235,15 @@ class KnowledgeController extends AbstractController
     /**
      * @Route("/calendrier", name="calendar")
      */
-    public function calendar(ResourceRepository $resourceRepository)
+    public function calendar(): Response
+    {
+        return $this->render('knowledge/calendar.html.twig');
+    }
+
+    /**
+     * @Route("/jsonCalendar", name="calendar_json")
+     */
+    public function jsonCalendar(ResourceRepository $resourceRepository)
     {
         $dateVisios = $resourceRepository->selectVisioForCalendar();
         $visios = [];
@@ -247,7 +256,7 @@ class KnowledgeController extends AbstractController
                 //'description' => $dateVisio->getDescription(),
             ];
         }
-        $data = json_encode($visios);
-        return $this->render('knowledge/calendar.html.twig', compact('data'));
+
+        return new JsonResponse($visios, 200);
     }
 }
