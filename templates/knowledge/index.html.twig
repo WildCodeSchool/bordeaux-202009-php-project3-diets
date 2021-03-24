@@ -88,6 +88,7 @@
                 <button type="submit" class="knowledge-see">Voir toutes les connaissances</button>
                 {{ form_end(form_search_all) }}
             </div>
+            <a href="{{ path('knowledge_calendar') }}" class="knowledge-see">Voir le calendrier des visioconférence</a>
         </div>
 
             {% if is_granted('ROLE_CONTRIBUTOR') %}

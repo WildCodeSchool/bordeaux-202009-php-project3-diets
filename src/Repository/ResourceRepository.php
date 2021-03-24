@@ -122,4 +122,12 @@ class ResourceRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    public function selectVisioForCalendar()
+    {
+        $queryBuilder = $this->createQueryBuilder('r')
+            ->where('r.date_start IS NOT NULL');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
