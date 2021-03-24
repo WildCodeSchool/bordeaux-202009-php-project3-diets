@@ -5,7 +5,6 @@ window.onload = () => {
         var Httpreq = new XMLHttpRequest(); // a new request
         Httpreq.open("GET",yourUrl,false);
         Httpreq.send(null);
-        console.log(Httpreq.responseText);
         return Httpreq.responseText;
     }
 
