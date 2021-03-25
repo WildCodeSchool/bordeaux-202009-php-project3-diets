@@ -113,6 +113,16 @@ class User implements UserInterface
      */
     private $securingPurchases;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $longitude;
+
 
 
     public function __construct()
@@ -473,6 +483,30 @@ class User implements UserInterface
                 $securingPurchase->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(string $longitude): self
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

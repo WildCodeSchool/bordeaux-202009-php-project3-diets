@@ -19,6 +19,7 @@ parameters:
     refresh_url:  '%env(resolve:URL_REFRESH)%'
     register_ok_url:  '%env(resolve:URL_REGISTER)%'
     tva_key: '%env(resolve:TVA_KEY)%'
+    api_geocode_key: '%env(resolve:API_GEOCODING_KEY)%'
 
 services:
     # default configuration for services in *this* file

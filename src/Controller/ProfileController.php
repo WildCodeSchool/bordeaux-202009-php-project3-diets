@@ -29,10 +29,12 @@ use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\UserRepository;
+use App\Service\Geocode\GeocodeService;
 use App\Service\MultiUpload\MultiUploadService;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenCage\Geocoder\Geocoder as Geocoder;
 use PhpParser\Node\Expr\AssignOp\Mul;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,6 +61,7 @@ class ProfileController extends AbstractController
         MultiUploadService $multiUploadService,
         StripeSubscribeService $stripeSubscribeService
     ): Response {
+
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -110,6 +113,8 @@ class ProfileController extends AbstractController
         $eventsOrganized = $this->getDoctrine()
             ->getRepository(RegisteredEvent::class)
             ->registeredEventOrganized($user);
+
+
 
 
         /*******************************************************************************************************/
@@ -233,6 +238,7 @@ class ProfileController extends AbstractController
 
 
 
+
         return $this->render('profile/edit.html.twig', [
             'form_visio' => $formVisio->createView(),
             'form_visio_payd' => $formVisioPayd->createView(),
@@ -267,6 +273,7 @@ class ProfileController extends AbstractController
         EntityManagerInterface $entityManager,
         User $user
     ): Response {
+
         if (!$user) {
             throw $this->createNotFoundException(
                 'No profile with id : ' . $user->getId() . ' found in user\'s table.'
@@ -283,9 +290,18 @@ class ProfileController extends AbstractController
         }
         $user = $userRepository->findOneBy(['id' => $id]);
 
+
+
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
+            $geocoder = new Geocoder($this->getParameter('api_geocode_key'));
+            $result = $geocoder->geocode($user->getAddress());
+            if ($result && $result['total_results'] > 0) {
+                $first = $result['results'][0];
+                $user->setLongitude($first['geometry']['lng']);
+                $user->setLatitude($first['geometry']['lat']);
+            }
             $this->getDoctrine()->getManager()->flush();
             if ($user->getRoles() === ['ROLE_USER']) {
                 return $this->redirectToRoute('profile_choice_role', ['id' => $id]);
