@@ -38,7 +38,7 @@ class MapController extends AbstractController
 
         foreach ($users as $user) {
 
-            $datas[] = ['Name' => $user->getUsername(), 'Lat' => rand(-90,90), 'Long' => rand(-180,180), 'id' => $user->getId(), 'divers' => $user->getAddress()];
+            $datas[] = ['Name' => $user->getUsername(), 'Lat' => $user->getLatitude(), 'Long' => $user->getLongitude(), 'id' => $user->getId(), 'divers' => $user->getAddress()];
         }
 
         return new JsonResponse($datas, 200);
