@@ -184,6 +184,9 @@
     "ondram/ci-detector": {
         "version": "3.5.1"
     },
+    "opencage/geocode": {
+        "version": "v3.0.1"
+    },
     "opis/closure": {
         "version": "3.6.0"
     },
