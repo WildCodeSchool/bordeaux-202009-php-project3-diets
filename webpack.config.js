@@ -36,6 +36,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('calendar', './assets/js/calendar/index.js')
+    .addEntry('stripe', './assets/js/stripe/index.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

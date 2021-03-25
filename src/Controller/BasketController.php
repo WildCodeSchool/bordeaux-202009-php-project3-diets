@@ -2,15 +2,14 @@
 
 namespace App\Controller;
 
-
 use App\Service\Basket\BasketService;
 use App\Service\Stripe\StripeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
 
 /**
  * @IsGranted ("ROLE_ENTERPRISE")
@@ -25,20 +24,28 @@ class BasketController extends AbstractController
     {
         $basketData = $basketService->getAllBasket();
 
-        $account = $stripeService->getAccountId();
-
         $total = $basketService->getTotal();
-
-        $publicKey = $this->getParameter('api_public_key');
-
-
 
         return $this->render('basket/index.html.twig', [
             'products' => $basketData,
             'total' => $total,
-            'account' => $account,
-            'public_key' => $publicKey,
         ]);
+    }
+
+    /**
+     * @Route("/jsonStripe", name="jsonStripe")
+     */
+    public function jsonStripe(BasketService $basketService, StripeService $stripeService): Response
+    {
+
+        $account = $stripeService->getAccountId();
+
+        $publicKey = $this->getParameter('api_public_key');
+
+        $datas = ['publickey' => $publicKey, 'account' => $account];
+
+
+        return new JsonResponse($datas, 200);
     }
 
     /**
@@ -59,6 +66,5 @@ class BasketController extends AbstractController
         $basketService->delete($id);
 
         return $this->redirectToRoute('basket_index');
-
     }
 }
