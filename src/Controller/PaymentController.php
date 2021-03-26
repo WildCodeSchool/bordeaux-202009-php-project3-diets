@@ -5,44 +5,33 @@ namespace App\Controller;
 use App\Entity\Resource;
 use App\Entity\SecuringPurchases;
 use App\Entity\Shopping;
-use App\Entity\User;
-use App\Repository\ResourceRepository;
-use App\Repository\SecuringPurchasesRepository;
 use App\Repository\UserRepository;
-use App\Service\Basket\BasketService;
 use App\Service\Stripe\StripeService;
 use App\Service\Stripe\StripeSubscribeService;
 use Doctrine\ORM\EntityManagerInterface;
-use http\Client;
 use Stripe\Price;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ServerBag;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Stripe\Stripe as Stripe;
 use Symfony\Component\Routing\Annotation\Route;
-use Stripe\Checkout\Session as CheckoutSession;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * @Route("/paiement", name="payment_")
  */
 class PaymentController extends AbstractController
 {
+    protected const NONE = 'NONE';
+    protected const FREELANCER_SUBSCRIBE = 'Abonnement Freelancer';
+    protected const COMPANY_SUBSCRIBE = 'Abonnement Société';
+
     /**
      * @Route("/valider", name="success")
      */
 
     public function success(
         SessionInterface $session,
-        StripeService $stripeService,
-        Request $request,
-        SecuringPurchasesRepository $securingPurchasesRepository,
-        BasketService $basketService,
-        ResourceRepository $resourceRepository,
         EntityManagerInterface $entityManager
     ): Response {
 
@@ -84,7 +73,7 @@ class PaymentController extends AbstractController
      * @Route("/inscription/valider/", name="register_success")
      */
 
-    public function RegisterSuccess(UserRepository $userRepository, EntityManagerInterface $entityManager)
+    public function registerSuccess(UserRepository $userRepository, EntityManagerInterface $entityManager)
     {
         $userRegister = $userRepository->findOneBy(['id' => $this->getUser()->getId()]);
         if (in_array('ROLE_DIETETICIAN', $userRegister->getRoles(), $strict = true)) {
@@ -92,17 +81,10 @@ class PaymentController extends AbstractController
             $entityManager->persist($userRegister);
             $entityManager->flush();
         }
-
-
-
         return $this->render('payment/register_success.html.twig', [
             'controller_name' => 'PaymentController',
         ]);
-
     }
-
-
-
 
     /**
      * @Route("/abonnement/valider/", name="subscription_success")
@@ -123,9 +105,8 @@ class PaymentController extends AbstractController
         $unitAmountFreelancer = Price::retrieve($freelancerPrice, []);
         $priceFreelancer = $unitAmountFreelancer['unit_amount'] / 100;
 
-
         $shopping = new Shopping();
-        $shopping->setName('S.O');
+        $shopping->setName(self::NONE);
         $shopping->setOwner('S.O');
         if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setAmount($priceFreelancer);
@@ -134,13 +115,12 @@ class PaymentController extends AbstractController
         }
         $shopping->setBuyer($this->getUser()->getUsername());
         if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
-            $shopping->setType('Abonnement Freelancer');
+            $shopping->setType(self::FREELANCER_SUBSCRIBE);
         } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
-            $shopping->setType('Abonnement Société');
+            $shopping->setType(self::COMPANY_SUBSCRIBE);
         }
             $entityManager->persist($shopping);
             $entityManager->flush();
-
 
         return $this->render('payment/subscription_success.html.twig', [
             'controller_name' => 'PaymentController',
