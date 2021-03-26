@@ -10,6 +10,7 @@
 /vendor/
 /.idea/
 /public/uploads/
+/web/test-coverage
 
 ###< symfony/framework-bundle ###
 
