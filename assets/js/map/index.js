@@ -1,4 +1,5 @@
-function Get(yourUrl) {
+function Get(yourUrl)
+{
     var Httpreq = new XMLHttpRequest(); // a new request
     Httpreq.open("GET", yourUrl, false);
     Httpreq.send(null);
@@ -6,7 +7,11 @@ function Get(yourUrl) {
 }
 
 var datas = JSON.parse(Get('/jsonMap'));
-console.log(datas);
+var datasCompany = datas[0];
+var datasFreelancer = datas[1];
+var datasDietetician = datas[2];
+
+
 
     // On initialise la latitude et la longitude de Paris (centre de la carte)
     var macarte = null;
@@ -21,17 +26,32 @@ console.log(datas);
     }).addTo(macarte);
 
 // Nous ajoutons des marqueurs
-   /* const datas = {
-        'User1': { "Name": 48.852969, "lon": 2.349903, "Pop": 'Toto' },
-        "User2": { "Name": 48.383, "lon": -4.500, "Pop": 'Toto' },
-        "User3": { "Name": 48.000, "lon": -4.100, "Pop": 'Quimper' },
-        "User4": { "Name": 43.500, "lon": -1.467, "Pop": 'Bayonne' }
-    };
-    console.log(datas["User1"].Name);*/
+    var iconCompany = L.icon({
+        iconUrl: 'build/images/bandit.svg',
 
+        iconSize:     [32, 32], // size of the icon
+        iconAnchor:   [22, 22], // point of the icon which will correspond to marker's location
+        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    });
 
-    for (data in datas) {
-        var marker = L.marker([datas[data].Lat, datas[data].Long]).addTo(macarte);
-        var name = datas[data].Name;
-        marker.bindPopup(name);
+    //Company
+    for (dataCompany in datasCompany) {
+        var markerCompany = L.marker([datasCompany[dataCompany].Lat, datasCompany[dataCompany].Long], { icon: iconCompany }).addTo(macarte);
+        var name = datasCompany[dataCompany].Name;
+        markerCompany.valueOf()._icon.style.color = 'green';
+        markerCompany.bindPopup(name);
+    }
+
+    //Freelancer
+    for (dataFreelancer in datasFreelancer) {
+        var markerFreelancer = L.marker([datasFreelancer[dataFreelancer].Lat, datasFreelancer[dataFreelancer].Long]).addTo(macarte);
+        var name = datasFreelancer[dataFreelancer].Name;
+        markerFreelancer.bindPopup(name);
+    }
+
+    //Dietetician
+    for (dataDietetician in datasDietetician) {
+        var markerDietetician = L.marker([datasDietetician[dataDietetician].Lat, datasDietetician[dataDietetician].Long]).addTo(macarte);
+        var name = datasDietetician[dataDietetician].Name;
+        markerDietetician.bindPopup(name);
     }
