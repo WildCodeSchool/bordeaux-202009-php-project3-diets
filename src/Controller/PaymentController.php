@@ -49,7 +49,7 @@ class PaymentController extends AbstractController
 
         $purchasedResource = '';
 
-        if (($token === $securingPurchase->getIdentifier()) && ($date < $securingPurchase->getExpirationAt())) {
+        if (($token === $securingPurchase->getIdentifier()) && ($date < $securingPurchase->getExpirationAt()) && ($shoppingId === $securingPurchase->getResource())) {
             $purchasedResource = $this->getDoctrine()
                 ->getRepository(Resource::class)
                 ->findOneBy(['id' => $shoppingId]);

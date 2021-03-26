@@ -42,6 +42,11 @@ class SecuringPurchases
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $resource;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,5 +96,17 @@ class SecuringPurchases
         $dateTime = new \DateTime();
         $dateTime->modify("+1 minutes");
         $this->expirationAt = $dateTime;
+    }
+
+    public function getResource(): ?string
+    {
+        return $this->resource;
+    }
+
+    public function setResource(string $resource): self
+    {
+        $this->resource = $resource;
+
+        return $this;
     }
 }
