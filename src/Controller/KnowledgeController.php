@@ -183,8 +183,6 @@ class KnowledgeController extends AbstractController
         $companiespublicity = $publicities[0];
         $freelancersPublicity = $publicities[1];
 
-        $userId = $this->getUser()->getId();
-
 
         return $this->render('knowledge/index.html.twig', [
             'resources_last_update' => $resourcesLastUpdate,
@@ -200,7 +198,6 @@ class KnowledgeController extends AbstractController
             'companies_publicity' => $companiespublicity,
             'freelancers_publicity' => $freelancersPublicity,
             'resources_with_next_visio' => $resourcesWithNextVisio,
-            'user_id' => $userId,
         ]);
     }
 

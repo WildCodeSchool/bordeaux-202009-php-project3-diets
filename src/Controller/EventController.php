@@ -74,8 +74,6 @@ class EventController extends AbstractController
         $companiespublicity = $publicities[0];
         $freelancersPublicity = $publicities[1];
 
-        $userId = $this->getUser()->getId();
-
         return $this->render('event/index.html.twig', [
             'form' => $formSearch->createView(),
             'events_search' => $eventSearch,
@@ -86,7 +84,6 @@ class EventController extends AbstractController
             'registered_events' => $registeredEventRepository->findAll(),
             'companies_publicity' => $companiespublicity,
             'freelancers_publicity' => $freelancersPublicity,
-            'user_id' => $userId
             ]);
     }
 

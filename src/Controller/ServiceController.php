@@ -75,8 +75,6 @@ class ServiceController extends AbstractController
         $companiespublicity = $publicities[0];
         $freelancersPublicity = $publicities[1];
 
-        $userId = $this->getUser()->getId();
-
 
         return $this->render('service/index.html.twig', [
             'form_service' => $formService->createView(),
@@ -87,7 +85,6 @@ class ServiceController extends AbstractController
             'companies_publicity' => $companiespublicity,
             'freelancers_publicity' => $freelancersPublicity,
             'path' => 'service_index',
-            'user_id' => $userId,
         ]);
     }
 
