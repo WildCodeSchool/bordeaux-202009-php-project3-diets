@@ -1,14 +1,14 @@
 
-    function Get(yourUrl) {
-        var Httpreq = new XMLHttpRequest(); // a new request
-        Httpreq.open("GET", yourUrl, false);
-        Httpreq.send(null);
-        return Httpreq.responseText;
-    }
+function Get(yourUrl) {
+    var Httpreq = new XMLHttpRequest(); // a new request
+    Httpreq.open("GET", yourUrl, false);
+    Httpreq.send(null);
+    return Httpreq.responseText;
+}
 
-    var datas = JSON.parse(Get('/panier/jsonStripe'));
-    var public_key = datas["publickey"];
-    var account = datas['account'];
+var datas = JSON.parse(Get('/panier/jsonStripe'));
+var public_key = datas["publickey"];
+var account = datas['account'];
 
 
     var stripe = Stripe(public_key, {

@@ -567,7 +567,7 @@ class ProfileController extends AbstractController
                 $user->setIsVerified(true);
                 $entityManager->persist($user);
                 $entityManager->flush();
-                //$stripe = $stripeService->createAccount($id);
+                $stripe = $stripeService->createAccount($id);
             }
             $dietetician->setUser($user);
             $entityManager->persist($dietetician);
