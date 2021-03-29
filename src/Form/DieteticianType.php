@@ -3,13 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Dietetician;
+use App\Entity\Expertise;
+use App\Entity\Specialization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DieteticianType extends AbstractType
 {
@@ -35,6 +37,14 @@ class DieteticianType extends AbstractType
                     'minlength' => 9,
                     'maxlength' => 9
                 ]
+            ])
+            ->add('specializations', EntityType::class, [
+                'class' => Specialization::class,
+                'required' => false,
+                'label' => 'Cochez si vous avez une ou des spécialisations ?',
+                'choice_label' => 'name',
+                'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }

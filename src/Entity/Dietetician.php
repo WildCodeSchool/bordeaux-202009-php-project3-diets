@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\DieteticianRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -47,6 +49,16 @@ class Dietetician
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Specialization::class, inversedBy="dietetician")
+     */
+    private $specializations;
+
+    public function __construct()
+    {
+        $this->specializations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -109,6 +121,33 @@ class Dietetician
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Specialization[]
+     */
+    public function getSpecializations(): Collection
+    {
+        return $this->specializations;
+    }
+
+    public function addSpecialization(Specialization $specialization): self
+    {
+        if (!$this->specializations->contains($specialization)) {
+            $this->specializations[] = $specialization;
+            $specialization->addDietetician($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpecialization(Specialization $specialization): self
+    {
+        if ($this->specializations->removeElement($specialization)) {
+            $specialization->removeDietetician($this);
+        }
 
         return $this;
     }

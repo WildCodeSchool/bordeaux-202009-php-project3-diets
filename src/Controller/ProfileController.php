@@ -232,12 +232,7 @@ class ProfileController extends AbstractController
 
         $publicKey = $this->getParameter('api_public_key');
 
-        $checkSubscription = $stripeSubscribeService->changeStatusForSubscriber();
-
-
-
-
-
+        $stripeSubscribeService->changeStatusForSubscriber();
 
         return $this->render('profile/edit.html.twig', [
             'form_visio' => $formVisio->createView(),

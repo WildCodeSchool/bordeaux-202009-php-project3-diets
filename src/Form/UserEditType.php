@@ -28,24 +28,11 @@ class UserEditType extends AbstractType
                 'label' => 'Email *',
                 'required' => true,
             ])
-           /* ->add('lastname', TextType::class, [
-                'label' => 'Nom *',
-                'required' => true,
-            ])
-            ->add('firstname', TextType::class, [
-                'label' => 'Prénom *',
-                'required' => true,
-            ])
-            */
             ->add('country', ChoiceType::class, [
                 'label' => 'Pays *',
                 'choices' => $countries,
                 'placeholder' => 'Faites votre choix',
             ])
-          /*  ->add('adeli', TextType::class, [
-                'label' => 'Numéro ADELI *',
-                'required' => false,
-            ])*/
             ->add('address', TextType::class, [
                 'label' => 'Adresse de votre cabinet',
                 'required' => false,
