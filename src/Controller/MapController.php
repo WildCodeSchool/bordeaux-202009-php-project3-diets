@@ -18,8 +18,10 @@ class MapController extends AbstractController
      */
     public function index(): Response
     {
+        $url = '/public/build/images/iconCompany.7fa76d36.png';
+
         return $this->render('map/index.html.twig', [
-            'controller_name' => 'MapController',
+            'url' => $url,
         ]);
     }
 

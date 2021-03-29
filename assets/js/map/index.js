@@ -10,13 +10,17 @@ var datas = JSON.parse(Get('/jsonMap'));
 var datasCompany = datas[0];
 var datasFreelancer = datas[1];
 var datasDietetician = datas[2];
-console.log(datasCompany, datasFreelancer, datasDietetician);
+
+//const test = document.getElementById('map-container');
+//var url = test.dataset.url;
+
 
 const all = document.getElementById('all');
 const filterCompany = document.getElementById('company');
 const filterFreelancer = document.getElementById('freelancer');
 const filterDietetician = document.getElementById('dietetician');
 const buttons = document.getElementsByClassName('btn');
+
 
 var markers = new L.LayerGroup();
 
@@ -31,18 +35,20 @@ var markers = new L.LayerGroup();
     // Il est toujours bien de laisser le lien vers la source des données
         attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
         minZoom: 2,
+        maxZoom: 18,
     }).addTo(macarte);
 
 // Nous ajoutons des marqueurs
-//var iconNew = L.icon({
-//    iconUrl: '/assets/images/iconCompany.png',
 
-//    iconSize:     [38, 95], // size of the icon
-//    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-//    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-//});
+//    var iconNew = L.icon({
+//        iconUrl: (url),
 
-//var markerNew = L.marker([0, 0], {icon: iconNew}).addTo(macarte);
+//        iconSize:     [38, 95], // size of the icon
+//        iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+//        popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+//    });
+
+//    var markerNew = L.marker([44.8749500, -0.5178200], { icon: iconNew }).addTo(macarte);
 
     macarte.addLayer(markers);
 

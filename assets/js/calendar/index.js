@@ -8,8 +8,7 @@ window.onload = () => {
         return Httpreq.responseText;
     }
 
-    var visios = JSON.parse(Get('/connaissances/jsonCalendar'));
-    console.log(visios);
+    var visios = JSON.parse(Get('/connaissances/jsonCalendar'))
 
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
