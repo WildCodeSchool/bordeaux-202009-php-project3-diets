@@ -8,5 +8,13 @@
     height: 800px;
     width: 1800px;
   }
+  .buttons-filters{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    button{
+      margin: 10px;
+    }
+  }
 }
 
