@@ -45,22 +45,28 @@ class MapController extends AbstractController
 
 
         foreach ($companies as $company) {
-            if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), $strict = true)) {
-                $datasCompany[] = ['Name' => $company->getName(), 'Lat' => $company->getUser()->getLatitude(), 'Long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
+            if (($company->getUser()->getLatitude() != null) && ($company->getUser()->getLongitude() != null)) {
+                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), $strict = true)) {
+                    $datasCompany[] = ['Name' => $company->getName(), 'Lat' => $company->getUser()->getLatitude(), 'Long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
+                }
             }
         }
 
         foreach ($freelancers as $freelancer) {
-            if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), $strict = true)) {
-                $datasFreelancer[] = ['Name' => $freelancer->getName(), 'Lat' => $freelancer->getUser()->getLatitude(), 'Long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
+            if (($freelancer->getUser()->getLatitude() != null) && ($freelancer->getUser()->getLongitude() != null)) {
+                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), $strict = true)) {
+                    $datasFreelancer[] = ['Name' => $freelancer->getName(), 'Lat' => $freelancer->getUser()->getLatitude(), 'Long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
+                }
             }
+
         }
 
         foreach ($dieteticians as $dietetician) {
-            /*if (!empty($dietetician->getSpecializations())) {
-                $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'FirstName' => $dietetician->getFirstname() ];
-            }*/
-            $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'FirstName' => $dietetician->getFirstname() ];
+            if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
+                if (!empty($dietetician->getSpecializations())) {
+                    $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'FirstName' => $dietetician->getFirstname() ];
+                }
+            }
         }
 
         $datas = [$datasCompany, $datasFreelancer, $datasDietetician];
