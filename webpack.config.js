@@ -39,6 +39,7 @@ Encore
     .addEntry('stripe', './assets/js/stripe/index.js')
     .addEntry('map', './assets/js/map/index.js')
     .addEntry('subscribe', './assets/js/stripe/subscribe.js')
+    .addEntry('profile-subscribe', './assets/js/stripe/profile_subscribe.js')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

@@ -49,11 +49,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            {% if is_granted ('ROLE_DIETETICIAN') %}
-                                                {% include '/component/_profil_register_modal.html.twig' %}
-                                            {% else %}
-                                                {% include '/component/_modal_user.html.twig' %}
-                                            {% endif %}
+                                            {% include '/component/_modal_button.html.twig' %}
                                         </div>
                                     </div>
                                 </div>
@@ -69,19 +65,15 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-body">
-                                            {% if is_granted ('ROLE_DIETETICIAN') %}
-                                                {% include '/component/_profil_register_modal.html.twig' %}
-                                            {% else %}
-                                                {% include '/component/_modal_user.html.twig' %}
-                                            {% endif %}
+                                            {% include '/component/_modal_button.html.twig' %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {% endif %}
-        <div class="profile-button-container d-flex flex-wrap justify-content-center">
+                   {% endif %}
+            <div class="profile-button-container d-flex flex-wrap justify-content-center">
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-knowledge">
                     <button type="button" class="knowledge-button" data-toggle="modal" data-target="#modalKnowledge">
@@ -116,8 +108,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
                 <div class="form-modal-service">
                     <button type="button" class="service-button" data-toggle="modal" data-target="#modalService">
@@ -151,7 +141,7 @@
                 </div>
             </div>
         </div>
-        {% else %}
+       {% else %}
         <div>Je propose :</div>
         <div class="profile-button-container d-flex flex-wrap justify-content-center ml-2">
             <div class="form-modal-event">
@@ -162,11 +152,7 @@
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                {% if is_granted ('ROLE_ENTERPRISE') %}
-                                    {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                {% else %}
-                                    {% include '/component/_modal_user.html.twig' %}
-                                {% endif %}
+                                {% include '/component/_modal_button.html.twig' %}
                             </div>
                         </div>
                     </div>
@@ -182,11 +168,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% if is_granted ('ROLE_ENTERPRISE') %}
-                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                    {% else %}
-                                        {% include '/component/_modal_user.html.twig' %}
-                                    {% endif %}
+                                    {% include '/component/_modal_button.html.twig' %}
                                 </div>
                             </div>
                         </div>
@@ -202,11 +184,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% if is_granted ('ROLE_ENTERPRISE') %}
-                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                    {% else %}
-                                        {% include '/component/_modal_user.html.twig' %}
-                                    {% endif %}
+                                    {% include '/component/_modal_button.html.twig' %}
                                 </div>
                             </div>
                         </div>
@@ -222,11 +200,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% if is_granted ('ROLE_ENTERPRISE') %}
-                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                    {% else %}
-                                        {% include '/component/_modal_user.html.twig' %}
-                                    {% endif %}
+                                    {% include '/component/_modal_button.html.twig' %}
                                 </div>
                             </div>
                         </div>
@@ -242,11 +216,7 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% if is_granted ('ROLE_ENTERPRISE') %}
-                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                    {% else %}
-                                        {% include '/component/_modal_user.html.twig' %}
-                                    {% endif %}
+                                    {% include '/component/_modal_button.html.twig' %}
                                 </div>
                             </div>
                         </div>
@@ -262,18 +232,14 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-body">
-                                    {% if is_granted ('ROLE_ENTERPRISE') %}
-                                        {% include '/component/_profil_subscribe_modal.html.twig' %}
-                                    {% else %}
-                                        {% include '/component/_modal_user.html.twig' %}
-                                    {% endif %}
+                                    {% include '/component/_modal_button.html.twig' %}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        {% endif %}
+       {% endif %}
     </div>
     <div class="container-fluid profile-main">
         <div class="row align-items-center justify-content-center">
@@ -318,10 +284,11 @@
             <a href="{{ path('payment_register_stripe', {'id': infos.id}) }}" class="btn mr-3">Accès à vos informations et compte Stripe pour vos virements</a>
             {% endif %}
             {% if is_granted('ROLE_ENTERPRISE') %}
-                {% if (is_granted('ROLE_COMPANY_SUBSCRIBER') or (is_granted('ROLE_FREELANCER_SUBSCRIBER')) or (is_granted('ROLE_DIETETICIAN'))) %}
+                {% if is_granted('ROLE_DIETETICIAN') %}
 
                     {% else %}
-                <a id="checkout-subscription" href="#" class="btn">S'abonner</a>
+                <a id="profile-checkout-subscription" href="#" class="btn">S'abonner</a>
+
                 {% endif %}
             {% endif %}
                 {% if is_granted ('ROLE_DIETETICIAN') %}
@@ -337,3 +304,6 @@
         </div>
     </div>
 </div>
+{% block javascripts %}
+    {{ encore_entry_script_tags('profile-subscribe') }}
+{% endblock %}
