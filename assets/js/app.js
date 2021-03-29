@@ -27,9 +27,9 @@ if (idPath == 1) {
 }else if (idPath == 2) {
         nav2.style.color = '#09B174';
 }else if(idPath == 3) {
-    nav3.style.color = '#09B174';
+        nav3.style.color = '#09B174';
 }else if(idPath == 4) {
         nav4.style.color = '#09B174';
 }else if(idPath == 5) {
-    nav5.style.color = '#09B174';
+        nav5.style.color = '#09B174';
 }
