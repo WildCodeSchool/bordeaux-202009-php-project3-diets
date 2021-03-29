@@ -137,6 +137,7 @@ class ProfileController extends AbstractController
                 $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
                 $entityManager->persist($newResource);
                 $entityManager->flush();
+                dd($newResource);
             }
         }
 
