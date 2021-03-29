@@ -102,6 +102,7 @@ class StripeService
         $newSecuringPurchase = new SecuringPurchases();
         $newSecuringPurchase->setIdentifier($token);
         $newSecuringPurchase->setUser($this->user);
+        $newSecuringPurchase->setResource($shoppingId);
         $this->entityManager->persist($newSecuringPurchase);
         $this->entityManager->flush();
 

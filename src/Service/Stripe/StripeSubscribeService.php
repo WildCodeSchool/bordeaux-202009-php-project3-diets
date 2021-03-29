@@ -72,6 +72,7 @@ class StripeSubscribeService
 
     public function createSubscription()
     {
+        $price = '';
         Stripe::setApiKey($this->params->get('api_key'));
 
         $customers = Customer::all();
@@ -80,6 +81,12 @@ class StripeSubscribeService
                 $customerId = $customer['id'];
             }
         }
+        if (in_array('ROLE_COMPANY', $this->user->getRoles(), $strict = true)) {
+            $price = $this->params->get('company_price');
+        }
+        if (in_array('ROLE_FREELANCER', $this->user->getRoles(), $strict = true)) {
+            $price = $this->params->get('freelancer_price');
+        }
 
         $stripe = new StripeClient($this->params->get('api_key'));
 
@@ -87,7 +94,7 @@ class StripeSubscribeService
             $session = Session::create([
                 'payment_method_types' => ['card'],
                 'line_items' => [[
-                    'price' => $this->params->get('company_price'),
+                    'price' => $price,
                     'quantity' => 1,
                     'tax_rates' => [$this->params->get('tva_key')],
                 ]],
@@ -100,7 +107,7 @@ class StripeSubscribeService
                 'customer' => $customerId,
                 'payment_method_types' => ['card'],
                 'line_items' => [[
-                    'price' => $this->params->get('company_price'),
+                    'price' => $price,
                     'quantity' => 1,
                     'tax_rates' => [$this->params->get('tva_key')],
                 ]],

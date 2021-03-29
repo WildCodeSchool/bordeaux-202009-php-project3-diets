@@ -3,13 +3,14 @@
 /.env.local
 /.env.local.php
 /.env.*.local
-/.env.test
+.env.test
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 /var/
 /vendor/
 /.idea/
 /public/uploads/
+/web/test-coverage
 
 ###< symfony/framework-bundle ###
 

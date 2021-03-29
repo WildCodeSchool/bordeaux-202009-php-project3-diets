@@ -1,4 +1,3 @@
-
 function Get(yourUrl) {
     var Httpreq = new XMLHttpRequest(); // a new request
     Httpreq.open("GET", yourUrl, false);
@@ -8,19 +7,14 @@ function Get(yourUrl) {
 
 var datas = JSON.parse(Get('/panier/jsonStripe'));
 var public_key = datas["publickey"];
-var account = datas['account'];
 
+var stripe = Stripe( public_key );
+var checkoutButton = document.getElementById('profile-checkout-subscription');
 
-    var stripe = Stripe(public_key, {
-    stripeAccount: account
-});
-    console.log(stripe);
-    var checkoutButton = document.getElementById('checkout-button');
-
-    checkoutButton.addEventListener('click', function() {
-    // Create a new Checkout Session using the server-side endpoint you
-    // created in step 3.
-    fetch('/paiement/creation-session/', {
+checkoutButton.addEventListener('click', function() {
+// Create a new Checkout Session using the server-side endpoint you
+// created in step 3.
+    fetch('/paiement/create-subscription/', {
         method: 'POST',
     })
         .then(function(response) {

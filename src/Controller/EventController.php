@@ -83,7 +83,7 @@ class EventController extends AbstractController
             'path' => 'event_index',
             'registered_events' => $registeredEventRepository->findAll(),
             'companies_publicity' => $companiespublicity,
-            'freelancers_publicity' => $freelancersPublicity
+            'freelancers_publicity' => $freelancersPublicity,
             ]);
     }
 
