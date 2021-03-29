@@ -14,12 +14,12 @@ class EventFormatFixtures extends Fixture
         $eventFormat = new EventFormat();
         $eventFormat->setFormat('formation ponctuelle');
         $manager->persist($eventFormat);
-        $this->addReference('event_format_3', $eventFormat);
+        $this->addReference('event_format_1', $eventFormat);
 
         $eventFormat = new EventFormat();
         $eventFormat->setFormat('formation annuelle');
         $manager->persist($eventFormat);
-        $this->addReference('event_format_4', $eventFormat);
+        $this->addReference('event_format_2', $eventFormat);
 
         $manager->flush();
     }

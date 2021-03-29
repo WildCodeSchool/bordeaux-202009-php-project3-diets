@@ -49,7 +49,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $event->setEventIsValidated( true);
             $event->setPrice($eventData['price']);
             $event->setUpdatedAt(new DateTime($eventData['updated_at']));
-            $event->setEventFormat($this->getReference('event_format_' . rand(1, 4)));
+            $event->setEventFormat($this->getReference('event_format_' . rand(1, 2)));
             $manager->persist($event);
             $this->addReference('event_' . $i, $event);
             $i++;
