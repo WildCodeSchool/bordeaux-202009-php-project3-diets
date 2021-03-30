@@ -23,13 +23,13 @@ const nav4 = document.getElementById('nav-4');
 const nav5 = document.getElementById('nav-5');
 
 if (idPath == 1) {
-        nav1.style.color = '#09B174';
-}else if (idPath == 2) {
-        nav2.style.color = '#09B174';
-}else if(idPath == 3) {
-        nav3.style.color = '#09B174';
-}else if(idPath == 4) {
-        nav4.style.color = '#09B174';
-}else if(idPath == 5) {
-        nav5.style.color = '#09B174';
+    nav1.style.color = '#09B174';
+} else if (idPath == 2) {
+    nav2.style.color = '#09B174';
+} else if (idPath == 3) {
+    nav3.style.color = '#09B174';
+} else if (idPath == 4) {
+    nav4.style.color = '#09B174';
+} else if (idPath == 5) {
+    nav5.style.color = '#09B174';
 }

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Company;
+use App\Entity\Contact;
 use App\Entity\Dietetician;
 use App\Entity\Event;
 use App\Entity\Freelancer;
@@ -290,12 +291,21 @@ class ProfileController extends AbstractController
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
-            $geocoder = new Geocoder($this->getParameter('api_geocode_key'));
-            $result = $geocoder->geocode($user->getAddress());
-            if ($result && $result['total_results'] > 0) {
-                $first = $result['results'][0];
-                $user->setLongitude($first['geometry']['lng']);
-                $user->setLatitude($first['geometry']['lat']);
+            try {
+                $geocoder = new Geocoder($this->getParameter('api_geocode_key'));
+                $result = $geocoder->geocode($user->getAddress());
+                if ($result && $result['total_results'] > 0) {
+                    $first = $result['results'][0];
+                    $user->setLongitude($first['geometry']['lng']);
+                    $user->setLatitude($first['geometry']['lat']);
+                }
+            } catch (\Exception $e) {
+                $contact = new Contact();
+                $contact->setLastname('Nous les Diets');
+                $contact->setEmail('interne@nouslesdiets.fr');
+                $contact->setMessage('Une erreur s\'est produite lors de l\'utilisation de GeoCoder');
+                $entityManager->persist($contact);
+                $entityManager->flush();
             }
             $this->getDoctrine()->getManager()->flush();
             if ($user->getRoles() === ['ROLE_USER']) {
