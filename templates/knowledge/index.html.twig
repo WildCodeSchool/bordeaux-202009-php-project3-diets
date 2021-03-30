@@ -366,10 +366,9 @@
                                         {% else %}
                                             {% for resourceFile in resource.resourceFiles %}
                                                 {% if resource.price == 0 %}
-                                                <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
+                                                    <a href="/uploads/resources/{{ resourceFile.name }}" target="_blank"><i class="{{ resource.resourceFormat.icon }}"></i></a>
                                                 {% else %}
-                                                    <p><a href="#" class="info"><i class="{{ resource.resourceFormat.icon }}"></i><span><iframe src="/uploads/resources/{{ resourceFile.name }}" frameborder="0"></iframe></span></a> </p>
-                                               {#  <i class="{{ resource.resourceFormat.icon }}"></i>#}
+                                                    <i class="{{ resource.resourceFormat.icon }}"></i>
                                                 {% endif %}
                                                 {% if is_granted('ROLE_ADMIN') %}
                                                     {% include '/knowledge/_delete_resourceFile.html.twig' %}
