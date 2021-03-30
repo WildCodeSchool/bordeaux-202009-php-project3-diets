@@ -15,6 +15,7 @@ use App\Entity\Shopping;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\CompanyType;
+use App\Form\DietEditType;
 use App\Form\DieteticianType;
 use App\Form\EventType;
 use App\Form\FreelancerType;
@@ -24,6 +25,7 @@ use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Form\VisioPaydType;
 use App\Form\VisioType;
+use App\Repository\DieteticianRepository;
 use App\Repository\EventRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
@@ -266,7 +268,8 @@ class ProfileController extends AbstractController
         int $id,
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
-        User $user
+        User $user,
+        DieteticianRepository $dieteticianRepository
     ): Response {
 
         if (!$user) {
@@ -285,8 +288,6 @@ class ProfileController extends AbstractController
         }
         $user = $userRepository->findOneBy(['id' => $id]);
 
-
-
         $formEditUser = $this->createForm(UserEditType::class, $user);
         $formEditUser->handleRequest($request);
         if ($formEditUser->isSubmitted() && $formEditUser->isValid()) {
@@ -297,7 +298,7 @@ class ProfileController extends AbstractController
                 $user->setLongitude($first['geometry']['lng']);
                 $user->setLatitude($first['geometry']['lat']);
             }
-            $this->getDoctrine()->getManager()->flush();
+            $entityManager->flush();
             if ($user->getRoles() === ['ROLE_USER']) {
                 return $this->redirectToRoute('profile_choice_role', ['id' => $id]);
             } else {
@@ -305,10 +306,24 @@ class ProfileController extends AbstractController
             }
         }
 
+        $diet = $dieteticianRepository->findOneBy(['id' => $id]);
+        dd($diet);
+
+        $formEditDiet = $this->createForm(DietEditType::class, $diet);
+        $formEditDiet->handleRequest($request);
+        if ($formEditDiet->isSubmitted() && $formEditDiet->isValid()) {
+            $entityManager->persist($diet);
+        }
+        $entityManager->flush();
+
+
+
+
 
         return $this->render('component/_profil_edit.html.twig', [
             'form_edit_user' => $formEditUser->createView(),
             'user' => $user,
+            'form_edit_diet' => $formEditDiet->createView()
         ]);
     }
 

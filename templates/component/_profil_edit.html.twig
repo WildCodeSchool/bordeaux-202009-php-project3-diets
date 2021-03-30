@@ -41,8 +41,20 @@
                     <div> {{ form_row(form_edit_user.phone) }} </div>
                     <div> {{ form_row(form_edit_user.website) }} </div>
                     <div> {{ form_row(form_edit_user.picture) }} </div>
+
+
                     <button type="submit" class="btn mt-5">Editer mon profil</button>
                     {{ form_end(form_edit_user) }}
+
+                    
+                    {% form_theme form_edit_diet 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_edit_diet) }}
+                    <div> {{ form_row(form_edit_diet.firstname) }} </div>
+                    <div> {{ form_row(form_edit_diet.lastname) }} </div>
+                    <div> {{ form_row(form_edit_diet.birthday) }} </div>
+                    <div> {{ form_row(form_edit_diet.adeli) }} </div>
+                    <div> {{ form_row(form_edit_diet.specializations) }} </div>
+                    {{ form_end(form_edit_diet)}}
                 </div>
             </div>
         </div>
