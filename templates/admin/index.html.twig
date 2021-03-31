@@ -48,33 +48,6 @@
                     </div>
                 </div>
             </div>
-            {# Voir avec Alexandra si on doit bien supprimer les expertises !!!! #}
-            {# <div class="col-3 border">
-                <div class="container d-flex justify-content-center mt-3 mb-5">
-                    {% form_theme form_expertise 'bootstrap_4_layout.html.twig' %}
-                    {{ form_start(form_expertise) }}
-                    {{ form_widget(form_expertise) }}
-                    <button type="submit" class="home-btn-second">Créer une expertise</button>
-                    {{ form_end(form_expertise) }}
-                </div>
-                <div class="block-list mt-5">
-                    <div>
-                        <h4>Les Expertises en ligne</h4>
-                    </div>
-                    <div class="text-center users-list">
-                         {% for expertise in expertises %}
-                                <div class="d-flex pb-1">
-                                    <p class="justify-content-start">{{ loop.index }}. {{ expertise.name }} </p>
-                                    {%  if expertise.users is empty%}
-                                        {{ include('component/formats/_delete_expertise.html.twig') }}
-                                    {% else %}
-
-                                    {% endif %}
-                                </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div> #}
             <div class="col-3 border">
                 <div class="container d-flex justify-content-center mt-3 mb-5">
                     {% form_theme form_resource_format 'bootstrap_4_layout.html.twig' %}
