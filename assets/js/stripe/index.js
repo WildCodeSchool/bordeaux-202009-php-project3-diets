@@ -14,7 +14,6 @@ var account = datas['account'];
     var stripe = Stripe(public_key, {
     stripeAccount: account
 });
-    console.log(stripe);
     var checkoutButton = document.getElementById('checkout-button');
 
     checkoutButton.addEventListener('click', function() {

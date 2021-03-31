@@ -18,8 +18,10 @@ class MapController extends AbstractController
      */
     public function index(): Response
     {
+        $url = '/public/build/images/iconCompany.7fa76d36.png';
+
         return $this->render('map/index.html.twig', [
-            'controller_name' => 'MapController',
+            'url' => $url,
         ]);
     }
 
@@ -27,19 +29,47 @@ class MapController extends AbstractController
      * @Route("/jsonMap", name="jsonMap")
      */
     public function jsonMap(
-        UserRepository $userRepository,
         CompanyRepository $companyRepository,
         FreelancerRepository $freelancerRepository,
         DieteticianRepository $dieteticianRepository
     ): JsonResponse {
 
         $datas = [];
-        $users = $userRepository->findAll();
+        $datasCompany = [];
+        $datasFreelancer = [];
+        $datasDietetician = [];
 
-        foreach ($users as $user) {
+        $companies = $companyRepository->findAll();
+        $freelancers = $freelancerRepository->findAll();
+        $dieteticians = $dieteticianRepository->findAll();
 
-            $datas[] = ['Name' => $user->getUsername(), 'Lat' => $user->getLatitude(), 'Long' => $user->getLongitude(), 'id' => $user->getId(), 'divers' => $user->getAddress()];
+
+        foreach ($companies as $company) {
+            if (($company->getUser()->getLatitude() != null) && ($company->getUser()->getLongitude() != null)) {
+                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), $strict = true)) {
+                    $datasCompany[] = ['Name' => $company->getName(), 'Lat' => $company->getUser()->getLatitude(), 'Long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
+                }
+            }
         }
+
+        foreach ($freelancers as $freelancer) {
+            if (($freelancer->getUser()->getLatitude() != null) && ($freelancer->getUser()->getLongitude() != null)) {
+                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), $strict = true)) {
+                    $datasFreelancer[] = ['Name' => $freelancer->getName(), 'Lat' => $freelancer->getUser()->getLatitude(), 'Long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
+                }
+            }
+
+        }
+
+        foreach ($dieteticians as $dietetician) {
+            if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
+                if (!empty($dietetician->getSpecializations())) {
+                    $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'FirstName' => $dietetician->getFirstname() ];
+                }
+            }
+        }
+
+        $datas = [$datasCompany, $datasFreelancer, $datasDietetician];
 
         return new JsonResponse($datas, 200);
     }

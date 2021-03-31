@@ -3,14 +3,12 @@ window.onload = () => {
 
     function Get(yourUrl){
         var Httpreq = new XMLHttpRequest(); // a new request
-        Httpreq.open("GET",yourUrl,false);
+        Httpreq.open('GET', yourUrl, false);
         Httpreq.send(null);
         return Httpreq.responseText;
     }
 
     var visios = JSON.parse(Get('/connaissances/jsonCalendar'));
-    console.log(visios);
-
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         defaultView: 'dayGridMonth',
@@ -24,6 +22,6 @@ window.onload = () => {
         locale: 'fr',
         events: visios,
 
-    })
+    });
     calendar.render();
-}
+};
