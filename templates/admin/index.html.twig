@@ -96,6 +96,32 @@
                     </div>
                 </div>
             </div>
+            <div class="col-3 border">
+                <div class="container d-flex justify-content-center mt-3 mb-5">
+                    {% form_theme form_specialization 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_specialization) }}
+                    {{ form_widget(form_specialization) }}
+                    <button type="submit" class="home-btn-second">Créer une nouvelle spécialisation</button>
+                    {{ form_end(form_specialization) }}
+                </div>
+                <div class="block-list mt-5">
+                    <div>
+                        <h4>Les Formats des spécialisations disponibles</h4>
+                    </div>
+                    <div class="text-center users-list">
+                        {% for specialization in specializations %}
+                            <div class="d-flex pb-1">
+                                <p href="#" class="justify-content-start">{{ loop.index }}. {{ specialization.name }} </p>
+                                {%  if specialization.dietetician is empty%}
+                                    {{ include('component/formats/_delete_specialization.html.twig') }}
+                                {% else %}
+
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="admin-create flex-column my-5">
             <div class="d-flex justify-content-center">

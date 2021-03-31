@@ -6,10 +6,13 @@ use App\Entity\Contact;
 use App\Entity\EventFormat;
 use App\Entity\Pathology;
 use App\Entity\ResourceFormat;
+use App\Entity\Specialization;
 use App\Entity\User;
 use App\Form\EventFormatType;
 use App\Form\PathologyType;
 use App\Form\ResourceFormatType;
+use App\Form\SpecializationType;
+use App\Repository\DieteticianRepository;
 use App\Repository\EventFormatRepository;
 use App\Repository\EventRepository;
 use App\Repository\PathologyRepository;
@@ -18,6 +21,7 @@ use App\Repository\ResourceFormatRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
 use App\Repository\ShoppingRepository;
+use App\Repository\SpecializationRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -41,7 +45,9 @@ class AdminController extends AbstractController
         ResourceFormatRepository $resourceFormatRepository,
         EventFormatRepository $eventFormatRepository,
         RegisteredEventRepository $registeredEventRepository,
-        ResourceRepository $resourceRepository
+        ResourceRepository $resourceRepository,
+        SpecializationRepository $specializationRepository,
+        DieteticianRepository $dieteticianRepository
     ): Response {
         $registeredUser = $userRepository->findAll();
 
@@ -92,6 +98,19 @@ class AdminController extends AbstractController
 
         $eventFormats = $eventFormatRepository->findAll();
 
+
+        $specialization = new Specialization();
+        $formSpecialization = $this->createForm(SpecializationType::class, $specialization);
+        $formSpecialization->handleRequest($request);
+        if ($formSpecialization->isSubmitted() && $formSpecialization->isValid()) {
+            $entityManager->persist($specialization);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'La nouvelle spécialisation a bien été créée');
+        }
+
+        $specializations = $specializationRepository->findAll();
+
         $allResourceFormats = [];
         $allUsedResourceFormat = [];
         $allEventFormats = [];
@@ -130,7 +149,9 @@ class AdminController extends AbstractController
             'events' => $eventRepository->findAll(),
             'services' => $serviceRepository->findAll(),
             'notUsedResourceFormats' => $notUsedResourceFormats,
-            'notUsedEventFormats' => $notUsedEventFormats
+            'notUsedEventFormats' => $notUsedEventFormats,
+            'specializations' => $specializations,
+            'form_specialization' => $formSpecialization->createView(),
         ]);
     }
 
@@ -276,6 +297,23 @@ class AdminController extends AbstractController
         }
         return $this->redirectToRoute('admin');
     }
+
+    /**
+     * @Route("/supprimer/specialisation/{id}", name="admin_delete_specialization", methods={"DELETE"})
+     *
+     */
+    public function deleteSpecialization(
+        Request $request,
+        Specialization $specialization
+    ): Response {
+        if ($this->isCsrfTokenValid('delete' . $specialization->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($specialization);
+            $entityManager->flush();
+        }
+        return $this->redirectToRoute('admin');
+    }
+
 
     /**
      * @Route("/administrateur/shopping/", name="admin_shopping")
