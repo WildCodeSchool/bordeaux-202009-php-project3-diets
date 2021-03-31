@@ -14,10 +14,12 @@ use App\Entity\ResourceFormat;
 use App\Entity\Shopping;
 use App\Entity\User;
 use App\Entity\Service;
+use App\Form\CompanyEditType;
 use App\Form\CompanyType;
 use App\Form\DietEditType;
 use App\Form\DieteticianType;
 use App\Form\EventType;
+use App\Form\FreelancerEditType;
 use App\Form\FreelancerType;
 use App\Form\ResourcePayingType;
 use App\Form\ResourceType;
@@ -25,8 +27,10 @@ use App\Form\ServiceType;
 use App\Form\UserEditType;
 use App\Form\VisioPaydType;
 use App\Form\VisioType;
+use App\Repository\CompanyRepository;
 use App\Repository\DieteticianRepository;
 use App\Repository\EventRepository;
+use App\Repository\FreelancerRepository;
 use App\Repository\PictureRepository;
 use App\Repository\ResourceRepository;
 use App\Repository\ServiceRepository;
@@ -269,8 +273,11 @@ class ProfileController extends AbstractController
         UserRepository $userRepository,
         EntityManagerInterface $entityManager,
         User $user,
-        DieteticianRepository $dieteticianRepository
-    ): Response {
+        DieteticianRepository $dieteticianRepository,
+        CompanyRepository $companyRepository,
+        FreelancerRepository $freelancerRepository
+    ): Response
+    {
 
         if (!$user) {
             throw $this->createNotFoundException(
@@ -302,28 +309,65 @@ class ProfileController extends AbstractController
             if ($user->getRoles() === ['ROLE_USER']) {
                 return $this->redirectToRoute('profile_choice_role', ['id' => $id]);
             } else {
-                return $this->redirectToRoute('profile_edit', ['id' => $id ]);
+                return $this->redirectToRoute('profile_edit', ['id' => $id]);
             }
         }
 
-        $diet = $dieteticianRepository->findOneBy(['id' => $id]);
-        dd($diet);
-
+        $diet = new Dietetician();
         $formEditDiet = $this->createForm(DietEditType::class, $diet);
-        $formEditDiet->handleRequest($request);
-        if ($formEditDiet->isSubmitted() && $formEditDiet->isValid()) {
-            $entityManager->persist($diet);
+
+        if (
+            in_array('ROLE_DIETETICIAN', $user->getRoles(), $strict = true)
+            || in_array('ROLE_DIETETICIAN_REGISTER', $user->getRoles(), $strict = true)
+            || in_array('ROLE_ADMIN', $user->getRoles(), $strict = true)
+        ) {
+            $diet = $dieteticianRepository->findOneBy(['id' => $user->getDietetician()->getId()]);
+            $formEditDiet = $this->createForm(DietEditType::class, $diet);
+            $formEditDiet->handleRequest($request);
+            if ($formEditDiet->isSubmitted() && $formEditDiet->isValid()) {
+                $entityManager->flush();
+                return $this->redirectToRoute('profile_edit', ['id' => $id]);
+            }
         }
-        $entityManager->flush();
 
+        $company = new Company();
+        $formEditCompany = $this->createForm(CompanyEditType::class, $company);
 
+        if (
+            in_array('ROLE_COMPANY', $user->getRoles(), $strict = true)
+            || in_array('ROLE_COMPANY_SUBSCRIBER', $user->getRoles(), $strict = true)
+        ) {
+            $company = $companyRepository->findOneBy(['id' => $user->getCompany()->getId()]);
+            $formEditCompany = $this->createForm(CompanyEditType::class, $company);
+            $formEditCompany->handleRequest($request);
+            if ($formEditCompany->isSubmitted() && $formEditCompany->isValid()) {
+                $entityManager->flush();
+                return $this->redirectToRoute('profile_edit', ['id' => $id]);
+            }
+        }
 
+        $freelancer = new Freelancer();
+        $formEditFreelancer = $this->createForm(FreelancerEditType::class, $freelancer);
 
+        if (
+            in_array('ROLE_FREELANCER', $user->getRoles(), $strict = true)
+            || in_array('ROLE_FREELANCER_SUBSCRIBER', $user->getRoles(), $strict = true)
+        ) {
+            $freelancer = $freelancerRepository->findOneBy(['id' => $user->getFreelancer()->getId()]);
+            $formEditFreelancer = $this->createForm(FreelancerEditType::class, $freelancer);
+            $formEditFreelancer->handleRequest($request);
+            if ($formEditFreelancer->isSubmitted() && $formEditFreelancer->isValid()) {
+                $entityManager->flush();
+                return $this->redirectToRoute('profile_edit', ['id' => $id]);
+            }
+        }
 
         return $this->render('component/_profil_edit.html.twig', [
             'form_edit_user' => $formEditUser->createView(),
             'user' => $user,
-            'form_edit_diet' => $formEditDiet->createView()
+            'form_edit_diet' => $formEditDiet->createView(),
+            'form_edit_company' => $formEditCompany->createView(),
+            'form_edit_freelancer' => $formEditFreelancer->createView()
         ]);
     }
 

@@ -2,26 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Company;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Freelancer;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CompanyType extends AbstractType
+class FreelancerEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom de votre entreprise',
+                'label' => 'Nom de votre auto-entreprise',
                 'required' => true,
 
             ])
@@ -33,7 +28,7 @@ class CompanyType extends AbstractType
                 ]
             ])
             ->add('description', TextareaType::class, [
-                'label' => 'Décrivez vos activités'
+                'label' => 'Decrivez vos activités d\'auto-entrepreneuriat'
             ])
         ;
     }
@@ -41,7 +36,7 @@ class CompanyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Company::class,
+            'data_class' => Freelancer::class,
         ]);
     }
 }

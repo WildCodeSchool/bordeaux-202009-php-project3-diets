@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer ton profil{% endblock %}
+{% block title %}Editer votre profil{% endblock %}
 
 {% block body %}
 
@@ -43,10 +43,7 @@
                     <div> {{ form_row(form_edit_user.picture) }} </div>
 
 
-                    <button type="submit" class="btn mt-5">Editer mon profil</button>
-                    {{ form_end(form_edit_user) }}
-
-                    
+                    {% if ('ROLE_DIETETICIAN' in app.user.roles) or ('ROLE_DIETETICIAN_REGISTER' in app.user.roles) or ('ROLE_ADMIN' in app.user.roles) %}
                     {% form_theme form_edit_diet 'bootstrap_4_layout.html.twig' %}
                     {{ form_start(form_edit_diet) }}
                     <div> {{ form_row(form_edit_diet.firstname) }} </div>
@@ -54,7 +51,37 @@
                     <div> {{ form_row(form_edit_diet.birthday) }} </div>
                     <div> {{ form_row(form_edit_diet.adeli) }} </div>
                     <div> {{ form_row(form_edit_diet.specializations) }} </div>
+                    {% endif %}
+
+                    {% if ('ROLE_COMPANY' in app.user.roles) or ('ROLE_COMPANY_SUBSCRIBER' in app.user.roles) %}
+                    {% form_theme form_edit_company 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_edit_company) }}
+                    {{ form_row(form_edit_company.name) }}
+                    {{ form_row(form_edit_company.siret) }}
+                    {{ form_row(form_edit_company.description) }}
+                    {% endif %}
+
+                    {% if ('ROLE_FREELANCER' in app.user.roles) or ('ROLE_FREELANCER_SUBSCRIBER' in app.user.roles) %}
+                    {% form_theme form_edit_freelancer 'bootstrap_4_layout.html.twig' %}
+                    {{ form_start(form_edit_freelancer) }}
+                    {{ form_row(form_edit_freelancer.name) }}
+                    {{ form_row(form_edit_freelancer.siret) }}
+                    {{ form_row(form_edit_freelancer.description) }}
+                    {% endif %}
+
+
+
+                    <button type="submit" class="btn mt-5">Editer mon profil</button>
+                    {% if ('ROLE_DIETETICIAN' in app.user.roles) or ('ROLE_DIETETICIAN_REGISTER' in app.user.roles) or ('ROLE_ADMIN' in app.user.roles) %}
                     {{ form_end(form_edit_diet)}}
+                    {% endif %}
+                    {% if ('ROLE_COMPANY' in app.user.roles) or ('ROLE_COMPANY_SUBSCRIBER' in app.user.roles) %}
+                    {{ form_end(form_edit_company) }}
+                    {% endif %}
+                    {% if ('ROLE_FREELANCER' in app.user.roles) or ('ROLE_FREELANCER_SUBSCRIBER' in app.user.roles) %}
+                    {{ form_end(form_edit_freelancer) }}
+                    {% endif %}
+                    {{ form_end(form_edit_user) }}
                 </div>
             </div>
         </div>

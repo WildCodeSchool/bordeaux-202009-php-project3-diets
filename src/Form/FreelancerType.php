@@ -31,7 +31,6 @@ class FreelancerType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Decrivez vos activités d\'auto-entrepreneuriat'
             ])
-            //->add('user')
         ;
     }
 
