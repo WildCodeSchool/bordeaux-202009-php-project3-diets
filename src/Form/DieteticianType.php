@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Dietetician;
-use App\Entity\Expertise;
 use App\Entity\Specialization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

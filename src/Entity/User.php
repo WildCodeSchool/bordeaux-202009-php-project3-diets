@@ -56,11 +56,6 @@ class User implements UserInterface
     private $website;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Expertise::class)
-     */
-    private $expertise;
-
-    /**
      * @ORM\OneToOne(targetEntity=Picture::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
@@ -127,7 +122,6 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->expertise = new ArrayCollection();
         $this->services = new ArrayCollection();
         $this->resources = new ArrayCollection();
         $this->registeredEvents = new ArrayCollection();
@@ -254,30 +248,6 @@ class User implements UserInterface
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Expertise[]
-     */
-    public function getExpertise(): Collection
-    {
-        return $this->expertise;
-    }
-
-    public function addExpertise(Expertise $expertise): self
-    {
-        if (!$this->expertise->contains($expertise)) {
-            $this->expertise[] = $expertise;
-        }
-
-        return $this;
-    }
-
-    public function removeExpertise(Expertise $expertise): self
-    {
-        $this->expertise->removeElement($expertise);
 
         return $this;
     }
@@ -510,6 +480,4 @@ class User implements UserInterface
 
         return $this;
     }
-
-
 }

@@ -63,7 +63,6 @@ class ProfileController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         User $user,
-        PictureRepository $pictureRepository,
         SessionInterface $session,
         MultiUploadService $multiUploadService,
         StripeSubscribeService $stripeSubscribeService
@@ -77,11 +76,6 @@ class ProfileController extends AbstractController
             $userInfos = $this->getDoctrine()
                 ->getRepository(User::class)
                 ->findBy(['id' => $user->getId()]);
-            $expertises = "";
-            foreach ($userInfos[0]->getExpertise() as $expertise) {
-                $expertises = $expertises . $expertise->getname() . ', ';
-            }
-            $expertises = substr($expertises, 0, -2);
         }
         if ($this->getUser()->getId() !== $userInfos[0]->getId()) {
             throw $this->createNotFoundException(
@@ -247,8 +241,6 @@ class ProfileController extends AbstractController
             'events_organized' => $eventsOrganized,
             'services' => $service,
             'user_infos' => $userInfos[0],
-            'expertises' => $expertises,
-            /*'events_and_participants' => $eventsAndParticipantsArray,*/
             'form_service' => $formService->createView(),
             'form_event' => $formEvent->createView(),
             'resources' => $resources,
