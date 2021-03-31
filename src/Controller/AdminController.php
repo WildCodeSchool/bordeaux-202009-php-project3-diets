@@ -4,17 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Entity\EventFormat;
-use App\Entity\Expertise;
 use App\Entity\Pathology;
 use App\Entity\ResourceFormat;
 use App\Entity\User;
 use App\Form\EventFormatType;
-use App\Form\ExpertiseType;
 use App\Form\PathologyType;
 use App\Form\ResourceFormatType;
 use App\Repository\EventFormatRepository;
 use App\Repository\EventRepository;
-use App\Repository\ExpertiseRepository;
 use App\Repository\PathologyRepository;
 use App\Repository\RegisteredEventRepository;
 use App\Repository\ResourceFormatRepository;
@@ -41,7 +38,6 @@ class AdminController extends AbstractController
         EntityManagerInterface $entityManager,
         Request $request,
         PathologyRepository $pathologyRepository,
-        ExpertiseRepository $expertiseRepository,
         ResourceFormatRepository $resourceFormatRepository,
         EventFormatRepository $eventFormatRepository,
         RegisteredEventRepository $registeredEventRepository,
@@ -68,18 +64,6 @@ class AdminController extends AbstractController
         }
 
         $pathologies = $pathologyRepository->findAll();
-
-        $expertise = new Expertise();
-        $formExpertise = $this->createForm(ExpertiseType::class, $expertise);
-        $formExpertise->handleRequest($request);
-        if ($formExpertise->isSubmitted() && $formExpertise->isValid()) {
-            $entityManager->persist($expertise);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'L\'expertise a bien été créée');
-        }
-
-        $expertises = $expertiseRepository->findAll();
 
         $resourceFormat = new ResourceFormat();
         $formResourceFormat = $this->createForm(ResourceFormatType::class, $resourceFormat);
@@ -138,8 +122,6 @@ class AdminController extends AbstractController
             'service_for_validation' => $approveService,
             'form' => $form->createView(),
             'pathologies' => $pathologies,
-            'form_expertise' => $formExpertise->createView(),
-            'expertises' => $expertises,
             'form_resource_format' => $formResourceFormat->createView(),
             'formats' => $resourceFormats,
             'form_event_format' => $formEventFormat->createView(),
@@ -264,22 +246,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer/expertise/{id}", name="admin_delete_expertise", methods={"DELETE"})
-     *
-     */
-    public function deleteExpertise(
-        Request $request,
-        Expertise $expertise
-    ): Response {
-        if ($this->isCsrfTokenValid('delete' . $expertise->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($expertise);
-            $entityManager->flush();
-        }
-        return $this->redirectToRoute('admin');
-    }
-
-    /**
      * @Route("/supprimer/formatRessource/{id}", name="admin_delete_resourceFormat", methods={"DELETE"})
      *
      */
@@ -339,8 +305,6 @@ class AdminController extends AbstractController
                 $companyNumberSubscription--;
             }
         }
-
-
 
         return $this->render('admin/shopping.html.twig', [
             'shopping' => $shopping,
