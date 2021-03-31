@@ -248,5 +248,52 @@
 
 
         </div>
+
+        <div class="admin-create flex-column my-5">
+            <div class="d-flex justify-content-center">
+                <h4>Liste des ressources à valider </h4>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="row text-center users-list col-9">
+                    {% for resource in resource_for_validation %}
+                        <div class="col-4">
+                            <div class="d-flex pb-1">
+                                <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ resource.name }}</p>
+                                    <br> Posté par:
+                                    {% set infos = resource.user %}
+                                    {% include '/component/_name_for_all_role.html.twig' %} </a>
+                                <form method="post" action="{{ path('valid_resource') }}"><input type="hidden" value="{{ resource.id }}" name="resource"><button>Ok</button></form>
+                                <br>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="admin-create flex-column my-5">
+                <div class="d-flex justify-content-center">
+                    <h4>Liste des resources </h4>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <div class="row text-center users-list col-9">
+                        {% for resource in resources %}
+                            <div class="col-4">
+                                <div class="d-flex pb-1">
+                                    {% include '/knowledge/_delete_knowledge.html.twig' %}
+                                    <a href="{{ path('profile_resource_edit', {'id': resource.id}) }}" class="justify-content-start user-link"><p class="font-weight-bold">{{ loop.index}}. {{ resource.name }}</p>
+                                        <br> Posté par :
+                                        {% set infos = resource.user %}
+                                        {% include '/component/_name_for_all_role.html.twig' %}
+                                    </a>
+                                    <br>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 {% endblock %}

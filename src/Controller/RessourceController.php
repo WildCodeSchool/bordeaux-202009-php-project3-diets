@@ -43,6 +43,7 @@ class RessourceController extends AbstractController
 
         $resourcesLastUpdate = $resourceRepository->findBy(
             [
+                'isValidated' => 'true',
             ],
             [
                 'updatedAt' => 'DESC'

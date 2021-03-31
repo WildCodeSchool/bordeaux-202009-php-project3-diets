@@ -57,6 +57,9 @@ class AdminController extends AbstractController
         $approveService = $serviceRepository->findBy(
             ['serviceIsValidated' => 0]
         );
+        $approveResource = $resourceRepository->findBy(
+            ['isValidated' => 0]
+        );
 
         $pathology = new Pathology();
         $form = $this->createForm(PathologyType::class, $pathology);
@@ -152,6 +155,8 @@ class AdminController extends AbstractController
             'notUsedEventFormats' => $notUsedEventFormats,
             'specializations' => $specializations,
             'form_specialization' => $formSpecialization->createView(),
+            'resource_for_validation' => $approveResource,
+            'resources' => $resourceRepository->findAllValidated()
         ]);
     }
 
@@ -187,6 +192,24 @@ class AdminController extends AbstractController
         $entityManager->flush();
 
         $this->addFlash('success', 'Service validé');
+        return $this->redirectToRoute('admin');
+    }
+
+    /**
+     * @Route("/administrateur/resource/", methods={"POST"}, name="valid_resource")
+     *
+     */
+    public function validResource(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        ResourceRepository $resourceRepository
+    ): Response {
+        $resource = $resourceRepository->find($request->get('resource'));
+        $resource->setIsValidated(true);
+        $entityManager->persist($resource);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Ressource validée');
         return $this->redirectToRoute('admin');
     }
 

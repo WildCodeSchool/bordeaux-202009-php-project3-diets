@@ -7,6 +7,9 @@
         <div class="card-container justify-content-center">
             <div>
                 {% include '/component/_card.html.twig' %}
+                {% if resource.isValidated is same as false %}
+                    <p class="text-center">En attente de validation par l'administrateur</p>
+                {% endif %}
                 {% if resources_purchased_count[resource.id] is defined %}
                 <p>Achetée {{ resources_purchased_count[resource.id] }} fois</p>
                 {% endif %}

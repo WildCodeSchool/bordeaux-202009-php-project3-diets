@@ -134,6 +134,7 @@ class ProfileController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResource->setUser($this->getUser());
+                $newResource->setIsValidated(false);
                 $newResource->setPrice(0);
                 $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
                 $entityManager->persist($newResource);
@@ -149,6 +150,7 @@ class ProfileController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResourcePayd->setUser($this->getUser());
+                $newResourcePayd->setIsValidated(false);
                 $newResourcePayd = $multiUploadService
                     ->createMultiUploadToResource($formResourcePayd, $newResourcePayd);
                 $entityManager->persist($newResourcePayd);
@@ -269,8 +271,7 @@ class ProfileController extends AbstractController
         DieteticianRepository $dieteticianRepository,
         CompanyRepository $companyRepository,
         FreelancerRepository $freelancerRepository
-    ): Response
-    {
+    ): Response {
 
         if (!$user) {
             throw $this->createNotFoundException(
