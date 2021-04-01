@@ -8,8 +8,14 @@
                         alt="..."
                 />
             {% endif %}
-            {% if (service is defined) and (service.pictures[0] is defined) %}
-                        <img class="card-img" src="/uploads/pictures/{{ service.pictures[0].name }}" alt='{{ service.pictures[0].name }}'/>
+            {% if service is defined %}
+                {% if service.user.picture is not null %}
+                    {% dump(service.user.picture.name) %}
+                    <img class="card-img" src="/uploads/pictures/{{ service.user.picture.name }}" alt='{{ service.user.picture.name }}'/>
+                {% else %}
+                    {% dump(service.user.picture) %}
+                    <img class="card-img" src="/uploads/ServicePicture.jpg" alt='logo'/>
+                {% endif %}
             {% endif %}
             {% if (event_organized is defined) and (event_organized.event.pictures[0] is defined)%}
                 <img class="card-img" src="/uploads/pictures/{{ event_organized.event.pictures[0].name }}" alt='{{ event_organized.event.pictures[0].name }}'/>
