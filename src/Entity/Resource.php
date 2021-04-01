@@ -85,6 +85,11 @@ class Resource
      */
     private $date_end;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValidated;
+
     public function __construct()
     {
         $this->pathology = new ArrayCollection();
@@ -283,6 +288,18 @@ class Resource
     public function setDateEnd(?\DateTimeInterface $date_end): self
     {
         $this->date_end = $date_end;
+
+        return $this;
+    }
+
+    public function getIsValidated(): ?bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $isValidated): self
+    {
+        $this->isValidated = $isValidated;
 
         return $this;
     }

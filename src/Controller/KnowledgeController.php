@@ -102,6 +102,7 @@ class KnowledgeController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResource->setUser($this->getUser());
+                $newResource->setIsValidated(false);
                 $newResource = $multiUploadService->createMultiUploadToResource($formResource, $newResource);
                 $entityManager->persist($newResource);
                 $entityManager->flush();
@@ -157,7 +158,7 @@ class KnowledgeController extends AbstractController
         $formResourcePayd = $this->createForm(ResourcePayingType::class, $newResourcePayd);
         $formResourcePayd->handleRequest($request);
         if ($formResourcePayd->isSubmitted() && $formResourcePayd->isValid()) {
-            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])){
+            if (($newResourcePayd->getLink() === null) && ($formResourcePayd->get('resourceFiles')->getData() === [])) {
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResourcePayd->setUser($this->getUser());
@@ -214,7 +215,7 @@ class KnowledgeController extends AbstractController
             $entityManager->remove($resource);
             $entityManager->flush();
         }
-        return $this->redirectToRoute('knowledge_index');
+        return $this->redirectToRoute('admin');
     }
 
     /**

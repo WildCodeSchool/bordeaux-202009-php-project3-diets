@@ -117,7 +117,9 @@ class ResourceRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('r')
             ->where('r.date_start >= :datecourant OR r.date_start IS NULL')
+            ->andWhere('r.isValidated LIKE :validated')
             ->setParameter('datecourant', new \DateTime('now'))
+            ->setParameter('validated', true)
             ->orderBy('r.updatedAt', 'DESC');
 
         return $queryBuilder->getQuery()->getResult();
@@ -129,5 +131,10 @@ class ResourceRepository extends ServiceEntityRepository
             ->where('r.date_start IS NOT NULL');
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function findAllValidated()
+    {
+        return $this->findBy(['isValidated' => 1]);
     }
 }
