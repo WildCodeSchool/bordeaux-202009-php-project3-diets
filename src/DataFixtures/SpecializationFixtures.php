@@ -15,6 +15,19 @@ class SpecializationFixtures extends Fixture
         'FODMAP',
         'Langue des Signes Françaises (LSF)',
         'Braille',
+        'Chinois',
+        'Espagnol',
+        'Anglais',
+        'Hindi',
+        'Arabe',
+        'Portugais',
+        'Bengali',
+        'Russe',
+        'Japonais',
+        'Turc',
+        'Allemand',
+        'Italien',
+        'Roumain'
     ];
 
     public function load(ObjectManager $objectManager)
