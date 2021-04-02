@@ -99,11 +99,12 @@ filterDietetician.addEventListener('click', () => {
     for (dataDietetician in datasDietetician) {
         var markerDietetician = L.marker([datasDietetician[dataDietetician].Lat, datasDietetician[dataDietetician].Long]).addTo(markers);
         var nameDietetician = datasDietetician[dataDietetician].Name;
-        var firstnameDietetician = datasDietetician[dataDietetician].FirstName;
+        var specializationDietetician = datasDietetician[dataDietetician].Specializations;
+        console.log(specializationDietetician);
         var popup = L.popup()
             .setContent('<div class="popup">'
                 + '<h3>' + nameDietetician + '</h3>'
-                + '<p><b>' + firstnameDietetician + '</b><br>'
+                + '<p><b>' + specializationDietetician + '</b><br>'
                 + '</p>'
                 + '</div>');
         markerDietetician.bindPopup(popup);
@@ -140,11 +141,11 @@ all.addEventListener('click', () => {
     for (dataDietetician in datasDietetician) {
         var markerDietetician = L.marker([datasDietetician[dataDietetician].Lat, datasDietetician[dataDietetician].Long]).addTo(markers);
         var nameDietetician = datasDietetician[dataDietetician].Name;
-        var firstnameDietetician = datasDietetician[dataDietetician].FirstName;
+        var specializationDietetician = datasDietetician[dataDietetician].Specializations;
         var popupDietetician = L.popup()
             .setContent('<div class="popup">'
                 + '<h3>' + nameDietetician + '</h3>'
-                + '<p><b>' + firstnameDietetician + '</b><br>'
+                + '<p><b>' + specializationDietetician + '</b><br>'
                 + '</p>'
                 + '</div>');
         markerDietetician.bindPopup(popupDietetician);
