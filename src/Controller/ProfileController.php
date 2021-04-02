@@ -166,6 +166,7 @@ class ProfileController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
             } else {
                 $visio->setUser($this->getUser());
+                $visio->setIsValidated(false);
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([
@@ -189,6 +190,7 @@ class ProfileController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
             } else {
                 $visioPayd->setUser($this->getUser());
+                $visioPayd->setIsValidated(false);
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([

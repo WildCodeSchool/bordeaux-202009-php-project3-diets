@@ -117,6 +117,7 @@ class KnowledgeController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
             } else {
                 $visio->setUser($this->getUser());
+                $visio->setIsValidated(false);
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([
@@ -139,6 +140,7 @@ class KnowledgeController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre un lien pour la visioconférence.');
             } else {
                 $visioPayd->setUser($this->getUser());
+                $visioPayd->setIsValidated(false);
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([
@@ -162,6 +164,7 @@ class KnowledgeController extends AbstractController
                 $this->addFlash('danger', 'Vous avez oublié de joindre des documents ou un lien');
             } else {
                 $newResourcePayd->setUser($this->getUser());
+                $newResourcePayd->setIsValidated(false);
                 $newResourcePayd = $multiUploadService
                     ->createMultiUploadToResource($formResourcePayd, $newResourcePayd);
                 $entityManager->persist($newResourcePayd);
