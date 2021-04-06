@@ -73,8 +73,6 @@ filterCompany.addEventListener('click', () => {
     filterCompany.classList.add('active');
 });
 
-
-
 filterFreelancer.addEventListener('click', () => {
     markers.clearLayers();
     resetButtons();
@@ -96,13 +94,18 @@ filterFreelancer.addEventListener('click', () => {
 filterDietetician.addEventListener('click', () => {
     markers.clearLayers();
     resetButtons();
+
     for (dataDietetician in datasDietetician) {
         var markerDietetician = L.marker([datasDietetician[dataDietetician].Lat, datasDietetician[dataDietetician].Long]).addTo(markers);
         var nameDietetician = datasDietetician[dataDietetician].Name;
         var specializationDietetician = datasDietetician[dataDietetician].Specialization;
         var popup = L.popup()
             .setContent('<div class="popup">'
-                + '<h3>' + nameDietetician + '</h3>'
+                + '<button class="test">'
+                + '<h3>'
+                + nameDietetician
+                + '</h3>'
+                + '</button>'
                 + '<p><b>' + specializationDietetician + '</b><br>'
                 + '</p>'
                 + '</div>');
