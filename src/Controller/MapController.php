@@ -61,12 +61,16 @@ class MapController extends AbstractController
         }
 
         foreach ($dieteticians as $dietetician) {
-            $dietSpecializations = $dietetician->getSpecializations();
-            foreach ($dietSpecializations as $dietSpecialization) {
-                if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
-                        $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'Specialization' => $dietetician->getSpecializations()];
-                }
+            $specializations = $dietetician->getSpecializations()->toArray();
+            if (isset($specializations)) {
+                    if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
+                        foreach ($specializations as $specialization) {
+                            $arraySpecializations[] = $specialization->getName();
+                        }
+                            $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'Specialization' => $arraySpecializations];
+                    }
             }
+
         }
 
         $datas = [$datasCompany, $datasFreelancer, $datasDietetician];
