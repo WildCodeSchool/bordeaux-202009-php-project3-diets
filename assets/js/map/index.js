@@ -63,14 +63,24 @@ filterCompany.addEventListener('click', () => {
         var nameCompany = datasCompany[dataCompany].Name;
         var descriptionCompany = datasCompany[dataCompany].description;
         var popup = L.popup()
-            .setContent('<div class="popup">' +
-                '<h3>' + nameCompany + '</\h3>' +
-                '<p><b>' + descriptionCompany + '</b><br>' +
-                '</\p>' +
-                '</\div>');
+            .setContent('<div class="popup">'
+                + '<button id="companyButton">'
+                + '<h3>'
+                + nameCompany
+                + '</h3>'
+                + '</button>'
+                + '<p><b>' + descriptionCompany + '</b><br>'
+                + '</\p>'
+                + '</\div>');
         markerCompany.bindPopup(popup);
     }
     filterCompany.classList.add('active');
+    var idCompany = datasCompany[dataCompany].id;
+    markerCompany.addEventListener('click', (event) => {
+        document.getElementById('companyButton').addEventListener('click', (event) => {
+            document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
+        });
+    });
 });
 
 filterFreelancer.addEventListener('click', () => {
@@ -79,16 +89,26 @@ filterFreelancer.addEventListener('click', () => {
     for (dataFreelancer in datasFreelancer) {
         var markerFreelancer = L.marker([datasFreelancer[dataFreelancer].Lat, datasFreelancer[dataFreelancer].Long]).addTo(markers);
         var nameFreelancer = datasFreelancer[dataFreelancer].Name;
-        var descriptionFreelancer = datasCompany[dataCompany].description;
-        var popup = L.popup()
+        var descriptionFreelancer = datasFreelancer[dataFreelancer].description;
+        var popupFreelancer = L.popup()
             .setContent('<div class="popup">'
-                + '<h3>' + nameFreelancer + '</h3>'
+                + '<button id="freelancerButton">'
+                + '<h3>'
+                + nameFreelancer
+                + '</h3>'
+                + '</button>'
                 + '<p><b>' + descriptionFreelancer + '</b><br>'
                 + '</p>'
                 + '</div>');
-        markerFreelancer.bindPopup(popup);
+        markerFreelancer.bindPopup(popupFreelancer);
     }
     filterFreelancer.classList.add('active');
+    var idFreelancer = datasFreelancer[dataFreelancer].id;
+    markerFreelancer.addEventListener('click', (event) => {
+        document.getElementById('freelancerButton').addEventListener('click', (event) => {
+            document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
+        });
+    });
 });
 
 filterDietetician.addEventListener('click', () => {
@@ -101,7 +121,7 @@ filterDietetician.addEventListener('click', () => {
         var specializationDietetician = datasDietetician[dataDietetician].Specialization;
         var popup = L.popup()
             .setContent('<div class="popup">'
-                + '<button class="test">'
+                + '<button id="dieteticianButton">'
                 + '<h3>'
                 + nameDietetician
                 + '</h3>'
@@ -112,6 +132,12 @@ filterDietetician.addEventListener('click', () => {
         markerDietetician.bindPopup(popup);
     }
     filterDietetician.classList.add('active');
+    var idDietetician = datasDietetician[dataDietetician].id;
+    markerDietetician.addEventListener('click', (event) => {
+        document.getElementById('dieteticianButton').addEventListener('click', (event) => {
+            document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
+        });
+    });
 });
 
 all.addEventListener('click', () => {
@@ -122,23 +148,43 @@ all.addEventListener('click', () => {
         var descriptionCompany = datasCompany[dataCompany].description;
         var popupCompany = L.popup()
             .setContent('<div class="popup">'
-                + '<h3>' + nameCompany + '</h3>'
+                + '<button id="companyButton">'
+                + '<h3>'
+                + nameCompany
+                + '</h3>'
+                + '</button>'
                 + '<p><b>' + descriptionCompany + '</b><br>'
                 + '</p>'
                 + '</div>');
         markerCompany.bindPopup(popupCompany);
+        var idCompany = datasCompany[dataCompany].id;
+        markerCompany.addEventListener('click', (event) => {
+            document.getElementById('companyButton').addEventListener('click', (event) => {
+                document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
+            });
+        });
     }
     for (dataFreelancer in datasFreelancer) {
         var markerFreelancer = L.marker([datasFreelancer[dataFreelancer].Lat, datasFreelancer[dataFreelancer].Long]).addTo(markers);
         var nameFreelancer = datasFreelancer[dataFreelancer].Name;
-        var descriptionFreelancer = datasCompany[dataCompany].description;
+        var descriptionFreelancer = datasFreelancer[dataFreelancer].description;
         var popupFreelancer = L.popup()
             .setContent('<div class="popup">'
-                + '<h3>' + nameFreelancer + '</h3>'
+                + '<button id="freelancerButton">'
+                + '<h3>'
+                + nameFreelancer
+                + '</h3>'
+                + '</button>'
                 + '<p><b>' + descriptionFreelancer + '</b><br>'
                 + '</p>'
                 + '</div>');
         markerFreelancer.bindPopup(popupFreelancer);
+        var idFreelancer = datasFreelancer[dataFreelancer].id;
+        markerFreelancer.addEventListener('click', (event) => {
+            document.getElementById('freelancerButton').addEventListener('click', (event) => {
+                document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
+            });
+        });
     }
     for (dataDietetician in datasDietetician) {
         var markerDietetician = L.marker([datasDietetician[dataDietetician].Lat, datasDietetician[dataDietetician].Long]).addTo(markers);
@@ -146,11 +192,21 @@ all.addEventListener('click', () => {
         var specializationDietetician = datasDietetician[dataDietetician].Specialization;
         var popup = L.popup()
             .setContent('<div class="popup">'
-                + '<h3>' + nameDietetician + '</h3>'
+                + '<button id="dieteticianButton">'
+                + '<h3>'
+                + nameDietetician
+                + '</h3>'
+                + '</button>'
                 + '<p><b>' + specializationDietetician + '</b><br>'
                 + '</p>'
                 + '</div>');
         markerDietetician.bindPopup(popup);
     }
     all.classList.add('active');
+    var idDietetician = datasDietetician[dataDietetician].id;
+    markerDietetician.addEventListener('click', (event) => {
+        document.getElementById('dieteticianButton').addEventListener('click', (event) => {
+            document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
+        });
+    });
 });
