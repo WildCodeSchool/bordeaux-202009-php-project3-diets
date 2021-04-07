@@ -51,6 +51,7 @@ class VisioType extends AbstractType
             ->add('dateStart', DateTimeType::class, [
                 'label' => 'Début',
                 'data'   => new \DateTime(),
+                'date_widget' => 'single_text',
                 'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
                 'years' => range(2021, 2040, 1),
                 'required' => false,
@@ -58,6 +59,7 @@ class VisioType extends AbstractType
             ->add('dateEnd', DateTimeType::class, [
                 'label' => 'Fin',
                 'data'   => new \DateTime(),
+                'date_widget' => 'single_text',
                 'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
                 'years' => range(2021, 2040, 1),
                 'required' => false,
