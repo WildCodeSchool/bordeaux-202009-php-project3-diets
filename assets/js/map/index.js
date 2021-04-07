@@ -73,14 +73,14 @@ filterCompany.addEventListener('click', () => {
                 + '</\p>'
                 + '</\div>');
         markerCompany.bindPopup(popup);
+        var idCompany = datasCompany[dataCompany].id;
+        markerCompany.addEventListener('click', (event) => {
+            document.getElementById('companyButton').addEventListener('click', (event) => {
+                document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
+            });
+        });
     }
     filterCompany.classList.add('active');
-    var idCompany = datasCompany[dataCompany].id;
-    markerCompany.addEventListener('click', (event) => {
-        document.getElementById('companyButton').addEventListener('click', (event) => {
-            document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
-        });
-    });
 });
 
 filterFreelancer.addEventListener('click', () => {
@@ -101,14 +101,14 @@ filterFreelancer.addEventListener('click', () => {
                 + '</p>'
                 + '</div>');
         markerFreelancer.bindPopup(popupFreelancer);
+        var idFreelancer = datasFreelancer[dataFreelancer].id;
+        markerFreelancer.addEventListener('click', (event) => {
+            document.getElementById('freelancerButton').addEventListener('click', (event) => {
+                document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
+            });
+        });
     }
     filterFreelancer.classList.add('active');
-    var idFreelancer = datasFreelancer[dataFreelancer].id;
-    markerFreelancer.addEventListener('click', (event) => {
-        document.getElementById('freelancerButton').addEventListener('click', (event) => {
-            document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
-        });
-    });
 });
 
 filterDietetician.addEventListener('click', () => {
@@ -130,14 +130,14 @@ filterDietetician.addEventListener('click', () => {
                 + '</p>'
                 + '</div>');
         markerDietetician.bindPopup(popup);
+        var idDietetician = datasDietetician[dataDietetician].id;
+        markerDietetician.addEventListener('click', (event) => {
+            document.getElementById('dieteticianButton').addEventListener('click', (event) => {
+                document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
+            });
+        });
     }
     filterDietetician.classList.add('active');
-    var idDietetician = datasDietetician[dataDietetician].id;
-    markerDietetician.addEventListener('click', (event) => {
-        document.getElementById('dieteticianButton').addEventListener('click', (event) => {
-            document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
-        });
-    });
 });
 
 all.addEventListener('click', () => {
