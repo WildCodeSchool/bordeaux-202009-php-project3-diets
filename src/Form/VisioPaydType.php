@@ -57,7 +57,6 @@ class VisioPaydType extends AbstractType
                 'data'   => new \DateTime(),
                 'date_widget' => 'single_text',
                 'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
-                'years' => range(2021, 2040, 1),
                 'required' => false,
             ])
             ->add('dateEnd', DateTimeType::class, [
@@ -65,7 +64,6 @@ class VisioPaydType extends AbstractType
                 'data'   => new \DateTime(),
                 'date_widget' => 'single_text',
                 'attr'   => ['min' => ( new \DateTime('now'))->format('YY-MM-dd--hh--ii')],
-                'years' => range(2021, 2040, 1),
                 'required' => false,
             ]);
     }
