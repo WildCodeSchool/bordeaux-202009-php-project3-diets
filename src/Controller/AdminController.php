@@ -32,6 +32,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
+    protected const AMOUNTSUBSCRIBEFREELANCER = 20;
+    protected const AMOUNTSUBSCRIBECOMPANY = 50;
+
+
     /**
      * @Route("/administrateur", name="admin")
      */
@@ -345,13 +349,14 @@ class AdminController extends AbstractController
         ShoppingRepository $shoppingRepository
     ): Response {
 
-        $shopping = $shoppingRepository->findBy(['type' => 'achat']);
-        $freelancerSubscription = $shoppingRepository->findBy(['type' => 'Abonnement Freelancer']);
-        $companySubscription = $shoppingRepository->findBy(['type' => 'Abonnement Société']);
+        $shopping = $shoppingRepository->findBy(['type' => PaymentController::IDENTIFIERACHAT]);
+        $freelancerSubscription = $shoppingRepository->findBy(['type' => PaymentController::FREELANCER_SUBSCRIBE]);
+        $companySubscription = $shoppingRepository->findBy(['type' => PaymentController::COMPANY_SUBSCRIBE]);
 
         $freelancerNumberSubscription = 0;
         foreach ($freelancerSubscription as $subscriptionFreelancer) {
-            if ($subscriptionFreelancer->getAmount() === '20') {
+            if ($subscriptionFreelancer->getAmount() === self::AMOUNTSUBSCRIBEFREELANCER) {
+                dump($subscriptionFreelancer->getAmount());
                 $freelancerNumberSubscription++;
             } else {
                 $freelancerNumberSubscription--;
@@ -360,7 +365,7 @@ class AdminController extends AbstractController
 
         $companyNumberSubscription = 0;
         foreach ($companySubscription as $subscriptionCompany) {
-            if ($subscriptionCompany->getAmount() === '50') {
+            if ($subscriptionCompany->getAmount() === self::AMOUNTSUBSCRIBECOMPANY) {
                 $companyNumberSubscription++;
             } else {
                 $companyNumberSubscription--;

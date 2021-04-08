@@ -287,8 +287,10 @@
                 {% if is_granted('ROLE_DIETETICIAN') %}
 
                     {% else %}
-                <a id="profile-checkout-subscription" href="#" class="btn">S'abonner</a>
-                <p>* Le premier mois d'abonnement vous sera remboursé par l'administrateur</p>
+                        <div class="justify-content-center">
+                            <a id="profile-checkout-subscription" href="#" class="btn">S'abonner</a>
+                            <p>* Le premier mois d'abonnement vous sera remboursé par l'administrateur</p>
+                        </div>
                 {% endif %}
             {% endif %}
                 {% if is_granted ('ROLE_DIETETICIAN') %}

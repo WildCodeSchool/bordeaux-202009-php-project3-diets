@@ -23,8 +23,9 @@ use Symfony\Component\Routing\Annotation\Route;
 class PaymentController extends AbstractController
 {
     protected const NONE = 'NONE';
-    protected const FREELANCER_SUBSCRIBE = 'Abonnement Freelancer';
-    protected const COMPANY_SUBSCRIBE = 'Abonnement Société';
+    public const FREELANCER_SUBSCRIBE = 'Abonnement Freelancer';
+    public const COMPANY_SUBSCRIBE = 'Abonnement Société';
+    public const IDENTIFIERACHAT = 'achat';
 
     /**
      * @Route("/valider", name="success")
@@ -43,7 +44,7 @@ class PaymentController extends AbstractController
         $securingPurchase = end($securingPurchases);
 
         $token = $_GET['token'];
-        $shoppingId = $_GET['achat'];
+        $shoppingId = $_GET[self::IDENTIFIERACHAT];
 
         $date = new \DateTime('now');
 
@@ -60,7 +61,7 @@ class PaymentController extends AbstractController
         $shopping->setOwner($purchasedResource->getUser()->getEmail());
         $shopping->setAmount($purchasedResource->getPrice());
         $shopping->setBuyer($this->getUser()->getUsername());
-        $shopping->setType('Achat');
+        $shopping->setType(self::IDENTIFIERACHAT);
         $entityManager->persist($shopping);
         $entityManager->flush();
 
@@ -75,16 +76,14 @@ class PaymentController extends AbstractController
 
     public function registerSuccess(UserRepository $userRepository, EntityManagerInterface $entityManager)
     {
-            if ($this->getUser() !== null) {
+        if ($this->getUser() !== null) {
             $userRegister = $userRepository->findOneBy(['id' => $this->getUser()->getId()]);
             if (in_array('ROLE_DIETETICIAN', $userRegister->getRoles(), $strict = true)) {
                 $userRegister->setRoles(['ROLE_DIETETICIAN_REGISTER']);
                 $entityManager->persist($userRegister);
                 $entityManager->flush();
             }
-            }
-
-
+        }
         return $this->render('payment/register_success.html.twig', [
             'controller_name' => 'PaymentController',
         ]);
@@ -111,7 +110,7 @@ class PaymentController extends AbstractController
 
         $shopping = new Shopping();
         $shopping->setName(self::NONE);
-        $shopping->setOwner('S.O');
+        $shopping->setOwner(self::NONE);
         if (in_array("ROLE_FREELANCER_SUBSCRIBER", $this->getUser()->getRoles())) {
             $shopping->setAmount($priceFreelancer);
         } elseif (in_array("ROLE_COMPANY_SUBSCRIBER", $this->getUser()->getRoles())) {
