@@ -356,7 +356,6 @@ class AdminController extends AbstractController
         $freelancerNumberSubscription = 0;
         foreach ($freelancerSubscription as $subscriptionFreelancer) {
             if ($subscriptionFreelancer->getAmount() === self::AMOUNTSUBSCRIBEFREELANCER) {
-                dump($subscriptionFreelancer->getAmount());
                 $freelancerNumberSubscription++;
             } else {
                 $freelancerNumberSubscription--;

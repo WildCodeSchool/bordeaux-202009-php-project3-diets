@@ -81,10 +81,10 @@ class StripeSubscribeService
                 $customerId = $customer['id'];
             }
         }
-        if (in_array('ROLE_COMPANY', $this->user->getRoles(), $strict = true)) {
+        if (in_array('ROLE_COMPANY', $this->user->getRoles(), true)) {
             $price = $this->params->get('company_price');
         }
-        if (in_array('ROLE_FREELANCER', $this->user->getRoles(), $strict = true)) {
+        if (in_array('ROLE_FREELANCER', $this->user->getRoles(), true)) {
             $price = $this->params->get('freelancer_price');
         }
 
@@ -142,12 +142,12 @@ class StripeSubscribeService
             if ($subscription['customer'] === $customerId) {
                 $result = $customerId;
                 $takeuser = $this->user;
-                if (in_array('ROLE_COMPANY', $takeuser->getRoles(), $strict = true)) {
+                if (in_array('ROLE_COMPANY', $takeuser->getRoles(), true)) {
                     $changeRole = $takeuser->setRoles(['ROLE_COMPANY_SUBSCRIBER']);
                     $this->entityManager->persist($changeRole);
                     $this->entityManager->flush();
                 }
-                if (in_array('ROLE_FREELANCER', $takeuser->getRoles(), $strict = true)) {
+                if (in_array('ROLE_FREELANCER', $takeuser->getRoles(), true)) {
                     $changeRole = $takeuser->setRoles(['ROLE_FREELANCER_SUBSCRIBER']);
                     $this->entityManager->persist($changeRole);
                     $this->entityManager->flush();
@@ -157,13 +157,13 @@ class StripeSubscribeService
 
         if (is_null($result)) {
             $takeuser = $this->user;
-            if (in_array('ROLE_COMPANY_SUBSCRIBER', $takeuser->getRoles(), $strict = true)) {
+            if (in_array('ROLE_COMPANY_SUBSCRIBER', $takeuser->getRoles(), true)) {
                 $changeRole = $takeuser->setRoles(['ROLE_COMPANY']);
                 $this->entityManager->persist($changeRole);
                 $this->entityManager->flush();
                 $this->addUnsubscribeInShopping();
             }
-            if (in_array('ROLE_FREELANCER_SUBSCRIBER', $takeuser->getRoles(), $strict = true)) {
+            if (in_array('ROLE_FREELANCER_SUBSCRIBER', $takeuser->getRoles(), true)) {
                 $changeRole = $takeuser->setRoles(['ROLE_FREELANCER']);
                 $this->entityManager->persist($changeRole);
                 $this->entityManager->flush();

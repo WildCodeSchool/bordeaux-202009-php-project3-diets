@@ -46,7 +46,7 @@ class MapController extends AbstractController
 
         foreach ($companies as $company) {
             if (($company->getUser()->getLatitude() != null) && ($company->getUser()->getLongitude() != null)) {
-                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), $strict = true)) {
+                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), true)) {
                     $datasCompany[] = ['name' => $company->getName(), 'lat' => $company->getUser()->getLatitude(), 'long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
                 }
             }
@@ -54,7 +54,7 @@ class MapController extends AbstractController
 
         foreach ($freelancers as $freelancer) {
             if (($freelancer->getUser()->getLatitude() != null) && ($freelancer->getUser()->getLongitude() != null)) {
-                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), $strict = true)) {
+                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), true)) {
                     $datasFreelancer[] = ['name' => $freelancer->getName(), 'lat' => $freelancer->getUser()->getLatitude(), 'long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
                 }
             }

@@ -78,7 +78,7 @@ class PaymentController extends AbstractController
     {
         if ($this->getUser() !== null) {
             $userRegister = $userRepository->findOneBy(['id' => $this->getUser()->getId()]);
-            if (in_array('ROLE_DIETETICIAN', $userRegister->getRoles(), $strict = true)) {
+            if (in_array('ROLE_DIETETICIAN', $userRegister->getRoles(), true)) {
                 $userRegister->setRoles(['ROLE_DIETETICIAN_REGISTER']);
                 $entityManager->persist($userRegister);
                 $entityManager->flush();
