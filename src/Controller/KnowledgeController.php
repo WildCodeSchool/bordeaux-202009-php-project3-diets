@@ -31,6 +31,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class KnowledgeController extends AbstractController
 {
     private const NBRESOURCE = 12;
+    private const IDENTIFIERVISIO = 'visioconference';
 
     /**
      * @Route("/", name="index")
@@ -121,7 +122,7 @@ class KnowledgeController extends AbstractController
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([
-                        'identifier' => 'visioconference'
+                        'identifier' => self::IDENTIFIERVISIO
                     ]);
 
                 $visio->setResourceFormat($identifier);
@@ -144,7 +145,7 @@ class KnowledgeController extends AbstractController
                 $identifier = $this->getDoctrine()
                     ->getRepository(ResourceFormat::class)
                     ->findOneBy([
-                        'identifier' => 'visioconference'
+                        'identifier' => self::IDENTIFIERVISIO
                     ]);
 
                 $visioPayd->setResourceFormat($identifier);
