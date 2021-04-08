@@ -46,16 +46,16 @@ class MapController extends AbstractController
 
         foreach ($companies as $company) {
             if (($company->getUser()->getLatitude() != null) && ($company->getUser()->getLongitude() != null)) {
-                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), $strict = true)) {
-                    $datasCompany[] = ['Name' => $company->getName(), 'Lat' => $company->getUser()->getLatitude(), 'Long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
+                if (in_array('ROLE_COMPANY_SUBSCRIBER', $company->getUser()->getRoles(), true)) {
+                    $datasCompany[] = ['name' => $company->getName(), 'lat' => $company->getUser()->getLatitude(), 'long' => $company->getUser()->getLongitude(), 'id' => $company->getUser()->getId(), 'description' => $company->getDescription() ];
                 }
             }
         }
 
         foreach ($freelancers as $freelancer) {
             if (($freelancer->getUser()->getLatitude() != null) && ($freelancer->getUser()->getLongitude() != null)) {
-                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), $strict = true)) {
-                    $datasFreelancer[] = ['Name' => $freelancer->getName(), 'Lat' => $freelancer->getUser()->getLatitude(), 'Long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
+                if (in_array('ROLE_FREELANCER_SUBSCRIBER', $freelancer->getUser()->getRoles(), true)) {
+                    $datasFreelancer[] = ['name' => $freelancer->getName(), 'lat' => $freelancer->getUser()->getLatitude(), 'long' => $freelancer->getUser()->getLongitude(), 'id' => $freelancer->getUser()->getId(), 'description' => $freelancer->getDescription() ];
                 }
             }
         }
@@ -63,14 +63,13 @@ class MapController extends AbstractController
         foreach ($dieteticians as $dietetician) {
             $specializations = $dietetician->getSpecializations()->toArray();
             if (isset($specializations)) {
-                    if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
-                        foreach ($specializations as $specialization) {
-                            $arraySpecializations[] = $specialization->getName();
-                        }
-                            $datasDietetician[] = ['Name' => $dietetician->getLastname(), 'Lat' => $dietetician->getUser()->getLatitude(), 'Long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'Specialization' => $arraySpecializations];
+                if (($dietetician->getUser()->getLatitude() != null) && ($dietetician->getUser()->getLongitude() != null)) {
+                    foreach ($specializations as $specialization) {
+                        $arraySpecializations[] = $specialization->getName();
                     }
+                    $datasDietetician[] = ['name' => $dietetician->getLastname(), 'lat' => $dietetician->getUser()->getLatitude(), 'long' => $dietetician->getUser()->getLongitude(), 'id' => $dietetician->getUser()->getId(), 'specialization' => $arraySpecializations];
+                }
             }
-
         }
 
         $datas = [$datasCompany, $datasFreelancer, $datasDietetician];

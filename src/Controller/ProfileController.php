@@ -322,9 +322,9 @@ class ProfileController extends AbstractController
         $formEditDiet = $this->createForm(DietEditType::class, $diet);
 
         if (
-            in_array('ROLE_DIETETICIAN', $user->getRoles(), $strict = true)
-            || in_array('ROLE_DIETETICIAN_REGISTER', $user->getRoles(), $strict = true)
-            || in_array('ROLE_ADMIN', $user->getRoles(), $strict = true)
+            in_array('ROLE_DIETETICIAN', $user->getRoles(), true)
+            || in_array('ROLE_DIETETICIAN_REGISTER', $user->getRoles(), true)
+            || in_array('ROLE_ADMIN', $user->getRoles(), true)
         ) {
             $diet = $dieteticianRepository->findOneBy(['id' => $user->getDietetician()->getId()]);
             $formEditDiet = $this->createForm(DietEditType::class, $diet);
@@ -339,8 +339,8 @@ class ProfileController extends AbstractController
         $formEditCompany = $this->createForm(CompanyEditType::class, $company);
 
         if (
-            in_array('ROLE_COMPANY', $user->getRoles(), $strict = true)
-            || in_array('ROLE_COMPANY_SUBSCRIBER', $user->getRoles(), $strict = true)
+            in_array('ROLE_COMPANY', $user->getRoles(), true)
+            || in_array('ROLE_COMPANY_SUBSCRIBER', $user->getRoles(), true)
         ) {
             $company = $companyRepository->findOneBy(['id' => $user->getCompany()->getId()]);
             $formEditCompany = $this->createForm(CompanyEditType::class, $company);
@@ -355,8 +355,8 @@ class ProfileController extends AbstractController
         $formEditFreelancer = $this->createForm(FreelancerEditType::class, $freelancer);
 
         if (
-            in_array('ROLE_FREELANCER', $user->getRoles(), $strict = true)
-            || in_array('ROLE_FREELANCER_SUBSCRIBER', $user->getRoles(), $strict = true)
+            in_array('ROLE_FREELANCER', $user->getRoles(), true)
+            || in_array('ROLE_FREELANCER_SUBSCRIBER', $user->getRoles(), true)
         ) {
             $freelancer = $freelancerRepository->findOneBy(['id' => $user->getFreelancer()->getId()]);
             $formEditFreelancer = $this->createForm(FreelancerEditType::class, $freelancer);

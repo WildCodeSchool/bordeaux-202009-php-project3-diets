@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class MultiUploadService
 {
-    private const SUBSTR = -9;
+    private const VALUEOFSUBSTRONNAME = -9;
 
     private $params;
 
@@ -28,7 +28,7 @@ class MultiUploadService
             );
             $newResourceFile = new ResourceFile();
             $newResourceFile->setUpdatedAt(new \DateTime('now'));
-            $resourceName = substr($file, -9);
+            $resourceName = substr($file, self::VALUEOFSUBSTRONNAME);
             $newResourceFile->setName($resourceName);
             $newResource->addResourceFile($newResourceFile);
         }
@@ -45,7 +45,7 @@ class MultiUploadService
             );
             $newPicture = new Picture();
             $newPicture->setUpdatedAt(new \DateTime('now'));
-            $pictureName = substr($picture, MultiUploadService::SUBSTR);
+            $pictureName = substr($picture, self::VALUEOFSUBSTRONNAME);
             $newPicture->setName($pictureName);
             $service->addPicture($newPicture);
         }
@@ -62,7 +62,7 @@ class MultiUploadService
             );
             $newPicture = new Picture();
             $newPicture->setUpdatedAt(new \DateTime('now'));
-            $pictureName = substr($picture, -9);
+            $pictureName = substr($picture, self::VALUEOFSUBSTRONNAME);
             $newPicture->setName($pictureName);
             $event->addPicture($newPicture);
         }

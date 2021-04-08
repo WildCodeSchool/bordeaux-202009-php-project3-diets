@@ -7,7 +7,7 @@ use App\Repository\UserRepository;
 class PublicityService
 {
     protected $userRepository;
-    protected const NUMBER = '1';
+    protected const COUNTNUMBER = 1;
 
     public function __construct(UserRepository $userRepository)
     {
@@ -24,7 +24,7 @@ class PublicityService
         if (!empty($companiesSubscriber)) {
             $rnd1Company = rand(0, count($companiesSubscriber) - 1);
             $companiespublicity[0] = $companiesSubscriber[$rnd1Company];
-            if (count($companiesSubscriber) != self::NUMBER) {
+            if (count($companiesSubscriber) !== self::COUNTNUMBER) {
                 do {
                     $rnd2Company = rand(0, count($companiesSubscriber) - 1);
                 } while ($rnd1Company == $rnd2Company);
@@ -37,7 +37,7 @@ class PublicityService
             $rnd1Freelancer = rand(0, count($freelancersSubscriber) - 1);
             $freelancersPublicity[0] = $freelancersSubscriber[$rnd1Freelancer];
 
-            if (count($freelancersSubscriber) != self::NUMBER) {
+            if (count($freelancersSubscriber) !== self::COUNTNUMBER) {
                 do {
                     $rnd2Freelancer = rand(0, count($freelancersSubscriber) - 1);
                 } while ($rnd1Freelancer == $rnd2Freelancer);
