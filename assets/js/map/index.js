@@ -76,7 +76,7 @@ filterCompany.addEventListener('click', () => {
         var idCompany = datasCompany[dataCompany].id;
         markerCompany.addEventListener('click', (event) => {
             document.getElementById('companyButton').addEventListener('click', (event) => {
-                document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
+                document.location.href = `/profil/show/${idCompany}`;
             });
         });
     }
@@ -104,7 +104,7 @@ filterFreelancer.addEventListener('click', () => {
         var idFreelancer = datasFreelancer[dataFreelancer].id;
         markerFreelancer.addEventListener('click', (event) => {
             document.getElementById('freelancerButton').addEventListener('click', (event) => {
-                document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
+                document.location.href = `/profil/show/${idFreelancer}`;
             });
         });
     }
@@ -133,7 +133,7 @@ filterDietetician.addEventListener('click', () => {
         var idDietetician = datasDietetician[dataDietetician].id;
         markerDietetician.addEventListener('click', (event) => {
             document.getElementById('dieteticianButton').addEventListener('click', (event) => {
-                document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
+                document.location.href = `/profil/show/${idDietetician}`;
             });
         });
     }
@@ -160,7 +160,7 @@ all.addEventListener('click', () => {
         var idCompany = datasCompany[dataCompany].id;
         markerCompany.addEventListener('click', (event) => {
             document.getElementById('companyButton').addEventListener('click', (event) => {
-                document.location.href = `http://127.0.0.1:8000/profil/show/${idCompany}`;
+                document.location.href = `/profil/show/${idCompany}`;
             });
         });
     }
@@ -182,7 +182,7 @@ all.addEventListener('click', () => {
         var idFreelancer = datasFreelancer[dataFreelancer].id;
         markerFreelancer.addEventListener('click', (event) => {
             document.getElementById('freelancerButton').addEventListener('click', (event) => {
-                document.location.href = `http://127.0.0.1:8000/profil/show/${idFreelancer}`;
+                document.location.href = `/profil/show/${idFreelancer}`;
             });
         });
     }
@@ -206,7 +206,7 @@ all.addEventListener('click', () => {
     var idDietetician = datasDietetician[dataDietetician].id;
     markerDietetician.addEventListener('click', (event) => {
         document.getElementById('dieteticianButton').addEventListener('click', (event) => {
-            document.location.href = `http://127.0.0.1:8000/profil/show/${idDietetician}`;
+            document.location.href = `/profil/show/${idDietetician}`;
         });
     });
 });
