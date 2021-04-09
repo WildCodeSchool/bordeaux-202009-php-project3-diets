@@ -72,12 +72,16 @@
 }
 
 .visit-link {
-  margin-top: 0;
+  margin-top: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 6vh;
   h2 {
-    color: white;
+    color: $main-black;
     font-weight: bold;
     margin-bottom: 0;
-    font-size: 35px;
+    font-size: 25px;
   }
 
   .home-arrow {
@@ -182,12 +186,6 @@
   }
 }
 
-.visit-link {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  right: 6vh;
-}
 
 .alert{
   position: absolute;

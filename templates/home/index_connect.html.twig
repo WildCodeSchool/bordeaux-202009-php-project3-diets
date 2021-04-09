@@ -49,9 +49,9 @@
                             <input type="hidden" name="_csrf_token"
                                    value="{{ csrf_token('authenticate') }}">
                         </div>
-                        <div class="d-flex forgot justify-content-center mt-3">
+                        {#  <div class="d-flex forgot justify-content-center mt-3">
                             <a href="{{ path('app_forgot_password_request') }}" class="underline no-registered">Mot de passe oublié</a>
-                        </div>
+                        </div> #}
                         <div class="d-flex justify-content-around pt-3">
                             <div class="d-flex align-items-center">
                                 <a href="{{ path('app_register') }}" class="underline home-form no-registered">Je ne suis pas encore inscrit</a>

@@ -154,23 +154,37 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+        border: #d4a3017d;
+        border-style: dotted;
+        &:hover {
+          background-position: right;
+        }
       }
 
       .transbox {
         height: 10em;
         background-color: #ffffff;
-        opacity: 0.6;
+        opacity: 0.9;
+        &:hover {
+          opacity: 0.8;
+        }
       }
 
       .transbox p {
         font-weight: bold;
         color: #000000;
       }
-
+      .company-title {
+        &:hover {
+          text-decoration: none;
+        }
+      }
       h3 {
+        color: $main-green;
         width: 50%;
         border-bottom: solid;
-        border-bottom-color: dodgerblue;
+        border-bottom-color: $main-orange;
+
       }
     }
 
@@ -183,12 +197,20 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
+        border: #d4a3017d;
+        border-style: dotted;
+        &:hover {
+          background-position: right;
+        }
       }
 
       .transbox {
         height: 10em;
         background-color: #ffffff;
-        opacity: 0.6;
+        opacity: 0.9;
+        &:hover {
+          opacity: 0.8;
+        }
       }
 
       .transbox p {
@@ -196,10 +218,17 @@
         color: #000000;
       }
 
+      .freelancer-title {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
       h3 {
+        color: $main-green;
         width: 50%;
         border-bottom: solid;
-        border-bottom-color: dodgerblue;
+        border-bottom-color: $main-orange;
       }
     }
   }
