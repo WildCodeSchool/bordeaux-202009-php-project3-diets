@@ -32,8 +32,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AdminController extends AbstractController
 {
-    protected const AMOUNTSUBSCRIBEFREELANCER = 20;
-    protected const AMOUNTSUBSCRIBECOMPANY = 50;
+    protected const AMOUNTCOMPARISON = 0;
 
 
     /**
@@ -355,7 +354,7 @@ class AdminController extends AbstractController
 
         $freelancerNumberSubscription = 0;
         foreach ($freelancerSubscription as $subscriptionFreelancer) {
-            if ($subscriptionFreelancer->getAmount() === self::AMOUNTSUBSCRIBEFREELANCER) {
+            if ($subscriptionFreelancer->getAmount() > self::AMOUNTCOMPARISON) {
                 $freelancerNumberSubscription++;
             } else {
                 $freelancerNumberSubscription--;
@@ -364,7 +363,7 @@ class AdminController extends AbstractController
 
         $companyNumberSubscription = 0;
         foreach ($companySubscription as $subscriptionCompany) {
-            if ($subscriptionCompany->getAmount() === self::AMOUNTSUBSCRIBECOMPANY) {
+            if ($subscriptionCompany->getAmount() > self::AMOUNTCOMPARISON) {
                 $companyNumberSubscription++;
             } else {
                 $companyNumberSubscription--;
