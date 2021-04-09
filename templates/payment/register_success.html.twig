@@ -3,12 +3,12 @@
 {% block title %}Inscription Stripe Validée{% endblock %}
 
 {% block body %}
-    <div class="register-success pt-5 pt-5">
+    <div class="register-success pt-5">
         <h1 class="pt-5 register-title">Inscription Stripe validée !!!</h1>
             <h1 class="text-center mt-5 mb-3"><i class="far fa-grin-alt"></i><i class="far fa-grin-alt"></i><i class="far fa-grin-alt"></i></h1>
-        <h3 class="info-register text-center mt-5"> Vous venez de vous inscrire : Veuillez finaliser en ajoutant votre pièce d'identité et votre justificatif de domicile en cliquant sur le bouton 'Accès à vos informations et compte Stripe pour vos virements' (de votre page de profil) afin de recevoir les paiements de vos produits.
-        Une fois celà fait vous pouvez commencer à poster vos visio et connaissances payantes !!!
-        (Pour toutes questions RDV sur la page contact).
+        <h3 class="info-register text-center mt-5"> Vous venez de vous inscrire : Veuillez finaliser en ajoutant votre pièce d'identité et votre justificatif de domicile en cliquant sur le bouton "Accès à vos informations et compte Stripe pour vos virements" (de votre page de profil) afin de recevoir les paiements de vos produits.<br/>
+            {% if ('ROLE_DIETETICIAN' in app.user.roles) or ('ROLE_DIETETICIAN_REGISTER' in app.user.roles) or ('ROLE_ADMIN' in app.user.roles) %}Une fois celà fait vous pouvez commencer à poster vos visio et connaissances payantes !!! {% endif %}
+       <br/> (Pour toutes questions RDV sur la page contact).
         </h3>
         <p class="paragraph-info text-center mt-3 pt-3">* Si vous avez déjà ajouter vos documents ne tenez pas compte de ce message.</p>
     </div>
